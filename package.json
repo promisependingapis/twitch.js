@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/twitchapis/TwitchJS.git"
   },
-  "author": "TwitchApis",
+  "author": "TwitchApis Team",
   "contributors": ["LoboMetalurgico", "Space_Interprise"],
   "license": "MIT",
   "bugs": {
