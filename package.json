@@ -1,7 +1,7 @@
 {
   "name": "@twitchapis/twitchjs",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "TwitchJS is a powerful Node.js module that allows you to easily interact with the TwitchTV making easy the way to make a TwitchTV bot, for a custom chat overlay for you OBS, or a moderation bot for you chat, or you just want a easy interface to TwitchTV.",
   "main": "./src/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
