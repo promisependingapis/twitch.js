@@ -1,5 +1,5 @@
 {
-  "name": "twitchjs",
+  "name": "@twitchapis/twitchjs",
   "version": "1.0.0",
   "description": "TODO",
   "main": "./src/index",
