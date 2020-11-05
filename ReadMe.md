@@ -4,6 +4,8 @@
 
 - [About](#about)
 - [Installing](#installing)
+  - [npm](#npm)
+  - [yarn](#yarn)
 - [Example Usage](#example-usage)
 - [contributors](#contributors)
 
@@ -19,7 +21,8 @@ Twitchʲˢ is a powerful [Node.js](https://nodejs.org) module that allows you to
 ## installing
 
 **Node.js 12.0.0 or newer is required.**  
-Ignore any warnings about unmet peer dependencies, as they're all optional.
+`Ignore any warnings about unmet peer dependencies, as they're all optional.`
+
 #### npm: 
 ```bat
 npm i @twitchapis/twitchjs
