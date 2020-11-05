@@ -2,12 +2,19 @@
 
 ## Summary
 
+- [TODO](#todo)
 - [About](#about)
 - [Installing](#installing)
   - [npm](#npm)
   - [yarn](#yarn)
 - [Example Usage](#example-usage)
 - [contributors](#contributors)
+
+## TODO
+
+- [ ] Stabilize a websocket connection with Twitchᵀⱽ.
+- [ ] Create event dispatchers to the actions.
+- [ ] Create easy functions to interact with Twitchᵀⱽ.
 
 ## About
 
