@@ -18,7 +18,7 @@
     "computed-property-spacing": "warn",
     "indent": [
       "warn",
-      2
+      4
     ],
     "strict": ["error", "global"],
     "no-await-in-loop": "warn",
