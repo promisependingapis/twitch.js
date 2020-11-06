@@ -19,6 +19,7 @@
 
 ## TODO
 
+- [X] Beauty logger.
 - [ ] Stabilize a websocket connection with Twitchᵀⱽ.
 - [ ] Create event dispatchers to the actions.
 - [ ] Create easy functions to interact with Twitchᵀⱽ.
