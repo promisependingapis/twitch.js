@@ -1,10 +1,10 @@
 <img src="https://media.discordapp.net/attachments/773922086188089374/774016163909992448/TwitchJS.png?width=879&height=475">
 <p>
-  <img src="https://img.shields.io/discord/773920681246851083?color=7289da&logo=discord&logoColor=FFFF55"/>
-  <img src="https://img.shields.io/npm/v/@twitchapis/twitchjs.svg?maxAge=3600"/>
-  <img src="https://img.shields.io/npm/dt/@twitchapis/twitchjs.svg?maxAge=3600"/>
-  <img src="https://github.com/twitchapis/TwitchJS/workflows/Testing/badge.svg"/>
-  <img src="https://img.shields.io/david/twitchapis/twitchJs.svg?maxAge=3600"/>
+  <a href="https://discord.gg/26KFSUbVFe"><img src="https://img.shields.io/discord/773920681246851083?color=7289da&logo=discord&logoColor=FFFF55"/></a>
+  <a href="https://www.npmjs.com/package/@twitchapis/twitchjs"><img src="https://img.shields.io/npm/v/@twitchapis/twitchjs.svg?maxAge=3600"/></a>
+  <a href="https://www.npmjs.com/package/@twitchapis/twitchjs"><img src="https://img.shields.io/npm/dt/@twitchapis/twitchjs.svg?maxAge=3600"/></a>
+  <a href="https://github.com/twitchapis/TwitchJS"><img src="https://github.com/twitchapis/TwitchJS/workflows/Testing/badge.svg"/></a>
+  <a href="https://github.com/twitchapis/TwitchJS"><img src="https://img.shields.io/david/twitchapis/twitchJs.svg?maxAge=3600"/></a>
 </p>
 
 ## Summary
