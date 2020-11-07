@@ -1,4 +1,5 @@
 const { Constants, logger } = require('../utils');
+// const Endpoints = Constants.Endpoints;
 
 class SLEEPTMethods {
     constructor(sleeptMananger) {
@@ -12,4 +13,14 @@ class SLEEPTMethods {
             if (!token || typeof token !== 'string') logger.Fatal(Constants.Errors.INVALID_TOKEN);
         });
     }
+    /**
+     * @todo: Endpoints
+     */
+    /*
+    logout() {
+        return this.rest.makeRequest('post', Endpoints.logout, true, {});
+    }
+    */
 }
+
+module.exports = SLEEPTMethods;
