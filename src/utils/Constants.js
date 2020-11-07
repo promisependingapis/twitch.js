@@ -16,11 +16,10 @@ exports.Package = require('../../package.json');
  * the message cache lifetime (in seconds, 0 for never)
  * @property {boolean} [fetchAllMembers=false] Whether to cache all guild members and users upon startup, as well as
  * upon joining a guild (should be avoided whenever possible)
- * @property {boolean} [disableEveryone=false] Default value for {@link MessageOptions#disableEveryone}
  * @property {boolean} [sync=false] Whether to periodically sync guilds (for user accounts)
- * @property {number} [restWsBridgeTimeout=5000] Maximum time permitted between REST responses and their
+ * @property {number} [sleeptWsBridgeTimeout=5000] Maximum time permitted between SLEEPT responses and their
  * corresponding websocket events
- * @property {number} [restTimeOffset=500] Extra time in millseconds to wait before continuing to make REST
+ * @property {number} [sleeptTimeOffset=500] Extra time in millseconds to wait before continuing to make SLEEPT
  * requests (higher values will reduce rate-limiting errors on bad connections)
  * @property {number} [retryLimit=Infinity] How many times to retry on 5XX errors
  * (Infinity for indefinite amount of retries)
@@ -36,11 +35,12 @@ exports.DefaultOptions = {
     messageCacheMaxSize: 200,
     messageCacheLifetime: 0,
     messageSweepInterval: 0,
+    fetchAllMembers: false,
     sync: false,
-    restWsBridgeTimeout: 5000,
+    sleeptWsBridgeTimeout: 5000,
     retryLimit: Infinity,
     disabledEvents: [],
-    restTimeOffset: 500,
+    sleeptTimeOffset: 500,
   
     /**
      * WebSocket options (these are left as snake_case to match the API)
