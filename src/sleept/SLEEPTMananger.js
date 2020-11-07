@@ -44,3 +44,5 @@ class SLEEPTMananger {
         }
     }
 }
+
+module.exports = SLEEPTMananger;
