@@ -1,7 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const Constants = require('../utils/Constants');
-const Util = require('../utils/util');
+const { Constants, Util } = require('../utils');
 
 /**
  * Creates de main class to generate clients.

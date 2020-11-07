@@ -1,6 +1,6 @@
 const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
-const { Events: { RATE_LIMIT } } = require('../../../util/Constants');
+const { Constants: { Events: { RATE_LIMIT } } } = require('../../utils');
 
 class BurstRequestHandler extends RequestHandler {
     constructor(sleeptManager, endpoint) {
