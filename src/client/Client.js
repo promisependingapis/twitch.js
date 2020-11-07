@@ -64,6 +64,36 @@ class Client extends EventEmmiter {
     login(token = this.token) {
         return this.sleept.methods.login(token);
     }
+
+    /**
+     * Validates the client options.
+     * @param {ClientOptions} [options=this.options] Options to validate
+     * @private
+     */
+    _validateOptions(options = this.options) { // eslint-disable-line complexity
+        if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
+            throw new TypeError('The messageMaxSize option must be a number.');
+        }
+        if (typeof options.messageCacheLifetime !== 'number' || isNaN(options.messageCacheLifetime)) {
+            throw new TypeError('The messageCacheLifetime option must be a number.');
+        }
+        if (typeof options.messageSweepInterval !== 'number' || isNaN(options.messageSweepInterval)) {
+            throw new TypeError('The messageSweepInterval option must be a number.');
+        }
+        if (typeof options.fetchAllMembers !== 'boolean') {
+            throw new TypeError('The fetchAllMembers option must be a boolean.');
+        }
+        /**
+         * Not Inplement yet
+         */
+        if (typeof options.sleeptWsBridgeTimeout !== 'number' || isNaN(options.sleeptWsBridgeTimeout)) {
+            throw new TypeError('The sleeptWsBridgeTimeout option must be a number.');
+        }
+        if (!(options.disabledEvents instanceof Array)) throw new TypeError('The disabledEvents option must be an Array.');
+        if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
+            throw new TypeError('The retryLimit  options must be a number.');
+        }
+    }
 }
 
 module.exports = Client;

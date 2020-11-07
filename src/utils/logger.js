@@ -11,7 +11,11 @@ function log(Gravity) {
         var Msg = `[${DateParser.getTime()}] ${Gravity}: ${Message}`;
         switch (Gravity) {
             case 'Fatal':
-                Msg = `[${DateParser.getTime()}] ${Gravity} ${Message}`;
+                if (Message.toString().split(' ')[0].toLowerCase().includes('error')) {
+                    Msg = `[${DateParser.getTime()}] ${Gravity} ${Message}`;
+                } else {
+                    Msg = `[${DateParser.getTime()}] ${Gravity}: ${Message}`;
+                }
                 console.trace(chalk.bgWhite(chalk.red(Msg)));
                 process.exit(5);
             break;
