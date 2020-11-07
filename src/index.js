@@ -1,6 +1,15 @@
 var Logger = require('./utils/logger');
 var Exited;
 
+
+module.exports = {
+    // Main
+    Client: require('./client/Client'),
+
+    // Utils
+    Logger: Logger
+};
+
 // End of the program //
 process.stdin.resume();
 function exitHandler(options, exitCode) {
