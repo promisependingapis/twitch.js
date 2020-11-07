@@ -1,7 +1,7 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const Constants = require('../util/Constants');
-const Util = require('../util/util');
+const Constants = require('../utils/Constants');
+const Util = require('../utils/util');
 
 /**
  * Creates de main class to generate clients.
@@ -26,6 +26,32 @@ class Client extends EventEmmiter {
          * @private
          */
         this.sleept = new SLEEPTManager(this);
+        
+        Object.defineProperty(this, 'token', { writable: true });
+        if (!this.token && 'CLIENT_TOKEN' in process.env) {
+            /**
+             * Authorization token for the logged in user/bot
+             * <warn>This should be kept private at all times.</warn>
+             * @type {?string}
+             */
+            this.token = process.env.CLIENT_TOKEN;
+        } else {
+            this.token = null;
+        }
+
+        /**
+         * User that the client is logged in as
+         * @type {?ClientUser}
+         */
+        this.user = null;
+
+        /**
+         * Time at which the client was last regarded as being in the `READY` state
+         * (each time the client disconnects and successfully reconnects, this will be overwritten)
+         * @type {?Date}
+         */
+        this.readyAt = null;
+
     }
 
     /**
