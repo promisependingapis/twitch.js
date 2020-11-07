@@ -3,16 +3,16 @@ function getTime() {
     var SeparatedTime = Time.split(':');
     SeparatedTime.forEach((element, index)=> {
         if (element.length < 2) {
-            SeparatedTime[index] = `0${SeparatedTime[index]}`
+            SeparatedTime[index] = `0${SeparatedTime[index]}`;
         }
-    })
-    return SeparatedTime.join(':')
+    });
+    return SeparatedTime.join(':');
 }
 
 function getTimeRaw() {
-    return (`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`)
+    return (`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`);
 }
 
 module.exports = {
     getTime: getTime,
-}
+};
