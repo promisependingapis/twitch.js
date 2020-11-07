@@ -6,6 +6,7 @@
   <a href="https://github.com/twitchapis/TwitchJS"><img src="https://github.com/twitchapis/TwitchJS/workflows/Testing/badge.svg"/></a>
   <a href="https://github.com/twitchapis/TwitchJS"><img src="https://img.shields.io/david/twitchapis/twitchJs.svg?maxAge=3600"/></a>
 </p>
+<img src="https://nodei.co/npm/@twitchapis/twitchjs.png?downloads=true&stars=true">
 
 ## Summary
 
