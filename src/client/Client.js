@@ -1,5 +1,4 @@
 const EventEmmiter = require('events');
-const SleeptMethods = require('../sleept/SLEEPTMethods');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
 const Constants = require('../util/Constants');
 const Util = require('../util/util');
@@ -41,3 +40,5 @@ class Client extends EventEmmiter {
         return this.sleept.methods.login(token);
     }
 }
+
+module.exports = Client;
