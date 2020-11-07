@@ -1,7 +1,6 @@
 var Logger = require('./utils/logger');
 var Exited;
 
-
 module.exports = {
     // Main
     Client: require('./client/Client'),

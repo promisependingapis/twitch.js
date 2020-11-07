@@ -1,4 +1,4 @@
-const { Constants, logger } = require('../utils')
+const { Constants, logger } = require('../utils');
 
 class SLEEPTMethods {
     constructor(sleeptMananger) {
@@ -9,7 +9,7 @@ class SLEEPTMethods {
 
     login(token = this.client.token) {
         return new Promise((resolve, reject) => {
-            if (!token || typeof token !== 'string') logger.fatal(Constants.Errors.INVALID_TOKEN);
+            if (!token || typeof token !== 'string') logger.Fatal(Constants.Errors.INVALID_TOKEN);
         });
     }
 }
