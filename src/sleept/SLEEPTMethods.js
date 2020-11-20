@@ -10,7 +10,7 @@ class SLEEPTMethods {
 
     login(token = this.client.token) {
         return new Promise((resolve, reject) => {
-            if (!token || typeof token !== 'string') logger.Fatal(Constants.Errors.INVALID_TOKEN);
+            if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) logger.Fatal(Constants.Errors.INVALID_TOKEN);
         });
     }
     /**

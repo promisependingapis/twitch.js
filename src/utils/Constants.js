@@ -78,7 +78,7 @@ exports.DefaultOptions = {
 
 exports.Errors = {
     INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
-    INVALID_TOKEN: 'An invalid token was provided.'
+    INVALID_TOKEN: 'The token is not valid, a valid token must be a String, start with "oauth:" and doesn\'t includes spaces.'
 };
 
 exports.Events = {

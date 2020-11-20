@@ -72,11 +72,7 @@ class Client extends EventEmmiter {
      *  .then()
      */
     login(token = this.token) {
-        if (token.startsWith('oauth:') && !token.includes(' ')) {
-            return this.sleept.methods.login(token);
-        } else {
-            throw new TypeError('The token is not valid, a valid token must start with "oauth:" and doesn\'t includes spaces.');
-        }
+        return this.sleept.methods.login(token);
     }
 
     /**
