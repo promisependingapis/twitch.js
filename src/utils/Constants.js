@@ -29,6 +29,7 @@ exports.Package = require('../../package.json');
  * most impact is typically `TYPING_START`.
  * @property {WebsocketOptions} [ws] Options for the WebSocket
  * @property {HTTPOptions} [http] HTTP options
+ * @property {boolean} [AutoLogEnd=true] AutoLogEnd option
  */
 exports.DefaultOptions = {
     apiRequestMethod: 'sequential',
@@ -41,6 +42,7 @@ exports.DefaultOptions = {
     retryLimit: Infinity,
     disabledEvents: [],
     sleeptTimeOffset: 500,
+    AutoLogEnd: true,
   
     /**
      * WebSocket options (these are left as snake_case to match the API)

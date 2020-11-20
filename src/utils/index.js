@@ -1,5 +1,6 @@
 module.exports = {
     Constants: require('./Constants'),
     Util: require('./util'),
-    logger: require('./logger')
+    logger: require('./logger'),
+    AutoEndLog: require('./AutoEndLog')
 };

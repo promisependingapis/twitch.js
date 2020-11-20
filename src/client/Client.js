@@ -1,6 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { Constants, Util } = require('../utils');
+const { AutoEndLog, Constants, Util } = require('../utils');
 
 /**
  * Creates de main class to generate clients.
@@ -8,7 +8,7 @@ const { Constants, Util } = require('../utils');
  */
 class Client extends EventEmmiter {
     /**
-     * @param {ClientOptions} [options] Options for the client
+     * @param {ClientOptions} [AutoLogEnd Boolean, Default: False]
      */
     constructor(options = {}) {
         super();
@@ -51,6 +51,16 @@ class Client extends EventEmmiter {
          */
         this.readyAt = null;
 
+        /**
+         * The bool of the system of auto logger finish event
+         * @type {Bool}
+         */
+        this.AutoLogEnd = options.AutoLogEnd;
+        if (this.AutoLogEnd) {
+            AutoEndLog.Activate();
+        } else {
+            AutoEndLog.Desactivate();
+        }
     }
 
     /**
@@ -83,9 +93,6 @@ class Client extends EventEmmiter {
         if (typeof options.fetchAllMembers !== 'boolean') {
             throw new TypeError('The fetchAllMembers option must be a boolean.');
         }
-        /**
-         * Not Inplement yet
-         */
         if (typeof options.sleeptWsBridgeTimeout !== 'number' || isNaN(options.sleeptWsBridgeTimeout)) {
             throw new TypeError('The sleeptWsBridgeTimeout option must be a number.');
         }
@@ -93,6 +100,15 @@ class Client extends EventEmmiter {
         if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
             throw new TypeError('The retryLimit  options must be a number.');
         }
+        if (options.AutoLogEnd && typeof options.AutoLogEnd !== 'boolean') {
+            throw new TypeError('The AutoLogEnd options must be a boolean.');
+        }
+        Object.keys(options).forEach((OptionName) => {
+            if (!Object.keys(Constants.DefaultOptions).includes(OptionName)) {
+                AutoEndLog.Activate();
+                throw new TypeError('The option: ' + OptionName + ' is not a valid option.');
+            }
+        });
     }
 }
 
