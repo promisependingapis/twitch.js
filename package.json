@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "node-fetch": "^2.6.1",
+    "ws": "^7.4.0"
   },
   "devDependencies": {
     "eslint": "^7.13.0"
