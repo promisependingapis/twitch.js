@@ -9,12 +9,14 @@ class SLEEPTMethods {
     }
 
     login(token = this.client.token) {
+        // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) logger.Fatal(Constants.Errors.INVALID_TOKEN);
         });
     }
     /**
-     * @todo: Endpoints
+     * @todo Endpoints;
+     * @todo remove line 12 eslint disable next line;
      */
     /*
     logout() {

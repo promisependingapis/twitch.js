@@ -1,6 +1,10 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { AutoEndLog, Constants, Util } = require('../utils');
+const { AutoEndLog, Constants, logger, Util } = require('../utils');
+
+/**
+ * @TODO fanMode (Anonymous mode)
+ */
 
 /**
  * Creates de main class to generate clients.
@@ -8,7 +12,7 @@ const { AutoEndLog, Constants, Util } = require('../utils');
  */
 class Client extends EventEmmiter {
     /**
-     * @param {ClientOptions} [AutoLogEnd Boolean, Default: False]
+     * @param {ClientOptions} [AutoLogEnd Boolean, Default: false]
      */
     constructor(options = {}) {
         super();
@@ -18,6 +22,24 @@ class Client extends EventEmmiter {
          */
         this.options = Util.mergeDefault(Constants.DefaultOptions, options);
         this._validateOptions();
+
+        /**
+         * Defines the options as a organized global variable to use in 
+         */
+        global.TwitchApis = {
+            Client: {
+                Option: this.options
+            }
+        };
+
+        /**
+         * Active Debug if Debug have to be activate
+         */
+        if (global.TwitchApis.Client.Option.Debug) {
+            logger.ActiveDebug();
+        }
+
+        logger.Debug("Debug is active!");
 
         /**
          * The SLEEPT manager of the client
@@ -56,11 +78,21 @@ class Client extends EventEmmiter {
          * @type {Bool}
          */
         this.AutoLogEnd = options.AutoLogEnd;
+        
+        /**
+         * Activates the AutoEndLog depending of user config, Default 'active'
+         */
         if (this.AutoLogEnd) {
             AutoEndLog.Activate();
         } else {
             AutoEndLog.Desactivate();
         }
+
+        /**
+         * The array of channels than the bot will work in
+         * @type {array}
+         */
+        this.Channels = options.Channels;
     }
 
     /**
@@ -102,6 +134,15 @@ class Client extends EventEmmiter {
         }
         if (options.AutoLogEnd && typeof options.AutoLogEnd !== 'boolean') {
             throw new TypeError('The AutoLogEnd options must be a boolean.');
+        }
+        if (options.Channels && typeof options.Channels !== 'object') {
+            throw new TypeError('The Channel(s) options must be a array.');
+        }
+        if (options.UserName && typeof options.UserName !== 'string') {
+            throw new TypeError('The UserName options must be a string.');
+        }
+        if (options.Debug && typeof options.Debug !== 'boolean') {
+            throw new TypeError('The Debug options must be a boolean.');
         }
         Object.keys(options).forEach((OptionName) => {
             if (!Object.keys(Constants.DefaultOptions).includes(OptionName)) {

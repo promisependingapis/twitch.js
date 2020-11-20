@@ -1,8 +1,12 @@
 /* eslint-disable indent */
 var DateParser = require('./DateParser');
 var chalk = require('chalk');
+var debug;
 
-var debug = true;
+function ActiveDebug() {
+    debug = true;
+    this.Debug = logger('Debug');
+}
 
 function log(Gravity) {
     return function(Message) {
@@ -35,7 +39,7 @@ function log(Gravity) {
             case 'Debug':
                 level = 'debug';
                 Msg = `${Message}`;
-                Chalker = chalk.gray(`[${DateParser.getTime()}] ${Gravity}: `) + Msg;
+                Chalker = chalk.gray(`[${DateParser.getTime()}] ${Gravity}: `) + chalk.hex('#AAA')(Msg);
             break;
         }
         console[level](Chalker);
@@ -43,12 +47,15 @@ function log(Gravity) {
 }
 
 function logger(Gravity) {
-    if ((Gravity === 'Debug' && debug === true) || (Gravity !== 'Debug')) {
+    if ((Gravity === 'Debug' && debug) || (Gravity !== 'Debug')) {
         return log(Gravity);
+    } else {
+        return ()=>{};
     }
 }
 
 module.exports = {
+    ActiveDebug: ActiveDebug,
     Fatal: logger('Fatal'),
     Error: logger('Error'),
     Warn: logger('Warn'),

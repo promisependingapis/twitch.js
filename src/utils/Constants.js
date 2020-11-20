@@ -30,6 +30,9 @@ exports.Package = require('../../package.json');
  * @property {WebsocketOptions} [ws] Options for the WebSocket
  * @property {HTTPOptions} [http] HTTP options
  * @property {boolean} [AutoLogEnd=true] AutoLogEnd option
+ * @property {string[]} [Channels] Channels bot will listen
+ * @property {string} [Username] bot username (Need to make login on twitch)
+ * @property {boolean} [Debug=false] Starts the bot in debug mode if activated
  */
 exports.DefaultOptions = {
     apiRequestMethod: 'sequential',
@@ -43,6 +46,9 @@ exports.DefaultOptions = {
     disabledEvents: [],
     sleeptTimeOffset: 500,
     AutoLogEnd: true,
+    Channels: [],
+    UserName: '',
+    Debug: false,
   
     /**
      * WebSocket options (these are left as snake_case to match the API)
