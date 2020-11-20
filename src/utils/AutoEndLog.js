@@ -22,12 +22,5 @@ module.exports = {
         process.on('SIGUSR1', exitHandler.bind(null, {}));
         process.on('SIGUSR2', exitHandler.bind(null, {}));
         process.on('uncaughtException', exitHandler.bind(null, {uncaughtException:true}));
-    },
-    Desactivate: () => {
-        process.removeListener('exit', exitHandler.bind(null,{}));
-        process.removeListener('SIGINT', exitHandler.bind(null, {}));
-        process.removeListener('SIGUSR1', exitHandler.bind(null, {}));
-        process.removeListener('SIGUSR2', exitHandler.bind(null, {}));
-        process.removeListener('uncaughtException', exitHandler.bind(null, {uncaughtException:true}));
     }
 };

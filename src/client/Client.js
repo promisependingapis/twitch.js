@@ -39,7 +39,7 @@ class Client extends EventEmmiter {
             logger.ActiveDebug();
         }
 
-        logger.Debug("Debug is active!");
+        logger.Debug('Debug is active!');
 
         /**
          * The SLEEPT manager of the client
@@ -84,8 +84,6 @@ class Client extends EventEmmiter {
          */
         if (this.AutoLogEnd) {
             AutoEndLog.Activate();
-        } else {
-            AutoEndLog.Desactivate();
         }
 
         /**
