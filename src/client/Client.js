@@ -68,11 +68,15 @@ class Client extends EventEmmiter {
      * @param {string} token Token of the account to log in with
      * @returns {Promise<string>} Token of the account used
      * @example
-     * Client.login('my token')
+     * Client.login('my oauth token')
      *  .then()
      */
     login(token = this.token) {
-        return this.sleept.methods.login(token);
+        if (token.startsWith('oauth:') && !token.includes(' ')) {
+            return this.sleept.methods.login(token);
+        } else {
+            throw new TypeError('The token is not valid, a valid token must start with "oauth:" and doesn\'t includes spaces.');
+        }
     }
 
     /**
