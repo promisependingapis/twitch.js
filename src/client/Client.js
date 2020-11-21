@@ -101,7 +101,7 @@ class Client extends EventEmmiter {
      * Client.login('my oauth token')
      *  .then()
      */
-    login(token = this.token) {
+    login(token) {
         return this.sleept.methods.login(token);
     }
 
