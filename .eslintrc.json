@@ -17,8 +17,8 @@
     ],
     "computed-property-spacing": "warn",
     "indent": [
-      "warn",
-      4
+      "warn", 4, 
+      { "SwitchCase": 1 }
     ],
     "strict": ["error", "global"],
     "no-await-in-loop": "warn",
