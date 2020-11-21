@@ -74,11 +74,11 @@ exports.DefaultOptions = {
      * HTTP options
      * @typedef {Object} HTTPOptions
      * @property {number} [version=7] API version to use
-     * @property {string} [api='http://irc-ws.chat.twitch.tv'] Base url of the API
+     * @property {string} [api='irc-ws.chat.twitch.tv'] Base url of the API
      */
     http: {
         version: 7,
-        host: 'http://irc-ws.chat.twitch.tv'
+        host: 'irc-ws.chat.twitch.tv'
     },
 };
 
