@@ -43,7 +43,6 @@ class SLEEPTMethods {
                 this.HandlerMessage(Parser.Message(str));
             }
         });
-        this.KeepSocketAlive();
     }
 
     onError(event) {
@@ -51,9 +50,11 @@ class SLEEPTMethods {
     }
 
     onClose() {
+        logger.Debug('Conection finished ;-;');
     }
 
-    onOpen(token = this.client.token) {
+    onOpen() {
+        var token = this.client.token;
         if (this.ws.readyState !== 1) {
             return;
         }
@@ -66,25 +67,10 @@ class SLEEPTMethods {
         this.ws.send(`NICK ${this.UserName.toLowerCase()}`);
     }
 
-    KeepSocketAlive() {
-        // Reset Aliver.
-        if (this.pingTimeoutId) {
-            clearTimeout(this.pingTimeoutId);
-        }
-        // Keep Connection Alive
-        if (this.ready) {
-            this.pingTimeoutId = setTimeout(() => {
-                logger.Debug('Pinging');
-                this.ws.send('PING');
-            }, 600);
-        }
-    }
-
     HandlerMessage(MessageObject) {
         if (MessageObject === null) {
             return;
         }
-        logger.Debug(JSON.stringify(MessageObject));
 
         // Message Without prefix
         if (MessageObject.prefix === null) {
@@ -92,6 +78,11 @@ class SLEEPTMethods {
                 // Ping
                 case 'PING':
                     this.ws.send('PONG');
+                break;
+
+                case 'PONG':
+                    if (!this.pingTimeout) {return;}
+                    clearTimeout(this.pingTimeout);
                 break;
             }
         } else if (MessageObject.prefix === 'tmi.twitch.tv') {

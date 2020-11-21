@@ -1,4 +1,11 @@
 /* eslint-disable indent */
+
+// --------------------------------- \\
+// DO NOT TOUCH THE LOGGER DO NOT TO \\
+// UCH THE LOGGER DO NOT TOUCH THE L \\
+// OGGER DO NOT TOUCH THE LOGGER --- \\
+// --------------------------------- \\
+
 var DateParser = require('./DateParser');
 var chalk = require('chalk');
 var debug;
