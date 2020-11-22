@@ -27,7 +27,7 @@ class SLEEPTMethods {
                 reject(Constants.Errors.INVALID_TOKEN);
                 logger.Fatal(Constants.Errors.INVALID_TOKEN); 
             }
-            if (!UserName || typeof UserName !== 'string' || !UserName.includes(' ')) {
+            if (!UserName || typeof UserName !== 'string' || UserName.includes(' ')) {
                 reject(Constants.Errors.INVALID_USERNAME);
                 logger.Fatal(Constants.Errors.INVALID_USERNAME);
             }
@@ -45,7 +45,6 @@ class SLEEPTMethods {
 
     onMessage(event) {
         this.MessageRawSplited = event.data.toString().split('\r\n');
-        logger.Debug(this.MessageRawSplited);
         this.MessageRawSplited.forEach((str) => {
             if (str !== null) {
                 this.HandlerMessage(Parser.Message(str));
@@ -79,6 +78,7 @@ class SLEEPTMethods {
         if (MessageObject === null) {
             return;
         }
+        console.log(JSON.stringify(MessageObject));
 
         // Message Without prefix
         if (MessageObject.prefix === null) {
@@ -92,6 +92,9 @@ class SLEEPTMethods {
                     if (!this.pingTimeout) {return;}
                     clearTimeout(this.pingTimeout);
                 break;
+
+                default:
+                break;
             }
         } else if (MessageObject.prefix === 'tmi.twitch.tv') {
             switch (MessageObject.command) {
@@ -101,6 +104,7 @@ class SLEEPTMethods {
                 case '375':
                 case '376':
                 case 'CAP':
+                    logger.Debug('Fine');
                 break;
 
                 case '001':
@@ -109,12 +113,14 @@ class SLEEPTMethods {
 
                 case '372': 
                     logger.Debug('Connected to the server');
-                    this.pingLoop = setInterval(() => {
+                    this.OnConnected();
+                    /* this.pingLoop = setInterval(() => {
                         if (this.isConnected()) {
                             this.ws.send('PING');
                         }
                         this.latency = new Date();
                         this.pingTimeout = setTimeout(() => {
+                            console.log("AAAAA");
                             if (this.ws !== null) {
                                 this.wasCloseCalled = false;
                                 logger.Error('Ping timeout');
@@ -124,17 +130,24 @@ class SLEEPTMethods {
                                 clearTimeout(this.pingTimeout);
                             }
                         }, 9999);
-                    }, 60000);
-                    this.OnConnected();
+                    }, 60000);*/
+                break;
+                default:
+                    logger.Debug('DEFAULT');
+                break;
             }
         }
     }
 
     OnConnected() {
-        global.TwitchApis.Client.Option.Channels.forEach((element) => {
-            this.ws.send('JOIN ' + element);
+        console.log('Lagg');
+        this.ws.send('JOIN #space_interprise', (err) => {
+            console.log(err);
         });
+        console.log('Lagggg');
+        // this.Join();
     }
+
     /*
     logout() {
         return this.rest.makeRequest('post', Endpoints.logout, true, {});

@@ -33,7 +33,7 @@ module.exports = {
                 // Tag can be like: Key=Value
                 // If is not like that then the value will be false, and the tag will be the key
                 var Tag = RawTags[i];
-                if (!Tag) {return false;}
+                if (!Tag) {return null;}
                 var Pair = Tag.split('=');
                 MessageOutputObject.tags[Pair[0]] = Pair[1] ? Pair[1] : false;
             }
