@@ -20,24 +20,31 @@ class SLEEPTMethods {
         return this.ws !== null && this.ws.readyState === 1;
     }
 
-    login(token) {
+    login(UserName, token) {
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
-            if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) logger.Fatal(Constants.Errors.INVALID_TOKEN);
+            if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
+                logger.Fatal(Constants.Errors.INVALID_TOKEN); 
+                reject(Constants.Errors.INVALID_TOKEN);
+            }
+            if (!UserName || typeof UserName !== 'string' || !UserName.includes(' ')) {
+                reject(Constants.Errors.INVALID_TOKEN)
+            }
             this.client.token = token;
-            this.UserName = global.TwitchApis.Client.Option.UserName;
+            this.UserName = UserName;
             this.server = global.TwitchApis.Client.Option.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
             this.ws.onclose = this.onClose.bind(this);
             this.ws.onopen = this.onOpen.bind(this);
+            resolve();
         });
     }
 
     onMessage(event) {
         this.MessageRawSplited = event.data.toString().split('\r\n');
-
+        logger.Debug(this.MessageRawSplited);
         this.MessageRawSplited.forEach((str) => {
             if (str !== null) {
                 this.HandlerMessage(Parser.Message(str));
@@ -117,10 +124,16 @@ class SLEEPTMethods {
                             }
                         }, 9999);
                     }, 60000);
+                    this.OnConnected();
             }
         }
     }
 
+    OnConnected() {
+        global.TwitchApis.Client.Option.Channels.forEach((element) => {
+            this.ws.send('JOIN ' + element);
+        });
+    }
     /*
     logout() {
         return this.rest.makeRequest('post', Endpoints.logout, true, {});

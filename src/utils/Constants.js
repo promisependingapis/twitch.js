@@ -31,7 +31,6 @@ exports.Package = require('../../package.json');
  * @property {HTTPOptions} [http] HTTP options
  * @property {boolean} [AutoLogEnd=true] AutoLogEnd option
  * @property {string[]} [Channels] Channels bot will listen
- * @property {string} [Username] bot username (Need to make login on twitch)
  * @property {boolean} [Debug=false] Starts the bot in debug mode if activated
  */
 exports.DefaultOptions = {
@@ -47,7 +46,6 @@ exports.DefaultOptions = {
     sleeptTimeOffset: 500,
     AutoLogEnd: true,
     Channels: [],
-    UserName: '',
     Debug: false,
   
     /**

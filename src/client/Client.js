@@ -101,8 +101,8 @@ class Client extends EventEmmiter {
      * Client.login('my oauth token')
      *  .then()
      */
-    login(token) {
-        return this.sleept.methods.login(token);
+    login(UserName, token) {
+        return this.sleept.methods.login(UserName, token);
     }
 
     /**
@@ -135,9 +135,6 @@ class Client extends EventEmmiter {
         }
         if (options.Channels && typeof options.Channels !== 'object') {
             throw new TypeError('The Channel(s) options must be a array.');
-        }
-        if (options.UserName && typeof options.UserName !== 'string') {
-            throw new TypeError('The UserName options must be a string.');
         }
         if (options.Debug && typeof options.Debug !== 'boolean') {
             throw new TypeError('The Debug options must be a boolean.');
