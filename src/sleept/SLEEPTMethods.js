@@ -24,11 +24,12 @@ class SLEEPTMethods {
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
-                logger.Fatal(Constants.Errors.INVALID_TOKEN); 
                 reject(Constants.Errors.INVALID_TOKEN);
+                logger.Fatal(Constants.Errors.INVALID_TOKEN); 
             }
             if (!UserName || typeof UserName !== 'string' || !UserName.includes(' ')) {
-                reject(Constants.Errors.INVALID_TOKEN)
+                reject(Constants.Errors.INVALID_USERNAME);
+                logger.Fatal(Constants.Errors.INVALID_USERNAME);
             }
             this.client.token = token;
             this.UserName = UserName;
