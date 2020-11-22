@@ -6,47 +6,47 @@
 // OGGER DO NOT TOUCH THE LOGGER --- \\
 // --------------------------------- \\
 
-var DateParser = require('./DateParser');
+var dateParser = require('./dateParser');
 var chalk = require('chalk');
 var debug;
 
-function ActiveDebug() {
+function activeDebug() {
     debug = true;
-    this.Debug = logger('Debug');
+    this.debug = logger('debug');
 }
 
 function log(Gravity) {
     return function(Message) {
         var Chalker;
         var level = '';
-        var Msg = `[${DateParser.getTime()}] ${Gravity}: ${Message}`;
+        var Msg = `[${dateParser.getTime()}] ${Gravity}: ${Message}`;
         switch (Gravity) {
-            case 'Fatal':
+            case 'fatal':
                 if (Message.toString().split(' ')[0].toLowerCase().includes('error')) {
-                    Msg = `[${DateParser.getTime()}] ${Gravity} ${Message}`;
+                    Msg = `[${dateParser.getTime()}] ${Gravity} ${Message}`;
                 } else {
-                    Msg = `[${DateParser.getTime()}] ${Gravity}: ${Message}`;
+                    Msg = `[${dateParser.getTime()}] ${Gravity}: ${Message}`;
                 }
                 console.trace(chalk.bgWhite(chalk.red(Msg)));
                 process.exit(5);
             break;
-            case 'Error':
+            case 'error':
                 level = 'error';
                 Chalker = chalk.red(Msg);
             break;
-            case 'Warn':
+            case 'warn':
                 level = 'warn';
                 Chalker = chalk.keyword('orange')(Msg);
             break;
-            case 'Info':
+            case 'info':
                 level = 'log';
                 Msg = `${Gravity}: ${Message}`;
-                Chalker = chalk.blueBright(`[${DateParser.getTime()}] `) + Msg;
+                Chalker = chalk.blueBright(`[${dateParser.getTime()}] `) + Msg;
             break;
-            case 'Debug':
+            case 'debug':
                 level = 'debug';
                 Msg = `${Message}`;
-                Chalker = chalk.gray(`[${DateParser.getTime()}] ${Gravity}: `) + chalk.hex('#AAA')(Msg);
+                Chalker = chalk.gray(`[${dateParser.getTime()}] ${Gravity}: `) + chalk.hex('#AAA')(Msg);
             break;
         }
         console[level](Chalker);
@@ -54,7 +54,7 @@ function log(Gravity) {
 }
 
 function logger(Gravity) {
-    if ((Gravity === 'Debug' && debug) || (Gravity !== 'Debug')) {
+    if ((Gravity === 'debug' && debug) || (Gravity !== 'debug')) {
         return log(Gravity);
     } else {
         return ()=>{};
@@ -62,10 +62,10 @@ function logger(Gravity) {
 }
 
 module.exports = {
-    ActiveDebug: ActiveDebug,
-    Fatal: logger('Fatal'),
-    Error: logger('Error'),
-    Warn: logger('Warn'),
-    Info: logger('Info'),
-    Debug: logger('Debug')
+    activeDebug: activeDebug,
+    fatal: logger('fatal'),
+    error: logger('error'),
+    warn: logger('warn'),
+    info: logger('info'),
+    debug: logger('debug')
 };

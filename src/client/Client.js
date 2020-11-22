@@ -1,6 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { AutoEndLog, Constants, logger, Util } = require('../utils');
+const { autoEndLog, constants, logger, Util } = require('../utils');
 
 /**
  * @TODO fanMode (Anonymous mode)
@@ -12,7 +12,7 @@ const { AutoEndLog, Constants, logger, Util } = require('../utils');
  */
 class Client extends EventEmmiter {
     /**
-     * @param {ClientOptions} [AutoLogEnd Boolean, Default: false]
+     * @param {ClientOptions} [autoLogEnd Boolean, Default: false]
      */
     constructor(options = {}) {
         super();
@@ -20,26 +20,26 @@ class Client extends EventEmmiter {
          * The options the client was instantiated with
          * @type {ClientOptions}
          */
-        this.options = Util.mergeDefault(Constants.DefaultOptions, options);
+        this.options = Util.mergeDefault(constants.defaultOptions, options);
         this._validateOptions();
 
         /**
          * Defines the options as a organized global variable to use in 
          */
-        global.TwitchApis = {
-            Client: {
-                Option: this.options
+        global.twitchApis = {
+            client: {
+                option: this.options
             }
         };
 
         /**
          * Active Debug if Debug have to be activate
          */
-        if (global.TwitchApis.Client.Option.Debug) {
-            logger.ActiveDebug();
+        if (this.options.debug) {
+            logger.activeDebug();
         }
 
-        logger.Debug('Debug is active!');
+        logger.debug('Debug is active!');
 
         /**
          * The SLEEPT manager of the client
@@ -77,13 +77,13 @@ class Client extends EventEmmiter {
          * The bool of the system of auto logger finish event
          * @type {Bool}
          */
-        this.AutoLogEnd = options.AutoLogEnd;
+        this.autoLogEnd = options.autoLogEnd;
         
         /**
-         * Activates the AutoEndLog depending of user config, Default 'active'
+         * Activates the autoEndLog depending of user config, Default 'active'
          */
-        if (this.AutoLogEnd) {
-            AutoEndLog.Activate();
+        if (this.autoLogEnd) {
+            autoEndLog.activate();
         }
 
         /**
@@ -96,13 +96,37 @@ class Client extends EventEmmiter {
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
      * @param {string} token Token of the account to log in with
-     * @returns {Promise<string>} Token of the account used
+     * @returns {Promise}
      * @example
-     * Client.login('my oauth token')
+     * Client.login('userName', 'token')
      *  .then()
      */
-    login(UserName, token) {
-        return this.sleept.methods.login(UserName, token);
+    login(userName, token) {
+        return this.sleept.methods.login(userName, token);
+    }
+
+    /**
+     * Join the bot on the channel parsed
+     * @param {string} channelName The name of the channel the bot will connect
+     * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
+     * @example
+     * client.join('channelName')
+     *  .then()
+     */
+    join(channelName) {
+        return this.sleept.methods.join(channelName);
+    }
+
+    /**
+     * Leave the bot on the channel parsed
+     * @param {string} channelName The name of the channel the bot will disconnect
+     * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
+     * @example
+     * client.join('channelName')
+     *  .then()
+     */
+    leave(channelName) {
+        return this.sleept.methods.leave(channelName);
     }
 
     /**
@@ -130,18 +154,18 @@ class Client extends EventEmmiter {
         if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
             throw new TypeError('The retryLimit  options must be a number.');
         }
-        if (options.AutoLogEnd && typeof options.AutoLogEnd !== 'boolean') {
-            throw new TypeError('The AutoLogEnd options must be a boolean.');
+        if (options.autoLogEnd && typeof options.autoLogEnd !== 'boolean') {
+            throw new TypeError('The autoLogEnd options must be a boolean.');
         }
-        if (options.Channels && typeof options.Channels !== 'object') {
-            throw new TypeError('The Channel(s) options must be a array.');
+        if (options.channels && typeof options.channels !== 'object') {
+            throw new TypeError('The channels options must be a array.');
         }
-        if (options.Debug && typeof options.Debug !== 'boolean') {
-            throw new TypeError('The Debug options must be a boolean.');
+        if (options.debug && typeof options.debug !== 'boolean') {
+            throw new TypeError('The debug options must be a boolean.');
         }
         Object.keys(options).forEach((OptionName) => {
-            if (!Object.keys(Constants.DefaultOptions).includes(OptionName)) {
-                AutoEndLog.Activate();
+            if (!Object.keys(constants.defaultOptions).includes(OptionName)) {
+                autoEndLog.activate();
                 throw new TypeError('The option: ' + OptionName + ' is not a valid option.');
             }
         });

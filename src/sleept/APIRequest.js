@@ -1,5 +1,5 @@
 const snekfetch = require('snekfetch');
-const Constants = require('../../util/Constants');
+const constants = require('../../util/constants');
 
 class APIRequest {
     constructor(rest, method, path, auth, data, files, reason) {
@@ -29,7 +29,7 @@ class APIRequest {
         } else if (this.client.token) {
             return this.client.token;
         }
-        throw new Error(Constants.Errors.NO_TOKEN);
+        throw new Error(constants.Errors.NO_TOKEN);
     }
 
     gen() {

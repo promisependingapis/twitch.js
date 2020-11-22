@@ -29,11 +29,11 @@ exports.Package = require('../../package.json');
  * most impact is typically `TYPING_START`.
  * @property {WebsocketOptions} [ws] Options for the WebSocket
  * @property {HTTPOptions} [http] HTTP options
- * @property {boolean} [AutoLogEnd=true] AutoLogEnd option
- * @property {string[]} [Channels] Channels bot will listen
- * @property {boolean} [Debug=false] Starts the bot in debug mode if activated
+ * @property {boolean} [autoLogEnd=true] autoLogEnd option
+ * @property {string[]} [channels] Channels bot will listen
+ * @property {boolean} [debug=false] Starts the bot in debug mode if activated
  */
-exports.DefaultOptions = {
+exports.defaultOptions = {
     apiRequestMethod: 'sequential',
     messageCacheMaxSize: 200,
     messageCacheLifetime: 0,
@@ -44,9 +44,9 @@ exports.DefaultOptions = {
     retryLimit: Infinity,
     disabledEvents: [],
     sleeptTimeOffset: 500,
-    AutoLogEnd: true,
-    Channels: [],
-    Debug: false,
+    autoLogEnd: true,
+    channels: [],
+    debug: false,
   
     /**
      * WebSocket options (these are left as snake_case to match the API)
@@ -86,7 +86,7 @@ exports.Errors = {
     INVALID_USERNAME:'The username is not valid. A valid username must be a String and doesn\'t includes spaces.'
 };
 
-exports.Events = {
+exports.events = {
     RATE_LIMIT: 'rateLimit',
     READY: 'ready'
 };

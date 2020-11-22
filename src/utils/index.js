@@ -1,7 +1,7 @@
 module.exports = {
-    Constants: require('./Constants'),
+    constants: require('./constants'),
     Util: require('./util'),
     logger: require('./logger'),
-    AutoEndLog: require('./AutoEndLog'),
-    Parser: require('./parser')
+    autoEndLog: require('./AutoEndLog'),
+    parser: require('./parser')
 };

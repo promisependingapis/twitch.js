@@ -2,7 +2,7 @@ const UserAgentManager = require('./UserAgentManager');
 const SLEEPTMethods = require('./SLEEPTMethods');
 const SequentialRequestHandler = require('./RequestHandlers/Sequential');
 const BurstRequestHandler = require('./RequestHandlers/Burst');
-const { Constants, logger } = require('../utils');
+const { constants, logger } = require('../utils');
 
 class SLEEPTMananger {
     constructor(client) {
@@ -39,7 +39,7 @@ class SLEEPTMananger {
             case 'burst':
                 return BurstRequestHandler;
             default:
-                logger.Fatal(Constants.Errors.INVALID_RATE_LIMIT_METHOD);
+                logger.fatal(constants.Errors.INVALID_RATE_LIMIT_METHOD);
         }
     }
 }

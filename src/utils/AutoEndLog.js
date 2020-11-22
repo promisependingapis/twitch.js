@@ -1,14 +1,14 @@
-var Logger = require('./logger');
+var logger = require('./logger');
 var Exited;
 
 function exitHandler(options, exitCode) {
     process.stdin.resume();
     if (!Exited) {
         if (exitCode === 'SIGINT') {
-            Logger.Warn('Manualy finished');
+            logger.warn('Manualy finished');
         } else {
-            if ((exitCode || exitCode === 0) && !options.uncaughtException) Logger.Info('Program finished, code: ' + exitCode);
-            if ((exitCode || exitCode === 0) && options.uncaughtException) Logger.Fatal(exitCode);
+            if ((exitCode || exitCode === 0) && !options.uncaughtException) logger.info('Program finished, code: ' + exitCode);
+            if ((exitCode || exitCode === 0) && options.uncaughtException) logger.fatal(exitCode);
         }
         Exited = true;
     }
@@ -16,7 +16,7 @@ function exitHandler(options, exitCode) {
 }
 
 module.exports = {
-    Activate: () => {
+    activate: () => {
         process.on('exit', exitHandler.bind(null,{}));
         process.on('SIGINT', exitHandler.bind(null, {}));
         process.on('SIGUSR1', exitHandler.bind(null, {}));

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 const WebSocket = require('ws');
-const { Constants, logger, Parser } = require('../utils');
-// const Endpoints = Constants.Endpoints;
+const { constants, logger, parser } = require('../utils');
+// const Endpoints = constants.Endpoints;
 
 /**
  * @todo Endpoints;
@@ -24,16 +24,16 @@ class SLEEPTMethods {
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
-                reject(Constants.Errors.INVALID_TOKEN);
-                logger.Fatal(Constants.Errors.INVALID_TOKEN); 
+                reject(constants.errors.INVALID_TOKEN);
+                logger.fatal(constants.errors.INVALID_TOKEN); 
             }
             if (!UserName || typeof UserName !== 'string' || UserName.includes(' ')) {
-                reject(Constants.Errors.INVALID_USERNAME);
-                logger.Fatal(Constants.Errors.INVALID_USERNAME);
+                reject(constants.errors.INVALID_USERNAME);
+                logger.fatal(constants.errors.INVALID_USERNAME);
             }
             this.client.token = token;
             this.UserName = UserName;
-            this.server = global.TwitchApis.Client.Option.http.host;
+            this.server = global.twitchApis.client.option.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
@@ -47,17 +47,17 @@ class SLEEPTMethods {
         this.MessageRawSplited = event.data.toString().split('\r\n');
         this.MessageRawSplited.forEach((str) => {
             if (str !== null) {
-                this.HandlerMessage(Parser.Message(str));
+                this.handlerMessage(parser.Message(str));
             }
         });
     }
 
     onError(event) {
-        logger.Fatal(JSON.stringify(event.error));
+        logger.fatal(JSON.stringify(event.error));
     }
 
     onClose() {
-        logger.Debug('Conection finished ;-;');
+        logger.debug('Conection finished ;-;');
     }
 
     onOpen() {
@@ -66,19 +66,18 @@ class SLEEPTMethods {
             return;
         }
         this.ready = true;
-        logger.Debug('Connection Started, Sending auth information...');
+        logger.debug('Connection Started, Sending auth information...');
         this.ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
-        logger.Debug('Sending Password...');
+        logger.debug('Sending Password...');
         this.ws.send(`PASS ${token}`);
-        logger.Debug('Sending Nickname...');
+        logger.debug('Sending Nickname...');
         this.ws.send(`NICK ${this.UserName.toLowerCase()}`);
     }
 
-    HandlerMessage(MessageObject) {
+    handlerMessage(MessageObject) {
         if (MessageObject === null) {
             return;
         }
-        console.log(JSON.stringify(MessageObject));
 
         // Message Without prefix
         if (MessageObject.prefix === null) {
@@ -104,7 +103,6 @@ class SLEEPTMethods {
                 case '375':
                 case '376':
                 case 'CAP':
-                    logger.Debug('Fine');
                 break;
 
                 case '001':
@@ -112,40 +110,64 @@ class SLEEPTMethods {
                 break;
 
                 case '372': 
-                    logger.Debug('Connected to the server');
-                    this.OnConnected();
-                    /* this.pingLoop = setInterval(() => {
+                    logger.debug('Connected to the server');
+                    this.onConnected();
+                    this.pingLoop = setInterval(() => {
                         if (this.isConnected()) {
                             this.ws.send('PING');
                         }
                         this.latency = new Date();
                         this.pingTimeout = setTimeout(() => {
-                            console.log("AAAAA");
                             if (this.ws !== null) {
                                 this.wasCloseCalled = false;
-                                logger.Error('Ping timeout');
+                                logger.error('Ping timeout');
                                 this.ws.close();
 
                                 clearInterval(this.pingLoop);
                                 clearTimeout(this.pingTimeout);
                             }
                         }, 9999);
-                    }, 60000);*/
+                    }, 60000);
                 break;
                 default:
-                    logger.Debug('DEFAULT');
+                break;
+            }
+        } else {
+            switch (MessageObject.command) {
+                case 'PRIVMSG':
+                    logger.debug(MessageObject.params[0] + '| ' + MessageObject.prefix.slice(0,MessageObject.prefix.indexOf('!')) + ': ' + MessageObject.params[1]);
                 break;
             }
         }
     }
 
-    OnConnected() {
-        console.log('Lagg');
-        this.ws.send('JOIN #space_interprise', (err) => {
-            console.log(err);
+    onConnected() {
+        // Once connected connect the user to the servers he parsed on client inicialization
+        global.twitchApis.client.option.channels.forEach((element, index) => {
+            this.join(element, index);
         });
-        console.log('Lagggg');
-        // this.Join();
+    }
+
+    join(channel, index) {
+        if (channel.includes(' ')) {
+            return logger.error('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : ''));
+        }
+        if (!channel.startsWith('#')) {
+            channel = '#' + channel;
+        }
+        this.ws.send(`JOIN ${channel.toLowerCase()}`);
+        logger.info('Entering on: ' + channel.toLowerCase());
+    }
+
+    leave(channel, index) {
+        if (channel.includes(' ')) {
+            return logger.error('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : ''));
+        }
+        if (!channel.startsWith('#')) {
+            channel = '#' + channel;
+        }
+        this.ws.send(`PART ${channel.toLowerCase()}`);
+        logger.info('Exiting of: ' + channel.toLowerCase());
     }
 
     /*

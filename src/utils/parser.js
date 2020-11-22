@@ -1,109 +1,129 @@
-function JumpSpaces(Data, Position) {
-    while (Data[Position] === ' ') {
-        Position += 1;
-    }
-    return Position;
-}
+// --------------------------------- \\
+// DO NOT TOUCH THE PARSER DO NOT TO \\
+// UCH THE PARSER DO NOT TOUCH THE P \\
+// ARSER DO NOT TOUCH THE PARSER --- \\
+// --------------------------------- \\
 
 module.exports = {
-    Message(Data) {
-        var MessageOutputObject = {
-            raw: Data,
+    Message(data) {
+        var message = {
+            raw: data,
             tags: {},
             prefix: null,
             command: null,
             params: []
         };
 
-        var Position = 0;
-        var NextSpace = 0;
+        // Position and nextspace are used by the parser as a reference..
+        var position = 0;
+        var nextspace = 0;
 
-        if (Data[0] === '@') {
-            NextSpace = Data.indexOf(' ');
+        // The first thing we check for is IRCv3.2 message tags.
+        // http://ircv3.atheme.org/specification/message-tags-3.2
+        if (data.charCodeAt(0) === 64) {
+            nextspace = data.indexOf(' ');
 
-            // The IRC message come malformed
-            if (NextSpace === -1) {
+            // Malformed IRC message..
+            if (nextspace === -1) {
                 return null;
             }
 
-            // Tags
-            var RawTags = Data.slice(1, NextSpace).split(';');
+            // Tags are split by a semi colon..
+            var rawTags = data.slice(1, nextspace).split(';');
 
-            for (var i = 0; RawTags.length; i++) {
-                // Tag can be like: Key=Value
-                // If is not like that then the value will be false, and the tag will be the key
-                var Tag = RawTags[i];
-                if (!Tag) {return null;}
-                var Pair = Tag.split('=');
-                MessageOutputObject.tags[Pair[0]] = Pair[1] ? Pair[1] : false;
+            for (var i = 0; i < rawTags.length; i++) {
+                // Tags delimited by an equals sign are key=value tags.
+                // If there's no equals, we assign the tag a value of true.
+                var tag = rawTags[i];
+                var pair = tag.split('=');
+                message.tags[pair[0]] = tag.substring(tag.indexOf('=') + 1) || true;
             }
 
-            Position = NextSpace + 1;
+            position = nextspace + 1;
         }
 
-        // Skip the whitespaces
-        Position = JumpSpaces(Data, Position);
+        // Skip any trailing whitespace..
+        while (data.charCodeAt(position) === 32) {
+            position++;
+        }
 
-        // If Message comes with a prefix get it. Prefixes normaly comes prepended with a colon
-        if (Data[Position] === ':') {
-            NextSpace = Data.indexOf(' ', Position);
+        // Extract the message's prefix if present. Prefixes are prepended with a colon..
+        if (data.charCodeAt(position) === 58) {
+            nextspace = data.indexOf(' ', position);
 
-            // Verify if message is malformed
-            if (NextSpace === -1) {
+            // If there's nothing after the prefix, deem this message to be malformed.
+            if (nextspace === -1) {
                 return null;
             }
 
-            MessageOutputObject.prefix = Data.slice(Position + 1, NextSpace);
-            Position = NextSpace + 1;
+            message.prefix = data.slice(position + 1, nextspace);
+            position = nextspace + 1;
+
+            // Skip any trailing whitespace..
+            while (data.charCodeAt(position) === 32) {
+                position++;
+            }
         }
 
-        // Skip the whitespaces
-        Position = JumpSpaces(Data, Position);
+        nextspace = data.indexOf(' ', position);
 
-        NextSpace = Data.indexOf(' ', Position);
-        if (NextSpace === -1) {
-            if (Data.length > Position) {
-                MessageOutputObject.command = Data.slice(Position);
-                return MessageOutputObject;
+        // If there's no more whitespace left, extract everything from the
+        // current position to the end of the string as the command..
+        if (nextspace === -1) {
+            if (data.length > position) {
+                message.command = data.slice(position);
+                return message;
             }
 
             return null;
         }
-        
-        // Else, the current position until the next space is the command, and then some more parameters.
-        MessageOutputObject.command = Data.slice(Position, NextSpace);
-        Position = NextSpace + 1;
 
-        // Skip the whitespaces
-        Position = JumpSpaces(Data, Position);
+        // Else, the command is the current position up to the next space. After
+        // that, we expect some parameters.
+        message.command = data.slice(position, nextspace);
 
-        while (Position < Data.length) {
-            NextSpace = Data.indexOf(' ', Position);
+        position = nextspace + 1;
 
-            // If appear a colon, then that means we have a trailing parameter. And theres no way of it be a extra params, so then push everything than appears after the collom to the params array and break the loop.
-            if (Data[Position] === ':') {
-                MessageOutputObject.params.push(Data.slice(Position + 1));
+        // Skip any trailing whitespace..
+        while (data.charCodeAt(position) === 32) {
+            position++;
+        }
+
+        while (position < data.length) {
+            nextspace = data.indexOf(' ', position);
+
+            // If the character is a colon, we've got a trailing parameter.
+            // At this point, there are no extra params, so we push everything
+            // from after the colon to the end of the string, to the params array
+            // and break out of the loop.
+            if (data.charCodeAt(position) === 58) {
+                message.params.push(data.slice(position + 1));
                 break;
             }
 
-            // We have more spaces
-            if (NextSpace !== -1) {
-                // push all between this position and the next space to the params
-                MessageOutputObject.params.push(Data.slice(Position, NextSpace));
-                Position = NextSpace + 1;
+            // If we still have some whitespace...
+            if (nextspace !== -1) {
+                // Push whatever's between the current position and the next
+                // space to the params array.
+                message.params.push(data.slice(position, nextspace));
+                position = nextspace + 1;
 
-                // Skip the whitespaces
-                Position = JumpSpaces(Data, Position);
+                // Skip any trailing whitespace and continue looping.
+                while (data.charCodeAt(position) === 32) {
+                    position++;
+                }
 
                 continue;
             }
 
-            // No more spaces. Push all the remain to params
-            if (NextSpace !== -1) {
-                MessageOutputObject.params.push(Data.slice(Position));
+            // If we don't have any more whitespace and the param isn't trailing,
+            // push everything remaining to the params array.
+            if (nextspace === -1) {
+                message.params.push(data.slice(position));
                 break;
             }
         }
-        return MessageOutputObject;
+
+        return message;
     }
 };

@@ -1,12 +1,12 @@
 function getTime() {
-    var Time = getTimeRaw();
-    var SeparatedTime = Time.split(':');
-    SeparatedTime.forEach((element, index)=> {
+    var time = getTimeRaw();
+    var separatedTime = time.split(':');
+    separatedTime.forEach((element, index)=> {
         if (element.length < 2) {
-            SeparatedTime[index] = `0${SeparatedTime[index]}`;
+            separatedTime[index] = `0${separatedTime[index]}`;
         }
     });
-    return SeparatedTime.join(':');
+    return separatedTime.join(':');
 }
 
 function getTimeRaw() {

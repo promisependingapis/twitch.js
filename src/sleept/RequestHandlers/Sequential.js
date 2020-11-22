@@ -1,6 +1,6 @@
 const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
-const { Constants: { Events: { RATE_LIMIT } } } = require('../../utils');
+const { constants: { events: { RATE_LIMIT } } } = require('../../utils');
 
 /**
  * Handles API Requests sequentially, i.e. we wait until the current request is finished before moving onto
