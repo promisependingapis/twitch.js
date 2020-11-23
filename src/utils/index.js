@@ -1,5 +1,5 @@
 module.exports = {
-    constants: require('./constants'),
+    constants: require('./Constants'),
     Util: require('./util'),
     logger: require('./logger'),
     autoEndLog: require('./AutoEndLog'),

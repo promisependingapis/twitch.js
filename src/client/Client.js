@@ -100,8 +100,9 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
+     * @param {string} userName Username of the account to log in with
      * @param {string} token Token of the account to log in with
-     * @returns {Promise}
+     * @returns {Promise<pending>}
      * @example
      * Client.login('userName', 'token')
      *  .then()
