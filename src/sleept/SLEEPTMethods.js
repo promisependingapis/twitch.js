@@ -137,12 +137,14 @@ class SLEEPTMethods {
             switch (messageObject.command) {
                 case '353':
                     this.client.eventEmmiter('Method.Joined.' + messageObject.params[2]);
+                    this.client.eventEmmiter('joined', messageObject.params[2]);
                 break;
             }
         } else {
             switch (messageObject.command) {
                 case 'PART':
                     this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
+                    this.client.eventEmmiter('leaved', messageObject.params[0]);
                 break;
                 case 'PRIVMSG':
                     this.client.eventEmmiter('message', messageObject);
@@ -159,6 +161,7 @@ class SLEEPTMethods {
                 this.join(element, index);
             }, index * 100);
         });
+        this.client.eventEmmiter('ready');
     }
 
     join(channel, index) {
