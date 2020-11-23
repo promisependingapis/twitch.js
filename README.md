@@ -20,14 +20,16 @@
 
 ## TODO
 
-- [X] Beauty logger.
-- [ ] Stabilize a websocket connection with Twitchᵀⱽ.
+- [X] Beauty logger. (**DON'T TOUCH HIM**)
+- [X] Stabilize a websocket connection with Twitchᵀⱽ.
+- [X] Create easy functions to interact with Twitchᵀⱽ.
+- [ ] Create onReady event.
+- [ ] Create all easy interact functions to Twitchᵀⱽ.
 - [ ] Create event dispatchers to the actions.
-- [ ] Create easy functions to interact with Twitchᵀⱽ.
 
 ## About
 
-Twitchʲˢ is a powerful [Node.js](https://nodejs.org) module that allows you to easily interact with the
+Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module that allows you to easily interact with the
 [Twitchᵀⱽ](https://twitch.tv) making easy the way to make a Twitchᵀⱽ bot, for a custom chat overlay for you [OBS](https://obsproject.com/), or a moderation bot for you chat, or you just want a easy interface to Twitchᵀⱽ.
 
 - Object-oriented
@@ -51,10 +53,30 @@ yarn add @twitchapis/twitchjs
 ## example-usage
 
 ```javascript
-"Comming soon"
+  const Twitch = require('@twitchapis/twitchjs');
+
+  const Client = new Twitch.Client({
+      autoLogEnd: false,
+      channels: ['space_interprise', 'lobometalurgico'],
+      debug: true
+  });
+
+  Client.on('message', msg => {
+      if (msg.toString().toLowerCase().includes('hello')) {
+          msg.reply('World');
+      }
+      if (msg.toString().toLowerCase() === 'leave space_interprise channel') {
+        msg.channel.send('Ok, goodbye ;-;')
+        Client.leave('space_interprise');
+      }
+  });
+
+  Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
+      Twitch.logger.info('YAY, i am connected with twitch!');
+  });
 ```
 
 ## contributors
 
-- [Lobo Metalurgico](https://github.com/LoboMetalurgico) `Owner`
-- [Space_Interprise](https://github.com/emanuelfranklyn) `Made this file :D`
+- [Lobo Metalurgico](https://github.com/LoboMetalurgico)
+- [Space_Interprise](https://github.com/emanuelfranklyn)
