@@ -231,6 +231,9 @@ class Client extends EventEmmiter {
                 };
                 this.emit(event, responseMessage);
                 break;
+            case 'ready':
+                this.emit(event, args[0], args[1]);
+                break;
             default:
                 this.emit(event, args);
                 break;
