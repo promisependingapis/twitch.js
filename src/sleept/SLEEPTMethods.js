@@ -20,19 +20,19 @@ class SLEEPTMethods {
         return this.ws !== null && this.ws.readyState === 1;
     }
 
-    login(UserName, token) {
+    login(userName, token) {
         // eslint-disable-next-line no-unused-vars
         return new Promise((resolve, reject) => {
             if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
                 reject(constants.errors.INVALID_TOKEN);
                 logger.fatal(constants.errors.INVALID_TOKEN); 
             }
-            if (!UserName || typeof UserName !== 'string' || UserName.includes(' ')) {
+            if (!userName || typeof userName !== 'string' || userName.includes(' ')) {
                 reject(constants.errors.INVALID_USERNAME);
                 logger.fatal(constants.errors.INVALID_USERNAME);
             }
             this.client.token = token;
-            this.UserName = UserName;
+            this.userName = userName;
             this.server = global.twitchApis.client.option.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
@@ -71,17 +71,17 @@ class SLEEPTMethods {
         logger.debug('Sending Password...');
         this.ws.send(`PASS ${token}`);
         logger.debug('Sending Nickname...');
-        this.ws.send(`NICK ${this.UserName.toLowerCase()}`);
+        this.ws.send(`NICK ${this.userName.toLowerCase()}`);
     }
 
-    handlerMessage(MessageObject) {
-        if (MessageObject === null) {
+    handlerMessage(messageObject) {
+        if (messageObject === null) {
             return;
         }
 
         // Message Without prefix
-        if (MessageObject.prefix === null) {
-            switch (MessageObject.command) {
+        if (messageObject.prefix === null) {
+            switch (messageObject.command) {
                 // Ping
                 case 'PING':
                     this.ws.send('PONG');
@@ -95,8 +95,8 @@ class SLEEPTMethods {
                 default:
                 break;
             }
-        } else if (MessageObject.prefix === 'tmi.twitch.tv') {
-            switch (MessageObject.command) {
+        } else if (messageObject.prefix === 'tmi.twitch.tv') {
+            switch (messageObject.command) {
                 case '002':
                 case '003':
                 case '004':
@@ -106,7 +106,7 @@ class SLEEPTMethods {
                 break;
 
                 case '001':
-                    this.UserName = MessageObject.params[0];
+                    this.userName = messageObject.params[0];
                 break;
 
                 case '372': 
@@ -129,13 +129,24 @@ class SLEEPTMethods {
                         }, 9999);
                     }, 60000);
                 break;
+                
                 default:
                 break;
             }
+        } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
+            switch (messageObject.command) {
+                case '353':
+                    this.client.eventEmmiter('Method.Joined.' + messageObject.params[2]);
+                break;
+            }
         } else {
-            switch (MessageObject.command) {
+            switch (messageObject.command) {
+                case 'PART':
+                    this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
+                break;
                 case 'PRIVMSG':
-                    logger.debug(MessageObject.params[0] + '| ' + MessageObject.prefix.slice(0,MessageObject.prefix.indexOf('!')) + ': ' + MessageObject.params[1]);
+                    this.client.eventEmmiter('message', messageObject);
+                    logger.debug(messageObject.params[0] + '| ' + messageObject.prefix.slice(0,messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
                 break;
             }
         }
@@ -144,30 +155,80 @@ class SLEEPTMethods {
     onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
         global.twitchApis.client.option.channels.forEach((element, index) => {
-            this.join(element, index);
+            setTimeout(()=>{
+                this.join(element, index);
+            }, index * 100);
         });
     }
 
     join(channel, index) {
-        if (channel.includes(' ')) {
-            return logger.error('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : ''));
-        }
-        if (!channel.startsWith('#')) {
-            channel = '#' + channel;
-        }
-        this.ws.send(`JOIN ${channel.toLowerCase()}`);
-        logger.info('Entering on: ' + channel.toLowerCase());
+        return new Promise((resolve, reject) => {
+            if (channel.includes(' ')) {
+                logger.error('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : ''));
+                return reject('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : '')); 
+            }
+            if (!channel.startsWith('#')) {
+                channel = '#' + channel;
+            }
+            this.ws.send(`JOIN ${channel.toLowerCase()}`);
+            logger.debug('Connecting to: ' + channel.toLowerCase());
+            this.client.on('Method.Joined.' + channel.toLowerCase(), listener);
+            global.twitchApis.client.methods.joinQueueTimeout.push([setTimeout(()=> {
+                reject('Couldn\'t connect with twitch');
+            }, 10000), channel.toLowerCase()]);
+            function listener() {
+                logger.debug('Connected to: ' + channel.toLowerCase());
+                global.twitchApis.client.methods.joinQueueTimeout.forEach((element) => {
+                    if (element[1] === channel.toLowerCase()) {
+                        clearTimeout(element[0]);
+                        return;
+                    }
+                });
+                this.removeListener('Method.Joined.' + channel.toLowerCase(), listener);
+                resolve();
+            }
+        });
     }
 
-    leave(channel, index) {
-        if (channel.includes(' ')) {
-            return logger.error('Channel name cannot include spaces: ' + channel + (index ? ', on channels list index: ' + index : ''));
-        }
-        if (!channel.startsWith('#')) {
-            channel = '#' + channel;
-        }
-        this.ws.send(`PART ${channel.toLowerCase()}`);
-        logger.info('Exiting of: ' + channel.toLowerCase());
+    leave(channel) {
+        return new Promise((resolve, reject) => {
+            if (channel.includes(' ')) {
+                logger.error('Channel name cannot include spaces: ' + channel);
+                return reject('Channel name cannot include spaces: ' + channel); 
+            }
+            if (!channel.startsWith('#')) {
+                channel = '#' + channel;
+            }
+            this.ws.send(`PART ${channel.toLowerCase()}`);
+            logger.debug('Disconnecting from: ' + channel.toLowerCase());
+            this.client.on('Method.Leaved.' + channel.toLowerCase(), listener);
+            global.twitchApis.client.methods.leaveQueueTimeout.push([setTimeout(()=> {
+                logger.fatal('Couldn\'t connect with twitch');
+                reject('Couldn\'t connect with twitch');
+            }, 10000), channel.toLowerCase()]);
+            function listener() {
+                logger.debug('Disconnected from: ' + channel.toLowerCase());
+                global.twitchApis.client.methods.leaveQueueTimeout.forEach((element) => {
+                    if (element[1] === channel.toLowerCase()) {
+                        clearTimeout(element[0]);
+                        return;
+                    }
+                });
+                this.removeListener('Method.Leaved.' + channel.toLowerCase(), listener);
+                resolve();
+            }
+        });
+    }
+
+    sendMessage(channel, ...message) {
+        return new Promise((resolve, reject) => {
+            if (!message || message === null || (typeof message === 'object' && message[0] === null)) {
+                logger.warn('Cannot send empty messages');
+                reject('Cannot send empty messages');
+            }
+            message = message.join(' ');
+            resolve(this.ws.send(`PRIVMSG ${channel} :${message}`));
+        });
     }
 
     /*

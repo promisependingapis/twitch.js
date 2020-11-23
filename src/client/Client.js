@@ -3,7 +3,8 @@ const SLEEPTManager = require('../sleept/SLEEPTMananger');
 const { autoEndLog, constants, logger, Util } = require('../utils');
 
 /**
- * @TODO fanMode (Anonymous mode)
+ * @TODO FanMode (Anonymous mode).
+ * @TODO Organize annotations.
  */
 
 /**
@@ -30,6 +31,10 @@ class Client extends EventEmmiter {
             client: {
                 option: this.options
             }
+        };
+        global.twitchApis.client.methods = {
+            joinQueueTimeout: [],  
+            leaveQueueTimeout: [],  
         };
 
         /**
@@ -127,6 +132,108 @@ class Client extends EventEmmiter {
      */
     leave(channelName) {
         return this.sleept.methods.leave(channelName);
+    }
+
+    /**
+     * emit a event from client level
+     * @param {string} event the name of the event than will be sended
+     * @param {any} args the args of the event
+     * @example
+     * client.eventEmmiter('event', Args)
+     */
+    eventEmmiter(event, ...args) {
+        switch (event) {
+            case 'message':
+                var responseMessage = {
+                    /**
+                     * @returns {string} text content of message
+                     */
+                    toString: () => {
+                        return args[0].params[1].toString();
+                    },
+                    /**
+                     * @type {string} The string of context text of message
+                     */
+                    content: args[0].params[1].toString(),
+                    /**
+                     * responds the author of message
+                     * @param {string} [message] the message than will be sended as reply of original message
+                     * @return {promise<pending>} The message sended metadata
+                     */
+                    reply: (message) => {
+                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0,args[0].prefix.indexOf('!'))} ${message}`);
+                    },
+                    channel: {
+                        /**
+                         * @type {string} the channel name without the hashtag
+                         */
+                        name: args[0].params[0].slice(0),
+                        /**
+                         * send a message on the same channel who send it
+                         * @param {string} [message] the message than will be sended on the channel
+                         * @return {promise<pending>} The message sended metadata
+                         */
+                        send: (...message) => {
+                            return this.sleept.methods.sendMessage(args[0].params[0], message);
+                        }
+                    },
+                    author: {
+                        /**
+                         * @type {string} the name of the sender of message (channelname without hashtag)
+                         */
+                        username: args[0].prefix.slice(0,args[0].prefix.indexOf('!')),
+                        /**
+                         * @type {string} the display name of the sender of message (can includes spaces symbols and captal letters)
+                         */
+                        displayName: args[0].tags['display-name'],
+                        /**
+                         * @type {boolean} if the sender of message is the bot itself
+                         */
+                        self: args[0].prefix.slice(0,args[0].prefix.indexOf('!')) === this.options.userName,
+                        /**
+                         * @type {string} id of author (on twitch? maybe)
+                         */
+                        id: args[0].tags.id,
+                        /**
+                         * @type {boolean} if the user who send the message have mod on that channel
+                         */
+                        mod: args[0].tags.mod === '1',
+                        /**
+                         * @type {boolean} if the user who send the message is subscribed on the channel
+                         */
+                        subscriber: args[0].tags.subscriber >= '1',
+                        /**
+                         * @type {boolean} if the user who send the message have Twitch turbo
+                         */
+                        turbo: args[0].tags.turbo >= '1',
+                        /**
+                         * @type {string} the id of user (on the chat? maybe)
+                         */
+                        userId: args[0].tags['user-id'],
+                        /**
+                         * @type {string} the user color on the chat (on hex)
+                         */
+                        color: args[0].tags.color,
+                        /**
+                         * @type {boolean} if the user have any badge on this channel
+                         */
+                        containsBadge: args[0].tags['badge-info'],
+                        /**
+                         * @type {string} all badges the user have in this channel (not parsed, maybe in future)
+                         */
+                        badges: args[0].tags.badges,
+                        /**
+                         * @type {boolean} if the user who send the message is the broadcaster
+                         */
+                        broadcaster: args[0].tags['badge-info'] ? args[0].tags.badges.includes('broadcaster') : false,
+                    }
+                };
+                this.emit(event, responseMessage);
+                break;
+            default:
+                this.emit(event, args);
+                break;
+        }
     }
 
     /**
