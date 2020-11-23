@@ -13,7 +13,7 @@ const { autoEndLog, constants, logger, Util } = require('../utils');
  */
 class Client extends EventEmmiter {
     /**
-     * @param {ClientOptions} [autoLogEnd Boolean, Default: false]
+     * @type {ClientOptions} [autoLogEnd Boolean, Default: true]
      */
     constructor(options = {}) {
         super();
@@ -58,7 +58,7 @@ class Client extends EventEmmiter {
             /**
              * Authorization token for the logged in user/bot
              * <warn>This should be kept private at all times.</warn>
-             * @type {?string}
+             * @type {?String}
              */
             this.token = process.env.CLIENT_TOKEN;
         } else {
@@ -80,7 +80,7 @@ class Client extends EventEmmiter {
 
         /**
          * The bool of the system of auto logger finish event
-         * @type {Bool}
+         * @type {Boolean}
          */
         this.autoLogEnd = options.autoLogEnd;
         
@@ -93,16 +93,16 @@ class Client extends EventEmmiter {
 
         /**
          * The array of channels than the bot will work in
-         * @type {array}
+         * @type {Array}
          */
         this.Channels = options.Channels;
     }
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {string} userName Username of the account to log in with
-     * @param {string} token Token of the account to log in with
-     * @returns {Promise<pending>}
+     * @param {String} userName Username of the account to log in with
+     * @param {String} token Token of the account to log in with
+     * @returns {Promise<Pending>}
      * @example
      * Client.login('userName', 'token')
      *  .then()
@@ -113,8 +113,8 @@ class Client extends EventEmmiter {
 
     /**
      * Join the bot on the channel parsed
-     * @param {string} channelName The name of the channel the bot will connect
-     * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
+     * @param {String} channelName The name of the channel the bot will connect
+     * @returns {Promise<Boolean>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()
@@ -125,8 +125,8 @@ class Client extends EventEmmiter {
 
     /**
      * Leave the bot on the channel parsed
-     * @param {string} channelName The name of the channel the bot will disconnect
-     * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
+     * @param {String} channelName The name of the channel the bot will disconnect
+     * @returns {Promise<Boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
      * client.join('channelName')
      *  .then()
@@ -137,8 +137,8 @@ class Client extends EventEmmiter {
 
     /**
      * emit a event from client level
-     * @param {string} event the name of the event than will be sended
-     * @param {any} args the args of the event
+     * @param {String} event the name of the event than will be sended
+     * @param {Any} args the args of the event
      * @example
      * client.eventEmmiter('event', Args)
      */
@@ -147,32 +147,32 @@ class Client extends EventEmmiter {
             case 'message':
                 var responseMessage = {
                     /**
-                     * @returns {string} text content of message
+                     * @returns {String} text content of message
                      */
                     toString: () => {
                         return args[0].params[1].toString();
                     },
                     /**
-                     * @type {string} The string of context text of message
+                     * @type {String} The string of context text of message
                      */
                     content: args[0].params[1].toString(),
                     /**
                      * responds the author of message
-                     * @param {string} [message] the message than will be sended as reply of original message
-                     * @return {promise<pending>} The message sended metadata
+                     * @param {String} [message] the message than will be sended as reply of original message
+                     * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
                         return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0,args[0].prefix.indexOf('!'))} ${message}`);
                     },
                     channel: {
                         /**
-                         * @type {string} the channel name without the hashtag
+                         * @type {String} the channel name without the hashtag
                          */
                         name: args[0].params[0].slice(0),
                         /**
                          * send a message on the same channel who send it
-                         * @param {string} [message] the message than will be sended on the channel
-                         * @return {promise<pending>} The message sended metadata
+                         * @param {String} [message] the message than will be sended on the channel
+                         * @return {Promise<Pending>} The message sended metadata
                          */
                         send: (...message) => {
                             return this.sleept.methods.sendMessage(args[0].params[0], message);
@@ -180,51 +180,51 @@ class Client extends EventEmmiter {
                     },
                     author: {
                         /**
-                         * @type {string} the name of the sender of message (channelname without hashtag)
+                         * @type {String} the name of the sender of message (channelname without hashtag)
                          */
                         username: args[0].prefix.slice(0,args[0].prefix.indexOf('!')),
                         /**
-                         * @type {string} the display name of the sender of message (can includes spaces symbols and captal letters)
+                         * @type {String} the display name of the sender of message (can includes spaces symbols and captal letters)
                          */
                         displayName: args[0].tags['display-name'],
                         /**
-                         * @type {boolean} if the sender of message is the bot itself
+                         * @type {Boolean} if the sender of message is the bot itself
                          */
                         self: args[0].prefix.slice(0,args[0].prefix.indexOf('!')) === this.options.userName,
                         /**
-                         * @type {string} id of author (on twitch? maybe)
+                         * @type {String} id of author (on twitch? maybe)
                          */
                         id: args[0].tags.id,
                         /**
-                         * @type {boolean} if the user who send the message have mod on that channel
+                         * @type {Boolean} if the user who send the message have mod on that channel
                          */
                         mod: args[0].tags.mod === '1',
                         /**
-                         * @type {boolean} if the user who send the message is subscribed on the channel
+                         * @type {Boolean} if the user who send the message is subscribed on the channel
                          */
                         subscriber: args[0].tags.subscriber >= '1',
                         /**
-                         * @type {boolean} if the user who send the message have Twitch turbo
+                         * @type {Boolean} if the user who send the message have Twitch turbo
                          */
                         turbo: args[0].tags.turbo >= '1',
                         /**
-                         * @type {string} the id of user (on the chat? maybe)
+                         * @type {String} the id of user (on the chat? maybe)
                          */
                         userId: args[0].tags['user-id'],
                         /**
-                         * @type {string} the user color on the chat (on hex)
+                         * @type {String} the user color on the chat (on hex)
                          */
                         color: args[0].tags.color,
                         /**
-                         * @type {boolean} if the user have any badge on this channel
+                         * @type {Boolean} if the user have any badge on this channel
                          */
                         containsBadge: args[0].tags['badge-info'],
                         /**
-                         * @type {string} all badges the user have in this channel (not parsed, maybe in future)
+                         * @type {String} all badges the user have in this channel (not parsed, maybe in future)
                          */
                         badges: args[0].tags.badges,
                         /**
-                         * @type {boolean} if the user who send the message is the broadcaster
+                         * @type {Boolean} if the user who send the message is the broadcaster
                          */
                         broadcaster: args[0].tags['badge-info'] ? args[0].tags.badges.includes('broadcaster') : false,
                     }
@@ -258,14 +258,16 @@ class Client extends EventEmmiter {
         if (typeof options.sleeptWsBridgeTimeout !== 'number' || isNaN(options.sleeptWsBridgeTimeout)) {
             throw new TypeError('The sleeptWsBridgeTimeout option must be a number.');
         }
-        if (!(options.disabledEvents instanceof Array)) throw new TypeError('The disabledEvents option must be an Array.');
+        if (options.disabledEvents && !(options.disabledEvents instanceof Array)) {
+            throw new TypeError('The disabledEvents option must be an Array.');
+        }
         if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
             throw new TypeError('The retryLimit  options must be a number.');
         }
         if (options.autoLogEnd && typeof options.autoLogEnd !== 'boolean') {
             throw new TypeError('The autoLogEnd options must be a boolean.');
         }
-        if (options.channels && typeof options.channels !== 'object') {
+        if (options.channels && !(options.channels instanceof Array)) {
             throw new TypeError('The channels options must be a array.');
         }
         if (options.debug && typeof options.debug !== 'boolean') {

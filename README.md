@@ -23,9 +23,11 @@
 - [X] Beauty logger. (**DON'T TOUCH HIM**)
 - [X] Stabilize a websocket connection with Twitchᵀⱽ.
 - [X] Create easy functions to interact with Twitchᵀⱽ.
-- [ ] Create onReady event.
-- [ ] Create all easy interact functions to Twitchᵀⱽ.
+- [X] Create onReady event.
+- [X] Create onLeave event.
+- [X] Create onJoin event.
 - [ ] Create event dispatchers to the actions.
+- [ ] Create all easy interact functions to Twitchᵀⱽ.
 
 ## About
 
