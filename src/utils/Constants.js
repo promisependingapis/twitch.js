@@ -80,7 +80,7 @@ exports.defaultOptions = {
     },
 };
 
-exports.Errors = {
+exports.errors = {
     INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
     INVALID_TOKEN: 'The token is not valid, a valid token must be a String, start with "oauth:" and doesn\'t includes spaces.',
     INVALID_USERNAME:'The username is not valid. A valid username must be a String and doesn\'t includes spaces.'
