@@ -226,7 +226,7 @@ class SLEEPTMethods {
     ping() {
         return new Promise((resolve, reject) => {
             var ping = new Date();
-            this.client.on('Method.Ping', listener);
+            this.client.on('Method.Ping', () => listener);
             this.ws.send('PING');
             const pingTimeout = setTimeout(()=> {
                 logger.fatal('Couldn\'t connect with twitch');
