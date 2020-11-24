@@ -85,16 +85,14 @@ class SLEEPTMethods {
                 // Ping
                 case 'PING':
                     this.ws.send('PONG');
-                    this.client.eventEmmiter('Method.Ping');
-                break;
-
+                    break;
                 case 'PONG':
+                    this.client.eventEmmiter('Method.Ping');
                     if (!this.pingTimeout) {return;}
                     clearTimeout(this.pingTimeout);
-                break;
-
+                    break;
                 default:
-                break;
+                    break;
             }
         } else if (messageObject.prefix === 'tmi.twitch.tv') {
             switch (messageObject.command) {
@@ -104,12 +102,10 @@ class SLEEPTMethods {
                 case '375':
                 case '376':
                 case 'CAP':
-                break;
-
+                    break;
                 case '001':
                     this.userName = messageObject.params[0];
-                break;
-
+                    break;
                 case '372': 
                     logger.debug('Connected to the server');
                     this.onConnected();
@@ -129,28 +125,31 @@ class SLEEPTMethods {
                             }
                         }, 9999);
                     }, 60000);
-                break;
-                
+                    break;
                 default:
-                break;
+                    break;
             }
         } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
             switch (messageObject.command) {
                 case '353':
                     this.client.eventEmmiter('Method.Joined.' + messageObject.params[2]);
                     this.client.eventEmmiter('join', messageObject.params[2]);
-                break;
+                    break;
+                default:
+                    break;
             }
         } else {
             switch (messageObject.command) {
                 case 'PART':
                     this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
                     this.client.eventEmmiter('leave', messageObject.params[0]);
-                break;
+                    break;
                 case 'PRIVMSG':
                     this.client.eventEmmiter('message', messageObject);
                     logger.debug(messageObject.params[0] + '| ' + messageObject.prefix.slice(0,messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
-                break;
+                    break;
+                default:
+                    break;
             }
         }
     }
