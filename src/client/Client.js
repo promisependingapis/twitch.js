@@ -33,8 +33,8 @@ class Client extends EventEmmiter {
             }
         };
         global.twitchApis.client.methods = {
-            joinQueueTimeout: [],  
-            leaveQueueTimeout: [],  
+            joinQueueTimeout: [],
+            leaveQueueTimeout: []
         };
 
         /**
@@ -136,7 +136,17 @@ class Client extends EventEmmiter {
     }
 
     /**
-     * emit a event from client level
+     * Get the API ping
+     * @returns {Promise<Number>} return the API ping in milliseconds
+     * @example
+     * client.ping()
+     */
+    ping() {
+        return this.sleept.methods.ping();
+    }
+
+    /**
+     * Emit a event from client level
      * @param {String} event the name of the event than will be sended
      * @param {Any} args the args of the event
      * @example

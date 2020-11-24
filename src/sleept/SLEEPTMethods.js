@@ -85,6 +85,7 @@ class SLEEPTMethods {
                 // Ping
                 case 'PING':
                     this.ws.send('PONG');
+                    this.client.eventEmmiter('Method.Ping');
                 break;
 
                 case 'PONG':
@@ -219,6 +220,25 @@ class SLEEPTMethods {
                 });
                 this.removeListener('Method.Leaved.' + channel.toLowerCase(), listener);
                 resolve();
+            }
+        });
+    }
+
+    ping() {
+        return new Promise((resolve, reject) => {
+            var ping = new Date();
+            this.client.on('Method.Ping', listener);
+            this.ws.send('PING');
+            const pingTimeout = setTimeout(()=> {
+                logger.fatal('Couldn\'t connect with twitch');
+                reject('Couldn\'t connect with twitch');
+            }, 20000);
+            function listener() {
+                this.removeListener('Method.Ping');
+                clearTimeout(pingTimeout);
+                logger.debug('Pong!');
+                ping = new Date() - ping;
+                resolve(ping);
             }
         });
     }
