@@ -226,18 +226,18 @@ class SLEEPTMethods {
     ping() {
         return new Promise((resolve, reject) => {
             var ping = new Date();
-            this.client.on('Method.Ping', () => listener);
+            this.client.on('Method.Ping', listener);
             this.ws.send('PING');
-            const pingTimeout = setTimeout(()=> {
+            const pingCommandTimeout = setTimeout(()=> {
                 logger.fatal('Couldn\'t connect with twitch');
                 reject('Couldn\'t connect with twitch');
             }, 20000);
             function listener() {
-                this.removeListener('Method.Ping');
-                clearTimeout(pingTimeout);
+                this.removeListener('Method.Ping', listener);
+                clearTimeout(pingCommandTimeout);
                 logger.debug('Pong!');
                 ping = new Date() - ping;
-                resolve(ping);
+                return resolve(ping);
             }
         });
     }
