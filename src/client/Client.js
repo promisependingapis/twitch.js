@@ -236,7 +236,7 @@ class Client extends EventEmmiter {
                         /**
                          * @type {Boolean} if the user who send the message is the broadcaster
                          */
-                        broadcaster: args[0].tags['badge-info'] ? args[0].tags.badges.includes('broadcaster') : false,
+                        broadcaster: typeof args[0].tags.badges === 'string' ? args[0].tags.badges.includes('broadcaster') : false,
                     }
                 };
                 this.emit(event, responseMessage);
