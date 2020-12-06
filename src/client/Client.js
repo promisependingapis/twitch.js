@@ -100,8 +100,8 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} userName Username of the account to log in with
-     * @param {String} token Token of the account to log in with
+     * @param {String} [userName] Username of the account to log in with
+     * @param {String} [token] Token of the account to log in with
      * @returns {Promise<Pending>}
      * @example
      * Client.login('userName', 'token')
@@ -113,7 +113,7 @@ class Client extends EventEmmiter {
 
     /**
      * Join the bot on the channel parsed
-     * @param {String} channelName The name of the channel the bot will connect
+     * @param {String} [channelName] The name of the channel the bot will connect
      * @returns {Promise<Boolean>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
@@ -125,7 +125,7 @@ class Client extends EventEmmiter {
 
     /**
      * Leave the bot on the channel parsed
-     * @param {String} channelName The name of the channel the bot will disconnect
+     * @param {String} [channelName] The name of the channel the bot will disconnect
      * @returns {Promise<Boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
      * client.join('channelName')
@@ -143,6 +143,19 @@ class Client extends EventEmmiter {
      */
     ping() {
         return this.sleept.methods.ping();
+    }
+
+    /**
+     * Send message into any connected channel
+     * @param {String} [channelName] The name of the channel the bot will send the message
+     * @param {String} [message] The message that will be sended
+     * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
+     * @returns {Promise<Pending>}
+     * @example
+     * client.sendMessage('#channel', 'message', ['replacer', 'replacer2'])
+     */
+    sendMessage(channelName, message, ...replacer) {
+        return this.sleept.methods.sendMessage(channelName, message, ...replacer);
     }
 
     /**
@@ -182,10 +195,11 @@ class Client extends EventEmmiter {
                         /**
                          * send a message on the same channel who send it
                          * @param {String} [message] the message than will be sended on the channel
+                         * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
                          * @return {Promise<Pending>} The message sended metadata
                          */
-                        send: (...message) => {
-                            return this.sleept.methods.sendMessage(args[0].params[0], message);
+                        send: (message, ...replacer) => {
+                            return this.sleept.methods.sendMessage(args[0].params[0], message, replacer);
                         }
                     },
                     author: {

@@ -242,13 +242,26 @@ class SLEEPTMethods {
         });
     }
 
-    sendMessage(channel, ...message) {
+    sendMessage(channel, message, ...replacer) {
         return new Promise((resolve, reject) => {
-            if (!message || message === null || (typeof message === 'object' && message[0] === null)) {
+            if (typeof channel !== 'string') {
+                logger.warn('The channel must be a String');
+                return reject('The channel must be a String');
+            } else if (typeof message !== 'string') {
+                logger.warn('The message must be a String');
+                return reject('The message must be a String');
+            } else if (!message || message === null) {
                 logger.warn('Cannot send empty messages');
-                reject('Cannot send empty messages');
+                return reject('Cannot send empty messages');
             }
-            message = message.join(' ');
+            if (replacer && replacer[0]) {
+                replacer.forEach((element) => {
+                    message = message.replace('%s', element);
+                });
+            }
+            if (!channel.includes('#')) {
+                channel = '#' + channel;
+            }
             resolve(this.ws.send(`PRIVMSG ${channel} :${message}`));
         });
     }
