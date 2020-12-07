@@ -4,6 +4,8 @@
   "description": "twitch.js is a powerful Node.js module that allows you to easily interact with the TwitchTV making easy the way to make a TwitchTV bot, for a custom chat overlay for you OBS, or a moderation bot for you chat, or you just want a easy interface to TwitchTV.",
   "main": "./src/index",
   "scripts": {
+    "eslint": "eslint ./src",
+    "eslint:fix": "eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

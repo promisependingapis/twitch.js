@@ -1,0 +1,31 @@
+name: ESLint
+on: [push,pull_request]
+
+jobs:
+  update:
+    name: ESLint
+    
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Node v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install PNPM
+        run: curl -L https://unpkg.com/@pnpm/self-installer | node
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run ESLint
+        run: npm run eslint:fix
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          add: src
+          message: "chore(lint): Auto-fix linting errors"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
