@@ -34,62 +34,62 @@ exports.Package = require('../../package.json');
  * @property {boolean} [debug=false] Starts the bot in debug mode if activated
  */
 exports.defaultOptions = {
-  apiRequestMethod: 'sequential',
-  messageCacheMaxSize: 200,
-  messageCacheLifetime: 0,
-  messageSweepInterval: 0,
-  fetchAllMembers: false,
-  sync: false,
-  sleeptWsBridgeTimeout: 5000,
-  retryLimit: Infinity,
-  disabledEvents: [],
-  sleeptTimeOffset: 500,
-  autoLogEnd: true,
-  channels: [],
-  debug: false,
+    apiRequestMethod: 'sequential',
+    messageCacheMaxSize: 200,
+    messageCacheLifetime: 0,
+    messageSweepInterval: 0,
+    fetchAllMembers: false,
+    sync: false,
+    sleeptWsBridgeTimeout: 5000,
+    retryLimit: Infinity,
+    disabledEvents: [],
+    sleeptTimeOffset: 500,
+    autoLogEnd: true,
+    channels: [],
+    debug: false,
 
-  /**
+    /**
    * WebSocket options (these are left as snake_case to match the API)
    * @typedef {Object} WebsocketOptions
    * @property {number} [large_threshold=250] Number of members in a guild to be considered large
    * @property {boolean} [compress=true] Whether to compress data sent on the connection
    * (defaults to `false` for browsers)
    */
-  ws: {
-    large_threshold: 250,
-    compress: require('os').platform() !== 'browser',
-    properties: {
-      $os: process ? process.platform : 'twitch.js',
-      $browser: 'twitch.js',
-      $device: 'twitch.js',
-      $referrer: '',
-      $referring_domain: '',
+    ws: {
+        large_threshold: 250,
+        compress: require('os').platform() !== 'browser',
+        properties: {
+            $os: process ? process.platform : 'twitch.js',
+            $browser: 'twitch.js',
+            $device: 'twitch.js',
+            $referrer: '',
+            $referring_domain: '',
+        },
+        version: 6,
     },
-    version: 6,
-  },
 
-  /**
+    /**
    * HTTP options
    * @typedef {Object} HTTPOptions
    * @property {number} [version=7] API version to use
    * @property {string} [api='irc-ws.chat.twitch.tv'] Base url of the API
    */
-  http: {
-    version: 7,
-    host: 'irc-ws.chat.twitch.tv',
-  },
+    http: {
+        version: 7,
+        host: 'irc-ws.chat.twitch.tv',
+    },
 };
 
 exports.errors = {
-  INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
-  INVALID_TOKEN:
+    INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
+    INVALID_TOKEN:
     'The token is not valid, a valid token must be a String, start with "oauth:" and doesn\'t includes spaces.',
-  INVALID_USERNAME: "The username is not valid. A valid username must be a String and doesn't includes spaces.",
+    INVALID_USERNAME: 'The username is not valid. A valid username must be a String and doesn\'t includes spaces.',
 };
 
 exports.events = {
-  RATE_LIMIT: 'rateLimit',
-  READY: 'ready',
+    RATE_LIMIT: 'rateLimit',
+    READY: 'ready',
 };
 
 /** @todo: Endpoints */

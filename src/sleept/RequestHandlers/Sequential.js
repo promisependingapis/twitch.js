@@ -1,9 +1,9 @@
 const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
 const {
-  constants: {
-    events: {RATE_LIMIT},
-  },
+    constants: {
+        events: {RATE_LIMIT},
+    },
 } = require('../../utils');
 
 /**
@@ -14,91 +14,91 @@ const {
  * @private
  */
 class SequentialRequestHandler extends RequestHandler {
-  /**
+    /**
    * @param {SLEEPTManager} sleeptManager The SLEEPT manager to use
    * @param {string} endpoint The endpoint to handle
    */
-  constructor(sleeptManager, endpoint) {
-    super(sleeptManager, endpoint);
+    constructor(sleeptManager, endpoint) {
+        super(sleeptManager, endpoint);
 
-    /**
+        /**
      * The client that instantiated this handler
      * @type {Client}
      */
-    this.client = sleeptManager.client;
+        this.client = sleeptManager.client;
 
-    /**
+        /**
      * The endpoint that this handler is handling
      * @type {string}
      */
-    this.endpoint = endpoint;
+        this.endpoint = endpoint;
 
-    /**
+        /**
      * The time difference between Discord's Dates and the local computer's Dates. A positive number means the local
      * computer's time is ahead of Discord's
      * @type {number}
      */
-    this.timeDifference = 0;
+        this.timeDifference = 0;
 
-    /**
+        /**
      * Whether the queue is being processed or not
      * @type {boolean}
      */
-    this.busy = false;
-  }
+        this.busy = false;
+    }
 
-  push(request) {
-    super.push(request);
-    this.handle();
-  }
+    push(request) {
+        super.push(request);
+        this.handle();
+    }
 
-  /**
+    /**
    * Performs a request then resolves a promise to indicate its readiness for a new request.
    * @param {APIRequest} item The item to execute
    * @returns {Promise<?Object|Error>}
    */
-  execute(item) {
-    this.busy = true;
-    return new Promise((resolve) => {
-      item.request.gen().end((err, res) => {
-        if (res && res.headers) {
-          this.requestLimit = Number(res.headers['x-ratelimit-limit']);
-          this.requestResetTime = Number(res.headers['x-ratelimit-reset']) * 1000;
-          this.requestRemaining = Number(res.headers['x-ratelimit-remaining']);
-          this.timeDifference = Date.now() - new Date(res.headers.date).getTime();
-        }
-        if (err) {
-          if (err.status === 429) {
-            this.queue.unshift(item);
-            this.client.setTimeout(() => {
-              this.globalLimit = false;
-              resolve();
-            }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset);
-            if (res.headers['x-ratelimit-global']) this.globalLimit = true;
-          } else if (err.status >= 500 && err.status < 600) {
-            if (item.retries === this.client.options.retryLimit) {
-              item.reject(err);
-              resolve();
-            } else {
-              item.retries++;
-              this.queue.unshift(item);
-              this.client.setTimeout(resolve, 1e3 + this.client.options.restTimeOffset);
-            }
-          } else {
-            item.reject(
-              err.status >= 400 && err.status < 500
-                ? new TwitchAPIError(res.request.path, res.body, res.request.method)
-                : err
-            );
-            resolve(err);
-          }
-        } else {
-          this.globalLimit = false;
-          const data = res && res.body ? res.body : {};
-          item.resolve(data);
-          if (this.requestRemaining === 0) {
-            if (this.client.listenerCount(RATE_LIMIT)) {
-              /**
+    execute(item) {
+        this.busy = true;
+        return new Promise((resolve) => {
+            item.request.gen().end((err, res) => {
+                if (res && res.headers) {
+                    this.requestLimit = Number(res.headers['x-ratelimit-limit']);
+                    this.requestResetTime = Number(res.headers['x-ratelimit-reset']) * 1000;
+                    this.requestRemaining = Number(res.headers['x-ratelimit-remaining']);
+                    this.timeDifference = Date.now() - new Date(res.headers.date).getTime();
+                }
+                if (err) {
+                    if (err.status === 429) {
+                        this.queue.unshift(item);
+                        this.client.setTimeout(() => {
+                            this.globalLimit = false;
+                            resolve();
+                        }, Number(res.headers['retry-after']) + this.client.options.restTimeOffset);
+                        if (res.headers['x-ratelimit-global']) this.globalLimit = true;
+                    } else if (err.status >= 500 && err.status < 600) {
+                        if (item.retries === this.client.options.retryLimit) {
+                            item.reject(err);
+                            resolve();
+                        } else {
+                            item.retries++;
+                            this.queue.unshift(item);
+                            this.client.setTimeout(resolve, 1e3 + this.client.options.restTimeOffset);
+                        }
+                    } else {
+                        item.reject(
+                            err.status >= 400 && err.status < 500
+                                ? new TwitchAPIError(res.request.path, res.body, res.request.method)
+                                : err
+                        );
+                        resolve(err);
+                    }
+                } else {
+                    this.globalLimit = false;
+                    const data = res && res.body ? res.body : {};
+                    item.resolve(data);
+                    if (this.requestRemaining === 0) {
+                        if (this.client.listenerCount(RATE_LIMIT)) {
+                            /**
                * Emitted when the client hits a rate limit while making a request
                * @event Client#rateLimit
                * @param {Object} rateLimitInfo Object containing the rate limit info
@@ -107,33 +107,33 @@ class SequentialRequestHandler extends RequestHandler {
                * @param {string} rateLimitInfo.path Path used for request that triggered this event
                * @param {string} rateLimitInfo.method HTTP method used for request that triggered this event
                */
-              this.client.emit(RATE_LIMIT, {
-                limit: this.requestLimit,
-                timeDifference: this.timeDifference,
-                path: item.request.path,
-                method: item.request.method,
-              });
-            }
-            this.client.setTimeout(
-              () => resolve(data),
-              this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset
-            );
-          } else {
-            resolve(data);
-          }
-        }
-      });
-    });
-  }
+                            this.client.emit(RATE_LIMIT, {
+                                limit: this.requestLimit,
+                                timeDifference: this.timeDifference,
+                                path: item.request.path,
+                                method: item.request.method,
+                            });
+                        }
+                        this.client.setTimeout(
+                            () => resolve(data),
+                            this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset
+                        );
+                    } else {
+                        resolve(data);
+                    }
+                }
+            });
+        });
+    }
 
-  handle() {
-    super.handle();
-    if (this.busy || this.remaining === 0 || this.queue.length === 0 || this.globalLimit) return;
-    this.execute(this.queue.shift()).then(() => {
-      this.busy = false;
-      this.handle();
-    });
-  }
+    handle() {
+        super.handle();
+        if (this.busy || this.remaining === 0 || this.queue.length === 0 || this.globalLimit) return;
+        this.execute(this.queue.shift()).then(() => {
+            this.busy = false;
+            this.handle();
+        });
+    }
 }
 
 module.exports = SequentialRequestHandler;

@@ -190,7 +190,7 @@ class SLEEPTMethods {
       this.client.on('Method.Joined.' + channel.toLowerCase(), listener);
       global.twitchApis.client.methods.joinQueueTimeout.push([
         setTimeout(() => {
-          reject("Couldn't connect with twitch");
+          reject('Couldn\'t connect with twitch');
         }, 10000),
         channel.toLowerCase(),
       ]);
@@ -222,8 +222,8 @@ class SLEEPTMethods {
       this.client.on('Method.Leaved.' + channel.toLowerCase(), listener);
       global.twitchApis.client.methods.leaveQueueTimeout.push([
         setTimeout(() => {
-          logger.fatal("Couldn't connect with twitch");
-          reject("Couldn't connect with twitch");
+          logger.fatal('Couldn\'t connect with twitch');
+          reject('Couldn\'t connect with twitch');
         }, 10000),
         channel.toLowerCase(),
       ]);
@@ -247,8 +247,8 @@ class SLEEPTMethods {
       this.client.on('Method.Ping', listener);
       this.ws.send('PING');
       const pingCommandTimeout = setTimeout(() => {
-        logger.fatal("Couldn't connect with twitch");
-        reject("Couldn't connect with twitch");
+        logger.fatal('Couldn\'t connect with twitch');
+        reject('Couldn\'t connect with twitch');
       }, 20000);
       function listener() {
         this.removeListener('Method.Ping', listener);
