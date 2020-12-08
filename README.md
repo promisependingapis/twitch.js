@@ -1,4 +1,4 @@
-<img src="https://cdn.discordapp.com/attachments/780245027212492812/780245250382757930/TwitchJS.png">
+[<img src="https://cdn.discordapp.com/attachments/780245027212492812/780245250382757930/TwitchJS.png">]()
 <p>
   <a href="https://discord.gg/26KFSUbVFe"><img src="https://img.shields.io/discord/773920681246851083?color=7289da&logo=discord&logoColor=FFFFFF"/></a>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/v/@twitchapis/twitch.js.svg?maxAge=3600"/></a>
