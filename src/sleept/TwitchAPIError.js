@@ -10,31 +10,31 @@ class TwitchAPIError extends Error {
         this.message = error.message && flattened ? `${error.message}\n${flattened}` : error.message || flattened;
 
         /**
-     * The path of the request relative to the HTTP endpoint
-     * @type {string}
-     */
+         * The path of the request relative to the HTTP endpoint
+         * @type {string}
+         */
         this.path = path;
 
         /**
-     * HTTP error code returned by Discord
-     * @type {number}
-     */
+         * HTTP error code returned by Discord
+         * @type {number}
+         */
         this.code = error.code;
 
         /**
-     * The HTTP method used for the request
-     * @type {string}
-     */
+         * The HTTP method used for the request
+         * @type {string}
+         */
         this.method = method;
     }
 
     /**
-   * Flattens an errors object returned from the API into an array.
-   * @param {Object} obj Discord errors object
-   * @param {string} [key] Used internally to determine key names of nested fields
-   * @returns {string[]}
-   * @private
-   */
+     * Flattens an errors object returned from the API into an array.
+     * @param {Object} obj Discord errors object
+     * @param {string} [key] Used internally to determine key names of nested fields
+     * @returns {string[]}
+     * @private
+     */
     static flattenErrors(obj, key = '') {
         let messages = [];
 
