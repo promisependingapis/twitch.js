@@ -1,6 +1,7 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const {autoEndLog, constants, logger, Util} = require('../utils');
+const {autoEndLog, constants, logger, Util, collection} = require('../utils');
+const channel = require('../structures/channels');
 
 /**
  * @TODO FanMode (Anonymous mode).
@@ -93,12 +94,33 @@ class Client extends EventEmmiter {
         }
 
         /**
-         * The array of channels than the bot will work in
-         * @type {Array}
+         * Creates a collecion to each channel
+         * @type {Collection}
          */
-        this.Channels = options.Channels;
+        this.channels = new collection();
+        options.channels.forEach((channelName) => {
+            this.channels.set(channelName, new channel(this, {channel: channelName}));
+        });
+
+        /**
+         * Intervals set by {@link Client#setInterval} that are still active
+         * @type {Set<Timeout>}
+         * @private
+         */
+        this._intervals = new Set();
+        if (options.messageSweepInterval > 0) {
+            setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
+        }
     }
 
+    /**
+     * Returns the time bot is connected with twitch in miliseconds
+     * @returns {Promise<Resolve>}
+     * @example
+     * await Client.uptime()
+     * @example
+     * Client.uptime().then((Time) => { })
+     */
     uptime() {
         return Promise.resolve(Date.now() - global.twitchApis.client.option.readyAt);
     }
@@ -177,8 +199,8 @@ class Client extends EventEmmiter {
                     /**
                      * @returns {String} text content of message
                      */
-                    toString: () => {
-                        return args[0].params[1].toString();
+                    toString() {
+                        return this.content;
                     },
                     /**
                      * @type {String} The string of context text of message
@@ -195,21 +217,7 @@ class Client extends EventEmmiter {
                             `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
                         );
                     },
-                    channel: {
-                        /**
-                         * @type {String} the channel name without the hashtag
-                         */
-                        name: args[0].params[0].slice(0),
-                        /**
-                         * send a message on the same channel who send it
-                         * @param {String} [message] the message than will be sended on the channel
-                         * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
-                         * @return {Promise<Pending>} The message sended metadata
-                         */
-                        send: (message, ...replacer) => {
-                            return this.sleept.methods.sendMessage(args[0].params[0], message, replacer);
-                        },
-                    },
+                    channel: this.channels.get(args[0].params[0].split('#').join('')),
                     author: {
                         /**
                          * @type {String} the name of the sender of message (channelname without hashtag)
@@ -270,6 +278,39 @@ class Client extends EventEmmiter {
                 this.emit(event, args);
                 break;
         }
+    }
+
+    /**
+     * Sweeps all text-based channels' messages and removes the ones older than the max message lifetime.
+     * If the message has been edited, the time of the edit is used rather than the time of the original message.
+     * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
+     * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
+     * @returns {number} Amount of messages that were removed from the caches,
+     * or -1 if the message cache lifetime is unlimited
+     */
+    sweepMessages(lifetime = this.options.messageCacheLifetime) {
+        if (typeof lifetime !== 'number' || isNaN(lifetime)) logger.fatal('The lifetime must be a number.');
+        if (lifetime <= 0) {
+            logger.debug('Didn\'t sweep messages - lifetime is unlimited');
+            return -1;
+        }
+
+        const lifetimeMs = lifetime * 1000;
+        const now = Date.now();
+        let channels = 0;
+        let messages = 0;
+
+        for (const channel of this.channels.values()) {
+            if (!channel.messages) continue;
+            channels++;
+
+            messages += channel.messages.sweep(
+                message => now - (message.createdTimestamp) > lifetimeMs
+            );
+        }
+
+        logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
+        return messages;
     }
 
     /**

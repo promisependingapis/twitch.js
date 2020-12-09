@@ -4,4 +4,5 @@ module.exports = {
     logger: require('./logger'),
     autoEndLog: require('./AutoEndLog'),
     parser: require('./parser'),
+    collection: require('./collection')
 };

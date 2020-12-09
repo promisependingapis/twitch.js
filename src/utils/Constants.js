@@ -31,6 +31,7 @@ exports.Package = require('../../package.json');
  * @property {HTTPOptions} [http] HTTP options
  * @property {boolean} [autoLogEnd=true] autoLogEnd option
  * @property {string[]} [channels] Channels bot will listen
+ * @property {string[]} [connectedChannels] Channels bot is connected
  * @property {boolean} [debug=false] Starts the bot in debug mode if activated
  */
 exports.defaultOptions = {
@@ -46,6 +47,7 @@ exports.defaultOptions = {
     sleeptTimeOffset: 500,
     autoLogEnd: true,
     channels: [],
+    connectedChannels: [],
     debug: false,
 
     /**

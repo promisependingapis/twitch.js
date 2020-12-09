@@ -187,6 +187,10 @@ class SLEEPTMethods {
       if (!channel.startsWith('#')) {
         channel = '#' + channel;
       }
+      if (global.twitchApis.client.option.connectedChannels.includes(channel)) {
+        logger.warn('Already connected with this channel!');
+        return reject('Already connected with this channel!');
+      }
       this.ws.send(`JOIN ${channel.toLowerCase()}`);
       logger.debug('Connecting to: ' + channel.toLowerCase());
       this.client.on('Method.Joined.' + channel.toLowerCase(), listener);
@@ -198,6 +202,10 @@ class SLEEPTMethods {
       ]);
       function listener() {
         logger.debug('Connected to: ' + channel.toLowerCase());
+        if (!global.twitchApis.client.option.channels.includes(channel)) {
+          global.twitchApis.client.option.channels.push(channel.toLowerCase());
+        }
+        global.twitchApis.client.option.connectedChannels.push(channel.toLowerCase());
         global.twitchApis.client.methods.joinQueueTimeout.forEach((element) => {
           if (element[1] === channel.toLowerCase()) {
             clearTimeout(element[0]);
