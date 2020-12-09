@@ -5,26 +5,26 @@
 
 class RequestHandler {
     /**
-   * @param {SLEEPTMananger} sleeptMananger The SleepT to use
-   */
-    constructor(sleeptMananger) {
-    /**
-     * The RESTManager that instantiated this RequestHandler
-     * @type {SLEEPTManager}
+     * @param {SLEEPTMananger} sleeptMananger The SleepT to use
      */
+    constructor(sleeptMananger) {
+        /**
+         * The RESTManager that instantiated this RequestHandler
+         * @type {SLEEPTManager}
+         */
         this.restManager = sleeptMananger;
 
         /**
-     * A list of requests that have yet to be processed
-     * @type {APIRequest[]}
-     */
+         * A list of requests that have yet to be processed
+         * @type {APIRequest[]}
+         */
         this.queue = [];
     }
     /**
-   * Whether or not the client is being rate limited on every endpoint
-   * @type {boolean}
-   * @readonly
-   */
+     * Whether or not the client is being rate limited on every endpoint
+     * @type {boolean}
+     * @readonly
+     */
     get globalLimit() {
         return this.sleeptMananger.globallyRateLimited;
     }
@@ -34,16 +34,16 @@ class RequestHandler {
     }
 
     /**
-   * Push a new API request into this bucket.
-   * @param {APIRequest} request The new request to push into the queue
-   */
+     * Push a new API request into this bucket.
+     * @param {APIRequest} request The new request to push into the queue
+     */
     push(request) {
         this.queue.push(request);
     }
 
     /**
-   * Attempts to get this RequestHandler to process its current queue.
-   */
+     * Attempts to get this RequestHandler to process its current queue.
+     */
     handle() {} // eslint-disable-line no-empty-function
 
     destroy() {
