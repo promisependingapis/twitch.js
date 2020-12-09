@@ -49,12 +49,12 @@ exports.defaultOptions = {
     debug: false,
 
     /**
-   * WebSocket options (these are left as snake_case to match the API)
-   * @typedef {Object} WebsocketOptions
-   * @property {number} [large_threshold=250] Number of members in a guild to be considered large
-   * @property {boolean} [compress=true] Whether to compress data sent on the connection
-   * (defaults to `false` for browsers)
-   */
+     * WebSocket options (these are left as snake_case to match the API)
+     * @typedef {Object} WebsocketOptions
+     * @property {number} [large_threshold=250] Number of members in a guild to be considered large
+     * @property {boolean} [compress=true] Whether to compress data sent on the connection
+     * (defaults to `false` for browsers)
+     */
     ws: {
         large_threshold: 250,
         compress: require('os').platform() !== 'browser',
@@ -69,11 +69,11 @@ exports.defaultOptions = {
     },
 
     /**
-   * HTTP options
-   * @typedef {Object} HTTPOptions
-   * @property {number} [version=7] API version to use
-   * @property {string} [api='irc-ws.chat.twitch.tv'] Base url of the API
-   */
+     * HTTP options
+     * @typedef {Object} HTTPOptions
+     * @property {number} [version=7] API version to use
+     * @property {string} [api='irc-ws.chat.twitch.tv'] Base url of the API
+     */
     http: {
         version: 7,
         host: 'irc-ws.chat.twitch.tv',
