@@ -49,7 +49,7 @@ Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module that 
 - Predictable abstractions
 - Performant
 
-## installing
+## Installing
 
 **Node.js 12.0.0 or newer is required.**
 
@@ -65,7 +65,7 @@ npm i @twitchapis/twitch.js
 yarn add @twitchapis/twitch.js
 ```
 
-## example-usage
+## Example Usage
 
 ```javascript
 const Twitch = require('@twitchapis/twitch.js');
@@ -91,16 +91,16 @@ Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
 });
 ```
 
-### expected-result
+### Expected Result
 
 <img src='https://media.discordapp.net/attachments/780245027212492812/785949988056203284/unknown.png'></img>
 
-## contributors
+## Contributors
 
 | [<img src="https://avatars0.githubusercontent.com/u/10421864?s=120&v=4" witdh=115><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: |
 
-## authors
+## Authors
 
 | [<img src="https://avatars3.githubusercontent.com/u/43734867?s=460&u=4c7c28e1c72445f234f37ca2cf8b000133fdfd24&v=4" width=115><br><sub>Lobo Metalurgico</sub>](https://github.com/LoboMetalurgico) | [<img src="https://avatars1.githubusercontent.com/u/44732812?s=460&u=37014703e35379861b0abbd585d035304e1e061d&v=4" width=115><br><sub>Space_Interprise</sub>](https://github.com/emanuelfranklyn) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
