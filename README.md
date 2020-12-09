@@ -97,8 +97,8 @@ Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
 
 ## contributors
 
-<p>Theres no one here ;-;</p>
-<p>Be the first one!</p>
+| [<img src="https://avatars0.githubusercontent.com/u/10421864?s=120&v=4" witdh=115><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## authors
 
