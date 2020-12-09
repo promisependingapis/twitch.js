@@ -76,6 +76,10 @@ const Client = new Twitch.Client({
   debug: true,
 });
 
+Client.on('ready', () => {
+    Twitch.logger.info('YAY, i am connected with twitch!');
+});
+
 Client.on('message', (msg) => {
   if (msg.toString().toLowerCase().includes('hello')) {
     msg.reply('World');
@@ -86,14 +90,12 @@ Client.on('message', (msg) => {
   }
 });
 
-Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
-  Twitch.logger.info('YAY, i am connected with twitch!');
-});
+Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫');
 ```
 
 ### Expected Result
 
-<img src='https://media.discordapp.net/attachments/780245027212492812/785949988056203284/unknown.png'></img>
+<img src='https://media.discordapp.net/attachments/780245027212492812/786240044482035722/unknown.png'></img>
 
 ## Contributors
 

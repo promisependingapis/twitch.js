@@ -110,6 +110,8 @@ class SLEEPTMethods {
           break;
         case '372':
           logger.debug('Connected to the server');
+          this.readyAt = Date.now();
+          global.twitchApis.client.option.readyAt = this.readyAt;
           this.onConnected();
           this.pingLoop = setInterval(() => {
             if (this.isConnected()) {

@@ -5,6 +5,7 @@ const {autoEndLog, constants, logger, Util} = require('../utils');
 /**
  * @TODO FanMode (Anonymous mode).
  * @TODO Organize annotations.
+ * @TODO Remove global variables.
  */
 
 /**
@@ -96,6 +97,10 @@ class Client extends EventEmmiter {
          * @type {Array}
          */
         this.Channels = options.Channels;
+    }
+
+    uptime() {
+        return Promise.resolve(Date.now() - global.twitchApis.client.option.readyAt);
     }
 
     /**
