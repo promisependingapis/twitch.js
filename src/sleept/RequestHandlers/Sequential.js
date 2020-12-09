@@ -15,35 +15,35 @@ const {
  */
 class SequentialRequestHandler extends RequestHandler {
     /**
-   * @param {SLEEPTManager} sleeptManager The SLEEPT manager to use
-   * @param {string} endpoint The endpoint to handle
-   */
+     * @param {SLEEPTManager} sleeptManager The SLEEPT manager to use
+     * @param {string} endpoint The endpoint to handle
+     */
     constructor(sleeptManager, endpoint) {
         super(sleeptManager, endpoint);
 
         /**
-     * The client that instantiated this handler
-     * @type {Client}
-     */
+         * The client that instantiated this handler
+         * @type {Client}
+         */
         this.client = sleeptManager.client;
 
         /**
-     * The endpoint that this handler is handling
-     * @type {string}
-     */
+         * The endpoint that this handler is handling
+         * @type {string}
+         */
         this.endpoint = endpoint;
 
         /**
-     * The time difference between Discord's Dates and the local computer's Dates. A positive number means the local
-     * computer's time is ahead of Discord's
-     * @type {number}
-     */
+         * The time difference between Discord's Dates and the local computer's Dates. A positive number means the local
+         * computer's time is ahead of Discord's
+         * @type {number}
+         */
         this.timeDifference = 0;
 
         /**
-     * Whether the queue is being processed or not
-     * @type {boolean}
-     */
+         * Whether the queue is being processed or not
+         * @type {boolean}
+         */
         this.busy = false;
     }
 
@@ -53,10 +53,10 @@ class SequentialRequestHandler extends RequestHandler {
     }
 
     /**
-   * Performs a request then resolves a promise to indicate its readiness for a new request.
-   * @param {APIRequest} item The item to execute
-   * @returns {Promise<?Object|Error>}
-   */
+     * Performs a request then resolves a promise to indicate its readiness for a new request.
+     * @param {APIRequest} item The item to execute
+     * @returns {Promise<?Object|Error>}
+     */
     execute(item) {
         this.busy = true;
         return new Promise((resolve) => {
@@ -99,14 +99,14 @@ class SequentialRequestHandler extends RequestHandler {
                     if (this.requestRemaining === 0) {
                         if (this.client.listenerCount(RATE_LIMIT)) {
                             /**
-               * Emitted when the client hits a rate limit while making a request
-               * @event Client#rateLimit
-               * @param {Object} rateLimitInfo Object containing the rate limit info
-               * @param {number} rateLimitInfo.limit Number of requests that can be made to this endpoint
-               * @param {number} rateLimitInfo.timeDifference Delta-T in ms between your system and Discord servers
-               * @param {string} rateLimitInfo.path Path used for request that triggered this event
-               * @param {string} rateLimitInfo.method HTTP method used for request that triggered this event
-               */
+                             * Emitted when the client hits a rate limit while making a request
+                             * @event Client#rateLimit
+                             * @param {Object} rateLimitInfo Object containing the rate limit info
+                             * @param {number} rateLimitInfo.limit Number of requests that can be made to this endpoint
+                             * @param {number} rateLimitInfo.timeDifference Delta-T in ms between your system and Discord servers
+                             * @param {string} rateLimitInfo.path Path used for request that triggered this event
+                             * @param {string} rateLimitInfo.method HTTP method used for request that triggered this event
+                             */
                             this.client.emit(RATE_LIMIT, {
                                 limit: this.requestLimit,
                                 timeDifference: this.timeDifference,
