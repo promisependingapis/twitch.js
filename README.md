@@ -1,4 +1,5 @@
 [<img src="https://cdn.discordapp.com/attachments/780245027212492812/780245250382757930/TwitchJS.png">]()
+
 <p>
   <a href="https://discord.gg/26KFSUbVFe"><img src="https://img.shields.io/discord/773920681246851083?color=7289da&logo=discord&logoColor=FFFFFF"/></a>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/v/@twitchapis/twitch.js.svg?maxAge=3600"/></a>
@@ -26,12 +27,12 @@
 
 ## TODO
 
-- [X] Beauty logger. (**DON'T TOUCH HIM**)
-- [X] Stabilize a websocket connection with Twitchᵀⱽ.
-- [X] Create easy functions to interact with Twitchᵀⱽ.
-- [X] Create onReady event.
-- [X] Create onLeave event.
-- [X] Create onJoin event.
+- [x] Beauty logger. (**DON'T TOUCH HIM**)
+- [x] Stabilize a websocket connection with Twitchᵀⱽ.
+- [x] Create easy functions to interact with Twitchᵀⱽ.
+- [x] Create onReady event.
+- [x] Create onLeave event.
+- [x] Create onJoin event.
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] Create event dispatchers to the actions.
@@ -50,42 +51,46 @@ Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module that 
 
 ## installing
 
-**Node.js 12.0.0 or newer is required.**  
+**Node.js 12.0.0 or newer is required.**
 
-#### npm: 
+#### npm:
+
 ```bat
 npm i @twitchapis/twitch.js
-```  
-#### yarn: 
+```
+
+#### yarn:
+
 ```bat
 yarn add @twitchapis/twitch.js
-```  
+```
 
 ## example-usage
 
 ```javascript
-  const Twitch = require('@twitchapis/twitch.js');
+const Twitch = require('@twitchapis/twitch.js');
 
-  const Client = new Twitch.Client({
-      autoLogEnd: true,
-      channels: ['space_interprise', 'lobometalurgico'],
-      debug: true
-  });
+const Client = new Twitch.Client({
+  autoLogEnd: true,
+  channels: ['space_interprise', 'lobometalurgico'],
+  debug: true,
+});
 
-  Client.on('message', msg => {
-      if (msg.toString().toLowerCase().includes('hello')) {
-          msg.reply('World');
-      }
-      if (msg.toString().toLowerCase() === 'leave space_interprise channel') {
-        msg.channel.send('Ok, goodbye ;-;')
-        Client.leave('space_interprise');
-      }
-  });
+Client.on('message', (msg) => {
+  if (msg.toString().toLowerCase().includes('hello')) {
+    msg.reply('World');
+  }
+  if (msg.toString().toLowerCase() === 'leave space_interprise channel') {
+    msg.channel.send('Ok, goodbye ;-;');
+    Client.leave('space_interprise');
+  }
+});
 
-  Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
-      Twitch.logger.info('YAY, i am connected with twitch!');
-  });
+Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫').then(() => {
+  Twitch.logger.info('YAY, i am connected with twitch!');
+});
 ```
+
 ### expected-result
 
 <img src='https://media.discordapp.net/attachments/780245027212492812/785949988056203284/unknown.png'></img>
@@ -96,5 +101,6 @@ yarn add @twitchapis/twitch.js
 <p>Be the first one!</p>
 
 ## authors
+
 | [<img src="https://avatars3.githubusercontent.com/u/43734867?s=460&u=4c7c28e1c72445f234f37ca2cf8b000133fdfd24&v=4" width=115><br><sub>Lobo Metalurgico</sub>](https://github.com/LoboMetalurgico) | [<img src="https://avatars1.githubusercontent.com/u/44732812?s=460&u=37014703e35379861b0abbd585d035304e1e061d&v=4" width=115><br><sub>Space_Interprise</sub>](https://github.com/emanuelfranklyn) |
-| :---: | :---: |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |

@@ -7,7 +7,8 @@ function exitHandler(options, exitCode) {
         if (exitCode === 'SIGINT') {
             logger.warn('Manualy finished');
         } else {
-            if ((exitCode || exitCode === 0) && !options.uncaughtException) logger.info('Program finished, code: ' + exitCode);
+            if ((exitCode || exitCode === 0) && !options.uncaughtException)
+                logger.info('Program finished, code: ' + exitCode);
             if ((exitCode || exitCode === 0) && options.uncaughtException) logger.fatal(exitCode);
         }
         Exited = true;
@@ -17,10 +18,10 @@ function exitHandler(options, exitCode) {
 
 module.exports = {
     activate: () => {
-        process.on('exit', exitHandler.bind(null,{}));
+        process.on('exit', exitHandler.bind(null, {}));
         process.on('SIGINT', exitHandler.bind(null, {}));
         process.on('SIGUSR1', exitHandler.bind(null, {}));
         process.on('SIGUSR2', exitHandler.bind(null, {}));
-        process.on('uncaughtException', exitHandler.bind(null, {uncaughtException:true}));
-    }
+        process.on('uncaughtException', exitHandler.bind(null, {uncaughtException: true}));
+    },
 };

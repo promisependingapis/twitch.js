@@ -11,7 +11,7 @@ module.exports = {
             tags: {},
             prefix: null,
             command: null,
-            params: []
+            params: [],
         };
 
         // Position and nextspace are used by the parser as a reference..
@@ -125,5 +125,5 @@ module.exports = {
         }
 
         return message;
-    }
+    },
 };

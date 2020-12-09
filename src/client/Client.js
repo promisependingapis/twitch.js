@@ -1,6 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { autoEndLog, constants, logger, Util } = require('../utils');
+const {autoEndLog, constants, logger, Util} = require('../utils');
 
 /**
  * @TODO FanMode (Anonymous mode).
@@ -17,7 +17,7 @@ class Client extends EventEmmiter {
      */
     constructor(options = {}) {
         super();
-        /**   
+        /**
          * The options the client was instantiated with
          * @type {ClientOptions}
          */
@@ -25,16 +25,16 @@ class Client extends EventEmmiter {
         this._validateOptions();
 
         /**
-         * Defines the options as a organized global variable to use in 
+         * Defines the options as a organized global variable to use in
          */
         global.twitchApis = {
             client: {
-                option: this.options
-            }
+                option: this.options,
+            },
         };
         global.twitchApis.client.methods = {
             joinQueueTimeout: [],
-            leaveQueueTimeout: []
+            leaveQueueTimeout: [],
         };
 
         /**
@@ -52,8 +52,8 @@ class Client extends EventEmmiter {
          * @private
          */
         this.sleept = new SLEEPTManager(this);
-        
-        Object.defineProperty(this, 'token', { writable: true });
+
+        Object.defineProperty(this, 'token', {writable: true});
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -83,7 +83,7 @@ class Client extends EventEmmiter {
          * @type {Boolean}
          */
         this.autoLogEnd = options.autoLogEnd;
-        
+
         /**
          * Activates the autoEndLog depending of user config, Default 'active'
          */
@@ -185,7 +185,10 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0,args[0].prefix.indexOf('!'))} ${message}`);
+                        return this.sleept.methods.sendMessage(
+                            args[0].params[0],
+                            `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
+                        );
                     },
                     channel: {
                         /**
@@ -200,13 +203,13 @@ class Client extends EventEmmiter {
                          */
                         send: (message, ...replacer) => {
                             return this.sleept.methods.sendMessage(args[0].params[0], message, replacer);
-                        }
+                        },
                     },
                     author: {
                         /**
                          * @type {String} the name of the sender of message (channelname without hashtag)
                          */
-                        username: args[0].prefix.slice(0,args[0].prefix.indexOf('!')),
+                        username: args[0].prefix.slice(0, args[0].prefix.indexOf('!')),
                         /**
                          * @type {String} the display name of the sender of message (can includes spaces symbols and captal letters)
                          */
@@ -214,7 +217,7 @@ class Client extends EventEmmiter {
                         /**
                          * @type {Boolean} if the sender of message is the bot itself
                          */
-                        self: args[0].prefix.slice(0,args[0].prefix.indexOf('!')) === this.options.userName,
+                        self: args[0].prefix.slice(0, args[0].prefix.indexOf('!')) === this.options.userName,
                         /**
                          * @type {String} id of author (on twitch? maybe)
                          */
@@ -251,7 +254,7 @@ class Client extends EventEmmiter {
                          * @type {Boolean} if the user who send the message is the broadcaster
                          */
                         broadcaster: typeof args[0].tags.badges === 'string' ? args[0].tags.badges.includes('broadcaster') : false,
-                    }
+                    },
                 };
                 this.emit(event, responseMessage);
                 break;
@@ -269,7 +272,8 @@ class Client extends EventEmmiter {
      * @param {ClientOptions} [options=this.options] Options to validate
      * @private
      */
-    _validateOptions(options = this.options) { // eslint-disable-line complexity
+    _validateOptions(options = this.options) {
+    // eslint-disable-line complexity
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             throw new TypeError('The messageMaxSize option must be a number.');
         }

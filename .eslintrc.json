@@ -11,15 +11,9 @@
     "sourceType": "module"
   },
   "rules": {
-    "array-bracket-spacing": [
-      "warn",
-      "never"
-    ],
+    "array-bracket-spacing": ["warn", "never"],
     "computed-property-spacing": "warn",
-    "indent": [
-      "warn", 4, 
-      { "SwitchCase": 1 }
-    ],
+    "indent": ["warn", 4, {"SwitchCase": 1}],
     "strict": ["error", "global"],
     "no-await-in-loop": "warn",
     "no-compare-neg-zero": "error",
@@ -40,10 +34,7 @@
         "ignoreUrls": true
       }
     ],
-    "no-cond-assign": [
-      2,
-      "except-parens"
-    ],
+    "no-cond-assign": [2, "except-parens"],
     "no-use-before-define": [
       2,
       {
@@ -70,14 +61,8 @@
         "destructuring": "all"
       }
     ],
-    "quotes": [
-      "warn",
-      "single"
-    ],
-    "semi": [
-      "warn",
-      "always"
-    ],
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"],
     "spaced-comment": "warn",
     "space-infix-ops": "warn"
   }

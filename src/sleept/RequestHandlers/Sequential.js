@@ -1,6 +1,10 @@
 const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
-const { constants: { events: { RATE_LIMIT } } } = require('../../utils');
+const {
+    constants: {
+        events: {RATE_LIMIT},
+    },
+} = require('../../utils');
 
 /**
  * Handles API Requests sequentially, i.e. we wait until the current request is finished before moving onto
@@ -37,9 +41,9 @@ class SequentialRequestHandler extends RequestHandler {
         this.timeDifference = 0;
 
         /**
-     * Whether the queue is being processed or not
-     * @type {boolean}
-     */
+         * Whether the queue is being processed or not
+         * @type {boolean}
+         */
         this.busy = false;
     }
 
@@ -49,13 +53,13 @@ class SequentialRequestHandler extends RequestHandler {
     }
 
     /**
-   * Performs a request then resolves a promise to indicate its readiness for a new request.
-   * @param {APIRequest} item The item to execute
-   * @returns {Promise<?Object|Error>}
-   */
+     * Performs a request then resolves a promise to indicate its readiness for a new request.
+     * @param {APIRequest} item The item to execute
+     * @returns {Promise<?Object|Error>}
+     */
     execute(item) {
         this.busy = true;
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             item.request.gen().end((err, res) => {
                 if (res && res.headers) {
                     this.requestLimit = Number(res.headers['x-ratelimit-limit']);
@@ -81,8 +85,11 @@ class SequentialRequestHandler extends RequestHandler {
                             this.client.setTimeout(resolve, 1e3 + this.client.options.restTimeOffset);
                         }
                     } else {
-                        item.reject(err.status >= 400 && err.status < 500 ?
-                            new TwitchAPIError(res.request.path, res.body, res.request.method) : err);
+                        item.reject(
+                            err.status >= 400 && err.status < 500
+                                ? new TwitchAPIError(res.request.path, res.body, res.request.method)
+                                : err
+                        );
                         resolve(err);
                     }
                 } else {
@@ -92,14 +99,14 @@ class SequentialRequestHandler extends RequestHandler {
                     if (this.requestRemaining === 0) {
                         if (this.client.listenerCount(RATE_LIMIT)) {
                             /**
-               * Emitted when the client hits a rate limit while making a request
-               * @event Client#rateLimit
-               * @param {Object} rateLimitInfo Object containing the rate limit info
-               * @param {number} rateLimitInfo.limit Number of requests that can be made to this endpoint
-               * @param {number} rateLimitInfo.timeDifference Delta-T in ms between your system and Discord servers
-               * @param {string} rateLimitInfo.path Path used for request that triggered this event
-               * @param {string} rateLimitInfo.method HTTP method used for request that triggered this event
-               */
+                             * Emitted when the client hits a rate limit while making a request
+                             * @event Client#rateLimit
+                             * @param {Object} rateLimitInfo Object containing the rate limit info
+                             * @param {number} rateLimitInfo.limit Number of requests that can be made to this endpoint
+                             * @param {number} rateLimitInfo.timeDifference Delta-T in ms between your system and Discord servers
+                             * @param {string} rateLimitInfo.path Path used for request that triggered this event
+                             * @param {string} rateLimitInfo.method HTTP method used for request that triggered this event
+                             */
                             this.client.emit(RATE_LIMIT, {
                                 limit: this.requestLimit,
                                 timeDifference: this.timeDifference,

@@ -1,10 +1,10 @@
 name: ESLint
-on: [push,pull_request]
+on: [push, pull_request]
 
 jobs:
   update:
     name: ESLint
-    
+
     runs-on: ubuntu-latest
 
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
@@ -26,6 +26,6 @@ jobs:
         uses: EndBug/add-and-commit@v4
         with:
           add: src
-          message: "chore(lint): Auto-fix linting errors"
+          message: 'chore(lint): Auto-fix linting errors'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
