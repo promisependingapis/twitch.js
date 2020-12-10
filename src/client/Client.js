@@ -99,7 +99,16 @@ class Client extends EventEmmiter {
          */
         this.channels = new collection();
         options.channels.forEach((channelName) => {
+            if (channelName.slice(0,1) !== '#') {
+                channelName = '#' + channelName;
+            }
             this.channels.set(channelName, new channel(this, {channel: channelName}));
+            this.channels.get = (channelName) => {
+                if (channelName.slice(0,1) !== '#') {
+                    channelName = '#' + channelName;
+                }
+                return this.channels.find(channel => channel.name === channelName);
+            };
         });
 
         /**
@@ -217,7 +226,7 @@ class Client extends EventEmmiter {
                             `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
                         );
                     },
-                    channel: this.channels.get(args[0].params[0].split('#').join('')),
+                    channel: this.channels.get(args[0].params[0]),
                     author: {
                         /**
                          * @type {String} the name of the sender of message (channelname without hashtag)
