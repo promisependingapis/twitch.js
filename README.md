@@ -33,6 +33,8 @@
 - [x] Create onReady event.
 - [x] Create onLeave event.
 - [x] Create onJoin event.
+- [x] Transform channels and users into collections.
+- [x] Make a auto updated list of users of channels (Note: Not 100% acurate because twitch doesn't send the list of event of people who already has on the channel or the events of userLeave and UserJoin at the same time, it takes a time to happen).
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] Create event dispatchers to the actions.
@@ -42,7 +44,7 @@
 
 ## About
 
-Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module that allows you to easily interact with the
+Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module based on [Discord.js](https://github.com/discordjs/discord.js) that allows you to easily interact with the
 [Twitchᵀⱽ](https://twitch.tv) making easy the way to make a Twitchᵀⱽ bot, for a custom chat overlay for you [OBS](https://obsproject.com/), or a moderation bot for you chat, or you just want a easy interface to Twitchᵀⱽ.
 
 - Object-oriented
@@ -76,8 +78,8 @@ const Client = new Twitch.Client({
   debug: true,
 });
 
-Client.on('ready', () => {
-    Twitch.logger.info('YAY, i am connected with twitch!');
+Client.on('ready', (botname) => {
+    Twitch.logger.info('YAY, ' + botname + ' is connected with twitch!');
 });
 
 Client.on('message', (msg) => {
@@ -90,12 +92,12 @@ Client.on('message', (msg) => {
   }
 });
 
-Client.login('MyFabolousBotUserName', 'MyFabolousBotToken🤫');
+Client.login('MyFabolousBotToken🤫');
 ```
 
 ### Expected Result
 
-<img src='https://media.discordapp.net/attachments/780245027212492812/786240044482035722/unknown.png'></img>
+<img src='https://media.discordapp.net/attachments/780245027212492812/786706825298182164/unknown.png'></img>
 
 ## Contributors
 

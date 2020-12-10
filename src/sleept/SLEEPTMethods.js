@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 const WebSocket = require('ws');
 const {constants, logger, parser} = require('../utils');
+const users = require('../structures/users');
 // const Endpoints = constants.Endpoints;
 
 /**
@@ -20,19 +21,16 @@ class SLEEPTMethods {
     return this.ws !== null && this.ws.readyState === 1;
   }
 
-  login(userName, token) {
+  login(token) {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
       if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
         reject(constants.errors.INVALID_TOKEN);
         logger.fatal(constants.errors.INVALID_TOKEN);
       }
-      if (!userName || typeof userName !== 'string' || userName.includes(' ')) {
-        reject(constants.errors.INVALID_USERNAME);
-        logger.fatal(constants.errors.INVALID_USERNAME);
-      }
       this.client.token = token;
-      this.userName = userName;
+      this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
+      this.id = '';
       this.server = global.twitchApis.client.option.http.host;
       this.ws = new WebSocket(`wss://${this.server}:443`);
       this.ws.onmessage = this.onMessage.bind(this);
@@ -130,6 +128,24 @@ class SLEEPTMethods {
             }, 9999);
           }, 60000);
           break;
+          case 'ROOMSTATE':
+            var channel = global.twitchApis.client.channels.get(messageObject.params[0]);
+            channel.emoteOnly = messageObject.tags['emote-only'] ? (Number(messageObject.tags['emote-only']) === 1) : channel.emoteOnly;
+            channel.followersOnly = messageObject.tags['followers-only'] ? (Number(messageObject.tags['followers-only']) >= 0) : channel.followersOnly;
+            channel.followersOnlyCooldown = messageObject.tags['followers-only'] ? (Number(messageObject.tags['followers-only'])) : channel.followersOnlyCooldown;
+            channel.r9k = messageObject.tags.r9k ? (Number(messageObject.tags.r9k) === 1) : channel.r9k;
+            channel.rituals = messageObject.tags.rituals ? (Number(messageObject.tags.rituals) === 1) : channel.rituals;
+            channel.id = messageObject.tags['room-id'] ? (messageObject.tags['room-id']) : channel.id;
+            channel.slowMode = messageObject.tags.slow ? (Number(messageObject.tags.slow) >= 1) : channel.slowMode;
+            channel.slowCooldown = messageObject.tags.slow ? (Number(messageObject.tags.slow)) : channel.slowCooldown;
+            channel.subsOnly = messageObject.tags['subs-only'] ? (Number(messageObject.tags['subs-only']) === 1) : channel.subsOnly;
+          break;
+          case 'USERSTATE':
+            this.updateUser(messageObject);
+          break;
+          case 'GLOBALUSERSTATE':
+            this.id = messageObject.tags['user-id'];
+          break;
         default:
           break;
       }
@@ -137,18 +153,32 @@ class SLEEPTMethods {
       switch (messageObject.command) {
         case '353':
           this.client.eventEmmiter('Method.Joined.' + messageObject.params[2]);
-          this.client.eventEmmiter('join', messageObject.params[2]);
+          this.client.eventEmmiter('join', global.twitchApis.client.channels.get(messageObject.params[2]));
           break;
         default:
           break;
       }
     } else {
       switch (messageObject.command) {
+        case 'JOIN':
+          if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
+            global.twitchApis.client.channels.get(messageObject.params[0]).users.set(
+              messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')),
+            new users(this.client, {
+              userName: messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')), 
+              self: messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) === this.userName})
+            );
+          }
+          break;
         case 'PART':
+          if (global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
+            global.twitchApis.client.channels.get(messageObject.params[0]).users.delete(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')));
+          }
           this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
           this.client.eventEmmiter('leave', messageObject.params[0]);
           break;
         case 'PRIVMSG':
+          this.updateUser(messageObject);
           this.client.eventEmmiter('message', messageObject);
           logger.debug(
             messageObject.params[0] +
@@ -171,7 +201,7 @@ class SLEEPTMethods {
         this.join(element, index);
       }, index * 100);
     });
-    this.client.eventEmmiter('ready', this.server, '443');
+    this.client.eventEmmiter('ready', this.userName, this.server, '443');
   }
 
   join(channel, index) {
@@ -187,7 +217,7 @@ class SLEEPTMethods {
       if (!channel.startsWith('#')) {
         channel = '#' + channel;
       }
-      if (global.twitchApis.client.option.connectedChannels.includes(channel)) {
+      if (global.twitchApis.client.channels.get(channel).connected === true) {
         logger.warn('Already connected with this channel!');
         return reject('Already connected with this channel!');
       }
@@ -202,10 +232,10 @@ class SLEEPTMethods {
       ]);
       function listener() {
         logger.debug('Connected to: ' + channel.toLowerCase());
-        if (!global.twitchApis.client.option.channels.includes(channel)) {
-          global.twitchApis.client.option.channels.push(channel.toLowerCase());
+        if (!global.twitchApis.client.channels.get(channel)) {
+          global.twitchApis.client.channels.set(channel, new channel(this, {channel: channel}));
         }
-        global.twitchApis.client.option.connectedChannels.push(channel.toLowerCase());
+        global.twitchApis.client.channels.get(channel).connected = true;
         global.twitchApis.client.methods.joinQueueTimeout.forEach((element) => {
           if (element[1] === channel.toLowerCase()) {
             clearTimeout(element[0]);
@@ -294,6 +324,23 @@ class SLEEPTMethods {
     });
   }
 
+  updateUser(data) {
+    if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
+    var user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
+    if (!user) return;
+    user.haveBadges = data.tags['badge-info'] ? !!data.tags['badge-info'] : user.haveBadges;
+    user.badges = data.tags.badges ? data.tags.badges : user.badges;
+    user.color = data.tags.color ? data.tags.color : user.color;
+    user.displayName = data.tags['display-name'] ? data.tags['display-name'] : user.displayName;
+    user.hasFlags = data.tags.flags ? data.tags.flags : user.hasFlags;
+    user.isMod = data.tags.mod ? Number(data.tags.mod) >= 1 : user.isMod;
+    user.isSubscriber = data.tags.subscriber ? (Number(data.tags.subscriber) >= 1) : user.isSubscriber;
+    user.isTurbo = data.tags.turbo ? (data.tags.turbo >= 1) : user.isTurbo;
+    user.userType = data.tags['user-type'] ? data.tags['user-type'] : user.userType;
+    user.self = user.name === this.userName;
+    user.broadcaster = user.badges.includes('broadcaster');
+    user.id = user.self ? this.id : (data.tags['user-id'] ? data.tags['user-id'] : user.id);
+  }
   /*
     logout() {
         return this.rest.makeRequest('post', Endpoints.logout, true, {});

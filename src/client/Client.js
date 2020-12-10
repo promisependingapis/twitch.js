@@ -111,6 +111,8 @@ class Client extends EventEmmiter {
             };
         });
 
+        global.twitchApis.client.channels = this.channels;
+
         /**
          * Intervals set by {@link Client#setInterval} that are still active
          * @type {Set<Timeout>}
@@ -136,15 +138,14 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [userName] Username of the account to log in with
      * @param {String} [token] Token of the account to log in with
      * @returns {Promise<Pending>}
      * @example
-     * Client.login('userName', 'token')
+     * Client.login('token')
      *  .then()
      */
-    login(userName, token) {
-        return this.sleept.methods.login(userName, token);
+    login(token) {
+        return this.sleept.methods.login(token);
     }
 
     /**
@@ -182,19 +183,6 @@ class Client extends EventEmmiter {
     }
 
     /**
-     * Send message into any connected channel
-     * @param {String} [channelName] The name of the channel the bot will send the message
-     * @param {String} [message] The message that will be sended
-     * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
-     * @returns {Promise<Pending>}
-     * @example
-     * client.sendMessage('#channel', 'message', ['replacer', 'replacer2'])
-     */
-    sendMessage(channelName, message, ...replacer) {
-        return this.sleept.methods.sendMessage(channelName, message, ...replacer);
-    }
-
-    /**
      * Emit a event from client level
      * @param {String} event the name of the event than will be sended
      * @param {Any} args the args of the event
@@ -227,56 +215,7 @@ class Client extends EventEmmiter {
                         );
                     },
                     channel: this.channels.get(args[0].params[0]),
-                    author: {
-                        /**
-                         * @type {String} the name of the sender of message (channelname without hashtag)
-                         */
-                        username: args[0].prefix.slice(0, args[0].prefix.indexOf('!')),
-                        /**
-                         * @type {String} the display name of the sender of message (can includes spaces symbols and captal letters)
-                         */
-                        displayName: args[0].tags['display-name'],
-                        /**
-                         * @type {Boolean} if the sender of message is the bot itself
-                         */
-                        self: args[0].prefix.slice(0, args[0].prefix.indexOf('!')) === this.options.userName,
-                        /**
-                         * @type {String} id of author (on twitch? maybe)
-                         */
-                        id: args[0].tags.id,
-                        /**
-                         * @type {Boolean} if the user who send the message have mod on that channel
-                         */
-                        mod: args[0].tags.mod === '1',
-                        /**
-                         * @type {Boolean} if the user who send the message is subscribed on the channel
-                         */
-                        subscriber: args[0].tags.subscriber >= '1',
-                        /**
-                         * @type {Boolean} if the user who send the message have Twitch turbo
-                         */
-                        turbo: args[0].tags.turbo >= '1',
-                        /**
-                         * @type {String} the id of user (on the chat? maybe)
-                         */
-                        userId: args[0].tags['user-id'],
-                        /**
-                         * @type {String} the user color on the chat (on hex)
-                         */
-                        color: args[0].tags.color,
-                        /**
-                         * @type {Boolean} if the user have any badge on this channel
-                         */
-                        containsBadge: args[0].tags['badge-info'],
-                        /**
-                         * @type {String} all badges the user have in this channel (not parsed, maybe in future)
-                         */
-                        badges: args[0].tags.badges,
-                        /**
-                         * @type {Boolean} if the user who send the message is the broadcaster
-                         */
-                        broadcaster: typeof args[0].tags.badges === 'string' ? args[0].tags.badges.includes('broadcaster') : false,
-                    },
+                    author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
                 };
                 this.emit(event, responseMessage);
                 break;
