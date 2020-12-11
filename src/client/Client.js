@@ -216,6 +216,7 @@ class Client extends EventEmmiter {
                     },
                     channel: this.channels.get(args[0].params[0]),
                     author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
+                    authorName: args[0].prefix.slice(0, args[0].prefix.indexOf('!')),
                 };
                 this.emit(event, responseMessage);
                 break;

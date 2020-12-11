@@ -338,7 +338,7 @@ class SLEEPTMethods {
     user.isTurbo = data.tags.turbo ? (data.tags.turbo >= 1) : user.isTurbo;
     user.userType = data.tags['user-type'] ? data.tags['user-type'] : user.userType;
     user.self = user.name === this.userName;
-    user.broadcaster = user.badges.includes('broadcaster');
+    user.broadcaster = user.badges.toString().includes('broadcaster');
     user.id = user.self ? this.id : (data.tags['user-id'] ? data.tags['user-id'] : user.id);
   }
   /*
