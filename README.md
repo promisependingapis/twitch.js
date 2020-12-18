@@ -34,7 +34,7 @@
 - [x] Create onLeave event.
 - [x] Create onJoin event.
 - [x] Transform channels and users into collections.
-- [x] Make a auto updated list of users of channels (Note: Not 100% acurate because twitch doesn't send the list of event of people who already has on the channel or the events of userLeave and UserJoin at the same time, it takes a time to happen).
+- [ ] Make a auto updated list of users of channels
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] Create event dispatchers to the actions.
