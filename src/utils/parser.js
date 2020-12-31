@@ -1,9 +1,3 @@
-// --------------------------------- \\
-// DO NOT TOUCH THE PARSER DO NOT TO \\
-// UCH THE PARSER DO NOT TOUCH THE P \\
-// ARSER DO NOT TOUCH THE PARSER --- \\
-// --------------------------------- \\
-
 module.exports = {
     Message(data) {
         var message = {

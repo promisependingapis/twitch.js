@@ -27,7 +27,7 @@
 
 ## TODO
 
-- [x] Beauty logger. (**DON'T TOUCH HIM**)
+- [x] Beauty logger.
 - [x] Stabilize a websocket connection with Twitchᵀⱽ.
 - [x] Create easy functions to interact with Twitchᵀⱽ.
 - [x] Create onReady event.
