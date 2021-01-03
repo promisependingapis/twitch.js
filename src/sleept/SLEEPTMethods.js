@@ -217,7 +217,7 @@ class SLEEPTMethods {
       if (!channel.startsWith('#')) {
         channel = '#' + channel;
       }
-      if (global.twitchApis.client.channels.get(channel).connected === true) {
+      if (global.twitchApis.client.channels.get(channel) && global.twitchApis.client.channels.get(channel).connected === true) {
         logger.warn('Already connected with this channel!');
         return reject('Already connected with this channel!');
       }
