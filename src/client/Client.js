@@ -151,7 +151,7 @@ class Client extends EventEmmiter {
     /**
      * Join the bot on the channel parsed
      * @param {String} [channelName] The name of the channel the bot will connect
-     * @returns {Promise<Boolean>} true if the bot connect, false if it cannot connect
+     * @returns {Promise<Pending>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()

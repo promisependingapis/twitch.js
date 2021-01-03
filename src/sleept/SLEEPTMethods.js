@@ -2,6 +2,7 @@
 const WebSocket = require('ws');
 const {constants, logger, parser} = require('../utils');
 const users = require('../structures/users');
+const Channels = require('../structures/channels');
 // const Endpoints = constants.Endpoints;
 
 /**
@@ -151,16 +152,14 @@ class SLEEPTMethods {
       }
     } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
       switch (messageObject.command) {
-        case '353':
-          this.client.eventEmmiter('Method.Joined.' + messageObject.params[2]);
-          this.client.eventEmmiter('join', global.twitchApis.client.channels.get(messageObject.params[2]));
-          break;
         default:
           break;
       }
     } else {
       switch (messageObject.command) {
         case 'JOIN':
+          this.client.eventEmmiter('Method.Joined.' + messageObject.params[0]);
+          this.client.eventEmmiter('join', global.twitchApis.client.channels.get(messageObject.params[0]));
           if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
             global.twitchApis.client.channels.get(messageObject.params[0]).users.set(
               messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')),
@@ -233,7 +232,7 @@ class SLEEPTMethods {
       function listener() {
         logger.debug('Connected to: ' + channel.toLowerCase());
         if (!global.twitchApis.client.channels.get(channel)) {
-          global.twitchApis.client.channels.set(channel, new channel(this, {channel: channel}));
+          global.twitchApis.client.channels.set(channel, new Channels(this, {channel: channel}));
         }
         global.twitchApis.client.channels.get(channel).connected = true;
         global.twitchApis.client.methods.joinQueueTimeout.forEach((element) => {
@@ -243,7 +242,7 @@ class SLEEPTMethods {
           }
         });
         this.removeListener('Method.Joined.' + channel.toLowerCase(), listener);
-        resolve();
+        resolve(channel);
       }
     });
   }
