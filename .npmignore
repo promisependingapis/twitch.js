@@ -28,3 +28,4 @@ tsconfig.json
 tslint.json
 test.*
 teste.*
+examples/
