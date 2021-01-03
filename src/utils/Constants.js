@@ -31,6 +31,7 @@ exports.Package = require('../../package.json');
  * @property {HTTPOptions} [http] HTTP options
  * @property {boolean} [autoLogEnd=true] autoLogEnd option
  * @property {string[]} [channels] Channels bot will listen
+ * @property {string[]} [connectedChannels] Channels bot is connected
  * @property {boolean} [debug=false] Starts the bot in debug mode if activated
  */
 exports.defaultOptions = {
@@ -46,8 +47,9 @@ exports.defaultOptions = {
     sleeptTimeOffset: 500,
     autoLogEnd: true,
     channels: [],
+    connectedChannels: [],
     debug: false,
-  
+
     /**
      * WebSocket options (these are left as snake_case to match the API)
      * @typedef {Object} WebsocketOptions
@@ -67,7 +69,7 @@ exports.defaultOptions = {
         },
         version: 6,
     },
-  
+
     /**
      * HTTP options
      * @typedef {Object} HTTPOptions
@@ -76,19 +78,20 @@ exports.defaultOptions = {
      */
     http: {
         version: 7,
-        host: 'irc-ws.chat.twitch.tv'
+        host: 'irc-ws.chat.twitch.tv',
     },
 };
 
 exports.errors = {
     INVALID_RATE_LIMIT_METHOD: 'Unknown rate limiting method.',
-    INVALID_TOKEN: 'The token is not valid, a valid token must be a String, start with "oauth:" and doesn\'t includes spaces.',
-    INVALID_USERNAME:'The username is not valid. A valid username must be a String and doesn\'t includes spaces.'
+    INVALID_TOKEN:
+    'The token is not valid, a valid token must be a String, start with "oauth:" and doesn\'t includes spaces.',
+    INVALID_USERNAME: 'The username is not valid. A valid username must be a String and doesn\'t includes spaces.',
 };
 
 exports.events = {
     RATE_LIMIT: 'rateLimit',
-    READY: 'ready'
+    READY: 'ready',
 };
 
 /** @todo: Endpoints */

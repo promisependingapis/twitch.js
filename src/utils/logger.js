@@ -1,11 +1,3 @@
-/* eslint-disable indent */
-
-// --------------------------------- \\
-// DO NOT TOUCH THE LOGGER DO NOT TO \\
-// UCH THE LOGGER DO NOT TOUCH THE L \\
-// OGGER DO NOT TOUCH THE LOGGER --- \\
-// --------------------------------- \\
-
 var dateParser = require('./dateParser');
 var chalk = require('chalk');
 var debug;
@@ -16,7 +8,7 @@ function activeDebug() {
 }
 
 function log(Gravity) {
-    return function(Message) {
+    return function (Message) {
         var Chalker;
         var level = '';
         var Msg = `[${dateParser.getTime()}] ${Gravity}: ${Message}`;
@@ -29,35 +21,35 @@ function log(Gravity) {
                 }
                 console.trace(chalk.bgWhite(chalk.red(Msg)));
                 process.exit(5);
-            break;
+                break;
             case 'error':
                 level = 'error';
                 Chalker = chalk.red(Msg);
-            break;
+                break;
             case 'warn':
                 level = 'warn';
                 Chalker = chalk.keyword('orange')(Msg);
-            break;
+                break;
             case 'info':
                 level = 'log';
                 Msg = `${Gravity}: ${Message}`;
                 Chalker = chalk.blueBright(`[${dateParser.getTime()}] `) + Msg;
-            break;
+                break;
             case 'debug':
                 level = 'debug';
                 Msg = `${Message}`;
                 Chalker = chalk.gray(`[${dateParser.getTime()}] ${Gravity}: `) + chalk.hex('#AAA')(Msg);
-            break;
+                break;
         }
         console[level](Chalker);
     };
 }
 
 function logger(Gravity) {
-    if ((Gravity === 'debug' && debug) || (Gravity !== 'debug')) {
+    if ((Gravity === 'debug' && debug) || Gravity !== 'debug') {
         return log(Gravity);
     } else {
-        return ()=>{};
+        return () => {};
     }
 }
 
@@ -67,5 +59,5 @@ module.exports = {
     error: logger('error'),
     warn: logger('warn'),
     info: logger('info'),
-    debug: logger('debug')
+    debug: logger('debug'),
 };

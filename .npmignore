@@ -1,4 +1,3 @@
-
 # Packages
 node_modules/
 yarn.lock
@@ -18,6 +17,8 @@ docs/
 
 # NPM ignore
 .eslintrc.json
+.prettierignore
+.prettierrc.json
 .gitattributes
 .gitignore
 .travis.yml
@@ -28,3 +29,4 @@ tsconfig.json
 tslint.json
 test.*
 teste.*
+examples/

@@ -1,10 +1,12 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { autoEndLog, constants, logger, Util } = require('../utils');
+const {autoEndLog, constants, logger, Util, collection} = require('../utils');
+const channel = require('../structures/channels');
 
 /**
  * @TODO FanMode (Anonymous mode).
  * @TODO Organize annotations.
+ * @TODO Remove global variables.
  */
 
 /**
@@ -17,7 +19,7 @@ class Client extends EventEmmiter {
      */
     constructor(options = {}) {
         super();
-        /**   
+        /**
          * The options the client was instantiated with
          * @type {ClientOptions}
          */
@@ -25,16 +27,16 @@ class Client extends EventEmmiter {
         this._validateOptions();
 
         /**
-         * Defines the options as a organized global variable to use in 
+         * Defines the options as a organized global variable to use in
          */
         global.twitchApis = {
             client: {
-                option: this.options
-            }
+                option: this.options,
+            },
         };
         global.twitchApis.client.methods = {
             joinQueueTimeout: [],
-            leaveQueueTimeout: []
+            leaveQueueTimeout: [],
         };
 
         /**
@@ -52,8 +54,8 @@ class Client extends EventEmmiter {
          * @private
          */
         this.sleept = new SLEEPTManager(this);
-        
-        Object.defineProperty(this, 'token', { writable: true });
+
+        Object.defineProperty(this, 'token', {writable: true});
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -83,7 +85,7 @@ class Client extends EventEmmiter {
          * @type {Boolean}
          */
         this.autoLogEnd = options.autoLogEnd;
-        
+
         /**
          * Activates the autoEndLog depending of user config, Default 'active'
          */
@@ -92,29 +94,64 @@ class Client extends EventEmmiter {
         }
 
         /**
-         * The array of channels than the bot will work in
-         * @type {Array}
+         * Creates a collecion to each channel
+         * @type {Collection}
          */
-        this.Channels = options.Channels;
+        this.channels = new collection();
+        options.channels.forEach((channelName) => {
+            if (channelName.slice(0,1) !== '#') {
+                channelName = '#' + channelName;
+            }
+            this.channels.set(channelName, new channel(this, {channel: channelName}));
+            this.channels.get = (channelName) => {
+                if (channelName.slice(0,1) !== '#') {
+                    channelName = '#' + channelName;
+                }
+                return this.channels.find(channel => channel.name === channelName);
+            };
+        });
+
+        global.twitchApis.client.channels = this.channels;
+
+        /**
+         * Intervals set by {@link Client#setInterval} that are still active
+         * @type {Set<Timeout>}
+         * @private
+         */
+        this._intervals = new Set();
+        if (options.messageSweepInterval > 0) {
+            setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
+        }
+    }
+
+    /**
+     * Returns the time bot is connected with twitch in miliseconds
+     * @returns {Promise<Resolve>}
+     * @example
+     * await Client.uptime()
+     * @example
+     * Client.uptime().then((Time) => { })
+     */
+    uptime() {
+        return Promise.resolve(Date.now() - global.twitchApis.client.option.readyAt);
     }
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [userName] Username of the account to log in with
      * @param {String} [token] Token of the account to log in with
      * @returns {Promise<Pending>}
      * @example
-     * Client.login('userName', 'token')
+     * Client.login('token')
      *  .then()
      */
-    login(userName, token) {
-        return this.sleept.methods.login(userName, token);
+    login(token) {
+        return this.sleept.methods.login(token);
     }
 
     /**
      * Join the bot on the channel parsed
      * @param {String} [channelName] The name of the channel the bot will connect
-     * @returns {Promise<Boolean>} true if the bot connect, false if it cannot connect
+     * @returns {Promise<Pending>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()
@@ -146,19 +183,6 @@ class Client extends EventEmmiter {
     }
 
     /**
-     * Send message into any connected channel
-     * @param {String} [channelName] The name of the channel the bot will send the message
-     * @param {String} [message] The message that will be sended
-     * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
-     * @returns {Promise<Pending>}
-     * @example
-     * client.sendMessage('#channel', 'message', ['replacer', 'replacer2'])
-     */
-    sendMessage(channelName, message, ...replacer) {
-        return this.sleept.methods.sendMessage(channelName, message, ...replacer);
-    }
-
-    /**
      * Emit a event from client level
      * @param {String} event the name of the event than will be sended
      * @param {Any} args the args of the event
@@ -172,8 +196,8 @@ class Client extends EventEmmiter {
                     /**
                      * @returns {String} text content of message
                      */
-                    toString: () => {
-                        return args[0].params[1].toString();
+                    toString() {
+                        return this.content;
                     },
                     /**
                      * @type {String} The string of context text of message
@@ -185,28 +209,17 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0,args[0].prefix.indexOf('!'))} ${message}`);
+                        return this.sleept.methods.sendMessage(
+                            args[0].params[0],
+                            `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
+                        );
                     },
-                    channel: {
-                        /**
-                         * @type {String} the channel name without the hashtag
-                         */
-                        name: args[0].params[0].slice(0),
-                        /**
-                         * send a message on the same channel who send it
-                         * @param {String} [message] the message than will be sended on the channel
-                         * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
-                         * @return {Promise<Pending>} The message sended metadata
-                         */
-                        send: (message, ...replacer) => {
-                            return this.sleept.methods.sendMessage(args[0].params[0], message, replacer);
-                        }
-                    },
+                    channel: this.channels.get(args[0].params[0]),
                     author: {
                         /**
                          * @type {String} the name of the sender of message (channelname without hashtag)
                          */
-                        username: args[0].prefix.slice(0,args[0].prefix.indexOf('!')),
+                        username: args[0].prefix.slice(0, args[0].prefix.indexOf('!')),
                         /**
                          * @type {String} the display name of the sender of message (can includes spaces symbols and captal letters)
                          */
@@ -214,7 +227,7 @@ class Client extends EventEmmiter {
                         /**
                          * @type {Boolean} if the sender of message is the bot itself
                          */
-                        self: args[0].prefix.slice(0,args[0].prefix.indexOf('!')) === this.options.userName,
+                        self: args[0].prefix.slice(0, args[0].prefix.indexOf('!')) === this.options.userName,
                         /**
                          * @type {String} id of author (on twitch? maybe)
                          */
@@ -251,7 +264,7 @@ class Client extends EventEmmiter {
                          * @type {Boolean} if the user who send the message is the broadcaster
                          */
                         broadcaster: typeof args[0].tags.badges === 'string' ? args[0].tags.badges.includes('broadcaster') : false,
-                    }
+                    },
                 };
                 this.emit(event, responseMessage);
                 break;
@@ -265,11 +278,45 @@ class Client extends EventEmmiter {
     }
 
     /**
+     * Sweeps all text-based channels' messages and removes the ones older than the max message lifetime.
+     * If the message has been edited, the time of the edit is used rather than the time of the original message.
+     * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
+     * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
+     * @returns {number} Amount of messages that were removed from the caches,
+     * or -1 if the message cache lifetime is unlimited
+     */
+    sweepMessages(lifetime = this.options.messageCacheLifetime) {
+        if (typeof lifetime !== 'number' || isNaN(lifetime)) logger.fatal('The lifetime must be a number.');
+        if (lifetime <= 0) {
+            logger.debug('Didn\'t sweep messages - lifetime is unlimited');
+            return -1;
+        }
+
+        const lifetimeMs = lifetime * 1000;
+        const now = Date.now();
+        let channels = 0;
+        let messages = 0;
+
+        for (const channel of this.channels.values()) {
+            if (!channel.messages) continue;
+            channels++;
+
+            messages += channel.messages.sweep(
+                message => now - (message.createdTimestamp) > lifetimeMs
+            );
+        }
+
+        logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
+        return messages;
+    }
+
+    /**
      * Validates the client options.
      * @param {ClientOptions} [options=this.options] Options to validate
      * @private
      */
-    _validateOptions(options = this.options) { // eslint-disable-line complexity
+    _validateOptions(options = this.options) {
+    // eslint-disable-line complexity
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             throw new TypeError('The messageMaxSize option must be a number.');
         }
