@@ -86,10 +86,14 @@ class Client extends EventEmmiter {
          */
         this.autoLogEnd = options.autoLogEnd;
 
+        if (this.options.debug && this.autoLogEnd) {
+            logger.warn('AutoLogEnd disabled because debug is enabled');
+        }
+
         /**
          * Activates the autoEndLog depending of user config, Default 'active'
          */
-        if (this.autoLogEnd) {
+        if (this.autoLogEnd && !this.options.debug) {
             autoEndLog.activate();
         }
 
