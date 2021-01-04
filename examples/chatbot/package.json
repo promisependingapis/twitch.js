@@ -1,0 +1,16 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "A chatbot with a web dashboard (localhost)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TwitchApis",
+  "license": "MIT",
+  "dependencies": {
+    "@twitchapis/twitch.js": "^1.0.0-beta.8",
+    "express": "^4.17.1",
+    "socket.io": "^3.0.4"
+  }
+}

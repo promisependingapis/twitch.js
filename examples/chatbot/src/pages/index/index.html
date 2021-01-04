@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Twitch.JS: Chatbot Example</title>
+        <link rel='stylesheet' type='text/css' href='./styles.css'>
+    </head>
+    <body>
+        <div class='Header'>
+            <div class='HamburguerMenu'></div>
+            <h1 class='Title'>Twitch.JS: ChatBot Example</h1>
+            <div class='Right'>
+                <h2 class='StatusTitle'>Status: <span class='StatusValue'>Waiting server response...</span>
+                    <div class='ColorIndicator' style='background-color: #FF5;'></div>
+                </h2>
+            </div>
+        </div>
+        <div class='IntegratedChat'>
+            <div class='TopBar'>
+                <button class="CurrentSelectedChannel"></button>
+                <div class='SelectedChannel'>
+                    <div class="ConnectedChannels"></div>
+                </div>
+            </div>
+            <div id='IntegratedChatResizeClick' class='IntegratedChatResizeClick'></div>
+            <div id='IntegratedChatMessages'></div>
+            <div id='IntegratedChatSendMessages'>
+                <form class='IntegratedChatTextInput'>
+                    <input type='text' id='message'>
+                    <input type='submit' value='&rarr;' id='SubmitButton'>
+                </form>
+            </div>
+        </div>
+        <div class='Main'>
+            <div class='Options'>
+                <div class='Channels'><span class='propertyName'>Channels: </span><button class='ChannelsDropBox'></button></div><br>
+                <DropBox class='ChannelsDropBoxHandler'><button class='addChannel' onclick='addChannel(prompt("Name of channel"))'>+</button></DropBox>
+            </div>
+        </div>
+    </body>
+    <script src='./socket.io/socket.io.js'></script>
+    <script src='./scripts.js'></script>
+</html> 

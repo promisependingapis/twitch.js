@@ -1,0 +1,329 @@
+body {
+    background-color: #2e003a;
+    font-family: Arial, Verdana, Helvetica;
+}
+
+.Header {
+    background-color: #1a0020;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 5vw;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+}
+
+.Header .Title {
+    position: fixed;
+    top: 0;
+    left: 5vw;
+    color: #FFF;
+    font-size: 2vw;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+}
+
+.Header .Right {
+    position: fixed;
+    top: 0;
+    height: 5vw;
+}
+
+.Header .Right .StatusTitle {
+    position: fixed;
+    color: #fff;
+    top: 0.35vw;
+    right: 2vw;
+    font-size: 1.5vw;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+}
+
+.Header .Right .ColorIndicator {
+    width: 1.5vw;
+    height: 1.5vw;
+    margin-top: -1.60vw;
+    margin-left: -2vw;
+    border-radius: 100vw;
+    background-color: #FF5;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+}
+
+.IntegratedChat {
+    background-color: #220022;
+    width: 40vw;
+    height: 100vh;
+    position: fixed;
+    margin: 0vw;
+    margin-bottom: -5vw;
+    right: 0;
+    bottom: 0;
+}
+
+.IntegratedChat .TopBar {
+    position: relative;
+    width: 100%;
+    height: 5vw;
+    background-color: #552255;
+    z-index: 1;
+    transition-timing-function: ease-in-out;
+    transition: 0.3s;
+    float: right;
+}
+
+.IntegratedChat #IntegratedChatResizeClick {
+    cursor: ew-resize;
+    width: 0.5vw;
+    height: 100vh;
+    position: absolute;
+    margin: 0vw;
+    margin-bottom: -5vw;
+    background-color: #440044;
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    z-index: 1;
+    top: 0;
+}
+
+.IntegratedChat #IntegratedChatResizeClick:hover {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    background-color: #AA00AA;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.IntegratedChat #IntegratedChatMessages {
+    position: absolute;
+    color: #fff;
+    width: 98%;
+    right: 0;
+    height: 90vw;
+    font-size: 1.2vw;
+    overflow-y:auto;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    top: 5vw;
+    z-index: -1;
+}
+
+.IntegratedChat #IntegratedChatSendMessages {
+    position: absolute;
+    width: 100%;
+    height: 5vw;
+    bottom: 5vw;
+    background-color: #440055;
+}
+
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput {
+    position: static;
+    width: 99%;
+    margin-top: 0.5vw;
+    margin-left: 1vw;
+    height: 4vw;
+}
+
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #message {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    position: static;
+    width: 85%;
+    height: 90%;
+    border-radius: 100vw;
+    background-color: #220044;
+    border-color: #0000;
+    color: #fff;
+    font-size: 1.5vw;
+    text-indent: 1%;
+    border: 2px solid #0000;
+}
+
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #SubmitButton {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    position: absolute;
+    width: 10%;
+    height: 80%;
+    margin-left: 1%;
+    border-radius: 100vw;
+    background-color: #220044;
+    border-color: #0000;
+    border: 2px solid #0000;
+    color: #fff;
+    font-size: 250%;
+    text-indent: -5%;
+}
+
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #message:hover {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    border: 2px solid #7c00b9;
+    background-color: #440044;
+}
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #message:focus {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    border: 2px solid #8800CC;
+    background-color: #440066;
+}
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #SubmitButton:hover {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    border: 2px solid #7c00b9;
+    background-color: #440044;
+}
+.IntegratedChat #IntegratedChatSendMessages .IntegratedChatTextInput #SubmitButton:active {
+    transition-timing-function: ease-out;
+    transition: 0.3s;
+    border: 2px solid #8800CC;
+    background-color: #440066;
+}
+
+.IntegratedChat .TopBar .CurrentSelectedChannel {
+    background-color: #0000;
+    color: #FFF;
+    border: 0;
+    font-size: 2vw;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    margin: 1vw;
+    cursor: pointer;
+}
+
+.IntegratedChat .TopBar .CurrentSelectedChannel:hover {
+    background-color: #772277;
+    border-radius: 2vw;
+}
+
+.IntegratedChat .TopBar .SelectedChannel {
+    display:none;
+    background-color: #555;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    width: 15vw;
+    margin-top: -1vw;
+    margin-left: 1vw;
+}
+
+.IntegratedChat .TopBar .SelectedChannel .ConnectedChannels {
+    display: flex;
+    flex-direction: column;
+}
+
+.IntegratedChat .TopBar .SelectedChannel button {
+    cursor: pointer;
+    width: 15vw;
+    height: 3vw;
+    background-color: #3330;
+    color: #FFF;
+    font-size: 1.5vw;
+    border: 1px solid #0000;
+}
+
+.IntegratedChat .TopBar .SelectedChannel button:hover {
+    background-color: #333A;
+}
+
+.Main {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    position: absolute;
+    margin: -8px;
+    width: 60vw;
+    margin-top: 5vw;
+    transform: translateY(-8px);
+    overflow-block: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #770077 #550055;
+    scroll-behavior: smooth
+}
+
+.Main .Options div {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    color: #FFF;
+    font-size: 2vw;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    background-color: #77007755;
+    width: 100%;
+}
+
+.Main .Options div .propertyName {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    margin-left: 1vw;
+}
+
+.Main .Options button {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    background-color: #550055AA;
+    border: 1px solid #0000;
+    font-size: 1.5vw;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    margin-right: 1vw;
+}
+
+.Main .Options button:hover {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    background-color: #550055;
+    border: 1px solid #773377;
+    border-radius: 1vw;
+}
+
+.Main .Options dropbox {
+    display: none;
+    background-color: #555;
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    opacity: 100;
+    position: relative;
+    z-index: 1;
+    width: 13vw;
+    float: right;
+    margin-top: -1vw;
+    margin-right: 1vw;
+    flex-direction: column;
+    color: #fff;
+    font-size: 1.3vw;
+    box-shadow: 0px 5px 0px 0px #550055;
+}
+
+.Main .Options dropbox button {
+    width: 100%;
+}
+
+.Main .Options dropbox button:hover {
+    width: 100%;
+    border: 1px solid #0000;
+    border-radius: 0;
+    background-color: #9900AA;
+}
+
+.Main .Options dropbox span button {
+    width: 15%;
+    position: absolute;
+    right: 0;
+    margin-right: 0;
+    font-size: 1.3vw;
+    color: #FF3333;
+}
+
+.Main .Options dropbox span {
+    margin-left: 0.5vw;
+    padding-bottom: 3px;
+    cursor: pointer;
+}
