@@ -27,13 +27,6 @@
 
 ## TODO
 
-- [x] Beauty logger.
-- [x] Stabilize a websocket connection with Twitchᵀⱽ.
-- [x] Create easy functions to interact with Twitchᵀⱽ.
-- [x] Create onReady event.
-- [x] Create onLeave event.
-- [x] Create onJoin event.
-- [x] Transform channels and users into collections.
 - [ ] Make a auto updated list of users of channels
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
