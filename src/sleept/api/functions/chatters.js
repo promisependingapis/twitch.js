@@ -6,6 +6,7 @@ const TwitchWebAPI = require('../twitchWebAPI');
  */
 function getChattersInfo(channelName) {
     return new Promise((resolve, reject) => {
+        if (channelName.startsWith('#')) {channelName = channelName.slice(1);}
         const path = `/group/user/${channelName}/chatters`;
         TwitchWebAPI.request('get', path).then(result => {
             return resolve(result);

@@ -12,9 +12,11 @@ const { channels, users } = require('../structures');
  */
 class SLEEPTMethods {
     constructor(sleeptMananger) {
+        const { getChatter } = require('./api');
         this.sleept = sleeptMananger;
         this.client = sleeptMananger.client;
         this._ackToken = null;
+        this.getChatter = getChatter;
     }
 
     isConnected() {
@@ -161,17 +163,51 @@ class SLEEPTMethods {
                 case 'JOIN':
                     this.client.eventEmmiter('Method.Joined.' + messageObject.params[0]);
                     this.client.eventEmmiter('join', global.twitchApis.client.channels.get(messageObject.params[0]));
-                    if (
-                        !global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))
-                    ) {
-                        global.twitchApis.client.channels.get(messageObject.params[0]).users.set(
-                            messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')),
-                            new users(this.client, {
-                                userName: messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')),
-                                self: messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) === this.userName,
-                            })
-                        );
-                    }
+                    this.getChatter(messageObject.params[0]).then((Users) => {
+                        if (!global.twitchApis.client.channels.get(messageObject.params[0])) {return;}
+                        Users.chatters.broadcaster.forEach((broadcaster) => {
+                        if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(broadcaster)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(broadcaster, 
+                                new users(this.client, {userName: broadcaster,self: broadcaster === this.userName,broadcaster: true,}));
+                            }
+                        });
+                        Users.chatters.vips.forEach((vips) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(vips)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(vips, 
+                                new users(this.client, {userName: vips,self: vips === this.userName,isVip: true}));
+                            }
+                        });
+                        Users.chatters.moderators.forEach((moderators) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(moderators)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(moderators, 
+                                new users(this.client, {userName: moderators,self: moderators === this.userName,isMod: true}));
+                            }
+                        });
+                        Users.chatters.staff.forEach((staff) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(staff)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(staff, 
+                                new users(this.client, {userName: staff,self: staff === this.userName,isStaff: true}));
+                            }
+                        });
+                        Users.chatters.admins.forEach((admins) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(admins)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(admins, 
+                                new users(this.client, {userName: admins,self: admins === this.userName,isAdmin: true}));
+                            }
+                        });
+                        Users.chatters.global_mods.forEach((global_mods) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(global_mods)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(global_mods, 
+                                new users(this.client, {userName: global_mods,self: global_mods === this.userName,isGlobalMod: true}));
+                            }
+                        });
+                        Users.chatters.viewers.forEach((viewers) => {
+                            if (!global.twitchApis.client.channels.get(messageObject.params[0]).users.get(viewers)) {
+                                global.twitchApis.client.channels.get(messageObject.params[0]).users.set(viewers, 
+                                new users(this.client, {userName: viewers,self: viewers === this.userName}));
+                            }
+                        });
+                    });
                     break;
                 case 'PART':
                     if (global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
