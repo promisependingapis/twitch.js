@@ -74,12 +74,14 @@ exports.defaultOptions = {
      * HTTP options
      * @typedef {Object} HTTPOptions
      * @property {Number} [version=7] API version to use
-     * @property {String} [host='tmi.twitch.tv'] Base url of the API
+     * @property {String} [host='tmi.twitch.tv'] Base url of the IRC
+     * @property {String} [api='tmi.twitch.tv'] Base url of the API
      * @property {Object} [headers] Default http request options
      */
     http: {
         version: 7,
-        host: 'tmi.twitch.tv',
+        host: 'irc-ws.chat.twitch.tv',
+        api: 'tmi.twitch.tv',
         headers: {
             'User-Agent': 'TwitchJsApi/1.0.0',
         },

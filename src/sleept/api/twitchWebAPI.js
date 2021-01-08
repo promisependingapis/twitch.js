@@ -1,6 +1,6 @@
 const axios = require('axios');
-const apiUrl = global.twitchApis.config.http.host;
-const headers = global.twitchApis.config.http.headers;
+const apiUrl = global.twitchApis.client.option.http.api;
+const headers = global.twitchApis.client.option.http.headers;
 const { logger } = require('../../utils');
 
 /**
