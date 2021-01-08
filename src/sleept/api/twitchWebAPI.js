@@ -11,19 +11,26 @@ const { logger } = require('../../utils');
 async function twitchRequest(method, path, options) {
     return new Promise((resolve, reject) => {
         const finalUrl = apiUrl + path;
-        const hasParam = options.params !== undefined ? true : false;
+        
+        var hasParam = false;
+
+        if (options) {
+            if (options.params) {
+                hasParam = true;
+            }
+        }
 
         if (method === 'get') {
             if (hasParam) {
                 axios.get(finalUrl, { params: options.params, headers: headers }).then(result => {
-                    return resolve(result);
+                    return resolve(result.data);
                 }).catch(err => {
                     logger.error(err);
                     return reject(err);
                 });
             } else {
                 axios.get(finalUrl, { headers: headers }).then(result => {
-                    return resolve(result);
+                    return resolve(result.data);
                 }).catch(err => {
                     logger.error(err);
                     return reject(err);
@@ -31,7 +38,7 @@ async function twitchRequest(method, path, options) {
             }
         } else {
             axios.post(finalUrl, options.data, { headers: headers }).then(result => {
-                return resolve(result);
+                return resolve(result.data);
             }).catch(err => {
                 logger.error(err);
                 return reject(err);
