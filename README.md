@@ -26,11 +26,11 @@
 
 ## TODO
 
-- <input type="checkbox" disabled checked /> Make a auto updated list of users of channels
-- <input type="checkbox" disabled /> Create onUserJoin event. (Emitted everytime someone new enter in the chat)
-- <input type="checkbox" disabled /> Create onUserLeave event. (Emitted everytime someone leaves the chat)
-- <input type="checkbox" disabled /> Create Shard system.
-- <input type="checkbox" disabled /> Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+<input type="checkbox" disabled checked /> Make a auto updated list of users of channels
+<input type="checkbox" disabled /> Create onUserJoin event. (Emitted everytime someone new enter in the chat)
+<input type="checkbox" disabled /> Create onUserLeave event. (Emitted everytime someone leaves the chat)
+<input type="checkbox" disabled /> Create Shard system.
+<input type="checkbox" disabled /> Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
 
 ## About
 
