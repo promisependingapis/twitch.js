@@ -368,9 +368,8 @@ class SLEEPTMethods {
         if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
         var user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         if (!user) {
-            // eslint-disable-next-line max-len
             await this.client.channels.get(data.params[0]).users.set(data.prefix.slice(0, data.prefix.indexOf('!')), 
-                new users(this, { name: data.prefix.slice(0, data.prefix.indexOf('!'))})
+                new users(this, { userName: data.prefix.slice(0, data.prefix.indexOf('!'))})
             );
             user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         }
