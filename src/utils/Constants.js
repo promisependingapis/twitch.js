@@ -98,5 +98,3 @@ exports.events = {
     RATE_LIMIT: 'rateLimit',
     READY: 'ready',
 };
-
-/** @todo: Endpoints */

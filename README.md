@@ -21,7 +21,6 @@
   - [npm](#npm)
   - [yarn](#yarn)
 - [Example Usage](#example-usage)
-  - [Expected Result](#expected-result)
 - [Contributors](#contributors)
 - [Authors](#authors)
 
@@ -31,7 +30,7 @@
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] Create Shard system.
-- [?] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+- [ ] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
 
 ## About
 
@@ -63,23 +62,23 @@ yarn add @twitchapis/twitch.js
 ```javascript
 const { Client, logger } = require('@twitchapis/twitch.js');
 
-const Client = new Client({
+const client = new Client({
   autoLogEnd: true, // Default true, optional parameter
   channels: ['space_interprise', 'lobometalurgico'],
   debug: false // Default false, optional parameter
 });
 
-Client.on('ready', () => {
-  logger.info(`Logged in as ${Client.user.name}!`);
+client.on('ready', () => {
+  logger.info(`Logged in as ${client.user.name}!`);
 });
 
-Client.on('message', (msg) => {
+client.on('message', (msg) => {
   if (msg.content === 'ping') {
     msg.channel.send('pong');
   }
 });
 
-Client.login('token');
+client.login('token');
 ```
 
 ## Contributors
