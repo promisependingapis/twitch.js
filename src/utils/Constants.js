@@ -81,7 +81,7 @@ exports.defaultOptions = {
     http: {
         version: 7,
         host: 'irc-ws.chat.twitch.tv',
-        api: 'tmi.twitch.tv',
+        api: 'https://tmi.twitch.tv',
         headers: {
             'User-Agent': 'TwitchJsApi/1.0.0',
         },

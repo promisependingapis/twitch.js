@@ -5,7 +5,7 @@ const TwitchWebAPI = require('../twitchWebAPI');
  * @TODO: Convert into class
  */
 function getChattersInfo(channelName) {
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve, reject) => {
         const path = `/group/user/${channelName}/chatters`;
         TwitchWebAPI.request('get', path).then(result => {
             return resolve(result);
