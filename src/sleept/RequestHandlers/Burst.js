@@ -2,7 +2,7 @@ const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
 const {
     constants: {
-        events: {RATE_LIMIT},
+        events: { RATE_LIMIT },
     },
 } = require('../../utils');
 
@@ -58,11 +58,7 @@ class BurstRequestHandler extends RequestHandler {
                         }, 1e3 + this.client.options.sleeptTimeOffset);
                     }
                 } else {
-                    item.reject(
-                        err.status >= 400 && err.status < 500
-                            ? new TwitchAPIError(res.request.path, res.body, res.request.method)
-                            : err
-                    );
+                    item.reject(err.status >= 400 && err.status < 500 ? new TwitchAPIError(res.request.path, res.body, res.request.method) : err);
                     this.handle();
                 }
             } else {

@@ -1,6 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const {autoEndLog, constants, logger, Util, collection} = require('../utils');
+const { autoEndLog, constants, logger, Util, collection } = require('../utils');
 const channel = require('../structures/channels');
 
 /**
@@ -32,11 +32,11 @@ class Client extends EventEmmiter {
         global.twitchApis = {
             client: {
                 option: this.options,
+                methods: {
+                    joinQueueTimeout: [],
+                    leaveQueueTimeout: [],
+                },
             },
-        };
-        global.twitchApis.client.methods = {
-            joinQueueTimeout: [],
-            leaveQueueTimeout: [],
         };
 
         /**
@@ -55,7 +55,7 @@ class Client extends EventEmmiter {
          */
         this.sleept = new SLEEPTManager(this);
 
-        Object.defineProperty(this, 'token', {writable: true});
+        Object.defineProperty(this, 'token', { writable: true });
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -103,15 +103,15 @@ class Client extends EventEmmiter {
          */
         this.channels = new collection();
         options.channels.forEach((channelName) => {
-            if (channelName.slice(0,1) !== '#') {
+            if (channelName.slice(0, 1) !== '#') {
                 channelName = '#' + channelName;
             }
-            this.channels.set(channelName, new channel(this, {channel: channelName}));
+            this.channels.set(channelName, new channel(this, { channel: channelName }));
             this.channels.get = (channelName) => {
-                if (channelName.slice(0,1) !== '#') {
+                if (channelName.slice(0, 1) !== '#') {
                     channelName = '#' + channelName;
                 }
-                return this.channels.find(channel => channel.name === channelName);
+                return this.channels.find((channel) => channel.name === channelName);
             };
         });
 
@@ -213,10 +213,7 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(
-                            args[0].params[0],
-                            `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
-                        );
+                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`);
                     },
                     channel: this.channels.get(args[0].params[0]),
                     author: {
@@ -305,9 +302,7 @@ class Client extends EventEmmiter {
             if (!channel.messages) continue;
             channels++;
 
-            messages += channel.messages.sweep(
-                message => now - (message.createdTimestamp) > lifetimeMs
-            );
+            messages += channel.messages.sweep((message) => now - message.createdTimestamp > lifetimeMs);
         }
 
         logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
@@ -320,7 +315,7 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
-    // eslint-disable-line complexity
+        // eslint-disable-line complexity
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             throw new TypeError('The messageMaxSize option must be a number.');
         }

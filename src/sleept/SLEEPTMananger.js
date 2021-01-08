@@ -2,7 +2,7 @@ const UserAgentManager = require('./UserAgentManager');
 const SLEEPTMethods = require('./SLEEPTMethods');
 const SequentialRequestHandler = require('./RequestHandlers/Sequential');
 const BurstRequestHandler = require('./RequestHandlers/Burst');
-const {constants, logger} = require('../utils');
+const { constants, logger } = require('../utils');
 
 class SLEEPTMananger {
     constructor(client) {

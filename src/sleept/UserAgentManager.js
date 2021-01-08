@@ -5,7 +5,7 @@ class UserAgentManager {
         this.build(this.constructor.DEFAULT);
     }
 
-    set({url, version} = {}) {
+    set({ url, version } = {}) {
         this.build({
             url: url || this.constructor.DEFAULT.url,
             version: version || this.constructor.DEFAULT.version,
