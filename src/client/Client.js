@@ -215,7 +215,7 @@ class Client extends EventEmmiter {
                     reply: (message) => {
                         return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`);
                     },
-                    messageId: args[0].tags.id,
+                    id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
                     author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
                 };

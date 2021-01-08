@@ -27,13 +27,11 @@
 
 ## TODO
 
-- [ ] Make a auto updated list of users of channels
+- [X] Make a auto updated list of users of channels
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
-- [ ] Create event dispatchers to the actions.
-- [ ] Create all easy interact functions to Twitchᵀⱽ.
 - [ ] Create Shard system.
-- [ ] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+- [?] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
 
 ## About
 
