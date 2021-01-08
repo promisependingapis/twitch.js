@@ -9,7 +9,7 @@ const { logger } = require('../../utils');
  * @param {Object} options 
  */
 async function twitchRequest(method, path, options) {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const finalUrl = apiUrl + path;
         const hasParam = options.params !== undefined ? true : false;
 
@@ -40,4 +40,4 @@ async function twitchRequest(method, path, options) {
     });
 }
 
-module.export.request = twitchRequest;
+exports.request = twitchRequest;

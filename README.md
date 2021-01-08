@@ -27,6 +27,7 @@
 
 ## TODO
 
+- [ ]
 - [ ] Make a auto updated list of users of channels
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
