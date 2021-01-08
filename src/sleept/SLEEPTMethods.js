@@ -209,6 +209,7 @@ class SLEEPTMethods {
                             }
                         });
                     });
+                    this.client.channels = global.twitchApis.client.channels;
                     break;
                 case 'PART':
                     if (global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
@@ -218,6 +219,7 @@ class SLEEPTMethods {
                     }
                     this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
                     this.client.eventEmmiter('leave', messageObject.params[0]);
+                    this.client.channels = global.twitchApis.client.channels;
                     break;
                 case 'PRIVMSG':
                     this.updateUser(messageObject);
@@ -379,6 +381,7 @@ class SLEEPTMethods {
         user.self = user.name === this.userName;
         user.broadcaster = user.badges.toString().includes('broadcaster');
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
+        this.client.channels = global.twitchApis.client.channels;
     }
     /*
     logout() {
