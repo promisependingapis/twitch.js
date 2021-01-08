@@ -21,7 +21,6 @@
   - [npm](#npm)
   - [yarn](#yarn)
 - [Example Usage](#example-usage)
-  - [Expected Result](#expected-result)
 - [Contributors](#contributors)
 - [Authors](#authors)
 
