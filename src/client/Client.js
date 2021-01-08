@@ -1,6 +1,6 @@
 const EventEmmiter = require('events');
 const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const {autoEndLog, constants, logger, Util, collection} = require('../utils');
+const { autoEndLog, constants, logger, Util, collection } = require('../utils');
 const channel = require('../structures/channels');
 
 /**
@@ -32,11 +32,11 @@ class Client extends EventEmmiter {
         global.twitchApis = {
             client: {
                 option: this.options,
+                methods: {
+                    joinQueueTimeout: [],
+                    leaveQueueTimeout: [],
+                },
             },
-        };
-        global.twitchApis.client.methods = {
-            joinQueueTimeout: [],
-            leaveQueueTimeout: [],
         };
 
         /**
@@ -55,7 +55,7 @@ class Client extends EventEmmiter {
          */
         this.sleept = new SLEEPTManager(this);
 
-        Object.defineProperty(this, 'token', {writable: true});
+        Object.defineProperty(this, 'token', { writable: true });
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -86,10 +86,14 @@ class Client extends EventEmmiter {
          */
         this.autoLogEnd = options.autoLogEnd;
 
+        if (this.options.debug && this.autoLogEnd) {
+            logger.warn('AutoLogEnd disabled because debug is enabled');
+        }
+
         /**
          * Activates the autoEndLog depending of user config, Default 'active'
          */
-        if (this.autoLogEnd) {
+        if (this.autoLogEnd && !this.options.debug) {
             autoEndLog.activate();
         }
 
@@ -99,15 +103,15 @@ class Client extends EventEmmiter {
          */
         this.channels = new collection();
         options.channels.forEach((channelName) => {
-            if (channelName.slice(0,1) !== '#') {
+            if (channelName.slice(0, 1) !== '#') {
                 channelName = '#' + channelName;
             }
-            this.channels.set(channelName, new channel(this, {channel: channelName}));
+            this.channels.set(channelName, new channel(this, { channel: channelName }));
             this.channels.get = (channelName) => {
-                if (channelName.slice(0,1) !== '#') {
+                if (channelName.slice(0, 1) !== '#') {
                     channelName = '#' + channelName;
                 }
-                return this.channels.find(channel => channel.name === channelName);
+                return this.channels.find((channel) => channel.name === channelName);
             };
         });
 
@@ -209,62 +213,11 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(
-                            args[0].params[0],
-                            `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`
-                        );
+                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`);
                     },
+                    id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
-                    author: {
-                        /**
-                         * @type {String} the name of the sender of message (channelname without hashtag)
-                         */
-                        username: args[0].prefix.slice(0, args[0].prefix.indexOf('!')),
-                        /**
-                         * @type {String} the display name of the sender of message (can includes spaces symbols and captal letters)
-                         */
-                        displayName: args[0].tags['display-name'],
-                        /**
-                         * @type {Boolean} if the sender of message is the bot itself
-                         */
-                        self: args[0].prefix.slice(0, args[0].prefix.indexOf('!')) === this.options.userName,
-                        /**
-                         * @type {String} id of author (on twitch? maybe)
-                         */
-                        id: args[0].tags.id,
-                        /**
-                         * @type {Boolean} if the user who send the message have mod on that channel
-                         */
-                        mod: args[0].tags.mod === '1',
-                        /**
-                         * @type {Boolean} if the user who send the message is subscribed on the channel
-                         */
-                        subscriber: args[0].tags.subscriber >= '1',
-                        /**
-                         * @type {Boolean} if the user who send the message have Twitch turbo
-                         */
-                        turbo: args[0].tags.turbo >= '1',
-                        /**
-                         * @type {String} the id of user (on the chat? maybe)
-                         */
-                        userId: args[0].tags['user-id'],
-                        /**
-                         * @type {String} the user color on the chat (on hex)
-                         */
-                        color: args[0].tags.color,
-                        /**
-                         * @type {Boolean} if the user have any badge on this channel
-                         */
-                        containsBadge: args[0].tags['badge-info'],
-                        /**
-                         * @type {String} all badges the user have in this channel (not parsed, maybe in future)
-                         */
-                        badges: args[0].tags.badges,
-                        /**
-                         * @type {Boolean} if the user who send the message is the broadcaster
-                         */
-                        broadcaster: typeof args[0].tags.badges === 'string' ? args[0].tags.badges.includes('broadcaster') : false,
-                    },
+                    author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
                 };
                 this.emit(event, responseMessage);
                 break;
@@ -301,9 +254,7 @@ class Client extends EventEmmiter {
             if (!channel.messages) continue;
             channels++;
 
-            messages += channel.messages.sweep(
-                message => now - (message.createdTimestamp) > lifetimeMs
-            );
+            messages += channel.messages.sweep((message) => now - message.createdTimestamp > lifetimeMs);
         }
 
         logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
@@ -316,7 +267,7 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
-    // eslint-disable-line complexity
+        // eslint-disable-line complexity
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             throw new TypeError('The messageMaxSize option must be a number.');
         }

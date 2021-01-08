@@ -2,7 +2,7 @@ const RequestHandler = require('./RequestHandler');
 const TwitchAPIError = require('../TwitchAPIError');
 const {
     constants: {
-        events: {RATE_LIMIT},
+        events: { RATE_LIMIT },
     },
 } = require('../../utils');
 
@@ -85,11 +85,7 @@ class SequentialRequestHandler extends RequestHandler {
                             this.client.setTimeout(resolve, 1e3 + this.client.options.restTimeOffset);
                         }
                     } else {
-                        item.reject(
-                            err.status >= 400 && err.status < 500
-                                ? new TwitchAPIError(res.request.path, res.body, res.request.method)
-                                : err
-                        );
+                        item.reject(err.status >= 400 && err.status < 500 ? new TwitchAPIError(res.request.path, res.body, res.request.method) : err);
                         resolve(err);
                     }
                 } else {
@@ -114,10 +110,7 @@ class SequentialRequestHandler extends RequestHandler {
                                 method: item.request.method,
                             });
                         }
-                        this.client.setTimeout(
-                            () => resolve(data),
-                            this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset
-                        );
+                        this.client.setTimeout(() => resolve(data), this.requestResetTime - Date.now() + this.timeDifference + this.client.options.restTimeOffset);
                     } else {
                         resolve(data);
                     }

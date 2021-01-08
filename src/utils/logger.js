@@ -10,7 +10,6 @@ function activeDebug() {
 function log(Gravity) {
     return function (Message) {
         var Chalker;
-        var level = '';
         var Msg = `[${dateParser.getTime()}] ${Gravity}: ${Message}`;
         switch (Gravity) {
             case 'fatal':
@@ -23,25 +22,21 @@ function log(Gravity) {
                 process.exit(5);
                 break;
             case 'error':
-                level = 'error';
                 Chalker = chalk.red(Msg);
                 break;
             case 'warn':
-                level = 'warn';
                 Chalker = chalk.keyword('orange')(Msg);
                 break;
             case 'info':
-                level = 'log';
                 Msg = `${Gravity}: ${Message}`;
                 Chalker = chalk.blueBright(`[${dateParser.getTime()}] `) + Msg;
                 break;
             case 'debug':
-                level = 'debug';
                 Msg = `${Message}`;
                 Chalker = chalk.gray(`[${dateParser.getTime()}] ${Gravity}: `) + chalk.hex('#AAA')(Msg);
                 break;
         }
-        console[level](Chalker);
+        console[Gravity](Chalker);
     };
 }
 

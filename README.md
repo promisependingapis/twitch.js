@@ -27,20 +27,11 @@
 
 ## TODO
 
-- [x] Beauty logger.
-- [x] Stabilize a websocket connection with Twitchᵀⱽ.
-- [x] Create easy functions to interact with Twitchᵀⱽ.
-- [x] Create onReady event.
-- [x] Create onLeave event.
-- [x] Create onJoin event.
-- [x] Transform channels and users into collections.
-- [ ] Make a auto updated list of users of channels
+- [X] Make a auto updated list of users of channels
 - [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
-- [ ] Create event dispatchers to the actions.
-- [ ] Create all easy interact functions to Twitchᵀⱽ.
 - [ ] Create Shard system.
-- [ ] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+- [?] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
 
 ## About
 
@@ -70,34 +61,26 @@ yarn add @twitchapis/twitch.js
 ## Example Usage
 
 ```javascript
-const Twitch = require('@twitchapis/twitch.js');
+const { Client, logger } = require('@twitchapis/twitch.js');
 
-const Client = new Twitch.Client({
-  autoLogEnd: true,
+const Client = new Client({
+  autoLogEnd: true, // Default true, optional parameter
   channels: ['space_interprise', 'lobometalurgico'],
-  debug: true,
+  debug: false // Default false, optional parameter
 });
 
-Client.on('ready', (botname) => {
-    Twitch.logger.info('YAY, ' + botname + ' is connected with twitch!');
+Client.on('ready', () => {
+  logger.info(`Logged in as ${Client.user.name}!`);
 });
 
 Client.on('message', (msg) => {
-  if (msg.toString().toLowerCase().includes('hello')) {
-    msg.reply('World');
-  }
-  if (msg.toString().toLowerCase() === 'leave space_interprise channel') {
-    msg.channel.send('Ok, goodbye ;-;');
-    Client.leave('space_interprise');
+  if (msg.content === 'ping') {
+    msg.channel.send('pong');
   }
 });
 
-Client.login('MyFabolousBotToken🤫');
+Client.login('token');
 ```
-
-### Expected Result
-
-<img src='https://media.discordapp.net/attachments/780245027212492812/786706825298182164/unknown.png'></img>
 
 ## Contributors
 

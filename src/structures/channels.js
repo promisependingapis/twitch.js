@@ -1,4 +1,4 @@
-const {logger, collection} = require('../utils');
+const { logger, collection } = require('../utils');
 
 class channels {
     constructor(client, data) {
@@ -41,8 +41,8 @@ class channels {
      * @example
      * Client.channels.get('channelName').send('message', ['replacer', 'replacer2', ...])
      */
-    send (message, replacer) {
-        if (this.isConnected()) {
+    send(message, replacer) {
+        if (this.isConnected() && global.twitchApis.client.channels.get(this.name)) {
             return this.client.sleept.methods.sendMessage(this.name, message, replacer);
         } else {
             logger.error('Not connected to the channel: ' + this.name);
