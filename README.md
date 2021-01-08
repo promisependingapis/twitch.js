@@ -63,34 +63,26 @@ yarn add @twitchapis/twitch.js
 ## Example Usage
 
 ```javascript
-const Twitch = require('@twitchapis/twitch.js');
+const { Client, logger } = require('@twitchapis/twitch.js');
 
-const Client = new Twitch.Client({
+const Client = new Client({
   autoLogEnd: true, // Default true, optional parameter
   channels: ['space_interprise', 'lobometalurgico'],
   debug: false // Default false, optional parameter
 });
 
-Client.on('ready', (botname) => {
-    Twitch.logger.info('YAY, ' + botname + ' is connected with twitch!');
+Client.on('ready', () => {
+  logger.info(`Logged in as ${Client.user.name}!`);
 });
 
 Client.on('message', (msg) => {
-  if (msg.toString().toLowerCase().includes('hello')) {
-    msg.reply('World');
-  }
-  if (msg.toString().toLowerCase() === 'leave space_interprise channel') {
-    msg.channel.send('Ok, goodbye ;-;');
-    Client.leave('space_interprise');
+  if (msg.content === 'ping') {
+    msg.channel.send('pong');
   }
 });
 
-Client.login('MyFabolousBotToken🤫');
+Client.login('token');
 ```
-
-### Expected Result
-
-<img src='https://media.discordapp.net/attachments/780245027212492812/786706825298182164/unknown.png'></img>
 
 ## Contributors
 

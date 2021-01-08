@@ -107,6 +107,7 @@ class SLEEPTMethods {
                     break;
                 case '001':
                     this.userName = messageObject.params[0];
+                    this.client.user = {name: messageObject.params[0]};
                     break;
                 case '372':
                     logger.debug('Connected to the server');
@@ -236,7 +237,7 @@ class SLEEPTMethods {
                 this.join(element, index);
             }, index * 100);
         });
-        this.client.eventEmmiter('ready', this.userName, this.server, '443');
+        this.client.eventEmmiter('ready', this.server, '443');
     }
 
     join(channel, index) {
