@@ -4,8 +4,20 @@
         <title>Twitch.JS DOCS</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
         <meta charset="UTF-8">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
     </header>
     <body>
+        <div class='TopBar'>
+            <div class='Pages'>
+                <a href="." class='SelectedPage'>Twitch.JS</a>
+            </div>
+            <div class='External'>
+                <a href="./docs" class='button'>Documentation</a>
+                <a href="https://github.com/twitchapis/twitch.js" class='button'>Github</a>
+            </div>
+        </div>
         <div class='header'>
             <div class='EffectBars'>
                 <div class='Bar1'></div>
@@ -27,12 +39,36 @@
             <div class='InstallCode'><code class='InstallCodeText' onClick="CopyToClipboard('InstallCodeText', '#444')">npm install @twitchapis/twitch.js</code></div>
         </div>
         <div class='Content'>
-            <div class='About'></div>
-            <div class='example'></div>
+            <div class='About'>
+                <h2>About</h2>
+                <p>
+                    Twitchʲˢ is a <red><b>[UNNOFICIAL]</b></red> powerful Node.js module based on Discord.js that allows you to easily interact with the Twitchᵀⱽ making easy the way to make a Twitchᵀⱽ bot, for a custom chat overlay for you OBS, or a moderation bot for you chat, or you just want a easy interface to Twitchᵀⱽ.
+                </p>
+            </div>
+            <div class='example'>
+                <h2>Example</h2>
+                <pre>
+<code class="javascript">const { Client, logger } = require('@twitchapis/twitch.js');
+<!--                  -->const client = new Client({
+<!--                  -->  autoLogEnd: true, // Default true, optional parameter
+<!--                  -->  channels: ['space_interprise', 'lobometalurgico'],
+<!--                  -->  debug: false // Default false, optional parameter
+<!--                  -->});
+<!--                  -->client.on('ready', () => {
+<!--                  -->  logger.info(`Logged in as ${client.user.name}!`);
+<!--                  -->});
+<!--                  -->client.on('message', (msg) => {
+<!--                  -->  if (msg.content === 'ping') {
+<!--                  -->    msg.channel.send('pong');
+<!--                  -->  }
+<!--                  -->});
+<!--                  -->client.login('token');
+<!--         --></code></pre>                        
+            </div>
             <div class='Why'></div>
             <div class='Statistics'></div>
             <div class='Buttons'></div>
         </div>
     </body>
-    <script src='scripts.js'></script>
+    <script src='./scripts.js'></script>
 </html>

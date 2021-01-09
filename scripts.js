@@ -1,3 +1,5 @@
+hljs.initHighlightingOnLoad();
+
 function CopyToClipboard(ElementName, fallbackColor) {
     var copyText = document.getElementsByClassName(ElementName)[0];
     navigator.clipboard.writeText(copyText.innerText).then(() => {

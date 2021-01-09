@@ -17,8 +17,13 @@
     100% {width: 0vw;margin-left: 40vw;height: 8vw;}
 }
 @keyframes HeaderHeightAnim {
-    0% {height: 14vw;}
-    100% {height: 18vw;}
+    0% {height: 14vw;top: 0vw;}
+    100% {height: 18vw;top: 3.5vw;}
+}
+@keyframes TopBarAnim {
+    0% {height: 0vw; color: #0000;}
+    65% {color: #0000;}
+    100% {height: 3.5vw;}
 }
 
 body {
@@ -26,12 +31,91 @@ body {
     color: #FFF;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    overflow-x: hidden;
+}
+
+red {
+    color: #FF5555;
+}
+
+.TopBar {
+    width: 100vw;
+    position: fixed;
+    background-color: #ffff7c;
+    height: 3.5vw;
+    z-index: 1;
+    animation: TopBarAnim 0.75s;
+}
+
+.TopBar .Pages .SelectedPage {
+    margin-left: 7vw;
+    height: 3.5vw;
+    border: 0;
+    background-color: rgb(40, 0, 83);
+    color: #fff;
+    font-size: 1.3vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    line-height: -2vw;
+    display: flex;
+    flex-direction: column;
+    animation: TopBarAnim 0.75s;
+}
+
+.TopBar .Pages .SelectedPage:before {
+    display: inline-block;
+    content: '';
+    padding-top: 1vw;
+    width: 100%;
+    margin: 0;
+}
+
+.TopBar .Pages .SelectedPage:hover {
+    background-color: rgb(22, 0, 46);
+}
+
+.TopBar .External .button {
+    text-decoration: none;
+    height: 3.5vw;
+    top: 0;
+    border: 0;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    transition: all 0.5s ease;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3vw;
+    animation: TopBarAnim 0.75s;
+}
+
+.TopBar .External .button:before {
+    display: inline-block;
+    content: '';
+    padding-top: 1vw;
+    width: 100%;
+    margin: 0;
+}
+
+.TopBar .External .button:hover {
+    background-color: #0003;
+}
+
+.TopBar .External {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 7vw;
 }
 
 .header {
     background-color: rgb(40, 0, 83);
-    position: sticky;
-    top: 0;
+    position: absolute;
+    top: 3.5vw;
     left: 0;
     width: 100vw;
     height: 18vw; 
@@ -118,4 +202,47 @@ body {
     top: 4vw;
     left: 33vw;
     animation: PurpleEffectBar 1s;
+}
+
+.Content {
+    position: absolute;
+    top: 21.5vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 5vw;
+}
+
+.Content .About {
+    width: 30vw;
+    margin-left: 10vw;
+    position: absolute;
+}
+
+.Content h2 {
+    text-align: center;
+    font-size: 2.5vw;
+}
+
+.Content p {
+    font-size: 1.3vw;
+}
+
+.Content code {
+    font-size: 1vw;
+    white-space: pre-wrap;
+}
+
+.Content .example {
+    position: static;
+    width: 40vw;
+    margin-left: 50vw;
+    margin-bottom: 10vw;
+}
+
+.Content .example pre {
+    background-color: #282a36;
+    border-radius: 0.5vw;
+    margin: 0;
+    padding: 1vw;
 }
