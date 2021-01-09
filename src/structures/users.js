@@ -10,7 +10,7 @@ class Users {
          */
         Object.defineProperty(this, 'client', { value: client });
 
-        this.name = data.userName;
+        this.userName = data.userName;
 
         this.haveBadges = data.haveBadges ? data.haveBadges : false;
         this.badges = data.badges ? data.badges : '';

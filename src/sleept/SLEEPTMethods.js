@@ -193,6 +193,7 @@ class SLEEPTMethods {
             }, index * 100);
         });
         this.client.eventEmmiter('ready', this.server, '443');
+        this.client.readyAt = Date.now();
     }
 
     join(channel, index) {
@@ -382,7 +383,7 @@ class SLEEPTMethods {
         user.isSubscriber = data.tags.subscriber ? Number(data.tags.subscriber) >= 1 : user.isSubscriber;
         user.isTurbo = data.tags.turbo ? data.tags.turbo >= 1 : user.isTurbo;
         user.userType = data.tags['user-type'] ? data.tags['user-type'] : user.userType;
-        user.self = user.name === this.userName;
+        user.self = user.userName === this.userName;
         user.broadcaster = user.badges.toString().includes('broadcaster');
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
         this.client.channels = global.twitchApis.client.channels;
