@@ -2,6 +2,14 @@
     0% {margin-left: -5vw;}
     100% {margin-left: 0vw;}
 }
+@keyframes TitleColor {
+    0% {color: #fff;}
+    100% {color: #ffff7c;}
+}
+@keyframes EffectBars {
+    0% {background-color: #ffff;width: 30vw;}
+    100% {background-color: #fff0;width: 0vw;}
+}
 
 body {
     background-color: #111;
@@ -29,6 +37,7 @@ body {
 
 .header .Title .language {
     color: #ffff7c;
+    animation: TitleColor 1s;
 }
 
 .header .OverTitle {
@@ -36,5 +45,36 @@ body {
     font-size: 3vw;
     margin-top: 1vh;
     left: 34vw;
-    animation: name duration ;
+    animation: MoveAnimationTopTitle 1s;
+    color: #e195ff;
+}
+
+.header .EffectBars {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.header .EffectBars div{
+    width: 0vw;
+    height: 2vw;
+    position: relative;
+    margin-top: 1.5vw;
+    left: 2vw;
+    animation: EffectBars 1s;
+}
+
+.header .EffectBars .RightBars {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph; /*IE*/
+    filter: fliph; /*IE*/
+    top: 0;
 }
