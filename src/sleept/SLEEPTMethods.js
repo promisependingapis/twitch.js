@@ -330,31 +330,31 @@ class SLEEPTMethods {
             Users.chatters.vips.forEach((vips) => {
                 if (!global.twitchApis.client.channels.get(channelName).users.get(vips)) {
                     global.twitchApis.client.channels.get(channelName).users.set(vips, 
-                    new users(this.client, {userName: vips,self: vips === this.userName,isVip: true}));
+                    new users(this.client, {userName: vips,self: vips === this.userName,vip: true}));
                 }
             });
             Users.chatters.moderators.forEach((moderators) => {
                 if (!global.twitchApis.client.channels.get(channelName).users.get(moderators)) {
                     global.twitchApis.client.channels.get(channelName).users.set(moderators, 
-                    new users(this.client, {userName: moderators,self: moderators === this.userName,isMod: true}));
+                    new users(this.client, {userName: moderators,self: moderators === this.userName,mod: true}));
                 }
             });
             Users.chatters.staff.forEach((staff) => {
                 if (!global.twitchApis.client.channels.get(channelName).users.get(staff)) {
                     global.twitchApis.client.channels.get(channelName).users.set(staff, 
-                    new users(this.client, {userName: staff,self: staff === this.userName,isStaff: true}));
+                    new users(this.client, {userName: staff,self: staff === this.userName,staff: true}));
                 }
             });
             Users.chatters.admins.forEach((admins) => {
                 if (!global.twitchApis.client.channels.get(channelName).users.get(admins)) {
                     global.twitchApis.client.channels.get(channelName).users.set(admins, 
-                    new users(this.client, {userName: admins,self: admins === this.userName,isAdmin: true}));
+                    new users(this.client, {userName: admins,self: admins === this.userName,admin: true}));
                 }
             });
             Users.chatters.global_mods.forEach((global_mods) => {
                 if (!global.twitchApis.client.channels.get(channelName).users.get(global_mods)) {
                     global.twitchApis.client.channels.get(channelName).users.set(global_mods, 
-                    new users(this.client, {userName: global_mods,self: global_mods === this.userName,isGlobalMod: true}));
+                    new users(this.client, {userName: global_mods,self: global_mods === this.userName,globalMod: true}));
                 }
             });
             Users.chatters.viewers.forEach((viewers) => {
@@ -379,9 +379,9 @@ class SLEEPTMethods {
         user.color = data.tags.color ? data.tags.color : user.color;
         user.displayName = data.tags['display-name'] ? data.tags['display-name'] : user.displayName;
         user.hasFlags = data.tags.flags ? data.tags.flags : user.hasFlags;
-        user.isMod = data.tags.mod ? Number(data.tags.mod) >= 1 : user.isMod;
-        user.isSubscriber = data.tags.subscriber ? Number(data.tags.subscriber) >= 1 : user.isSubscriber;
-        user.isTurbo = data.tags.turbo ? data.tags.turbo >= 1 : user.isTurbo;
+        user.mod = data.tags.mod ? Number(data.tags.mod) >= 1 : user.mod;
+        user.subscriber = data.tags.subscriber ? Number(data.tags.subscriber) >= 1 : user.subscriber;
+        user.turbo = data.tags.turbo ? data.tags.turbo >= 1 : user.turbo;
         user.userType = data.tags['user-type'] ? data.tags['user-type'] : user.userType;
         user.self = user.userName === this.userName;
         user.broadcaster = user.badges.toString().includes('broadcaster');
