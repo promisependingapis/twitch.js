@@ -137,7 +137,7 @@ class Client extends EventEmmiter {
      * Client.uptime().then((Time) => { })
      */
     uptime() {
-        return Promise.resolve(Date.now() - global.twitchApis.client.option.readyAt);
+        return Promise.resolve(Date.now() - this.readyAt);
     }
 
     /**
