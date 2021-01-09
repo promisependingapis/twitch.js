@@ -12,9 +12,13 @@
 }
 @keyframes PurpleEffectBar {
     0% {width: 1vw; margin-left: 0vw;height: 0vw;}
-    15% {width: 5vw;height: 8vw;}
-    50% {width: 34vw;margin-left: 2vw;height: 8vw;}
+    15% {width: 5vw;margin-left: 0vw;height: 8vw;}
+    50% {width: 34vw;margin-left: 6vw;height: 8vw;}
     100% {width: 0vw;margin-left: 40vw;height: 8vw;}
+}
+@keyframes HeaderHeightAnim {
+    0% {height: 14vw;}
+    100% {height: 18vw;}
 }
 
 body {
@@ -31,6 +35,7 @@ body {
     left: 0;
     width: 100vw;
     height: 18vw; 
+    animation: HeaderHeightAnim 0.75s;
 }
 
 .header .Title {
@@ -103,7 +108,7 @@ body {
 }
 
 .header .InstallCode code:hover {
-    background-color: #474;
+    background-color: #474 !important;
 }
 
 .header .Bar11 {
