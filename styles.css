@@ -8,7 +8,13 @@
 }
 @keyframes EffectBars {
     0% {background-color: #ffff;width: 30vw;}
-    100% {background-color: #fff0;width: 0vw;}
+    100% {background-color: #fff;width: 0vw;}
+}
+@keyframes PurpleEffectBar {
+    0% {width: 1vw; margin-left: 0vw;height: 0vw;}
+    15% {width: 5vw;height: 8vw;}
+    50% {width: 34vw;margin-left: 2vw;height: 8vw;}
+    100% {width: 0vw;margin-left: 40vw;height: 8vw;}
 }
 
 body {
@@ -24,13 +30,13 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 25vh; 
+    height: 18vw; 
 }
 
 .header .Title {
     font-size: 7vw;
     position: absolute;
-    margin-top: 7vh;
+    margin-top: 4vw;
     width: 100vw;
     text-align: center;
 }
@@ -77,4 +83,34 @@ body {
     -ms-filter: fliph; /*IE*/
     filter: fliph; /*IE*/
     top: 0;
+}
+
+.header .InstallCode {
+    font-size: 1.3vw;
+    position:absolute;
+    top: 13.5vw;
+    width: 100vw;
+    text-align: center;
+}
+
+.header .InstallCode code {
+    background-color: #444;
+    padding: 0.5vw;
+    border-radius: 100vw;
+    border: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.header .InstallCode code:hover {
+    background-color: #474;
+}
+
+.header .Bar11 {
+    background-color: #cd77ff;
+    height: 8vw;
+    position:absolute;
+    top: 4vw;
+    left: 33vw;
+    animation: PurpleEffectBar 1s;
 }
