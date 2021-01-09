@@ -1,0 +1,40 @@
+@keyframes MoveAnimationTopTitle {
+    0% {margin-left: -5vw;}
+    100% {margin-left: 0vw;}
+}
+
+body {
+    background-color: #111;
+    color: #FFF;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.header {
+    background-color: rgb(40, 0, 83);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 25vh; 
+}
+
+.header .Title {
+    font-size: 7vw;
+    position: absolute;
+    margin-top: 7vh;
+    width: 100vw;
+    text-align: center;
+}
+
+.header .Title .language {
+    color: #ffff7c;
+}
+
+.header .OverTitle {
+    position: absolute;
+    font-size: 3vw;
+    margin-top: 1vh;
+    left: 34vw;
+    animation: name duration ;
+}
