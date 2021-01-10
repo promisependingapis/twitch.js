@@ -15,7 +15,7 @@
                 <a href="." class='SelectedPage'>Twitch.JS</a>
             </div>
             <div class='External'>
-                <a href="./docs/#" class='button'>Documentation</a>
+                <a href="./docs/#" class='button' onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";'>Documentation</a>
                 <a href="https://github.com/twitchapis/twitch.js" class='button'>Github</a>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 </p>
             </div>
             <div class='Buttons'>
-                <button classs='docs' onClick='window.location.href = "./docs/#";'>Documentation</button>
+                <button classs='docs' onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";window.location.href = "./docs/#";'>Documentation</button>
             </div>
             <div class='footer'>
                 <h4>Twitch.JS</h4>
@@ -96,6 +96,7 @@
                 <p class='FooterStatistics'>Loading downloads, Loading stars, Loading contributors</p>
                 <button>Github</button>
             </div>
+            <div class='LoadingScreen'></div>
         </div>
     </body>
     <script src='./scripts.js'></script>
