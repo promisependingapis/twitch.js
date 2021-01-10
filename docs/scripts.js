@@ -1,0 +1,1 @@
+hljs.highlightBlock(document.getElementsByClassName('Markdown')[0]);
