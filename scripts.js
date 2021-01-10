@@ -26,7 +26,6 @@ httpGetAsync('https://api.github.com/repos/twitchapis/twitch.js', (json) => {
 httpGetAsync('https://api.github.com/repos/twitchapis/twitch.js/stats/contributors', (json) => {
     var response = JSON.parse(json);
     document.getElementsByClassName('TotalContributors')[0].innerText = response.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' contributors on Github'
-    console.log(response.length);
 })
 
 hljs.initHighlightingOnLoad();
