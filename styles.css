@@ -283,3 +283,20 @@ a {
     text-align: center;
     font-size: 1vw;
 }
+
+.Content .Buttons {
+    top: 55vw;
+    position: absolute;
+    width: 15vw;
+    margin-left: 42.5vw;
+    margin-bottom: 10vw;
+}
+
+.Content .Buttons button {
+    width: 15vw;
+    border: 0;
+    background-color: #ffff7c;
+    border-radius: 0.5vw;
+    height: 3vw;
+    font-size: 2vw;
+}
