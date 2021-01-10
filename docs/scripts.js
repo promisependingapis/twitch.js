@@ -6,7 +6,7 @@ xhr.onload = async () => {
     });
     console.log(markdown.data);
     var htmlObject = document.createElement('div');
-    htmlObject.outerHTML = markdown.data;
+    htmlObject.innerHTML = markdown.data;
     document.getElementsByClassName('Content')[0].appendChild(htmlObject);
 };
 xhr.open('get', "./README.md");
