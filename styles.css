@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    width: 1.5vw;
+    width: 1vw;
 }
 ::-webkit-scrollbar-track {
     background: #ffff7c;
@@ -356,6 +356,7 @@ a {
 
 .footer h4 {
     margin-top: 3vw;
+    font-size: 1.5vw;
 }
 
 .footer button {

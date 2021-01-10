@@ -1,6 +1,11 @@
 document.getElementsByClassName('Content')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
 document.getElementsByClassName('Content')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
 
+window.onresize = () => {
+    document.getElementsByClassName('Content')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
+    document.getElementsByClassName('Content')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
+}
+
 // https://stackoverflow.com/questions/247483/http-get-request-in-javascript
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
