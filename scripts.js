@@ -1,3 +1,34 @@
+// https://stackoverflow.com/questions/247483/http-get-request-in-javascript
+function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+httpGetAsync('https://api.npmjs.org/downloads/range/2013-08-21:2100-08-21/@twitchapis/twitch.js', (json) => {
+    var response = JSON.parse(json);
+    var totalDownloads = 0;
+    response.downloads.forEach((download) => {
+        totalDownloads += download.downloads;
+    })
+    document.getElementsByClassName('TotalDownloads')[0].innerText = totalDownloads.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' downloads on npm';
+})
+
+httpGetAsync('https://api.github.com/repos/twitchapis/twitch.js', (json) => {
+    var response = JSON.parse(json);
+    document.getElementsByClassName('TotalStars')[0].innerText = response.stargazers_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' stars on Github'
+})
+
+httpGetAsync('https://api.github.com/repos/twitchapis/twitch.js/stats/contributors', (json) => {
+    var response = JSON.parse(json);
+    document.getElementsByClassName('TotalContributors')[0].innerText = response.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' contributors on Github'
+    console.log(response.length);
+})
+
 hljs.initHighlightingOnLoad();
 
 function CopyToClipboard(ElementName, fallbackColor) {

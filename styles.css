@@ -38,6 +38,11 @@ red {
     color: #FF5555;
 }
 
+a {
+    color: #ffff7c;
+    text-decoration: none;
+}
+
 .TopBar {
     width: 100vw;
     position: fixed;
@@ -245,4 +250,36 @@ red {
     border-radius: 0.5vw;
     margin: 0;
     padding: 1vw;
+}
+
+.Content .Why {
+    top: 30vw;
+    width: 30vw;
+    margin-left: 10vw;
+    position: absolute;
+}
+
+.Content .Why ul {
+    font-size: 1.75vw;
+    margin-left: -2vw;
+}
+
+.Content .Statistics {
+    top: 30vw;
+    position: absolute;
+    width: 40vw;
+    margin-left: 50vw;
+    margin-bottom: 10vw;
+}
+
+.Content .Statistics ul {
+    font-size: 1.75vw;
+    margin-left: -2vw;
+}
+
+.Content .Statistics span {
+    display:inline-block;
+    width: 40vw;
+    text-align: center;
+    font-size: 1vw;
 }
