@@ -123,6 +123,7 @@ a {
     flex-direction: column;
     font-size: 1.3vw;
     animation: TopBarAnim 0.75s;
+    cursor: pointer;
 }
 
 .TopBar .External .button:before {
