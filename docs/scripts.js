@@ -4,8 +4,10 @@ xhr.onload = async () => {
     const markdown = await request('POST /markdown', {
         text: xhr.response
     });
-    console.log(markdown);
-    document.getElementsByClassName('File-viewer').innerHTML = markdown.data;
+    console.log(markdown.data);
+    var htmlObject = document.createElement('div');
+    htmlObject.outerHTML = markdown.data;
+    document.getElementsByClassName('Content')[0].appendChild(htmlObject);
 };
 xhr.open('get', "./README.md");
 xhr.send();
