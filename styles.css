@@ -48,6 +48,18 @@ html {
     0% {height: 0vh;}
     100% {height: 100vh;}
 }
+@keyframes leftAppear {
+    0% {left: -10vw;opacity: 0.25;}
+    100% {left: 0vw;opacity: 1;}
+}
+@keyframes RightAppear {
+    0% {left: 10vw;opacity: 0.25;}
+    100% {left: 0vw;opacity: 1;}
+}
+@keyframes exampleAppear {
+    0% {margin-left: 60vw;opacity: 0.25;}
+    100% {margin-left: 50vw;opacity: 1;}
+}
 
 body {
     background-color: #111;
@@ -258,6 +270,7 @@ a {
     margin-left: 10vw;
     position: absolute;
     top: 21.5vw;
+    animation: leftAppear 1.5s ease;
 }
 
 .Content h2 {
@@ -280,6 +293,7 @@ a {
     width: 40vw;
     margin-left: 50vw;
     margin-bottom: 10vw;
+    animation: exampleAppear 1.5s ease;
 }
 
 .Content .example pre {
@@ -294,6 +308,7 @@ a {
     width: 30vw;
     margin-left: 10vw;
     position: absolute;
+    animation: leftAppear 3s ease;
 }
 
 .Content .Why ul {
@@ -307,6 +322,7 @@ a {
     width: 40vw;
     margin-left: 50vw;
     margin-bottom: 10vw;
+    animation: RightAppear 3s ease;
 }
 
 .Content .Statistics ul {
