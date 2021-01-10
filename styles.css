@@ -1,3 +1,22 @@
+::-webkit-scrollbar {
+    width: 1.5vw;
+}
+::-webkit-scrollbar-track {
+    background: #ffff7c;
+    height: 10vw;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(51, 0, 105);
+    width: 0.5vw;
+}  
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(67, 0, 139);
+} 
+
+html {
+    scrollbar-color: rgb(51, 0, 105) #ffff7c;
+}
+
 @keyframes MoveAnimationTopTitle {
     0% {margin-left: -5vw;}
     100% {margin-left: 0vw;}
@@ -17,8 +36,8 @@
     100% {width: 0vw;margin-left: 40vw;height: 8vw;}
 }
 @keyframes HeaderHeightAnim {
-    0% {height: 14vw;top: 0vw;}
-    100% {height: 18vw;top: 3.5vw;}
+    0% {margin-top: 0vw;height:100vh;}
+    100% {margin-top: 3.5vw;}
 }
 @keyframes TopBarAnim {
     0% {height: 0vw; color: #0000;}
@@ -31,7 +50,7 @@ body {
     color: #FFF;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 red {
@@ -129,11 +148,9 @@ a {
 .header {
     background-color: rgb(40, 0, 83);
     position: absolute;
-    top: 3.5vw;
     left: 0;
     width: 100vw;
     height: 18vw; 
-    animation: HeaderHeightAnim 0.75s;
 }
 
 .header .Title {
@@ -186,6 +203,7 @@ a {
     -ms-filter: fliph; /*IE*/
     filter: fliph; /*IE*/
     top: 0;
+    left: -1vw;
 }
 
 .header .InstallCode {
@@ -219,18 +237,22 @@ a {
 }
 
 .Content {
+    width: 100vw;
     position: absolute;
-    top: 21.5vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 5vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    animation: HeaderHeightAnim 0.75s;
+    scrollbar-width: thin;
 }
 
 .Content .About {
     width: 30vw;
     margin-left: 10vw;
     position: absolute;
+    top: 21.5vw;
 }
 
 .Content h2 {
@@ -248,6 +270,7 @@ a {
 }
 
 .Content .example {
+    margin-top: 21.5vw;
     position: static;
     width: 40vw;
     margin-left: 50vw;
@@ -262,7 +285,7 @@ a {
 }
 
 .Content .Why {
-    top: 30vw;
+    top: 51.5vw;
     width: 30vw;
     margin-left: 10vw;
     position: absolute;
@@ -274,7 +297,7 @@ a {
 }
 
 .Content .Statistics {
-    top: 30vw;
+    top: 51.5vw;
     position: absolute;
     width: 40vw;
     margin-left: 50vw;
@@ -294,7 +317,7 @@ a {
 }
 
 .Content .Buttons {
-    top: 55vw;
+    top: 73vw;
     position: absolute;
     width: 15vw;
     margin-left: 42.5vw;
@@ -324,7 +347,7 @@ a {
 
 .footer {
     position: absolute;
-    top: 90vw;
+    top: 80vw;
     width: 100vw;
     height: 15vw;
     background-color: #333;
