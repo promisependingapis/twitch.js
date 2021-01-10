@@ -6,11 +6,10 @@ xhr.onload = async () => {
     });
     var htmlObject = document.createElement('div');
     htmlObject.innerHTML = markdown.data;
-    document.getElementsByClassName('File-Viewer')[0].appendChild(htmlObject).onload = () => {
-        document.getElementsByClassName('highlight').forEach((element) => {
-            hljs.highlightBlock(element);
-        });
-    };
+    document.getElementsByClassName('File-Viewer')[0].appendChild(htmlObject);
+    [...document.getElementsByClassName('highlight')].forEach((element) => {
+        hljs.highlightBlock(element);
+    })
 };
 xhr.open('get', "./README.md");
 xhr.send();
