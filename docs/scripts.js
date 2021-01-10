@@ -1,5 +1,9 @@
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
-import readme from "./README.md";
-Octokit.request('POST /markdown', {
-    text: readme
-});
+var xhr = new XMLHttpRequest();
+xhr.onload = () => {
+    Octokit.request('POST /markdown', {
+        text: xhr.response
+    });
+};
+xhr.open('get', "./README.md");
+xhr.send();
