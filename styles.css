@@ -83,6 +83,10 @@ a {
     background-color: rgb(22, 0, 46);
 }
 
+.TopBar .Pages .SelectedPage:active {
+    background-color: rgb(6, 0, 12);
+}
+
 .TopBar .External .button {
     text-decoration: none;
     height: 3.5vw;
@@ -108,6 +112,11 @@ a {
 
 .TopBar .External .button:hover {
     background-color: #0003;
+}
+
+.TopBar .External .button:active {
+    background-color: #0006;
+    color: #FFF;
 }
 
 .TopBar .External {
@@ -299,4 +308,50 @@ a {
     border-radius: 0.5vw;
     height: 3vw;
     font-size: 2vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Content .Buttons button:hover {
+    background-color: #b4b457;
+    color: #FFF;
+}
+
+.Content .Buttons button:active {
+    background-color: #5f5f2c;
+    color: #FFF;
+}
+
+.footer {
+    position: absolute;
+    top: 90vw;
+    width: 100vw;
+    height: 15vw;
+    background-color: #333;
+    text-align: center;
+}
+
+.footer h4 {
+    margin-top: 3vw;
+}
+
+.footer button {
+    width: 5vw;
+    border: 0;
+    background-color: #ffff7c;
+    border-radius: 0.5vw;
+    height: 2vw;
+    font-size: 1.3vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.footer button:hover {
+    background-color: #b4b457;
+    color: #FFF;
+}
+
+.footer button:active {
+    background-color: #5f5f2c;
+    color: #FFF;
 }
