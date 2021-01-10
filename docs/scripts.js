@@ -4,10 +4,12 @@ xhr.onload = async () => {
     const markdown = await request('POST /markdown', {
         text: xhr.response
     });
-    console.log(markdown.data);
     var htmlObject = document.createElement('div');
     htmlObject.innerHTML = markdown.data;
-    document.getElementsByClassName('Content')[0].appendChild(htmlObject);
+    document.getElementsByClassName('File-Viewer')[0].appendChild(htmlObject);
+    document.getElementsByClassName('highlight').forEach((element) => {
+        hljs.highlightBlock(element);
+    });
 };
 xhr.open('get', "./README.md");
 xhr.send();
