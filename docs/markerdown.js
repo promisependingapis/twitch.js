@@ -18,5 +18,5 @@ xhr.onload = async () => {
         element.innerHTML = element.innerHTML.replaceAll('[X]', '<input type="checkbox" disabled checked>');
     });
 };
-xhr.open('get', "./README.md");
+xhr.open('get', "https://raw.githubusercontent.com/twitchapis/twitch.js/main/README.md");
 xhr.send();

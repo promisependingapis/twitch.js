@@ -137,7 +137,7 @@ a {
     position: relative;
     width: 60vw;
     top: 7vw;
-    margin-left: 30vw;
+    margin-left: 33vw;
 }
 
 .File-Viewer th {
@@ -165,4 +165,33 @@ a {
     background-color: #0007;
     padding: 1.7vw;
     color: #FFF;
+}
+
+.SideBar {
+    width: 27vw;
+    position: fixed;
+    background-color: #555;
+    scrollbar-width: thin;
+    overflow-y: scroll;
+}
+
+.SideBar .SideBarContent {
+    margin-top: 2vw;
+    margin-left: 2vw;
+}
+
+.SideBar .SideBarContent h2 {
+    font-size: 1.5vw;
+}
+
+.SideBar .SideBarContent .SideBarClasses {
+    font-size: 1.3vw;
+    margin-left: 1vw;
+    margin-top: -1vw;
+}
+
+.SideBar .SideBarContent .SideBarTypedefs {
+    font-size: 1.3vw;
+    margin-left: 1vw;
+    margin-top: -1vw;
 }
