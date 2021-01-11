@@ -93,10 +93,10 @@ client.login('token');
 
 ## Contributors
 
-| [<img src="https://avatars0.githubusercontent.com/u/10421864?s=120&v=4" witdh=115><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars3.githubusercontent.com/u/10421864?s=120&v=4" witdh="115"><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) | [<img src="https://avatars3.githubusercontent.com/u/54549066?s=120&v=4" witdh="115"><br><sub>Aadarsh</sub>](https://github.com/Itsaadarsh) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## Authors
 
-| [<img src="https://avatars3.githubusercontent.com/u/43734867?s=460&u=4c7c28e1c72445f234f37ca2cf8b000133fdfd24&v=4" width=115><br><sub>Lobo Metalurgico</sub>](https://github.com/LoboMetalurgico) | [<img src="https://avatars1.githubusercontent.com/u/44732812?s=460&u=37014703e35379861b0abbd585d035304e1e061d&v=4" width=115><br><sub>Space_Interprise</sub>](https://github.com/emanuelfranklyn) |
+| [<img src="https://avatars3.githubusercontent.com/u/43734867?s=120&u=4c7c28e1c72445f234f37ca2cf8b000133fdfd24&v=4" width=115><br><sub>Lobo Metalurgico</sub>](https://github.com/LoboMetalurgico) | [<img src="https://avatars3.githubusercontent.com/u/44732812?s=120&u=37014703e35379861b0abbd585d035304e1e061d&v=4" width=115><br><sub>Space_Interprise</sub>](https://github.com/emanuelfranklyn) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
