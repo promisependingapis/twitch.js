@@ -10,7 +10,7 @@ const channel = require('../structures/channels');
  */
 
 /**
- * Creates de main class to generate clients.
+ * Creates the main class to generate clients.
  * @extends {EventEmmiter}
  */
 class Client extends EventEmmiter {
