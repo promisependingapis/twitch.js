@@ -45,7 +45,7 @@ a {
     position: fixed;
     background-color: #ffff7c;
     height: 3.5vw;
-    z-index: 1;
+    z-index: 301;
 }
 
 .TopBar .Pages .SelectedPage {
@@ -125,7 +125,7 @@ a {
     position: fixed;
     width: 100vw;
     height: 0vh;
-    z-index: -1;
+    z-index: 300;
     animation: LoadingScreen 0.5s ease-out;
 }
 
@@ -135,9 +135,9 @@ a {
 
 .File-Viewer {
     position: relative;
-    width: 75vw;
+    width: 60vw;
     top: 7vw;
-    margin-left: 20vw;
+    margin-left: 30vw;
 }
 
 .File-Viewer th {
@@ -154,4 +154,15 @@ a {
     height: 5vw;
     background-color: #333;
     z-index: 1;
+}
+
+.TopSearch input {
+    position: absolute;
+    font-size: 1.3vw;
+    right: 2vw;
+    width: 20vw;
+    border: 0;
+    background-color: #0007;
+    padding: 1.7vw;
+    color: #FFF;
 }
