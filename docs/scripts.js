@@ -1,15 +1,16 @@
-import { request } from "https://cdn.skypack.dev/@octokit/request";
-var xhr = new XMLHttpRequest();
-xhr.onload = async () => {
-    const markdown = await request('POST /markdown', {
-        text: xhr.response
-    });
-    var htmlObject = document.createElement('div');
-    htmlObject.innerHTML = markdown.data;
-    document.getElementsByClassName('File-Viewer')[0].appendChild(htmlObject);
-    [...document.getElementsByClassName('highlight')].forEach((element) => {
-        hljs.highlightBlock(element);
-    })
-};
-xhr.open('get', "./README.md");
-xhr.send();
+document.getElementsByClassName('File-Viewer')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
+document.getElementsByClassName('File-Viewer')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
+document.getElementsByTagName('html')[0].style.height = document.getElementsByTagName('html')[0].scrollHeight + ((3.5/100)*window.innerWidth) + 'px';
+setTimeout(() => {
+    document.getElementsByTagName('body')[0].style.height = document.getElementsByTagName('html')[0].scrollHeight + ((3.5/100)*window.innerWidth) + 'px';
+}, 300);
+window.onresize = () => {
+    document.getElementsByClassName('File-Viewer')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
+    document.getElementsByClassName('File-Viewer')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
+    document.getElementsByTagName('html')[0].style.height = document.getElementsByTagName('html')[0].scrollHeight + ((3.5/100)*window.innerWidth) + 'px';
+}
+
+[...document.getElementsByTagName('li')].forEach((element) => {
+	element.innerHTML = element.innerHTML.replaceAll('[ ]', '<input type="checkbox" disabled>');
+	element.innerHTML = element.innerHTML.replaceAll('[X]', '<input type="checkbox" disabled checked>');
+});
