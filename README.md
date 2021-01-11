@@ -93,8 +93,8 @@ client.login('token');
 
 ## Contributors
 
-| [<img src="https://avatars3.githubusercontent.com/u/10421864?s=120&v=4" witdh="115"><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) | [<img src="https://avatars3.githubusercontent.com/u/54549066?s=120&v=4" witdh="115"><br><sub>Aadarsh</sub>](https://github.com/Itsaadarsh) |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars3.githubusercontent.com/u/10421864?s=120&v=4" witdh="115"><br><sub>VietnameZe</sub>](https://github.com/VietnameZe) | [<img src="https://avatars3.githubusercontent.com/u/54549066?s=120&v=4" witdh="115"><br><sub>Aadarsh</sub>](https://github.com/Itsaadarsh) | [<img src="https://avatars3.githubusercontent.com/u/14365254?s=120&v=4" witdh="115"><br><sub>Nathan Ferreira</sub>](https://github.com/nathan130200) |
+| :-------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 ## Authors
 
