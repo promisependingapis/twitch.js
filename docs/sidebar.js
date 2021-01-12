@@ -1,6 +1,6 @@
-var xhr = new XMLHttpRequest();
-xhr.onload = async () => {
-    const json = JSON.parse(xhr.response);
+var xhra = new XMLHttpRequest();
+xhra.onload = async () => {
+    const json = JSON.parse(xhra.response);
     json.classes.forEach((classValue) => {
         const br = document.createElement('br');
         const button = document.createElement('a');
@@ -18,5 +18,5 @@ xhr.onload = async () => {
         document.getElementsByClassName('SideBarTypedefs')[0].appendChild(br);
     });
 };
-xhr.open('get', "./json/docs.json");
-xhr.send();
+xhra.open('get', "./json/docs.json");
+xhra.send();

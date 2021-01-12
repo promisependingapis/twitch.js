@@ -1,18 +1,18 @@
-import { request } from "https://cdn.skypack.dev/@octokit/request";
 var xhr = new XMLHttpRequest();
 xhr.onload = async () => {
-    const markdown = await request('POST /markdown', {
-        text: xhr.response
-    });
+    var md = new Remarkable();
+    var MarkdownedHtml = md.render(xhr.response);
     var htmlObject = document.createElement('div');
-    htmlObject.innerHTML = markdown.data;
+    htmlObject.innerHTML = MarkdownedHtml.replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&quot;', '"');
     document.getElementsByClassName('File-Viewer')[0].innerHTML = '';
     document.getElementsByClassName('File-Viewer')[0].appendChild(htmlObject);
-    [...document.getElementsByClassName('highlight')].forEach((element) => {
-        hljs.highlightBlock(element);
-        element.style.borderRadius = '1.5vw';
-        element.children[0].style.margin = '0';
-        element.children[0].style.padding = '1vw';
+    [...document.getElementsByTagName('code')].forEach((element) => {
+        if(element.className.startsWith('language-')) {
+            element.parentElement.style.borderRadius = '1.5vw';
+            element.parentElement.style.margin = '0';
+            element.parentElement.style.padding = '1vw';
+            hljs.highlightBlock(element.parentElement);
+        }
     });
     [...document.getElementsByTagName('li')].forEach((element) => {
         element.innerHTML = element.innerHTML.replaceAll('[ ]', '<input type="checkbox" disabled>');

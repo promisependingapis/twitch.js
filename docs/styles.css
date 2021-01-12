@@ -64,6 +64,12 @@ a {
     text-decoration: none;
 }
 
+img {
+    max-width: 100%;
+    max-width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    max-width: fill-available;
+}
+
 .TopBar {
     width: 100vw;
     position: fixed;
