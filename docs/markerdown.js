@@ -145,13 +145,13 @@ function changePage() {
                                             if (typeof type === 'object') {
                                                 type.forEach((typ) => {
                                                     if (typeof typ === 'object') {
-                                                        table.string += '<green>' + typ.join('') + '</green>'
+                                                        table.string += (json.classes.find(values => values.name === typ.join('')) || json.typedefs.find(values => values.name === typ.join('')) ? '<a href="#' + typ.join('') +'">' + typ.join('') + '</a>' : '<green>' + typ.join('') + '</green>')
                                                     } else if (typeof typ === 'string') {
-                                                        table.string += '<green>' + typ + '</green>'
+                                                        table.string += (json.classes.find(values => values.name === typ) || json.typedefs.find(values => values.name === typ) ? '<a href="#' + typ +'">' + typ + '</a>' : '<green>' + typ + '</green>')
                                                     }
                                                 });
                                             } else if (typeof type === 'string') {
-                                                table.string += '<green>' + type + '</green>'
+                                                table.string += (json.classes.find(values => values.name === type) || json.typefefs.find(values => values.name === type) ? '<a href="#' + type +'">' + type + '</a>' : '<green>' + type + '</green>')
                                             }
                                         })
                                         table.string += '</td>'
