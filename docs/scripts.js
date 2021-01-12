@@ -11,7 +11,6 @@ window.onresize = () => {
 
 function GoToThing(Thing) {
     document.getElementsByClassName('FileViewerPropriety' + Thing)[0].scrollIntoView();
-    console.log(window.scrollY - ((1/100)*window.innerWidth));
     window.scrollTo({
         top: (window.scrollY - ((12/100)*window.innerWidth)),
         behavior: 'smooth'

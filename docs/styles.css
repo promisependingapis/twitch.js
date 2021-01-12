@@ -39,6 +39,18 @@ green {
     color: #55FF55;
 }
 
+grayminus {
+    color: #666;
+    font-size: 0.9vw;
+}
+
+greenplus {
+    color: #8fffa7;
+    font-size: 1.4vw;
+    margin-right: 0.25vw;
+    margin-left: 0.25vw;
+}
+
 redbox {
     background-color: #FF5555;
     margin-left: 1vw;
@@ -271,6 +283,11 @@ a {
     font-size: 2vw;
 }
 
+.File-Viewer .FVMethodies {
+    margin-top: 4vw;
+    font-size: 2.5vw;
+}
+
 .TopSearch {
     position: fixed;
     margin-top: 3.5vw;
@@ -325,7 +342,7 @@ a {
     font-size: 1.4vw;
 }
 
-.SideBar .SideBarContent #SideBarSelected:after {
+.SideBar .SideBarContent #SideBarSelected:before {
     position: absolute;
     content: '';
     width: 0.3vw;
@@ -334,4 +351,5 @@ a {
     margin-top: -0.5vw;
     margin-bottom: -0.75vw;
     right: 3vw;
+    display: inline-block;
 }
