@@ -54,11 +54,19 @@ function changePage() {
                     var dxhr = new XMLHttpRequest();
                     dxhr.onload = async () => {
                         function AdjustSize() {
-                            if (document.getElementsByClassName('FVProps')[0].scrollHeight > document.getElementsByClassName('FVMethods')[0].scrollHeight) {
-                                document.getElementsByClassName('FVMethods')[0].style.height = (document.getElementsByClassName('FVProps')[0].scrollHeight - ((2/100)*window.innerWidth)) + 'px';
-                            } else {
-                                document.getElementsByClassName('FVProps')[0].style.height = (document.getElementsByClassName('FVMethods')[0].scrollHeight - ((2/100)*window.innerWidth)) + 'px';
+                            var biggest = 0;
+                            if (document.getElementsByClassName('FVProps')[0].scrollHeight && document.getElementsByClassName('FVProps')[0].scrollHeight > biggest) {
+                                biggest = document.getElementsByClassName('FVProps')[0].scrollHeight;
+                            } 
+                            if (document.getElementsByClassName('FVMethods')[0].scrollHeight && document.getElementsByClassName('FVMethods')[0].scrollHeight > biggest) {
+                                biggest = document.getElementsByClassName('FVMethods')[0].scrollHeight;
                             }
+                            if (document.getElementsByClassName('FVEvents')[0] && document.getElementsByClassName('FVEvents')[0].scrollHeight > biggest) {
+                                biggest = document.getElementsByClassName('FVEvents')[0].scrollHeight;
+                            }
+                            document.getElementsByClassName('FVMethods')[0] ? document.getElementsByClassName('FVMethods')[0].style.height = (biggest - ((2/100)*window.innerWidth)) + 'px' : '';
+                            document.getElementsByClassName('FVProps')[0] ? document.getElementsByClassName('FVProps')[0].style.height = (biggest - ((2/100)*window.innerWidth)) + 'px' : '';
+                            document.getElementsByClassName('FVEvents')[0] ? document.getElementsByClassName('FVEvents')[0].style.height = (biggest - ((2/100)*window.innerWidth)) + 'px' : '';
                         }
                         var Element = document.createElement('div');
                         document.getElementsByClassName('File-Viewer')[0].innerHTML = '';
@@ -87,6 +95,15 @@ function changePage() {
                                 methoder += '</div>';
                                 Element.innerHTML += methoder;
                             }
+                            if (element.events) {
+                                var methoder = '';
+                                methoder += '<div class="FVEvents"><p>Events:</p>'
+                                element.events.forEach((event) => {
+                                    methoder += `<a onClick="GoToThing('${event.name}')">` + event.name + '</a><br>';
+                                });
+                                methoder += '</div>';
+                                Element.innerHTML += methoder;
+                            }
                             if (element.props) {
                                 Element.innerHTML += '<h3 class = "FVPropierts">Properties:</h3>';
                                 element.props.forEach((prop) => {
@@ -97,6 +114,45 @@ function changePage() {
                                 Element.innerHTML += '<h3 class = "FVMethodies">Methods:</h3>';
                                 element.methods.forEach((prop) => {
                                     Element.innerHTML += '<h4 class="FileViewerPropriety' + prop.name + '">.' + prop.name + (prop.access === 'private' ? '<redbox>Private</redbox>' : '') + '<br><p>' + prop.description + '</p>' + (prop.returns && !prop.returns.types ? '<sub>return: <green>' + prop.returns[0][0][0] + (prop.returns[0][0][1] ? '<grayminus>' + prop.returns[0][0][1] + '</grayminus><greenplus>' + prop.returns[0][1][0] + '</greenplus><grayminus>' + prop.returns[0][1][1] + '</grayminus>' + (prop.returns[0][2] ? '<greenplus>' + prop.returns[0][2][0] + '</greenplus><grayminus>' + prop.returns[0][2][1] + '</grayminus>' : '') : '') + '</green></sub>' : '') + (prop.returns && prop.returns.types ? '<sub>return: <green>' + prop.returns.types[0][0][0] + (prop.returns.types[0][0][1] ? '<grayminus>' + prop.returns.types[0][0][1] + '</grayminus><greenplus>' + prop.returns.types[0][1][0] + '</greenplus>' +'<grayminus>' + prop.returns.types[0][1][1] + '</grayminus>': '') + '</green></sub>' : '') + '</h4>'
+                                });
+                            }
+                            if (element.events) {
+                                Element.innerHTML += '<h3 class = "FVMethodies">Events:</h3>';
+                                element.events.forEach((prop) => {
+                                    var table = {
+                                        values: ['PARAMETERS', 'TYPE', 'DESCRIPTION'],
+                                        string: '<table class="props-table">'
+                                    }
+                                    table.string += '<thead><tr>'
+                                    table.values.forEach((value) => {
+                                        table.string += '<th>' + value + '</th>'
+                                    })
+                                    table.string += '</tr></thead><tbody>'
+                                    prop.params.forEach((param) => {
+                                        table.string += '<tr>'
+                                        table.string += '<td>' + param.name + '</td>'
+                                        if (param.type) {
+                                            table.string += '<td>'
+                                            param.type.forEach((type) => {
+                                                if (typeof type === 'object') {
+                                                    type.forEach((typ) => {
+                                                        if (typeof typ === 'object') {
+                                                            table.string += (json.classes.find(values => values.name === typ.join('')) || json.typedefs.find(values => values.name === typ.join('')) ? '<a href="#' + typ.join('') +'">' + typ.join('') + '</a>' : '<green>' + typ.join('') + '</green>')
+                                                        } else if (typeof typ === 'string') {
+                                                            table.string += (json.classes.find(values => values.name === typ) || json.typedefs.find(values => values.name === typ) ? '<a href="#' + typ +'">' + typ + '</a>' : '<green>' + typ + '</green>')
+                                                        }
+                                                    });
+                                                } else if (typeof type === 'string') {
+                                                    table.string += (json.classes.find(values => values.name === type) || json.typefefs.find(values => values.name === type) ? '<a href="#' + type +'">' + type + '</a>' : '<green>' + type + '</green>')
+                                                }
+                                            })
+                                            table.string += '</td>'
+                                        }
+                                        if (param.description) {table.string += '<td>' + param.description + '</td>'}
+                                        table.string += '</tr>'
+                                    })
+                                    table.string += '</tbody></table>'
+                                    Element.innerHTML += '<h4 class="FileViewerPropriety' + prop.name + '">' + prop.name + '<br><p>' + prop.description + '</p>' + table.string + '</h4>'
                                 });
                             }
                         }

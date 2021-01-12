@@ -202,9 +202,9 @@ table tbody tr td {
 
 .File-Viewer {
     position: relative;
-    width: 60vw;
+    width: 69vw;
     top: 7vw;
-    margin-left: 33vw;
+    margin-left: 30vw;
 }
 
 .File-Viewer th {
@@ -318,6 +318,33 @@ table tbody tr td {
 }
 
 .File-Viewer .FVMethods a:hover {
+    color: #FFF;
+}
+
+.File-Viewer .FVEvents {
+    display: inline-block;
+    background-color: #3337;
+    padding: 1vw;
+    width: 20vw;
+    position: absolute;
+}
+
+.File-Viewer .FVEvents p {
+    margin: 0;
+    font-weight: bold;
+    color: #DDD;
+    font-size: 1.75vw;
+}
+
+.File-Viewer .FVEvents a {
+    margin: 0;
+    color: #BBB;
+    margin-left: 1vw;
+    cursor: pointer;
+    font-size: 1.3vw;
+}
+
+.File-Viewer .FVEvents a:hover {
     color: #FFF;
 }
 
