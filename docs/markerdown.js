@@ -25,6 +25,16 @@ xhr.onload = async () => {
             element.children[0].outerHTML = element.children[0].outerHTML.replaceAll('href=\"\"', '');
         }
     });
+    [...document.getElementsByTagName('table')].forEach((element) => {
+            element.style.border = '0px';
+            element.style.borderCollapse = 'unset';
+            element.children[0].style.backgroundColor = '#0000';
+            element.children[0].children[0].style.color = '#FFF';
+            [...element.children[0].children[0].children].forEach((element2) => {
+                element2.style.setProperty('font-size', 'unset', 'important');
+                element2.style.setProperty('border', '2px solid #777', 'important');
+            })
+    });
 };
 
 function changePage() {
