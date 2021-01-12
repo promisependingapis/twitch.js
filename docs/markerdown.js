@@ -92,7 +92,77 @@ function changePage() {
                         }
                         if (json.typedefs.find(values => values.name === location.hash.slice(1))) {
                             // typedefs
-                            Element.innerHTML = '<h2 class="FVTitle">Teste2</h2>';
+                            element = json.typedefs.find(values => values.name === location.hash.slice(1));
+                            Element.innerHTML = '<h2 class="FVTitle">' + element.name + '</h2>';
+                            Element.innerHTML += '<p class="FVDescription">About: <br><span>' + element.description + '</span></p>'
+                            if (element.type) {
+                                Element.innerHTML += '<h3 class="FVType">Types:</h3>'
+                                element.type.forEach((type) => {
+                                    if (typeof type === 'object') {
+                                        type.forEach((typ) => {
+                                            if (typeof typ === 'object') {
+                                                type.forEach((ty) => {
+                                                    if (typeof ty === 'object') {
+                                                        Element.innerHTML += '<greenplus style="margin-left: 2vw">' + ty.join(' | ') + '</greenplus>'
+                                                    } else if (typeof ty === 'string') {
+                                                        Element.innerHTML += '<greenplus style="margin-left: 2vw">' + ty + '</greenplus>'
+                                                    }
+                                                })
+                                            } else if (typeof typ === 'string') {
+                                                Element.innerHTML += '<greenplus style="margin-left: 2vw">' + typ + '</greenplus>'
+                                            }
+                                        });
+                                    } else if (typeof type === 'string') {
+                                        Element.innerHTML += '<greenplus style="margin-left: 2vw">' + type + '</greenplus>'
+                                    }
+                                })
+                                if (element.props) {Element.innerHTML += '<br><br><br><br>'}
+                            }
+                            if (element.props) {
+                                var table = {
+                                    values: [],
+                                    string: '<table class="props-table">'
+                                }
+                                element.props.forEach((prop) => {
+                                    if (prop.name) {table.values.push('PARAMETER')}
+                                    if (prop.type) {table.values.push('TYPE')}
+                                    if (typeof prop.optional === 'boolean') {table.values.push('OPTIONAL')}
+                                    if (prop.default) {table.values.push('DEFAULT')}
+                                    if (prop.description) {table.values.push('DESCRIPTION')}
+                                });
+                                table.values = [...new Set(table.values)];
+                                table.string += '<thead><tr>'
+                                table.values.forEach((value) => {
+                                    table.string += '<th>' + value + '</th>'
+                                })
+                                table.string += '</tr></thead><tbody>'
+                                element.props.forEach((prop) => {
+                                    table.string += '<tr>'
+                                    if (prop.name) {table.string += '<td>' + prop.name + '</td>'}
+                                    if (prop.type) {
+                                        table.string += '<td>'
+                                        prop.type.forEach((type) => {
+                                            if (typeof type === 'object') {
+                                                type.forEach((typ) => {
+                                                    if (typeof typ === 'object') {
+                                                        table.string += '<green>' + typ.join('') + '</green>'
+                                                    } else if (typeof typ === 'string') {
+                                                        table.string += '<green>' + typ + '</green>'
+                                                    }
+                                                });
+                                            } else if (typeof type === 'string') {
+                                                table.string += '<green>' + type + '</green>'
+                                            }
+                                        })
+                                        table.string += '</td>'
+                                    }
+                                    if (typeof prop.optional === 'boolean') {table.string += '<td>' + (prop.optional ? '✓' : '❌') + '</td>'}
+                                    if (prop.default) {table.string += '<td>' + prop.default + '</td>'} else if (table.values.includes('DEFAULT')) {table.string += '<td>None</td>'}
+                                    if (prop.description) {table.string += '<td>' + prop.description + '</td>'}
+                                })
+                                table.string += '</tbody></table>'
+                                Element.innerHTML += table.string;
+                            }
                         }
                         /*
                          * Finish

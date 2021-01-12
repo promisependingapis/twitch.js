@@ -70,6 +70,43 @@ img {
     max-width: fill-available;
 }
 
+table {
+    border: 1px solid #5555;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table thead {
+    background-color: #ffff7c;
+    color: #111;
+    margin: 0;
+}
+
+table th {
+    font-size: 1.3vw !important;
+}
+
+table td {
+    font-size: 1.1vw !important;
+}
+
+table thead tr th {
+    border: 0 !important;
+    display: revert !important;
+}
+
+table tbody {
+    background-color: #333;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: #ffff7c11;
+}
+
+table tbody tr td {
+    padding: 1vw;
+}
+
 .TopBar {
     width: 100vw;
     position: fixed;
@@ -292,6 +329,10 @@ img {
 .File-Viewer .FVMethodies {
     margin-top: 4vw;
     font-size: 2.5vw;
+}
+
+.FVType {
+    font-size: 1.75vw;
 }
 
 .TopSearch {

@@ -17,6 +17,7 @@ xhra.onload = async () => {
         document.getElementsByClassName('SideBarTypedefs')[0].appendChild(button);
         document.getElementsByClassName('SideBarTypedefs')[0].appendChild(br);
     });
+    changePage()
 };
 xhra.open('get', "./json/docs.json");
 xhra.send();
