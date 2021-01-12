@@ -8,3 +8,12 @@ window.onresize = () => {
     document.getElementsByClassName('SideBar')[0].style.marginTop = ((8.5/100)*window.innerWidth) + 'px';
     document.getElementsByClassName('SideBar')[0].style.height = window.innerHeight - ((8.5/100)*window.innerWidth) + 'px';
 }
+
+function GoToThing(Thing) {
+    document.getElementsByClassName('FileViewerPropriety' + Thing)[0].scrollIntoView();
+    console.log(window.scrollY - ((1/100)*window.innerWidth));
+    window.scrollTo({
+        top: (window.scrollY - ((12/100)*window.innerWidth)),
+        behavior: 'smooth'
+    })
+}

@@ -22,10 +22,14 @@
         </div>
         <div class='Content'>
             <div class='TopSearch'>
-                <input type="text" placeholder="Search...">
+                <input type="text" id='ContentTopSearchInput' placeholder="Search..." onclick="document.getElementById('ContentTopSearchInput').placeholder = 'Not working ;-;';">
             </div>
             <div class='SideBar'>
                 <div class='SideBarContent'>
+                    <h2>GENERAL:</h2>
+                    <div class='SideBarGeneral'>
+                        <a id='SideBarSelected' href='#GenWelcome'>Welcome</a>
+                    </div>
                     <h2>CLASSES:</h2>
                     <div class='SideBarClasses'></div>
                     <h2>TYPEDEFS:</h2>

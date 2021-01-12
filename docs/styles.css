@@ -35,6 +35,18 @@ red {
     color: #FF5555;
 }
 
+green {
+    color: #55FF55;
+}
+
+redbox {
+    background-color: #FF5555;
+    margin-left: 1vw;
+    padding: 0.5vw;
+    border-radius: 0.3vw;
+    color: #FFF !important;
+}
+
 a {
     color: #ffff7c;
     text-decoration: none;
@@ -147,6 +159,118 @@ a {
     margin-right: 1vw;
 }
 
+.File-Viewer .FVTitle {
+    color: #FFF;
+    font-size: 2vw;
+}
+
+.File-Viewer .FVTitle span {
+    color: #AAA;
+    font-size: 1.3vw;
+}
+
+.File-Viewer .FVTitle a {
+    text-decoration: underline;
+    font-size: 1.7vw;
+}
+
+.File-Viewer .FVTitle green {
+    font-size: 1.7vw;
+}
+
+.File-Viewer .FVDescription {
+    font-size: 1.3vw;
+    margin-left: 1.5vw;
+    margin-top: 1vw;
+}
+
+.File-Viewer .FVDescription span {
+    font-size: 1vw;
+}
+
+.File-Viewer h4 {
+    font-size: 1.75vw;
+    margin-bottom: 5vw;
+}
+
+.File-Viewer h4 p {
+    font-size: 1.35vw;
+    margin-left: 1vw;
+}
+
+.File-Viewer h4 p::before {
+    content: '';
+    width: 0.5vw;
+    background-color: #55f7;
+    height: 3vw;
+    position: absolute;
+    margin-left: -1vw;
+}
+
+.File-Viewer h4 sub {
+    color: #BBB;
+    font-size: 1.2vw;
+}
+
+.File-Viewer .FVProps {
+    background-color: #3337;
+    padding: 1vw;
+    width: 20vw;
+    display: inline-block;
+    position: absolute;
+}
+
+.File-Viewer .FVProps p {
+    margin: 0;
+    font-weight: bold;
+    color: #DDD;
+    font-size: 1.75vw;
+}
+
+.File-Viewer .FVProps a {
+    margin: 0;
+    color: #BBB;
+    margin-left: 1vw;
+    cursor: pointer;
+    font-size: 1.3vw;
+}
+
+.File-Viewer .FVProps a:hover {
+    color: #FFF;
+}
+
+.File-Viewer .FVMethods {
+    display: inline-block;
+    background-color: #3337;
+    padding: 1vw;
+    width: 20vw;
+    margin-left: 22vw;
+}
+
+.File-Viewer .FVMethods p {
+    margin: 0;
+    font-weight: bold;
+    color: #DDD;
+    font-size: 1.75vw;
+}
+
+.File-Viewer .FVMethods a {
+    margin: 0;
+    color: #BBB;
+    margin-left: 1vw;
+    cursor: pointer;
+    font-size: 1.3vw;
+}
+
+.File-Viewer .FVMethods a:hover {
+    color: #FFF;
+}
+
+.File-Viewer .FVPropierts {
+    margin-top: 4vw;
+    font-size: 2vw;
+}
+
 .TopSearch {
     position: fixed;
     margin-top: 3.5vw;
@@ -184,14 +308,30 @@ a {
     font-size: 1.5vw;
 }
 
-.SideBar .SideBarContent .SideBarClasses {
+.SideBar .SideBarContent div {
     font-size: 1.3vw;
     margin-left: 1vw;
     margin-top: -1vw;
 }
 
-.SideBar .SideBarContent .SideBarTypedefs {
-    font-size: 1.3vw;
-    margin-left: 1vw;
-    margin-top: -1vw;
+.SideBar .SideBarContent #SideBarSelected {
+    display: inline-block;
+    background-color: #444; 
+    padding: 0.5vw;
+    padding-right: 15vw;
+    padding-left: 1vw;
+    margin-left: -1vw;
+    width: 5vw;
+    font-size: 1.4vw;
+}
+
+.SideBar .SideBarContent #SideBarSelected:after {
+    position: absolute;
+    content: '';
+    width: 0.3vw;
+    height: 2.5vw;
+    background-color: #ffff7c;
+    margin-top: -0.5vw;
+    margin-bottom: -0.75vw;
+    right: 3vw;
 }
