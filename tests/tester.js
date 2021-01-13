@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const path = require('path');
 var checks = 10;
 var actualCheck = 0;
 
@@ -20,6 +21,8 @@ function Logger (Message, type) {
             break;
     }
 }
+
+console.log(path);
 
 console.log(chalk.yellow('Starting automatizated test...'));
 Logger('Loading configs from env ...');
