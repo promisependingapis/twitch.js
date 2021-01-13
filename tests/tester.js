@@ -29,6 +29,13 @@ const configs = {
 };
 
 if (!configs.token) {
+    try {
+        var jtoken = require('../../configs.json');
+        configs.token = jtoken.token;
+    } catch {}
+}
+
+if (!configs.token) {
     Logger('Token not founded on process env!', 'err');
     process.exit(1);
 }
