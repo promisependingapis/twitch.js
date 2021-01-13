@@ -93,7 +93,7 @@ try {
                             Logger('Getting uptime and finishing up...');
                             client.uptime().then((result) => {
                                 Logger(result + 'ms uptime', 'sucs');
-                                Logger('All tests passed! :) YAY', 'sucs');
+                                console.log(chalk.green('All tests passed! :) YAY'));
                                 process.exit(0);
                             }).catch((err) => {
                                 Logger('Error trying to get uptime!', 'err');
