@@ -80,7 +80,7 @@ try {
                         var nOC = client.channels.array().length;
                         for (var index = 0; index < nOC; index++) {
                             // eslint-disable-next-line no-await-in-loop
-                            await client.channels.array()[index].send('Automatic message test part: 2').then(() => {
+                            await client.channels.array()[index].send('Message automatic part: 2 test').then(() => {
                                 sended ++;
                             }).catch((err) => {
                                 Logger('Error trying to send message Part: 2!', 'err');
