@@ -1,6 +1,4 @@
 const chalk = require('chalk');
-const path = require('path');
-const configsPath = path.resolve(__dirname, '..', '..', 'configs.json');
 var checks = 10;
 var actualCheck = 0;
 
@@ -24,9 +22,16 @@ function Logger (Message, type) {
 }
 
 console.log(chalk.yellow('Starting automatizated test...'));
-Logger('Loading configs from "' + configsPath + '" ...');
+Logger('Loading configs from env ...');
 
-const configs = require(configsPath);
+const configs = {
+    token: process.env.TOKEN,
+};
+
+if (!configs.token) {
+    Logger('Token not founded on process env!', 'err');
+    process.exit(1);
+}
 
 Logger('Configs loaded!', 'sucs');
 Logger('Loading Twitch.js ...');
