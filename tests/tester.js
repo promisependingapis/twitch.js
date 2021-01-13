@@ -93,13 +93,13 @@ try {
                             Logger('Getting uptime and finishing up...');
                             client.uptime().then((result) => {
                                 Logger(result + 'ms uptime', 'sucs');
+                                Logger('All tests passed! :) YAY', 'sucs');
+                                process.exit(0);
                             }).catch((err) => {
                                 Logger('Error trying to get uptime!', 'err');
                                 Logger(err, 'err');
                                 process.exit(1);
                             });
-                            Logger('All tests passed! :) YAY', 'sucs');
-                            process.exit(0);
                         }
                     }).catch((err) => {
                         Logger('Error trying to disconnect channel', 'err');
