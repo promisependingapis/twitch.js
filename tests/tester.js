@@ -62,7 +62,7 @@ try {
                 Logger('Sending test message on test channels...');
                 var sended = 0;
                 await client.channels.forEach(channel => {
-                    channel.send('[' + Date.now + '] Automatic test message').then(() => {
+                    channel.send('[' + Date.now() + '] Automatic test message').then(() => {
                         sended ++;
                     }).catch((err) => {
                         Logger('Error trying to send automatic test message', 'err');
@@ -80,7 +80,7 @@ try {
                         var nOC = client.channels.array().length;
                         for (var index = 0; index < nOC; index++) {
                             // eslint-disable-next-line no-await-in-loop
-                            await client.channels.array()[index].send('[' + Date.now + '] Message automatic part: 2 test').then(() => {
+                            await client.channels.array()[index].send('[' + Date.now() + '] Message automatic part: 2 test').then(() => {
                                 sended ++;
                             }).catch((err) => {
                                 Logger('Error trying to send message Part: 2!', 'err');
