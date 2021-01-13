@@ -36,7 +36,11 @@ class SLEEPTMethods {
             this.ws.onerror = this.onError.bind(this);
             this.ws.onclose = this.onClose.bind(this);
             this.ws.onopen = this.onOpen.bind(this);
-            resolve();
+            this.client.on('ready', resolver);
+            function resolver() {
+                this.removeListener('ready', resolver);
+                resolve();
+            }
         });
     }
 
@@ -54,7 +58,8 @@ class SLEEPTMethods {
     }
 
     onClose() {
-        logger.debug('Conection finished ;-;');
+        logger.fatal('Conection finished ;-;');
+        process.exit(1);
     }
 
     onOpen() {
@@ -262,7 +267,7 @@ class SLEEPTMethods {
             function listener() {
                 logger.debug('Disconnected from: ' + channel.toLowerCase());
                 if (global.twitchApis.client.channels.get(channel.toLowerCase()) && global.twitchApis.client.channels.get(channel.toLowerCase()).isConnected()) {
-                    global.twitchApis.client.channels.get(channel.toLowerCase()).connected = false;
+                    global.twitchApis.client.channels.delete(channel.toLowerCase());
                 }
                 global.twitchApis.client.methods.leaveQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {

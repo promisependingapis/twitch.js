@@ -25,6 +25,7 @@ docs/
 webpack.config.js
 .github/
 test/
+tests/
 tsconfig.json
 tslint.json
 test.*

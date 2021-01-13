@@ -167,9 +167,9 @@ class Client extends EventEmmiter {
     /**
      * Leave the bot on the channel parsed
      * @param {String} [channelName] The name of the channel the bot will disconnect
-     * @returns {Promise<Boolean>} true if the bot disconnect, false if it cannot disconnect
+     * @returns {Promise<Pending>} true if the bot disconnect, false if it cannot disconnect
      * @example
-     * client.join('channelName')
+     * client.leave('channelName')
      *  .then()
      */
     leave(channelName) {
