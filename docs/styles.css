@@ -107,6 +107,13 @@ table tbody tr td {
     padding: 1vw;
 }
 
+warn {
+    padding: 1vw;
+    margin: 1vw;
+    background-color: #FF555555;
+    line-height: 3.5vw;
+}
+
 .TopBar {
     width: 100vw;
     position: fixed;

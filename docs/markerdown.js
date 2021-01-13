@@ -113,6 +113,8 @@ function changePage() {
                             if (element.methods) {
                                 Element.innerHTML += '<h3 class = "FVMethodies">Methods:</h3>';
                                 element.methods.forEach((prop) => {
+                                    var md = new Remarkable();
+                                    prop.description = md.render(prop.description).replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&quot;', '"');
                                     Element.innerHTML += '<h4 class="FileViewerPropriety' + prop.name + '">.' + prop.name + '<br><p>' + prop.description + '</p>' + (prop.returns && !prop.returns.types ? '<sub>return: <green>' + prop.returns[0][0][0] + (prop.returns[0][0][1] ? '<grayminus>' + prop.returns[0][0][1] + '</grayminus><greenplus>' + prop.returns[0][1][0] + '</greenplus><grayminus>' + prop.returns[0][1][1] + '</grayminus>' + (prop.returns[0][2] ? '<greenplus>' + prop.returns[0][2][0] + '</greenplus><grayminus>' + prop.returns[0][2][1] + '</grayminus>' : '') : '') + '</green></sub>' : '') + (prop.returns && prop.returns.types ? '<sub>return: <green>' + prop.returns.types[0][0][0] + (prop.returns.types[0][0][1] ? '<grayminus>' + prop.returns.types[0][0][1] + '</grayminus><greenplus>' + prop.returns.types[0][1][0] + '</greenplus>' +'<grayminus>' + prop.returns.types[0][1][1] + '</grayminus>': '') + '</green></sub>' : '') + '</h4>';
                                 });
                             }
