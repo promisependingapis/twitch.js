@@ -1,4 +1,5 @@
-exports.Package = require('../../package.json');
+const path = require('path');
+exports.Package = require(path.resolve(__dirname, '..','..','package.json'));
 
 /**
  * Options for a client.

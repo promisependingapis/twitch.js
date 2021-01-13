@@ -1,4 +1,5 @@
-const TwitchWebAPI = require('../twitchWebAPI');
+const path = require('path');
+const TwitchWebAPI = require(path.resolve(__dirname,'..','twitchWebAPI'));
 
 /**
  * Get chatter info

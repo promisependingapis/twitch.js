@@ -1,6 +1,8 @@
+const path = require('path');
+
 module.exports = {
     // Main
-    Client: require('./client/Client'),
+    Client: require(path.resolve(__dirname,'client','Client')),
     // Utils
-    logger: require('./utils/logger'),
+    logger: require(path.resolve(__dirname,'utils','logger')),
 };

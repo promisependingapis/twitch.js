@@ -1,7 +1,8 @@
+const path = require('path');
 const EventEmmiter = require('events');
-const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { autoEndLog, constants, logger, Util, collection } = require('../utils');
-const channel = require('../structures/channels');
+const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
+const { autoEndLog, constants, logger, Util, collection } = require(path.resolve(__dirname,'..','utils'));
+const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 /**
  * @TODO FanMode (Anonymous mode).
