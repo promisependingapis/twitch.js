@@ -60,6 +60,10 @@ html {
     0% {margin-left: 60vw;opacity: 0.25;}
     100% {margin-left: 50vw;opacity: 1;}
 }
+@keyframes typing {
+    from { width: 0vw; margin-left: 50vw }
+    to { width: 100vw }
+}
 
 body {
     background-color: #111;
@@ -176,6 +180,8 @@ a {
     margin-top: 4vw;
     width: 100vw;
     text-align: center;
+    overflow: hidden;
+    animation: typing 2.5s steps(35, end); 
 }
 
 .header .Title .language {
@@ -188,6 +194,7 @@ a {
     font-size: 3vw;
     margin-top: 1vh;
     left: 34vw;
+    overflow: hidden;
     animation: MoveAnimationTopTitle 1s;
     color: #e195ff;
 }
@@ -238,6 +245,7 @@ a {
     border: 1px solid #eee;
     cursor: pointer;
     transition: all 0.5s ease;
+    overflow: hidden;
 }
 
 .header .InstallCode code:hover {
@@ -251,6 +259,7 @@ a {
     top: 4vw;
     left: 33vw;
     animation: PurpleEffectBar 1s;
+    animation-delay: 1s;
 }
 
 .Content {
@@ -301,6 +310,9 @@ a {
     border-radius: 0.5vw;
     margin: 0;
     padding: 1vw;
+    height: 20vw;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .Content .Why {
