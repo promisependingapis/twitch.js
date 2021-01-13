@@ -38,6 +38,8 @@
 
 -   [x] Make a auto updated list of users of channels
 -   [x] Create automatizated tests. 
+-   [ ] Disconnect function.
+-   [ ] Return message event when api sends message.
 -   [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 -   [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 -   [ ] Create Shard system.
