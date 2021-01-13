@@ -1,5 +1,5 @@
 const path = require('path');
-const constants = require(path.resolve(__dirname,'..','utils','constants'));
+const constants = require(path.resolve(__dirname,'..','utils','Constants'));
 
 class UserAgentManager {
     constructor() {

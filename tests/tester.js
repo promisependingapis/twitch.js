@@ -22,8 +22,6 @@ function Logger (Message, type) {
     }
 }
 
-console.log(__dirname);
-
 console.log(chalk.yellow('Starting automatizated test...'));
 Logger('Loading configs from env ...');
 
