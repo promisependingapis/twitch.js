@@ -22,7 +22,7 @@ function Logger (Message, type) {
     }
 }
 
-console.log(path);
+console.log(__dirname);
 
 console.log(chalk.yellow('Starting automatizated test...'));
 Logger('Loading configs from env ...');
