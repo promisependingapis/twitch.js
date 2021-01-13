@@ -107,7 +107,7 @@ try {
                             Logger(err, 'err');
                             process.exit(1);
                         });
-                    }, 1000);
+                    }, 2500);
                 }
             }).catch((err) => {
                 Logger('Error trying to join', 'err');
