@@ -41,6 +41,7 @@
 -   [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
 -   [ ] Create Shard system.
 -   [ ] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+-   [ ] Create automatizated tests. 
 
 ## About
 
