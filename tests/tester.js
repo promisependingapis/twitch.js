@@ -1,5 +1,4 @@
 const chalk = require('chalk');
-const path = require('path');
 var checks = 10;
 var actualCheck = 0;
 

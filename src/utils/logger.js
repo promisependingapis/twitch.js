@@ -1,5 +1,5 @@
 const path = require('path');
-var dateParser = require(path.resolve(__dirname,'dateParser'));
+var dateParser = require(path.resolve(__dirname,'DateParser'));
 var chalk = require('chalk');
 var debug;
 
