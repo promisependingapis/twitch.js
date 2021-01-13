@@ -108,10 +108,22 @@ table tbody tr td {
 }
 
 warn {
-    padding: 1vw;
-    margin: 1vw;
+    padding: 0.5vw;
     background-color: #FF555555;
-    line-height: 3.5vw;
+    line-height: 2.5vw;
+    width: 90%;
+    display: inline-block;
+    border-top: 2px solid #ff5555AA;
+    border-bottom: 2px solid #ff5555AA;
+    border-right: 2px solid #ff5555AA;
+    border-left: 10px solid #ffff7c;
+}
+
+warn:before {
+    content: 'Warning';
+    display: block;
+    font-size: 2vw;
+    color: #ffff7c;
 }
 
 .TopBar {
