@@ -2,19 +2,19 @@
     width: 1vw;
 }
 ::-webkit-scrollbar-track {
-    background: #ffff7c;
+    background: rgb(40, 0, 83);
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgb(51, 0, 105);
+    background: #ffff7c;
     width: 0.5vw;
 }  
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(67, 0, 139);
+    background: #ffff9f;
 } 
 
 html {
-    scrollbar-color: rgb(51, 0, 105) #ffff7c;
+    scrollbar-color: #ffff7c rgb(40, 0, 83);
 }
 
 @keyframes MoveAnimationTopTitle {
@@ -22,8 +22,8 @@ html {
     100% {margin-left: 0vw;}
 }
 @keyframes TitleColor {
-    0% {color: #fff;}
-    100% {color: #ffff7c;}
+    0% {color: #111;}
+    100% {color: rgb(40, 0, 83);}
 }
 @keyframes EffectBars {
     0% {background-color: #ffff;width: 30vw;}
@@ -85,7 +85,7 @@ a {
 .TopBar {
     width: 100vw;
     position: fixed;
-    background-color: #ffff7c;
+    background-color: rgb(40, 0, 83);
     height: 3.5vw;
     z-index: 1;
     animation: TopBarAnim 0.75s;
@@ -95,8 +95,8 @@ a {
     margin-left: 7vw;
     height: 3.5vw;
     border: 0;
-    background-color: rgb(40, 0, 83);
-    color: #fff;
+    background-color: #ffff7c;
+    color: #111;
     font-size: 1.3vw;
     padding-left: 1vw;
     padding-right: 1vw;
@@ -119,11 +119,12 @@ a {
 }
 
 .TopBar .Pages .SelectedPage:hover {
-    background-color: rgb(22, 0, 46);
+    background-color: #b4b458;
 }
 
 .TopBar .Pages .SelectedPage:active {
-    background-color: rgb(6, 0, 12);
+    background-color: #75753a;
+    color: #fff;
 }
 
 .TopBar .External .button {
@@ -134,7 +135,7 @@ a {
     padding-left: 1vw;
     padding-right: 1vw;
     transition: all 0.5s ease;
-    color: #000;
+    color: #fff;
     display: flex;
     flex-direction: column;
     font-size: 1.3vw;
@@ -167,7 +168,7 @@ a {
 }
 
 .header {
-    background-color: rgb(40, 0, 83);
+    background-color: #ffff7c;
     position: absolute;
     left: 0;
     width: 100vw;
@@ -182,10 +183,11 @@ a {
     text-align: center;
     overflow: hidden;
     animation: typing 2.5s steps(35, end); 
+    color: #111;
 }
 
 .header .Title .language {
-    color: #ffff7c;
+    color: rgb(40, 0, 83);
     animation: TitleColor 1s;
 }
 
@@ -196,7 +198,7 @@ a {
     left: 34vw;
     overflow: hidden;
     animation: MoveAnimationTopTitle 1s;
-    color: #e195ff;
+    color: #b432ff;
 }
 
 .header .EffectBars {
@@ -242,7 +244,7 @@ a {
     background-color: #444;
     padding: 0.5vw;
     border-radius: 100vw;
-    border: 1px solid #eee;
+    border: 1px solid #111;
     cursor: pointer;
     transition: all 0.5s ease;
     overflow: hidden;
@@ -414,7 +416,7 @@ a {
 }
 
 .LoadingScreen {
-    background-color: #ffff7c;
+    background-color: rgb(40, 0, 83);
     position: fixed;
     width: 100vw;
     height: 100vh;

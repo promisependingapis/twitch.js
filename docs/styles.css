@@ -129,7 +129,7 @@ warn:before {
 .TopBar {
     width: 100vw;
     position: fixed;
-    background-color: #ffff7c;
+    background-color: rgb(40, 0, 83);
     height: 3.5vw;
     z-index: 301;
 }
@@ -138,8 +138,8 @@ warn:before {
     margin-left: 7vw;
     height: 3.5vw;
     border: 0;
-    background-color: rgb(40, 0, 83);
-    color: #fff;
+    background-color: #ffff7c;
+    color: #111;
     font-size: 1.3vw;
     padding-left: 1vw;
     padding-right: 1vw;
@@ -161,11 +161,12 @@ warn:before {
 }
 
 .TopBar .Pages .SelectedPage:hover {
-    background-color: rgb(22, 0, 46);
+    background-color: #a8a851;
 }
 
 .TopBar .Pages .SelectedPage:active {
-    background-color: rgb(6, 0, 12);
+    background-color: #474723;
+    color: #FFF;
 }
 
 .TopBar .External .button {
@@ -176,7 +177,7 @@ warn:before {
     padding-left: 1vw;
     padding-right: 1vw;
     transition: all 0.5s ease;
-    color: #000;
+    color: #FFF;
     display: flex;
     flex-direction: column;
     font-size: 1.3vw;
@@ -207,7 +208,7 @@ warn:before {
 }
 
 .LoadingScreen {
-    background-color: #ffff7c;
+    background-color: rgb(40, 0, 83);
     position: fixed;
     width: 100vw;
     height: 0vh;
