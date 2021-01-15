@@ -6,15 +6,15 @@
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
-    background: #ffff7c;
+    background: #fee401;
     width: 0.5vw;
 }  
 ::-webkit-scrollbar-thumb:hover {
-    background: #ffff9f;
+    background: #ffef77;
 } 
 
 html {
-    scrollbar-color: #ffff7c rgb(40, 0, 83);
+    scrollbar-color: #fee401 rgb(40, 0, 83);
 }
 
 @keyframes MoveAnimationTopTitle {
@@ -23,7 +23,7 @@ html {
 }
 @keyframes TitleColor {
     0% {color: #111;}
-    100% {color: rgb(40, 0, 83);}
+    100% {color: rgb(80, 0, 167);}
 }
 @keyframes EffectBars {
     0% {background-color: #ffff;width: 30vw;}
@@ -78,7 +78,7 @@ red {
 }
 
 a {
-    color: #ffff7c;
+    color: #fee401;
     text-decoration: none;
 }
 
@@ -163,7 +163,7 @@ links a:active {
 }
 
 .header {
-    background-color: #ffff7c;
+    background-color: #fee401;
     position: absolute;
     left: 0;
     width: 100vw;
@@ -182,7 +182,7 @@ links a:active {
 }
 
 .header .Title .language {
-    color: rgb(40, 0, 83);
+    color: rgb(80, 0, 167);
     animation: TitleColor 1s;
 }
 
@@ -357,7 +357,7 @@ links a:active {
 .Content .Buttons button {
     width: 15vw;
     border: 0;
-    background-color: #ffff7c;
+    background-color: #fee401;
     border-radius: 0.5vw;
     height: 3vw;
     font-size: 2vw;
@@ -366,12 +366,12 @@ links a:active {
 }
 
 .Content .Buttons button:hover {
-    background-color: #b4b457;
+    background-color: #524d26;
     color: #FFF;
 }
 
 .Content .Buttons button:active {
-    background-color: #5f5f2c;
+    background-color: rgb(29, 29, 13);
     color: #FFF;
 }
 
@@ -392,7 +392,7 @@ links a:active {
 .footer button {
     width: 5vw;
     border: 0;
-    background-color: #ffff7c;
+    background-color: #fee401;
     border-radius: 0.5vw;
     height: 2vw;
     font-size: 1.3vw;
@@ -401,12 +401,12 @@ links a:active {
 }
 
 .footer button:hover {
-    background-color: #b4b457;
+    background-color: #524d26;
     color: #FFF;
 }
 
 .footer button:active {
-    background-color: #5f5f2c;
+    background-color: rgb(29, 29, 13);
     color: #FFF;
 }
 
