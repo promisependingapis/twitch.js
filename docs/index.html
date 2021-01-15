@@ -12,15 +12,15 @@
     </head>
     <body>
         <div class='LoadingScreen'></div>
-        <div class='TopBar'>
-            <div class='Pages'>
-                <a href="../" class='SelectedPage'>Twitch.JS</a>
-            </div>
-            <div class='External'>
-                <a href="." class='button'>Documentation</a>
-                <a href="https://github.com/twitchapis/twitch.js" class='button'>Github</a>
-            </div>
-        </div>
+        <header>
+            <apis>
+                <a style="background-color: #8000c0;color:#fff;" href="https://twitchapis.org">Home</a>
+                <a style="background-color: #ffff7c;" href="./twitch.js">Twitch.JS</a>
+            </apis>
+            <links>
+                <a href="https://github.com/twitchapis/">Github</a>
+            </links>
+        </header>
         <div class='Content'>
             <div class='TopSearch'>
                 <input type="text" id='ContentTopSearchInput' placeholder="Search..." onclick="document.getElementById('ContentTopSearchInput').placeholder = 'Not working ;-;';">
