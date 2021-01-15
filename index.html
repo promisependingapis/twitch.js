@@ -10,15 +10,16 @@
         <link rel="icon" type="image/png" href="./favicon.png" />
     </head>
     <body>
-        <div class='TopBar'>
-            <div class='Pages'>
-                <a href="." class='SelectedPage'>Twitch.JS</a>
-            </div>
-            <div class='External'>
-                <a class='button' onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";setTimeout(()=>{window.location.href = "./docs/#";}, 300);'>Documentation</a>
-                <a href="https://github.com/twitchapis/twitch.js" class='button'>Github</a>
-            </div>
-        </div>
+        <header>
+            <apis>
+                <a style="background-color: #8000c0;color:#fff;" href="https://twitchapis.org">Home</a>
+                <a style="background-color: #ffff7c;" href="./twitch.js">Twitch.JS</a>
+            </apis>
+            <links>
+                <a onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";setTimeout(()=>{window.location.href = "./docs/#";}, 300);'>Documentation</a>
+                <a href="https://github.com/twitchapis/">Github</a>
+            </links>
+        </header>
         <div class='Content'>
             <div class='header'>
                 <div class='EffectBars'>

@@ -82,25 +82,27 @@ a {
     text-decoration: none;
 }
 
-.TopBar {
-    width: 100vw;
-    position: fixed;
+header {
     background-color: rgb(40, 0, 83);
+    width: 100vw;
     height: 3.5vw;
-    z-index: 1;
+    position: fixed;
     animation: TopBarAnim 0.75s;
 }
 
-.TopBar .Pages .SelectedPage {
-    margin-left: 7vw;
+apis {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    margin-left: 4vw;
+}
+apis a {
     height: 3.5vw;
     border: 0;
-    background-color: #ffff7c;
     color: #111;
     font-size: 1.3vw;
     padding-left: 1vw;
     padding-right: 1vw;
-    position: absolute;
     cursor: pointer;
     transition: all 0.5s ease;
     text-decoration: none;
@@ -109,62 +111,55 @@ a {
     flex-direction: column;
     animation: TopBarAnim 0.75s;
 }
-
-.TopBar .Pages .SelectedPage:before {
+apis a:before {
     display: inline-block;
     content: '';
     padding-top: 1vw;
     width: 100%;
     margin: 0;
 }
-
-.TopBar .Pages .SelectedPage:hover {
-    background-color: #b4b458;
+apis a:hover {
+    filter: brightness(75%);
 }
-
-.TopBar .Pages .SelectedPage:active {
-    background-color: #75753a;
-    color: #fff;
+apis a:active {
+    filter: brightness(65%);
 }
-
-.TopBar .External .button {
-    text-decoration: none;
-    height: 3.5vw;
+links {
     top: 0;
-    border: 0;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    transition: all 0.5s ease;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    font-size: 1.3vw;
-    animation: TopBarAnim 0.75s;
-    cursor: pointer;
-}
-
-.TopBar .External .button:before {
-    display: inline-block;
-    content: '';
-    padding-top: 1vw;
-    width: 100%;
-    margin: 0;
-}
-
-.TopBar .External .button:hover {
-    background-color: #0003;
-}
-
-.TopBar .External .button:active {
-    background-color: #0006;
-    color: #FFF;
-}
-
-.TopBar .External {
+    text-align: center;
     display: flex;
     flex-direction: row;
     position: absolute;
     right: 7vw;
+    font-size: 1.3vw;
+}
+links a {
+    height: 3.5vw;
+    border: 0;
+    color: #FFF;
+    font-size: 1.3vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    text-decoration: none;
+    line-height: -2vw;
+    display: flex;
+    flex-direction: column;
+    animation: TopBarAnim 0.75s;
+}
+links a:before {
+    display: inline-block;
+    content: '';
+    padding-top: 1vw;
+    width: 100%;
+    margin: 0;
+}
+links a:hover {
+    background-color: #FFF3;
+}
+links a:active {
+    background-color: #FFF5;
 }
 
 .header {
