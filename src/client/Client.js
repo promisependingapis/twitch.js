@@ -263,6 +263,14 @@ class Client extends EventEmmiter {
     }
 
     /**
+     * Disconnect client from TwitchIRC
+     * @returns {Promise<Pending>} returned when client disconnect.
+     */
+    disconnect() {
+        return this.sleept.methods.disconnect();
+    }
+
+    /**
      * Validates the client options.
      * @param {ClientOptions} [options=this.options] Options to validate
      * @private

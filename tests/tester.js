@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-var checks = 10;
+var checks = 11;
 var actualCheck = 0;
 
 function Logger (Message, type) {
@@ -101,8 +101,16 @@ try {
                                 Logger('Getting uptime and finishing up...');
                                 client.uptime().then((result) => {
                                     Logger(result + 'ms uptime', 'sucs');
-                                    console.log(chalk.green('All tests passed! :) YAY'));
-                                    process.exit(0);
+                                    Logger('Disconnecting IRC');
+                                    client.disconnect().then(() => {
+                                        Logger('Disconnected from IRC', 'sucs');
+                                        console.log(chalk.green('All tests passed! :) YAY'));
+                                        process.exit(0);
+                                    }).catch((err) => {
+                                        Logger('Error trying to disconnect from IRC!', 'err');
+                                        Logger(err, 'err');
+                                        process.exit(1);
+                                    });
                                 }).catch((err) => {
                                     Logger('Error trying to get uptime!', 'err');
                                     Logger(err, 'err');

@@ -16,6 +16,7 @@ class SLEEPTMethods {
         this.client = sleeptMananger.client;
         this._ackToken = null;
         this.getChatter = getChatter;
+        this.connected = 0;
     }
 
     isConnected() {
@@ -59,8 +60,13 @@ class SLEEPTMethods {
     }
 
     onClose() {
-        logger.fatal('Conection finished ;-;');
-        process.exit(1);
+        if (this.connected || this.connected === 0) {
+            logger.fatal('Conection finished ;-;');
+            process.exit(1);
+        } else {
+            logger.info('Conection with IRC closed.');
+        }
+        this.client.eventEmmiter('_IRCDisconnect');
     }
 
     onOpen() {
@@ -200,6 +206,7 @@ class SLEEPTMethods {
         });
         this.client.eventEmmiter('ready', this.server, '443');
         this.client.readyAt = Date.now();
+        this.connected = true;
     }
 
     join(channel, index) {
@@ -393,6 +400,26 @@ class SLEEPTMethods {
         user.broadcaster = user.badges.toString().includes('broadcaster');
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
         this.client.channels = global.twitchApis.client.channels;
+    }
+
+    disconnect() {
+        return new Promise((resolve, reject) => {
+            if (this.ws && this.ws.readyState !== 3) {
+                logger.warn('Disconnecting from IRC..');
+                this.connected = false;
+                this.ws.close();
+                // eslint-disable-next-line no-inner-declarations
+                function DisconnectionHandler() {
+                    this.removeListener('_IRCDisconnect', DisconnectionHandler);
+                    resolve([this.server, '443']);
+                }
+                this.client.on('_IRCDisconnect', DisconnectionHandler);
+            }
+            else {
+                this.log.error('Cannot disconnect from IRC. Already disconnected.');
+                reject('Cannot disconnect from IRC. Already disconnected.');
+            }
+        });
     }
 }
 
