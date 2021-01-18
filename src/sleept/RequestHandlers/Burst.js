@@ -1,10 +1,11 @@
-const RequestHandler = require('./RequestHandler');
-const TwitchAPIError = require('../TwitchAPIError');
+const path = require('path');
+const RequestHandler = require(path.resolve(__dirname,'RequestHandler'));
+const TwitchAPIError = require(path.resolve(__dirname,'..','TwitchAPIError'));
 const {
     constants: {
         events: { RATE_LIMIT },
     },
-} = require('../../utils');
+} = require(path.resolve(__dirname,'..','..','utils'));
 
 class BurstRequestHandler extends RequestHandler {
     constructor(sleeptManager, endpoint) {

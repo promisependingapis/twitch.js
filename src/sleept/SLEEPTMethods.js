@@ -1,20 +1,22 @@
 /* eslint-disable indent */
+const path = require('path');
 const WebSocket = require('ws');
-const { constants, logger, parser } = require('../utils');
-const { channels, users } = require('../structures');
-// const Endpoints = constants.Endpoints;
+const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils'));
+const { channels, users } = require(path.resolve(__dirname,'..','structures'));
 
 /**
  * The main file. Connect with twitch websocket and provide access to irc.
- * @todo Reduce generateUser function size
+ * @private
  */
 class SLEEPTMethods {
     constructor(sleeptMananger) {
-        const { getChatter } = require('./api');
+        const { getChatter } = require(path.resolve(__dirname,'api'));
         this.sleept = sleeptMananger;
         this.client = sleeptMananger.client;
         this._ackToken = null;
         this.getChatter = getChatter;
+        this.connected = 0;
+        this.isAnonymous = false;
     }
 
     isConnected() {
@@ -23,20 +25,29 @@ class SLEEPTMethods {
 
     login(token) {
         return new Promise((resolve, reject) => {
-            if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
+            // eslint-disable-next-line max-len
+            if ((typeof token !== 'string' && typeof token !== 'boolean') || (typeof token === 'string' && !token.startsWith('oauth:')) || (typeof token === 'string' && token.includes(' ')) || (typeof token === 'boolean' && token !== false)) {
                 reject(constants.errors.INVALID_TOKEN);
                 logger.fatal(constants.errors.INVALID_TOKEN);
             }
-            this.client.token = token;
-            this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
-            this.id = '';
+            if (token === false) {
+                this.isAnonymous = true;
+            } else {
+                this.client.token = token;
+                this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
+                this.id = '';
+            }
             this.server = global.twitchApis.client.option.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
             this.ws.onclose = this.onClose.bind(this);
             this.ws.onopen = this.onOpen.bind(this);
-            resolve();
+            this.client.on('ready', resolver);
+            function resolver() {
+                this.removeListener('ready', resolver);
+                resolve();
+            }
         });
     }
 
@@ -54,21 +65,33 @@ class SLEEPTMethods {
     }
 
     onClose() {
-        logger.debug('Conection finished ;-;');
+        if (this.connected || this.connected === 0) {
+            logger.fatal('Conection finished ;-;');
+            process.exit(1);
+        } else {
+            logger.info('Conection with IRC closed.');
+        }
+        this.client.eventEmmiter('_IRCDisconnect');
     }
 
     onOpen() {
-        var token = this.client.token;
         if (this.ws.readyState !== 1) {
             return;
         }
         this.ready = true;
         logger.debug('Connection Started, Sending auth information...');
         this.ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
-        logger.debug('Sending Password...');
-        this.ws.send(`PASS ${token}`);
-        logger.debug('Sending Nickname...');
-        this.ws.send(`NICK ${this.userName.toLowerCase()}`);
+        if (this.isAnonymous) {
+            logger.debug('Anonymous mode enabled');
+            this.ws.send('PASS SCHMOOPIIE');
+            this.ws.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
+        } else {
+            var token = this.client.token;
+            logger.debug('Sending Password...');
+            this.ws.send(`PASS ${token}`);
+            logger.debug('Sending Nickname...');
+            this.ws.send(`NICK ${this.userName.toLowerCase()}`);
+        }
     }
 
     handlerMessage(messageObject) {
@@ -194,6 +217,7 @@ class SLEEPTMethods {
         });
         this.client.eventEmmiter('ready', this.server, '443');
         this.client.readyAt = Date.now();
+        this.connected = true;
     }
 
     join(channel, index) {
@@ -262,7 +286,7 @@ class SLEEPTMethods {
             function listener() {
                 logger.debug('Disconnected from: ' + channel.toLowerCase());
                 if (global.twitchApis.client.channels.get(channel.toLowerCase()) && global.twitchApis.client.channels.get(channel.toLowerCase()).isConnected()) {
-                    global.twitchApis.client.channels.get(channel.toLowerCase()).connected = false;
+                    global.twitchApis.client.channels.delete(channel.toLowerCase());
                 }
                 global.twitchApis.client.methods.leaveQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
@@ -306,6 +330,9 @@ class SLEEPTMethods {
             } else if (!message || message === null) {
                 logger.warn('Cannot send empty messages');
                 return reject('Cannot send empty messages');
+            } else if (this.isAnonymous) {
+                logger.warn('Cannot send messages in anonymous mode!');
+                return reject('Cannot send messages in anonymous mode!');
             }
             if (replacer && replacer[0]) {
                 replacer.forEach((element) => {
@@ -387,6 +414,56 @@ class SLEEPTMethods {
         user.broadcaster = user.badges.toString().includes('broadcaster');
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
         this.client.channels = global.twitchApis.client.channels;
+    }
+
+    disconnect() {
+        return new Promise((resolve, reject) => {
+            if (this.ws && this.ws.readyState !== 3) {
+                logger.warn('Disconnecting from IRC..');
+                this.connected = false;
+                this.ws.close();
+                // eslint-disable-next-line no-inner-declarations
+                function DisconnectionHandler() {
+                    this.removeListener('_IRCDisconnect', DisconnectionHandler);
+                    resolve([this.server, '443']);
+                }
+                this.client.on('_IRCDisconnect', DisconnectionHandler);
+            }
+            else {
+                this.log.error('Cannot disconnect from IRC. Already disconnected.');
+                reject('Cannot disconnect from IRC. Already disconnected.');
+            }
+        });
+    }
+
+    replyMessage(msgId, channel, message, replacer) {
+        return new Promise((resolve, reject) => {
+            if (typeof channel !== 'string') {
+                logger.warn('The channel must be a String');
+                return reject('The channel must be a String');
+            } else if (typeof message !== 'string') {
+                logger.warn('The message must be a String');
+                return reject('The message must be a String');
+            } else if (!message || message === null) {
+                logger.warn('Cannot send empty messages');
+                return reject('Cannot send empty messages');
+            } else if (!msgId || typeof msgId !== 'string') {
+                logger.warn('The id of message than will be replied must be a string');
+                return reject('The id of message than will be replied must be a string');
+            } else if (this.isAnonymous) {
+                logger.warn('Cannot send messages in anonymous mode!');
+                return reject('Cannot send messages in anonymous mode!');
+            }
+            if (replacer && replacer[0]) {
+                replacer.forEach((element) => {
+                    message = message.replace('%s', element);
+                });
+            }
+            if (!channel.includes('#')) {
+                channel = '#' + channel;
+            }
+            resolve(this.ws.send(`@reply-parent-msg-id=${msgId} PRIVMSG ${channel} :${message}`));
+        });
     }
 }
 

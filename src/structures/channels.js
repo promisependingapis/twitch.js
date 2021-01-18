@@ -1,4 +1,5 @@
-const { logger, collection } = require('../utils');
+const path = require('path');
+const { logger, collection } = require(path.resolve(__dirname,'..','utils'));
 
 class channels {
     constructor(client, data) {

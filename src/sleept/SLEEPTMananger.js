@@ -1,8 +1,9 @@
-const UserAgentManager = require('./UserAgentManager');
-const SLEEPTMethods = require('./SLEEPTMethods');
-const SequentialRequestHandler = require('./RequestHandlers/Sequential');
-const BurstRequestHandler = require('./RequestHandlers/Burst');
-const { constants, logger } = require('../utils');
+const path = require('path');
+const UserAgentManager = require(path.resolve(__dirname,'UserAgentManager'));
+const SLEEPTMethods = require(path.resolve(__dirname,'SLEEPTMethods'));
+const SequentialRequestHandler = require(path.resolve(__dirname,'RequestHandlers','Sequential'));
+const BurstRequestHandler = require(path.resolve(__dirname,'RequestHandlers','Burst'));
+const { constants, logger } = require(path.resolve(__dirname,'..','utils'));
 
 class SLEEPTMananger {
     constructor(client) {

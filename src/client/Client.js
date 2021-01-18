@@ -1,16 +1,11 @@
+const path = require('path');
 const EventEmmiter = require('events');
-const SLEEPTManager = require('../sleept/SLEEPTMananger');
-const { autoEndLog, constants, logger, Util, collection } = require('../utils');
-const channel = require('../structures/channels');
+const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
+const { autoEndLog, constants, logger, Util, collection } = require(path.resolve(__dirname,'..','utils'));
+const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 /**
- * @TODO FanMode (Anonymous mode).
- * @TODO Organize annotations.
- * @TODO Remove global variables.
- */
-
-/**
- * Creates de main class to generate clients.
+ * Creates the main class to generate clients.
  * @extends {EventEmmiter}
  */
 class Client extends EventEmmiter {
@@ -61,6 +56,7 @@ class Client extends EventEmmiter {
              * Authorization token for the logged in user/bot
              * <warn>This should be kept private at all times.</warn>
              * @type {?String}
+             * @private
              */
             this.token = process.env.CLIENT_TOKEN;
         } else {
@@ -142,10 +138,14 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [token] Token of the account to log in with
+     * @param {String} [token] Token of the account to log in with (Opcional)
+     * @param {Boolean} [false] False to Anonymous mode (Opcional)
      * @returns {Promise<Pending>}
      * @example
      * Client.login('token')
+     *  .then()
+     * @example
+     * Client.login(false)
      *  .then()
      */
     login(token) {
@@ -167,9 +167,9 @@ class Client extends EventEmmiter {
     /**
      * Leave the bot on the channel parsed
      * @param {String} [channelName] The name of the channel the bot will disconnect
-     * @returns {Promise<Boolean>} true if the bot disconnect, false if it cannot disconnect
+     * @returns {Promise<Pending>} true if the bot disconnect, false if it cannot disconnect
      * @example
-     * client.join('channelName')
+     * client.leave('channelName')
      *  .then()
      */
     leave(channelName) {
@@ -213,7 +213,8 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`);
+                        // eslint-disable-next-line max-len
+                        return this.sleept.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
                     },
                     id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
@@ -259,6 +260,14 @@ class Client extends EventEmmiter {
 
         logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
         return messages;
+    }
+
+    /**
+     * Disconnect client from TwitchIRC
+     * @returns {Promise<Pending>} returned when client disconnect.
+     */
+    disconnect() {
+        return this.sleept.methods.disconnect();
     }
 
     /**

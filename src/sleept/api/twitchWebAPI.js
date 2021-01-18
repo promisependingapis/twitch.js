@@ -1,7 +1,8 @@
+const path = require('path');
 const axios = require('axios');
 const apiUrl = global.twitchApis.client.option.http.api;
 const headers = global.twitchApis.client.option.http.headers;
-const { logger } = require('../../utils');
+const { logger } = require(path.resolve(__dirname,'..','..','utils'));
 
 /**
  * Do a http request to twitch web api
