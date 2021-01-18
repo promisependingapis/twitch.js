@@ -75,6 +75,7 @@ function changePage() {
                         if (json.classes.find(values => values.name === location.hash.slice(1))) {
                             // CLASSES
                             element = json.classes.find(values => values.name === location.hash.slice(1));
+                            if (element.access === 'private') {window.location.hash = '#GenWelcome'; location.reload();}
                             Element.innerHTML = '<h2 class="FVTitle">' + element.name + ' ' + (element.extends ? '<span>' + 'extends ' + (json.classes.find(values => values.name === element.extends[0][0][0]) ? '<a href="#' + element.extends[0][0][0] + '">' + element.extends[0][0][0] + '</a>' : '<green>' + element.extends[0][0][0] + '</green>') + '</span>' : '') + '</h2>';
                             Element.innerHTML += '<p class="FVDescription">About: <br><span>' + element.description + '</span></p>'
                             if (element.props) {
@@ -114,8 +115,8 @@ function changePage() {
                                 Element.innerHTML += '<h3 class = "FVMethodies">Methods:</h3>';
                                 element.methods.forEach((prop) => {
                                     var md = new Remarkable();
-                                    methoder.access !== 'private' ? prop.description = md.render(prop.description).replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&quot;', '"') : '';
-                                    methoder.access !== 'private' ? Element.innerHTML += '<h4 class="FileViewerPropriety' + prop.name + '">.' + prop.name + '<br><p>' + prop.description + '</p>' + (prop.returns && !prop.returns.types ? '<sub>return: <green>' + prop.returns[0][0][0] + (prop.returns[0][0][1] ? '<grayminus>' + prop.returns[0][0][1] + '</grayminus><greenplus>' + prop.returns[0][1][0] + '</greenplus><grayminus>' + prop.returns[0][1][1] + '</grayminus>' + (prop.returns[0][2] ? '<greenplus>' + prop.returns[0][2][0] + '</greenplus><grayminus>' + prop.returns[0][2][1] + '</grayminus>' : '') : '') + '</green></sub>' : '') + (prop.returns && prop.returns.types ? '<sub>return: <green>' + prop.returns.types[0][0][0] + (prop.returns.types[0][0][1] ? '<grayminus>' + prop.returns.types[0][0][1] + '</grayminus><greenplus>' + prop.returns.types[0][1][0] + '</greenplus>' +'<grayminus>' + prop.returns.types[0][1][1] + '</grayminus>': '') + '</green></sub>' : '') + '</h4>': '';
+                                    prop.access !== 'private' ? prop.description = md.render(prop.description).replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&quot;', '"') : '';
+                                    prop.access !== 'private' ? Element.innerHTML += '<h4 class="FileViewerPropriety' + prop.name + '">.' + prop.name + '<br><p>' + prop.description + '</p>' + (prop.returns && !prop.returns.types ? '<sub>return: <green>' + prop.returns[0][0][0] + (prop.returns[0][0][1] ? '<grayminus>' + prop.returns[0][0][1] + '</grayminus><greenplus>' + prop.returns[0][1][0] + '</greenplus><grayminus>' + prop.returns[0][1][1] + '</grayminus>' + (prop.returns[0][2] ? '<greenplus>' + prop.returns[0][2][0] + '</greenplus><grayminus>' + prop.returns[0][2][1] + '</grayminus>' : '') : '') + '</green></sub>' : '') + (prop.returns && prop.returns.types ? '<sub>return: <green>' + prop.returns.types[0][0][0] + (prop.returns.types[0][0][1] ? '<grayminus>' + prop.returns.types[0][0][1] + '</grayminus><greenplus>' + prop.returns.types[0][1][0] + '</greenplus>' +'<grayminus>' + prop.returns.types[0][1][1] + '</grayminus>': '') + '</green></sub>' : '') + '</h4>': '';
                                 });
                             }
                             if (element.events) {
