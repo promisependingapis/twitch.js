@@ -3,11 +3,10 @@ const path = require('path');
 const WebSocket = require('ws');
 const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
-// const Endpoints = constants.Endpoints;
 
 /**
  * The main file. Connect with twitch websocket and provide access to irc.
- * @todo Reduce generateUser function size
+ * @private
  */
 class SLEEPTMethods {
     constructor(sleeptMananger) {

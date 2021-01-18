@@ -5,12 +5,6 @@ const { autoEndLog, constants, logger, Util, collection } = require(path.resolve
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 /**
- * @TODO FanMode (Anonymous mode).
- * @TODO Organize annotations.
- * @TODO Remove global variables.
- */
-
-/**
  * Creates the main class to generate clients.
  * @extends {EventEmmiter}
  */
@@ -62,6 +56,7 @@ class Client extends EventEmmiter {
              * Authorization token for the logged in user/bot
              * <warn>This should be kept private at all times.</warn>
              * @type {?String}
+             * @private
              */
             this.token = process.env.CLIENT_TOKEN;
         } else {

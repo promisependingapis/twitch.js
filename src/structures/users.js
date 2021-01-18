@@ -1,5 +1,3 @@
-// const {logger} = require('../utils');
-
 class Users {
     constructor(client, data) {
         /**

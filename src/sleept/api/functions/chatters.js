@@ -3,7 +3,6 @@ const TwitchWebAPI = require(path.resolve(__dirname,'..','twitchWebAPI'));
 
 /**
  * Get chatter info
- * @TODO: Convert into class
  */
 function getChattersInfo(channelName) {
     return new Promise((resolve, reject) => {
