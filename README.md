@@ -40,13 +40,13 @@
 - [x] | Create automatizated tests.
 - [x] | Disconnect IRC function.
 - [x] | Make reply uses new thread system of twitch. (beta ⚙️)
+- [x] | FanMode (Anonymous mode).
 - [ ] | Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] | Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] | Create Shard system.
 - [ ] | Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
 - [ ] | Remove global variables.
 - [ ] | Organize annotations.
-- [ ] | FanMode (Anonymous mode).
 - [ ] | Reduce generateUser function size
 - [ ] | Split SleeptMethods because it is too much dirty
 - [ ] | Convert  api/getChatter.js into class

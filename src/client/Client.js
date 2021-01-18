@@ -138,10 +138,14 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [token] Token of the account to log in with
+     * @param {String} [token] Token of the account to log in with (Opcional)
+     * @param {Boolean} [false] False to Anonymous mode (Opcional)
      * @returns {Promise<Pending>}
      * @example
      * Client.login('token')
+     *  .then()
+     * @example
+     * Client.login(false)
      *  .then()
      */
     login(token) {

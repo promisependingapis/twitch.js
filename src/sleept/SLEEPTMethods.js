@@ -16,6 +16,7 @@ class SLEEPTMethods {
         this._ackToken = null;
         this.getChatter = getChatter;
         this.connected = 0;
+        this.isAnonymous = false;
     }
 
     isConnected() {
@@ -24,13 +25,18 @@ class SLEEPTMethods {
 
     login(token) {
         return new Promise((resolve, reject) => {
-            if (!token || typeof token !== 'string' || !token.startsWith('oauth:') || token.includes(' ')) {
+            // eslint-disable-next-line max-len
+            if ((typeof token !== 'string' && typeof token !== 'boolean') || (typeof token === 'string' && !token.startsWith('oauth:')) || (typeof token === 'string' && token.includes(' ')) || (typeof token === 'boolean' && token !== false)) {
                 reject(constants.errors.INVALID_TOKEN);
                 logger.fatal(constants.errors.INVALID_TOKEN);
             }
-            this.client.token = token;
-            this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
-            this.id = '';
+            if (token === false) {
+                this.isAnonymous = true;
+            } else {
+                this.client.token = token;
+                this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
+                this.id = '';
+            }
             this.server = global.twitchApis.client.option.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
@@ -69,17 +75,23 @@ class SLEEPTMethods {
     }
 
     onOpen() {
-        var token = this.client.token;
         if (this.ws.readyState !== 1) {
             return;
         }
         this.ready = true;
         logger.debug('Connection Started, Sending auth information...');
         this.ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
-        logger.debug('Sending Password...');
-        this.ws.send(`PASS ${token}`);
-        logger.debug('Sending Nickname...');
-        this.ws.send(`NICK ${this.userName.toLowerCase()}`);
+        if (this.isAnonymous) {
+            logger.debug('Anonymous mode enabled');
+            this.ws.send('PASS SCHMOOPIIE');
+            this.ws.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
+        } else {
+            var token = this.client.token;
+            logger.debug('Sending Password...');
+            this.ws.send(`PASS ${token}`);
+            logger.debug('Sending Nickname...');
+            this.ws.send(`NICK ${this.userName.toLowerCase()}`);
+        }
     }
 
     handlerMessage(messageObject) {
@@ -318,6 +330,9 @@ class SLEEPTMethods {
             } else if (!message || message === null) {
                 logger.warn('Cannot send empty messages');
                 return reject('Cannot send empty messages');
+            } else if (this.isAnonymous) {
+                logger.warn('Cannot send messages in anonymous mode!');
+                return reject('Cannot send messages in anonymous mode!');
             }
             if (replacer && replacer[0]) {
                 replacer.forEach((element) => {
@@ -435,6 +450,9 @@ class SLEEPTMethods {
             } else if (!msgId || typeof msgId !== 'string') {
                 logger.warn('The id of message than will be replied must be a string');
                 return reject('The id of message than will be replied must be a string');
+            } else if (this.isAnonymous) {
+                logger.warn('Cannot send messages in anonymous mode!');
+                return reject('Cannot send messages in anonymous mode!');
             }
             if (replacer && replacer[0]) {
                 replacer.forEach((element) => {
