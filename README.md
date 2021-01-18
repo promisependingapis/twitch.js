@@ -39,6 +39,7 @@
 -   [x] Make a auto updated list of users of channels
 -   [x] Create automatizated tests. 
 -   [x] Disconnect function.
+-   [x] Make reply uses new thread system of twitch. (beta)
 -   [ ] Return message event when api sends message.
 -   [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 -   [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)

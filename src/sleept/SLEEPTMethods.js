@@ -421,6 +421,33 @@ class SLEEPTMethods {
             }
         });
     }
+
+    replyMessage(msgId, channel, message, replacer) {
+        return new Promise((resolve, reject) => {
+            if (typeof channel !== 'string') {
+                logger.warn('The channel must be a String');
+                return reject('The channel must be a String');
+            } else if (typeof message !== 'string') {
+                logger.warn('The message must be a String');
+                return reject('The message must be a String');
+            } else if (!message || message === null) {
+                logger.warn('Cannot send empty messages');
+                return reject('Cannot send empty messages');
+            } else if (!msgId || typeof msgId !== 'string') {
+                logger.warn('The id of message than will be replied must be a string');
+                return reject('The id of message than will be replied must be a string');
+            }
+            if (replacer && replacer[0]) {
+                replacer.forEach((element) => {
+                    message = message.replace('%s', element);
+                });
+            }
+            if (!channel.includes('#')) {
+                channel = '#' + channel;
+            }
+            resolve(this.ws.send(`@reply-parent-msg-id=${msgId} PRIVMSG ${channel} :${message}`));
+        });
+    }
 }
 
 module.exports = SLEEPTMethods;

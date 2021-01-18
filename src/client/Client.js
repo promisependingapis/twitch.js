@@ -214,7 +214,8 @@ class Client extends EventEmmiter {
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {
-                        return this.sleept.methods.sendMessage(args[0].params[0], `@${args[0].prefix.slice(0, args[0].prefix.indexOf('!'))} ${message}`);
+                        // eslint-disable-next-line max-len
+                        return this.sleept.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
                     },
                     id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
