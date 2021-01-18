@@ -36,15 +36,21 @@
 
 ## TODO
 
--   [x] Make a auto updated list of users of channels
--   [x] Create automatizated tests. 
--   [x] Disconnect function.
--   [x] Make reply uses new thread system of twitch. (beta)
--   [ ] Return message event when api sends message.
--   [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
--   [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
--   [ ] Create Shard system.
--   [ ] Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+- [x] | Make a auto updated list of users of channels
+- [x] | Create automatizated tests.
+- [x] | Disconnect IRC function.
+- [x] | Make reply uses new thread system of twitch. (beta ⚙️)
+- [ ] | Create onUserJoin event. (Emitted everytime someone new enter in the chat)
+- [ ] | Create onUserLeave event. (Emitted everytime someone leaves the chat)
+- [ ] | Create Shard system.
+- [ ] | Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
+- [ ] | Remove global variables.
+- [ ] | Organize annotations.
+- [ ] | FanMode (Anonymous mode).
+- [ ] | Reduce generateUser function size
+- [ ] | Split SleeptMethods because it is too much dirty
+- [ ] | Convert  api/getChatter.js into class
+- [ ] | Create own parser
 
 ## About
 
