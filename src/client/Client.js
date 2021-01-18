@@ -27,10 +27,6 @@ class Client extends EventEmmiter {
         global.twitchApis = {
             client: {
                 option: this.options,
-                methods: {
-                    joinQueueTimeout: [],
-                    leaveQueueTimeout: [],
-                },
             },
         };
 
@@ -42,13 +38,6 @@ class Client extends EventEmmiter {
         }
 
         logger.debug('Debug is active!');
-
-        /**
-         * The SLEEPT manager of the client
-         * @type {SLEEPTManager}
-         * @private
-         */
-        this.sleept = new SLEEPTManager(this);
 
         Object.defineProperty(this, 'token', { writable: true });
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
@@ -122,6 +111,13 @@ class Client extends EventEmmiter {
         if (options.messageSweepInterval > 0) {
             setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
         }
+
+        /**
+         * The SLEEPT manager of the client
+         * @type {SLEEPTManager}
+         * @private
+         */
+        this.sleept = new SLEEPTManager(this);
     }
 
     /**

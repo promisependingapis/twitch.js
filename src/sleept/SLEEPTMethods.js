@@ -17,6 +17,8 @@ class SLEEPTMethods {
         this.getChatter = getChatter;
         this.connected = 0;
         this.isAnonymous = false;
+        this.joinQueueTimeout = [];
+        this.leaveQueueTimeout = [];
     }
 
     isConnected() {
@@ -37,7 +39,7 @@ class SLEEPTMethods {
                 this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
                 this.id = '';
             }
-            this.server = global.twitchApis.client.option.http.host;
+            this.server = this.client.options.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
@@ -132,7 +134,7 @@ class SLEEPTMethods {
                 case '372':
                     logger.debug('Connected to the server');
                     this.readyAt = Date.now();
-                    global.twitchApis.client.option.readyAt = this.readyAt;
+                    this.client.options.readyAt = this.readyAt;
                     this.onConnected();
                     this.pingLoop = setInterval(() => {
                         if (this.isConnected()) {
@@ -152,7 +154,7 @@ class SLEEPTMethods {
                     }, 60000);
                     break;
                 case 'ROOMSTATE':
-                    var channel = global.twitchApis.client.channels.get(messageObject.params[0]);
+                    var channel = this.client.channels.get(messageObject.params[0]);
                     channel.emoteOnly = messageObject.tags['emote-only'] ? Number(messageObject.tags['emote-only']) === 1 : channel.emoteOnly;
                     channel.followersOnly = messageObject.tags['followers-only'] ? Number(messageObject.tags['followers-only']) >= 0 : channel.followersOnly;
                     channel.followersOnlyCooldown = messageObject.tags['followers-only']
@@ -183,19 +185,17 @@ class SLEEPTMethods {
             switch (messageObject.command) {
                 case 'JOIN':
                     this.client.eventEmmiter('Method.Joined.' + messageObject.params[0]);
-                    this.client.eventEmmiter('join', global.twitchApis.client.channels.get(messageObject.params[0]));
+                    this.client.eventEmmiter('join', this.client.channels.get(messageObject.params[0]));
                     this.generateUser(messageObject.params[0]);
-                    this.client.channels = global.twitchApis.client.channels;
                     break;
                 case 'PART':
-                    if (global.twitchApis.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
-                        global.twitchApis.client.channels
+                    if (this.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
+                        this.client.channels
                             .get(messageObject.params[0])
                             .users.delete(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')));
                     }
                     this.client.eventEmmiter('Method.Leaved.' + messageObject.params[0]);
                     this.client.eventEmmiter('leave', messageObject.params[0]);
-                    this.client.channels = global.twitchApis.client.channels;
                     break;
                 case 'PRIVMSG':
                     this.updateUser(messageObject);
@@ -210,7 +210,7 @@ class SLEEPTMethods {
 
     onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
-        global.twitchApis.client.option.channels.forEach((element, index) => {
+        this.client.options.channels.forEach((element, index) => {
             setTimeout(() => {
                 this.join(element, index);
             }, index * 100);
@@ -229,14 +229,14 @@ class SLEEPTMethods {
             if (!channel.startsWith('#')) {
                 channel = '#' + channel;
             }
-            if (global.twitchApis.client.channels.get(channel) && global.twitchApis.client.channels.get(channel).connected === true) {
+            if (this.client.channels.get(channel) && this.client.channels.get(channel).connected === true) {
                 logger.warn('Already connected with this channel!');
                 return reject('Already connected with this channel!');
             }
             this.ws.send(`JOIN ${channel.toLowerCase()}`);
             logger.debug('Connecting to: ' + channel.toLowerCase());
             this.client.on('Method.Joined.' + channel.toLowerCase(), listener);
-            global.twitchApis.client.methods.joinQueueTimeout.push([
+            this.joinQueueTimeout.push([
                 setTimeout(() => {
                     reject('Couldn\'t connect with twitch');
                 }, 10000),
@@ -244,11 +244,11 @@ class SLEEPTMethods {
             ]);
             function listener() {
                 logger.debug('Connected to: ' + channel.toLowerCase());
-                if (!global.twitchApis.client.channels.get(channel)) {
-                    global.twitchApis.client.channels.set(channel, new channels(this, { channel: channel }));
+                if (!this.channels.get(channel)) {
+                    this.channels.set(channel, new channels(this, { channel: channel }));
                 }
-                global.twitchApis.client.channels.get(channel).connected = true;
-                global.twitchApis.client.methods.joinQueueTimeout.forEach((element) => {
+                this.channels.get(channel).connected = true;
+                this.sleept.methods.joinQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -269,14 +269,14 @@ class SLEEPTMethods {
             if (!channel.startsWith('#')) {
                 channel = '#' + channel;
             }
-            if (global.twitchApis.client.channels.get(channel.toLowerCase()) && !global.twitchApis.client.channels.get(channel.toLowerCase()).isConnected()) {
+            if (this.client.channels.get(channel.toLowerCase()) && !this.client.channels.get(channel.toLowerCase()).isConnected()) {
                 logger.error('Already not connected to the channel: ' + channel);
                 return reject('Already not connected to the channel: ' + channel);
             }
             this.ws.send(`PART ${channel.toLowerCase()}`);
             logger.debug('Disconnecting from: ' + channel.toLowerCase());
             this.client.on('Method.Leaved.' + channel.toLowerCase(), listener);
-            global.twitchApis.client.methods.leaveQueueTimeout.push([
+            this.leaveQueueTimeout.push([
                 setTimeout(() => {
                     logger.fatal('Couldn\'t connect with twitch');
                     reject('Couldn\'t connect with twitch');
@@ -285,10 +285,10 @@ class SLEEPTMethods {
             ]);
             function listener() {
                 logger.debug('Disconnected from: ' + channel.toLowerCase());
-                if (global.twitchApis.client.channels.get(channel.toLowerCase()) && global.twitchApis.client.channels.get(channel.toLowerCase()).isConnected()) {
-                    global.twitchApis.client.channels.delete(channel.toLowerCase());
+                if (this.channels.get(channel.toLowerCase()) && this.channels.get(channel.toLowerCase()).isConnected()) {
+                    this.channels.delete(channel.toLowerCase());
                 }
-                global.twitchApis.client.methods.leaveQueueTimeout.forEach((element) => {
+                this.sleept.methods.leaveQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -347,46 +347,46 @@ class SLEEPTMethods {
     }
     generateUser(channelName) {
         this.getChatter(channelName).then((Users) => {
-            if (!global.twitchApis.client.channels.get(channelName)) {return;}
+            if (!this.client.channels.get(channelName)) {return;}
             Users.chatters.broadcaster.forEach((broadcaster) => {
-            if (!global.twitchApis.client.channels.get(channelName).users.get(broadcaster)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(broadcaster, 
+            if (!this.client.channels.get(channelName).users.get(broadcaster)) {
+                this.client.channels.get(channelName).users.set(broadcaster, 
                     new users(this.client, {userName: broadcaster,self: broadcaster === this.userName,broadcaster: true,}));
                 }
             });
             Users.chatters.vips.forEach((vips) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(vips)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(vips, 
+                if (!this.client.channels.get(channelName).users.get(vips)) {
+                    this.client.channels.get(channelName).users.set(vips, 
                     new users(this.client, {userName: vips,self: vips === this.userName,vip: true}));
                 }
             });
             Users.chatters.moderators.forEach((moderators) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(moderators)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(moderators, 
+                if (!this.client.channels.get(channelName).users.get(moderators)) {
+                    this.client.channels.get(channelName).users.set(moderators, 
                     new users(this.client, {userName: moderators,self: moderators === this.userName,mod: true}));
                 }
             });
             Users.chatters.staff.forEach((staff) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(staff)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(staff, 
+                if (!this.client.channels.get(channelName).users.get(staff)) {
+                    this.client.channels.get(channelName).users.set(staff, 
                     new users(this.client, {userName: staff,self: staff === this.userName,staff: true}));
                 }
             });
             Users.chatters.admins.forEach((admins) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(admins)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(admins, 
+                if (!this.client.channels.get(channelName).users.get(admins)) {
+                    this.client.channels.get(channelName).users.set(admins, 
                     new users(this.client, {userName: admins,self: admins === this.userName,admin: true}));
                 }
             });
             Users.chatters.global_mods.forEach((global_mods) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(global_mods)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(global_mods, 
+                if (!this.client.channels.get(channelName).users.get(global_mods)) {
+                    this.client.channels.get(channelName).users.set(global_mods, 
                     new users(this.client, {userName: global_mods,self: global_mods === this.userName,globalMod: true}));
                 }
             });
             Users.chatters.viewers.forEach((viewers) => {
-                if (!global.twitchApis.client.channels.get(channelName).users.get(viewers)) {
-                    global.twitchApis.client.channels.get(channelName).users.set(viewers, 
+                if (!this.client.channels.get(channelName).users.get(viewers)) {
+                    this.client.channels.get(channelName).users.set(viewers, 
                     new users(this.client, {userName: viewers,self: viewers === this.userName}));
                 }
             });
@@ -413,7 +413,6 @@ class SLEEPTMethods {
         user.self = user.userName === this.userName;
         user.broadcaster = user.badges.toString().includes('broadcaster');
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
-        this.client.channels = global.twitchApis.client.channels;
     }
 
     disconnect() {

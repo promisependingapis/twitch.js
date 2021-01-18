@@ -43,7 +43,7 @@ class channels {
      * Client.channels.get('channelName').send('message', ['replacer', 'replacer2', ...])
      */
     send(message, replacer) {
-        if (this.isConnected() && global.twitchApis.client.channels.get(this.name)) {
+        if (this.isConnected() && this.client.channels.get(this.name)) {
             return this.client.sleept.methods.sendMessage(this.name, message, replacer);
         } else {
             logger.error('Not connected to the channel: ' + this.name);
