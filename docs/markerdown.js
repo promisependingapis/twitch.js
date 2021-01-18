@@ -91,7 +91,7 @@ function changePage() {
                                 var methoder = '';
                                 methoder += '<div class="FVMethods"><p>Methods:</p>'
                                 element.methods.forEach((method) => {
-                                    methoder.access !== 'private' ? methoder += `<a onClick="GoToThing('${method.name}')">` + method.name + '</a><br>' : '';
+                                    method.access !== 'private' ? methoder += `<a onClick="GoToThing('${method.name}')">` + method.name + '</a><br>' : '';
                                 });
                                 methoder += '</div>';
                                 Element.innerHTML += methoder;
