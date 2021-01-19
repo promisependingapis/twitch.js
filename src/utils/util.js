@@ -20,28 +20,6 @@ class util {
         }
         return given;
     }
-    static arr_diff(a1, a2) {
-
-        var a = [], diff = [];
-    
-        for (var i = 0; i < a1.length; i++) {
-            a[a1[i]] = true;
-        }
-    
-        for (var o = 0; o < a2.length; o++) {
-            if (a[a2[o]]) {
-                delete a[a2[o]];
-            } else {
-                a[a2[o]] = true;
-            }
-        }
-    
-        for (var k in a) {
-            diff.push(k);
-        }
-    
-        return diff;
-    }
 }
 
 module.exports = util;

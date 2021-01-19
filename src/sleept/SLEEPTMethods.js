@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 const path = require('path');
 const WebSocket = require('ws');
-const { constants, logger, parser, Util } = require(path.resolve(__dirname,'..','utils'));
+const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
 
 /**
@@ -184,28 +184,9 @@ class SLEEPTMethods {
         } else {
             switch (messageObject.command) {
                 case 'JOIN':
-                    this.getChatter(messageObject.params[0]).then((users) => {
-                        var allUsers = [];
-                        var catUsers = [];
-                        var diffUsers = [];
-                        users.chatters.broadcaster.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.vips.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.moderators.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.staff.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.admins.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.global_mods.forEach((name)=>{allUsers.push(name);});
-                        users.chatters.viewers.forEach((name)=>{allUsers.push(name);});
-                        this.client.channels.get(messageObject.params[0]).users.forEach(user => catUsers.push(user.userName));
-                        diffUsers = Util.arr_diff(allUsers, catUsers);
-                        diffUsers.forEach((User) => {
-                            if (User !== this.userName) {
-                                this.client.eventEmmiter('userJoin', User);
-                            }
-                        });
-                        this.client.eventEmmiter('Method.Joined.' + messageObject.params[0]);
-                        this.client.eventEmmiter('join', this.client.channels.get(messageObject.params[0]));
-                        this.generateUser(messageObject.params[0]);
-                    });
+                    this.client.eventEmmiter('Method.Joined.' + messageObject.params[0]);
+                    this.client.eventEmmiter('join', this.client.channels.get(messageObject.params[0]));
+                    this.generateUser(messageObject.params[0]);
                     break;
                 case 'PART':
                     if (this.client.channels.get(messageObject.params[0]).users.get(messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')))) {
