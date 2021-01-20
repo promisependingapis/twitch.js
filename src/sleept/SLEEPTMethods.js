@@ -3,6 +3,7 @@ const path = require('path');
 const WebSocket = require('ws');
 const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
+const { getChatter } = require(path.resolve(__dirname,'api'));
 
 /**
  * The main file. Connect with twitch websocket and provide access to irc.
@@ -10,11 +11,11 @@ const { channels, users } = require(path.resolve(__dirname,'..','structures'));
  */
 class SLEEPTMethods {
     constructor(sleeptMananger) {
-        const { getChatter } = require(path.resolve(__dirname,'api'));
         this.sleept = sleeptMananger;
         this.client = sleeptMananger.client;
+        var chatter = new getChatter(this.client.options);
         this._ackToken = null;
-        this.getChatter = getChatter;
+        this.getChatter = chatter.getChattersInfo;
         this.connected = 0;
         this.isAnonymous = false;
         this.joinQueueTimeout = [];
