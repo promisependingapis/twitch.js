@@ -22,15 +22,6 @@ class Client extends EventEmmiter {
         this._validateOptions();
 
         /**
-         * Defines the options as a organized global variable to use in
-         */
-        global.twitchApis = {
-            client: {
-                option: this.options,
-            },
-        };
-
-        /**
          * Active Debug if Debug have to be activate
          */
         if (this.options.debug) {
@@ -99,8 +90,6 @@ class Client extends EventEmmiter {
                 return this.channels.find((channel) => channel.name === channelName);
             };
         });
-
-        global.twitchApis.client.channels = this.channels;
 
         /**
          * Intervals set by {@link Client#setInterval} that are still active
