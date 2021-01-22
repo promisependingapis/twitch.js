@@ -22,10 +22,19 @@ class SLEEPTMethods {
         this.leaveQueueTimeout = [];
     }
 
+    /**
+     * @returns {Boolean} if websocket is connected
+     */
     isConnected() {
         return this.ws !== null && this.ws.readyState === 1;
     }
 
+    /**
+     * Connects with websocket and auth with IRC
+     * @param {String} [token] the bot token
+     * @param {Boolean} [false] Connect with IRC in anonymous mode
+     * @returns {Promise<Pending>} when connected with IRC
+     */
     login(token) {
         return new Promise((resolve, reject) => {
             // eslint-disable-next-line max-len
@@ -54,6 +63,10 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Called every time a websocket message is received by IRC
+     * @param {String} [event] the raw message event to be parsed
+     */
     onMessage(event) {
         this.MessageRawSplited = event.data.toString().split('\r\n');
         this.MessageRawSplited.forEach((str) => {
@@ -63,10 +76,17 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Called when websocket went a error
+     * @param {String} [event] the raw error object to be parsed
+     */
     onError(event) {
         logger.fatal(JSON.stringify(event.error));
     }
 
+    /**
+     * Called when websocket connection close
+     */
     onClose() {
         if (this.connected || this.connected === 0) {
             logger.fatal('Conection finished ;-;');
@@ -77,6 +97,9 @@ class SLEEPTMethods {
         this.client.eventEmmiter('_IRCDisconnect');
     }
 
+    /**
+     * Called when websocket connection opens
+     */
     onOpen() {
         if (this.ws.readyState !== 1) {
             return;
@@ -97,6 +120,10 @@ class SLEEPTMethods {
         }
     }
 
+    /**
+     * Called when websocket connection close
+     * @param {Object} [messageObject] the object parsed by parser on onMessage
+     */
     handlerMessage(messageObject) {
         if (messageObject === null) {
             return;
@@ -119,6 +146,7 @@ class SLEEPTMethods {
                 default:
                     break;
             }
+            // Message with prefix tmi.twitch.tv
         } else if (messageObject.prefix === 'tmi.twitch.tv') {
             switch (messageObject.command) {
                 case '002':
@@ -177,11 +205,13 @@ class SLEEPTMethods {
                 default:
                     break;
             }
+            // Message with prefix username.tmi.twitch.tv
         } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
             switch (messageObject.command) {
                 default:
                     break;
             }
+            // Message with prefix don't match with anything above
         } else {
             switch (messageObject.command) {
                 case 'JOIN':
@@ -209,6 +239,9 @@ class SLEEPTMethods {
         }
     }
 
+    /**
+     * Called after websocket successfully connect with IRC and be on ready state
+     */
     onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
         this.client.options.channels.forEach((element, index) => {
@@ -221,6 +254,12 @@ class SLEEPTMethods {
         this.connected = true;
     }
 
+    /**
+     * Connects with a twitch channel chat
+     * @param {String} [channel] the channel name who will be connected
+     * @param {Number=} [index] the index of channels list of element
+     * @return {Promise<Pending>} Resolved when sucessfull connect with channel
+     */
     join(channel, index) {
         return new Promise((resolve, reject) => {
             if (channel.includes(' ')) {
@@ -261,6 +300,11 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Leave from a twitch channel chat
+     * @param {String} [channel] the channel name who will be leaved
+     * @return {Promise<Pending>} Resolved when sucessfull leave of the channel
+     */
     leave(channel) {
         return new Promise((resolve, reject) => {
             if (channel.includes(' ')) {
@@ -301,6 +345,10 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Send a ping message to websocket
+     * @return {Promise<Number>} The ping in milliseconds with IRC
+     */
     ping() {
         return new Promise((resolve, reject) => {
             var ping = new Date();
@@ -320,6 +368,13 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Send a message to channel
+     * @param {String} [channel] The channel name where the message will be delivered
+     * @param {String} [message] The message content who will be sended 
+     * @param {Array} [replacer] The replacements for %s on message content
+     * @return {Promise<Pending>} returns when the message is sended
+     */
     sendMessage(channel, message, ...replacer) {
         return new Promise((resolve, reject) => {
             if (typeof channel !== 'string') {
@@ -346,6 +401,11 @@ class SLEEPTMethods {
             resolve(this.ws.send(`PRIVMSG ${channel} :${message}`));
         });
     }
+
+    /**
+     * Generate users collections and added it to channel user collection
+     * @param {String} [channelName] The name of the channel to search for users
+     */
     generateUser(channelName) {
         this.getChatter(channelName).then((Users) => {
             if (!this.client.channels.get(channelName)) {return;}
@@ -393,6 +453,11 @@ class SLEEPTMethods {
             });
         });
     }
+
+    /**
+     * Updates a user collection with the new data
+     * @param {Object} [data] The messageObject returned from twitch with a user data
+     */
     async updateUser(data) {
         if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
         var user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
@@ -416,6 +481,10 @@ class SLEEPTMethods {
         user.id = user.self ? this.id : data.tags['user-id'] ? data.tags['user-id'] : user.id;
     }
 
+    /**
+     * Disconnect from IRC
+     * @return {Promise<Pending>} returns when IRC sucessfull disconnect
+     */
     disconnect() {
         return new Promise((resolve, reject) => {
             if (this.ws && this.ws.readyState !== 3) {
@@ -436,6 +505,14 @@ class SLEEPTMethods {
         });
     }
 
+    /**
+     * Reply a message sended on channel
+     * @param {String} [msgId] The id of the message who will be responded
+     * @param {String} [channel] The channel name where the message will be delivered
+     * @param {String} [message] The message content who will be sended 
+     * @param {Array} [replacer] The replacements for %s on message content
+     * @return {Promise<Pending>} returns when the message is sended
+     */
     replyMessage(msgId, channel, message, replacer) {
         return new Promise((resolve, reject) => {
             if (typeof channel !== 'string') {

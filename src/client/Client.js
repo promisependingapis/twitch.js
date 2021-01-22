@@ -28,9 +28,16 @@ class Client extends EventEmmiter {
             logger.activeDebug();
         }
 
+        /**
+         * Display a message saying debug is active is debug is active
+         */
         logger.debug('Debug is active!');
 
         Object.defineProperty(this, 'token', { writable: true });
+
+        /**
+         * Load client token from process enviroment if its not passed on login
+         */
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -62,6 +69,10 @@ class Client extends EventEmmiter {
          */
         this.autoLogEnd = options.autoLogEnd;
 
+        /**
+         * Disable autoLogEnd if debug is actived for complete stacktraces
+         * also display a warn saying that
+         */
         if (this.options.debug && this.autoLogEnd) {
             logger.warn('AutoLogEnd disabled because debug is enabled');
         }
@@ -74,10 +85,13 @@ class Client extends EventEmmiter {
         }
 
         /**
-         * Creates a collecion to each channel
+         * A collection with all channels
          * @type {Collection}
          */
         this.channels = new collection();
+        /**
+         * Create the channel collection for each channel
+         */
         options.channels.forEach((channelName) => {
             if (channelName.slice(0, 1) !== '#') {
                 channelName = '#' + channelName;
@@ -97,6 +111,10 @@ class Client extends EventEmmiter {
          * @private
          */
         this._intervals = new Set();
+
+        /**
+         * If messageSweepInterval is bigger than 0 start a interval of this time to run the sweepMessage function
+         */
         if (options.messageSweepInterval > 0) {
             setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
         }
