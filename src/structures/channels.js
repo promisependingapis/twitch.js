@@ -1,6 +1,9 @@
 const path = require('path');
 const { logger, collection } = require(path.resolve(__dirname,'..','utils'));
 
+/**
+ * Channel collection template for creating all channels collections
+ */
 class channels {
     constructor(client, data) {
         /**

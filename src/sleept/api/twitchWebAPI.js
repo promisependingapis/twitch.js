@@ -5,6 +5,9 @@ const { logger } = require(path.resolve(__dirname,'..','..','utils'));
 var apiUrl;
 var headers;
 
+/**
+ * Api for making http requests to twitch
+ */
 class twitchRequest {
     constructor(options) {
         apiUrl = options.http.api;

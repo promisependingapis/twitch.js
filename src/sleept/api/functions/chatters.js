@@ -3,6 +3,9 @@ const TwitchWebAPIC = require(path.resolve(__dirname,'..','twitchWebAPI'));
 
 var request;
 
+/**
+ * The class for the getChattersInfo function 
+ */
 class chatters {
     constructor(options) {
         const TwitchWebAPI = new TwitchWebAPIC(options);

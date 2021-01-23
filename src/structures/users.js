@@ -1,3 +1,6 @@
+/**
+ * User collection template for creating all Users collections
+ */
 class Users {
     constructor(client, data) {
         /**
