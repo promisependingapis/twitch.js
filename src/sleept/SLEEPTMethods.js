@@ -5,6 +5,15 @@ const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
 const { getChatter } = require(path.resolve(__dirname,'api'));
 
+const twitchUserRolesNameParser = {
+    broadcaster: 'broadcaster',
+    vips: 'vip',
+    moderators: 'mod',
+    staff: 'staff',
+    admins: 'admin',
+    global_mods: 'globalMod',
+};
+
 /**
  * The main file. Connect with twitch websocket and provide access to irc.
  * @private
@@ -409,47 +418,15 @@ class SLEEPTMethods {
     generateUser(channelName) {
         this.getChatter(channelName).then((Users) => {
             if (!this.client.channels.get(channelName)) {return;}
-            Users.chatters.broadcaster.forEach((broadcaster) => {
-            if (!this.client.channels.get(channelName).users.get(broadcaster)) {
-                this.client.channels.get(channelName).users.set(broadcaster, 
-                    new users(this.client, {userName: broadcaster,self: broadcaster === this.userName,broadcaster: true,}));
-                }
-            });
-            Users.chatters.vips.forEach((vips) => {
-                if (!this.client.channels.get(channelName).users.get(vips)) {
-                    this.client.channels.get(channelName).users.set(vips, 
-                    new users(this.client, {userName: vips,self: vips === this.userName,vip: true}));
-                }
-            });
-            Users.chatters.moderators.forEach((moderators) => {
-                if (!this.client.channels.get(channelName).users.get(moderators)) {
-                    this.client.channels.get(channelName).users.set(moderators, 
-                    new users(this.client, {userName: moderators,self: moderators === this.userName,mod: true}));
-                }
-            });
-            Users.chatters.staff.forEach((staff) => {
-                if (!this.client.channels.get(channelName).users.get(staff)) {
-                    this.client.channels.get(channelName).users.set(staff, 
-                    new users(this.client, {userName: staff,self: staff === this.userName,staff: true}));
-                }
-            });
-            Users.chatters.admins.forEach((admins) => {
-                if (!this.client.channels.get(channelName).users.get(admins)) {
-                    this.client.channels.get(channelName).users.set(admins, 
-                    new users(this.client, {userName: admins,self: admins === this.userName,admin: true}));
-                }
-            });
-            Users.chatters.global_mods.forEach((global_mods) => {
-                if (!this.client.channels.get(channelName).users.get(global_mods)) {
-                    this.client.channels.get(channelName).users.set(global_mods, 
-                    new users(this.client, {userName: global_mods,self: global_mods === this.userName,globalMod: true}));
-                }
-            });
-            Users.chatters.viewers.forEach((viewers) => {
-                if (!this.client.channels.get(channelName).users.get(viewers)) {
-                    this.client.channels.get(channelName).users.set(viewers, 
-                    new users(this.client, {userName: viewers,self: viewers === this.userName}));
-                }
+            Object.keys(Users.chatters).forEach((type) => {
+                Users.chatters[type].forEach(async (User) => {
+                    if (!this.client.channels.get(channelName).users.get(User)) {
+                        await this.client.channels.get(channelName).users.set(User, 
+                            new users(this.client, {userName: User,self: User === this.userName}));
+                        // Add adictional infomartion
+                        this.client.channels.get(channelName).users.get(User)[twitchUserRolesNameParser[type]] = true;
+                    }
+                });
             });
         });
     }
