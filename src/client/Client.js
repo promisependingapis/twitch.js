@@ -1,8 +1,10 @@
 const path = require('path');
 const EventEmmiter = require('events');
 const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
-const { autoEndLog, constants, logger, Util, collection } = require(path.resolve(__dirname,'..','utils'));
+const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(path.resolve(__dirname,'..','utils'));
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
+
+var logger;
 
 /**
  * Creates the main class to generate clients.
@@ -21,12 +23,7 @@ class Client extends EventEmmiter {
         this.options = Util.mergeDefault(constants.defaultOptions, options);
         this._validateOptions();
 
-        /**
-         * Active Debug if Debug have to be activate
-         */
-        if (this.options.debug) {
-            logger.activeDebug();
-        }
+        logger = new LoggerC({debug:this.options.debug});
 
         /**
          * Display a message saying debug is active is debug is active

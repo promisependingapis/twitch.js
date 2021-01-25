@@ -1,7 +1,7 @@
 const path = require('path');
 const axios = require('axios');
-const { logger } = require(path.resolve(__dirname,'..','..','utils'));
-
+const { logger: LoggerC } = require(path.resolve(__dirname,'..','..','utils'));
+var logger;
 var apiUrl;
 var headers;
 
@@ -12,6 +12,7 @@ class twitchRequest {
     constructor(options) {
         apiUrl = options.http.api;
         headers = options.http.headers;
+        logger = new LoggerC({debug: options.debug});
     }
 
     /**

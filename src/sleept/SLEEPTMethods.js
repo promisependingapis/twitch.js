@@ -1,9 +1,10 @@
 /* eslint-disable indent */
 const path = require('path');
 const WebSocket = require('ws');
-const { constants, logger, parser } = require(path.resolve(__dirname,'..','utils'));
+const { constants, logger: LoggerC, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
 const { getChatter } = require(path.resolve(__dirname,'api'));
+var logger;
 
 const twitchUserRolesNameParser = {
     broadcaster: 'broadcaster',
@@ -29,6 +30,7 @@ class SLEEPTMethods {
         this.isAnonymous = false;
         this.joinQueueTimeout = [];
         this.leaveQueueTimeout = [];
+        logger = new LoggerC({debug: this.client.options.debug});
     }
 
     /**

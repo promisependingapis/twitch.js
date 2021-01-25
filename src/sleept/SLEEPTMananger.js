@@ -3,8 +3,8 @@ const UserAgentManager = require(path.resolve(__dirname,'UserAgentManager'));
 const SLEEPTMethods = require(path.resolve(__dirname,'SLEEPTMethods'));
 const SequentialRequestHandler = require(path.resolve(__dirname,'RequestHandlers','Sequential'));
 const BurstRequestHandler = require(path.resolve(__dirname,'RequestHandlers','Burst'));
-const { constants, logger } = require(path.resolve(__dirname,'..','utils'));
-
+const { constants, logger: LoggerC } = require(path.resolve(__dirname,'..','utils'));
+var logger;
 /**
  * The manager for all things than envolve Sleept
  */
@@ -16,6 +16,7 @@ class SLEEPTMananger {
         this.methods = new SLEEPTMethods(this);
         this.rateLimitedEndpoints = {};
         this.globallyRateLimited = false;
+        logger = new LoggerC({debug: this.client.options.debug});
     }
 
     /**
