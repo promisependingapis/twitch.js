@@ -24,6 +24,10 @@ xhr.onload = async () => {
             element.children[0].href = '';
             element.children[0].outerHTML = element.children[0].outerHTML.replaceAll('href=\"\"', '');
         }
+        if (element.children[2]) {
+            element.children[2].href = '';
+            element.children[2].outerHTML = element.children[0].outerHTML.replaceAll('href=\"\"', '');
+        }
     });
     [...document.getElementsByTagName('table')].forEach((element) => {
             element.style.border = '0px';
