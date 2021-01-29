@@ -1,4 +1,4 @@
-[<img src="https://cdn.discordapp.com/attachments/780245027212492812/780245250382757930/TwitchJS.png">]()
+[<img src="https://media.discordapp.net/attachments/780245027212492812/804814808649433088/TwitchJSBanner.png">]()
 
 <p>
   <a href="https://twitchapis.org/discord"><img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/></a>
