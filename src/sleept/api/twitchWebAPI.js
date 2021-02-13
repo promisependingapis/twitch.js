@@ -22,7 +22,12 @@ class twitchRequest {
      */
     request(method, path, options) {
         return new Promise((resolve, reject) => {
-            const finalUrl = apiUrl + path;
+            var finalUrl;
+            if (!path.startsWith('http')) {
+                finalUrl = apiUrl + path;
+            } else {
+                finalUrl = path;
+            }
             
             var hasParam = false;
     
@@ -31,17 +36,17 @@ class twitchRequest {
                     hasParam = true;
                 }
             }
-    
+
             if (method === 'get') {
                 if (hasParam) {
-                    axios.get(finalUrl, { params: options.params, headers: headers }).then(result => {
+                    axios.get(finalUrl, { params: options.params, headers: options.params || headers }).then(result => {
                         return resolve(result.data);
                     }).catch(err => {
                         logger.error(err);
                         return reject(err);
                     });
                 } else {
-                    axios.get(finalUrl, { headers: headers }).then(result => {
+                    axios.get(finalUrl, { headers: (options ? (options.headers || headers) : headers) }).then(result => {
                         return resolve(result.data);
                     }).catch(err => {
                         logger.error(err);
@@ -49,7 +54,7 @@ class twitchRequest {
                     });
                 }
             } else {
-                axios.post(finalUrl, options.data, { headers: headers }).then(result => {
+                axios.post(finalUrl, options.data, { headers: options.headers || headers }).then(result => {
                     return resolve(result.data);
                 }).catch(err => {
                     logger.error(err);

@@ -3,7 +3,7 @@ const path = require('path');
 const WebSocket = require('ws');
 const { constants, logger: LoggerC, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
-const { getChatter } = require(path.resolve(__dirname,'api'));
+const { getChatter, validator } = require(path.resolve(__dirname,'api'));
 var logger;
 
 const twitchUserRolesNameParser = {
@@ -24,8 +24,10 @@ class SLEEPTMethods {
         this.sleept = sleeptMananger;
         this.client = sleeptMananger.client;
         var chatter = new getChatter(this.client.options);
+        var validate = new validator(this.client.options);
         this._ackToken = null;
         this.getChatter = chatter.getChattersInfo;
+        this.validate = validate.validate;
         this.connected = 0;
         this.isAnonymous = false;
         this.joinQueueTimeout = [];
@@ -47,7 +49,8 @@ class SLEEPTMethods {
      * @returns {Promise<Pending>} when connected with IRC
      */
     login(token) {
-        return new Promise((resolve, reject) => {
+        // eslint-disable-next-line no-async-promise-executor
+        return new Promise(async (resolve, reject) => {
             // eslint-disable-next-line max-len
             if ((typeof token !== 'string' && typeof token !== 'boolean') || (typeof token === 'string' && !token.startsWith('oauth:')) || (typeof token === 'string' && token.includes(' ')) || (typeof token === 'boolean' && token !== false)) {
                 reject(constants.errors.INVALID_TOKEN);
@@ -56,10 +59,20 @@ class SLEEPTMethods {
             if (token === false) {
                 this.isAnonymous = true;
             } else {
-                this.client.token = token;
-                this.userName = 'twitchjs'; // Just to start the connection after that, twitch sends back the bot name and we replace it
-                this.id = '';
+                this.client.token = token; 
             }
+            if (!this.isAnonymous) {
+                await this.validate(this.client.token).then((results) => {
+                    this.client.clientId = results.client_id;
+                    this.userName = results.login.toString();
+                    this.id = results.user_id;
+                    this.scopes = results.scopes;
+                }).catch(() => {
+                    reject(constants.errors.INVALID_TOKEN);
+                    logger.fatal(constants.errors.INVALID_TOKEN);
+                });
+            }
+
             this.server = this.client.options.http.host;
             this.ws = new WebSocket(`wss://${this.server}:443`);
             this.ws.onmessage = this.onMessage.bind(this);
