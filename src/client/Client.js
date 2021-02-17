@@ -1,8 +1,10 @@
 const path = require('path');
 const EventEmmiter = require('events');
 const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
-const { autoEndLog, constants, logger, Util, collection } = require(path.resolve(__dirname,'..','utils'));
+const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(path.resolve(__dirname,'..','utils'));
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
+
+var logger;
 
 /**
  * Creates the main class to generate clients.
@@ -21,36 +23,18 @@ class Client extends EventEmmiter {
         this.options = Util.mergeDefault(constants.defaultOptions, options);
         this._validateOptions();
 
-        /**
-         * Defines the options as a organized global variable to use in
-         */
-        global.twitchApis = {
-            client: {
-                option: this.options,
-                methods: {
-                    joinQueueTimeout: [],
-                    leaveQueueTimeout: [],
-                },
-            },
-        };
+        logger = new LoggerC({debug:this.options.debug});
 
         /**
-         * Active Debug if Debug have to be activate
+         * Display a message saying debug is active is debug is active
          */
-        if (this.options.debug) {
-            logger.activeDebug();
-        }
-
         logger.debug('Debug is active!');
 
-        /**
-         * The SLEEPT manager of the client
-         * @type {SLEEPTManager}
-         * @private
-         */
-        this.sleept = new SLEEPTManager(this);
-
         Object.defineProperty(this, 'token', { writable: true });
+
+        /**
+         * Load client token from process enviroment if its not passed on login
+         */
         if (!this.token && 'CLIENT_TOKEN' in process.env) {
             /**
              * Authorization token for the logged in user/bot
@@ -82,6 +66,10 @@ class Client extends EventEmmiter {
          */
         this.autoLogEnd = options.autoLogEnd;
 
+        /**
+         * Disable autoLogEnd if debug is actived for complete stacktraces
+         * also display a warn saying that
+         */
         if (this.options.debug && this.autoLogEnd) {
             logger.warn('AutoLogEnd disabled because debug is enabled');
         }
@@ -94,10 +82,13 @@ class Client extends EventEmmiter {
         }
 
         /**
-         * Creates a collecion to each channel
+         * A collection with all channels
          * @type {Collection}
          */
         this.channels = new collection();
+        /**
+         * Create the channel collection for each channel
+         */
         options.channels.forEach((channelName) => {
             if (channelName.slice(0, 1) !== '#') {
                 channelName = '#' + channelName;
@@ -111,17 +102,26 @@ class Client extends EventEmmiter {
             };
         });
 
-        global.twitchApis.client.channels = this.channels;
-
         /**
          * Intervals set by {@link Client#setInterval} that are still active
          * @type {Set<Timeout>}
          * @private
          */
         this._intervals = new Set();
+
+        /**
+         * If messageSweepInterval is bigger than 0 start a interval of this time to run the sweepMessage function
+         */
         if (options.messageSweepInterval > 0) {
             setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
         }
+
+        /**
+         * The SLEEPT manager of the client
+         * @type {SLEEPTManager}
+         * @private
+         */
+        this.sleept = new SLEEPTManager(this);
     }
 
     /**

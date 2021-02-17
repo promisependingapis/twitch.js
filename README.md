@@ -1,4 +1,4 @@
-[<img src="https://cdn.discordapp.com/attachments/780245027212492812/780245250382757930/TwitchJS.png">]()
+[<img src="https://media.discordapp.net/attachments/780245027212492812/804814808649433088/TwitchJSBanner.png">]()
 
 <p>
   <a href="https://twitchapis.org/discord"><img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/></a>
@@ -8,7 +8,7 @@
   <a href="https://github.com/twitchapis/twitch.js/blob/main/LICENSE"><img src="https://img.shields.io/github/license/twitchapis/twitch.js.svg?style=for-the-badge"/></a>
 </p>
 
-[<img src="https://media.discordapp.net/attachments/780245027212492812/785968486018318356/Novo_Projeto6.png?width=1440&height=480" align='right' width='300'/>](https://twitchapis.org/discord) [<span><br/><img src="https://nodei.co/npm/@twitchapis/twitch.js.png?downloads=true&stars=true" align='left'/></span>](https://www.npmjs.com/package/@twitchapis/twitch.js)
+[<img src="https://media.discordapp.net/attachments/780245027212492812/804817170126995506/Novo_Projeto27.png" align='right' width='300'/>](https://twitchapis.org/discord) [<span><br/><img src="https://nodei.co/npm/@twitchapis/twitch.js.png?downloads=true&stars=true" align='left'/></span>](https://www.npmjs.com/package/@twitchapis/twitch.js)
 
 <br/>
 <br/>
@@ -36,21 +36,27 @@
 
 ## TODO
 
-- [x] | Make a auto updated list of users of channels
+- [x] Make a auto updated list of users of channels
 - [x] | Create automatizated tests.
 - [x] | Disconnect IRC function.
 - [x] | Make reply uses new thread system of twitch. (beta ⚙️)
 - [x] | FanMode (Anonymous mode).
+- [x] | Remove global variables.
+- [x] | Convert  api/functions/chatters.js into class
+- [x] | Convert  api/twitchWebAPI.js into class
+- [x] | Reduce generateUser method size
+- [x] | Organize annotations. (not sure enough ⚙️)
+- [x] | Transform logger in class
 - [ ] | Create onUserJoin event. (Emitted everytime someone new enter in the chat)
 - [ ] | Create onUserLeave event. (Emitted everytime someone leaves the chat)
 - [ ] | Create Shard system.
-- [ ] | Implement other types of connections with twitch (To alloy the bot to make things like follow someone, get stream details, ...)
-- [ ] | Remove global variables.
-- [ ] | Organize annotations.
-- [ ] | Reduce generateUser function size
+- [ ] | Implement other http methods (To make things like follow, get stream details, ...)
 - [ ] | Split SleeptMethods because it is too much dirty
-- [ ] | Convert  api/getChatter.js into class
-- [ ] | Create own parser
+- [ ] | [Create own parser](#create-own-parser)
+#### Create own parser
+- [ ] | Plan the new object structure
+- [ ] | Code the new parser
+- [ ] | Replace old parser code
 
 ## About
 

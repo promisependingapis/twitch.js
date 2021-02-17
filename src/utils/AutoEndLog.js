@@ -1,5 +1,6 @@
 const path = require('path');
 var logger = require(path.resolve(__dirname,'logger'));
+logger = new logger();
 var Exited;
 
 function exitHandler(options, exitCode) {

@@ -1,3 +1,6 @@
+/**
+ * User collection template for creating all Users collections
+ */
 class Users {
     constructor(client, data) {
         /**
@@ -9,6 +12,7 @@ class Users {
         Object.defineProperty(this, 'client', { value: client });
 
         this.userName = data.userName;
+        this.username = this.userName;
 
         this.haveBadges = data.haveBadges ? data.haveBadges : false;
         this.badges = data.badges ? data.badges : '';
