@@ -11,6 +11,8 @@ class Users {
          */
         Object.defineProperty(this, 'client', { value: client });
 
+        this.channel = data.channel;
+
         this.userName = data.userName;
         this.username = this.userName;
 
@@ -31,6 +33,16 @@ class Users {
 
         this.self = data.self;
         this.broadcaster = data.broadcaster ? data.broadcaster : false;
+    }
+
+    timeout(channel, secounds, reason) {
+        if (typeof(channel) === 'number') {
+            reason = secounds;
+            secounds = channel;
+        }
+        return this.client.sleept.methods.sendMessage(
+            (this.channel ? (typeof(this.channel) === 'string' ? this.channel : this.channel.name) : channel), 
+            '/timeout ' + this.userName + ' ' + secounds + ' ' + reason);
     }
 }
 

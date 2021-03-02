@@ -437,7 +437,7 @@ class SLEEPTMethods {
                 Users.chatters[type].forEach(async (User) => {
                     if (!this.client.channels.get(channelName).users.get(User)) {
                         await this.client.channels.get(channelName).users.set(User, 
-                            new users(this.client, {userName: User,self: User === this.userName}));
+                            new users(this.client, {userName: User,self: User === this.userName, channel: this.client.channels.get(channelName)}));
                         // Add adictional infomartion
                         this.client.channels.get(channelName).users.get(User)[twitchUserRolesNameParser[type]] = true;
                     }
@@ -455,7 +455,7 @@ class SLEEPTMethods {
         var user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         if (!user) {
             await this.client.channels.get(data.params[0]).users.set(data.prefix.slice(0, data.prefix.indexOf('!')), 
-                new users(this, { userName: data.prefix.slice(0, data.prefix.indexOf('!'))})
+                new users(this, { userName: data.prefix.slice(0, data.prefix.indexOf('!')), channel: this.client.channels.get(data.params[0])})
             );
             user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         }
