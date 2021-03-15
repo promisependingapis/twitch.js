@@ -23,11 +23,8 @@ class twitchRequest {
     request(method, path, options) {
         return new Promise((resolve, reject) => {
             var finalUrl;
-            if (!path.startsWith('http')) {
-                finalUrl = apiUrl + path;
-            } else {
-                finalUrl = path;
-            }
+            
+            !path.startsWith('http') ? finalUrl = (apiUrl + path) : finalUrl = path;
             
             var hasParam = false;
     
