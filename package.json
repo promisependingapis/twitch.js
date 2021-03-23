@@ -31,10 +31,10 @@
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "node-fetch": "^2.6.1",
-    "ws": "^7.4.2"
+    "ws": "^7.4.4"
   },
   "devDependencies": {
-    "eslint": "^7.17.0",
+    "eslint": "^7.22.0",
     "prettier": "^2.2.1"
   }
 }
