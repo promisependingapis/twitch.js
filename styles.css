@@ -78,7 +78,7 @@ red {
 }
 
 a {
-    color: #fee401;
+    color: #ffff55;
     text-decoration: none;
 }
 
@@ -163,7 +163,7 @@ links a:active {
 }
 
 .header {
-    background-color: #fee401;
+    background-color: #ffff55;
     position: absolute;
     left: 0;
     width: 100vw;
@@ -182,7 +182,7 @@ links a:active {
 }
 
 .header .Title .language {
-    color: rgb(80, 0, 167);
+    color: #9146FF;
     animation: TitleColor 1s;
 }
 
@@ -193,7 +193,7 @@ links a:active {
     left: 34vw;
     overflow: hidden;
     animation: MoveAnimationTopTitle 1s;
-    color: #b432ff;
+    color: #9146FF;
 }
 
 .header .EffectBars {
@@ -250,7 +250,7 @@ links a:active {
 }
 
 .header .Bar11 {
-    background-color: #cd77ff;
+    background-color: #9146FF;
     height: 8vw;
     position:absolute;
     top: 4vw;
@@ -357,7 +357,7 @@ links a:active {
 .Content .Buttons button {
     width: 15vw;
     border: 0;
-    background-color: #fee401;
+    background-color: #ffff55;
     border-radius: 0.5vw;
     height: 3vw;
     font-size: 2vw;
@@ -392,7 +392,7 @@ links a:active {
 .footer button {
     width: 5vw;
     border: 0;
-    background-color: #fee401;
+    background-color: #ffff55;
     border-radius: 0.5vw;
     height: 2vw;
     font-size: 1.3vw;
