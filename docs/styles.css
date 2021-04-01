@@ -2,19 +2,19 @@
     width: 1vw;
 }
 ::-webkit-scrollbar-track {
-    background: #fee401;
+    background: #ffff55;
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgb(51, 0, 105);
+    background: #9146FF;
     width: 0.5vw;
 }  
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(67, 0, 139);
+    background: #A257FF;
 } 
 
 html {
-    scrollbar-color: rgb(51, 0, 105) #fee401;
+    scrollbar-color: #9146FF #ffff55;
     scrollbar-width: thin;
 }
 
@@ -60,7 +60,7 @@ redbox {
 }
 
 a {
-    color: #fee401;
+    color: #ffff55;
     text-decoration: none;
 }
 
@@ -77,7 +77,7 @@ table {
 }
 
 table thead {
-    background-color: #fee401;
+    background-color: #ffff55;
     color: #111;
     margin: 0;
 }
@@ -100,7 +100,7 @@ table tbody {
 }
 
 table tbody tr:nth-child(2n) {
-    background-color: #fee40111;
+    background-color: #ffff5511;
 }
 
 table tbody tr td {
@@ -116,18 +116,18 @@ warn {
     border-top: 2px solid #ff5555AA;
     border-bottom: 2px solid #ff5555AA;
     border-right: 2px solid #ff5555AA;
-    border-left: 10px solid #fee401;
+    border-left: 10px solid #ffff55;
 }
 
 warn:before {
     content: 'Warning';
     display: block;
     font-size: 2vw;
-    color: #fee401;
+    color: #ffff55;
 }
 
 header {
-    background-color: rgb(40, 0, 83);
+    background-color: #9146FF;
     width: 100vw;
     height: 3.5vw;
     position: fixed;
@@ -208,7 +208,7 @@ links a:active {
 }
 
 .LoadingScreen {
-    background-color: rgb(40, 0, 83);
+    background-color: #9146FF;
     position: fixed;
     width: 100vw;
     height: 0vh;
@@ -441,7 +441,7 @@ links a:active {
     content: '';
     width: 0.3vw;
     height: 2.5vw;
-    background-color: #fee401;
+    background-color: #ffff55;
     margin-top: -0.5vw;
     margin-bottom: -0.75vw;
     right: 3vw;
