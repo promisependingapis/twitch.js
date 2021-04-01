@@ -2,7 +2,7 @@
     width: 1vw;
 }
 ::-webkit-scrollbar-track {
-    background: rgb(40, 0, 83);
+    background: #9146FF;
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
@@ -14,7 +14,7 @@
 } 
 
 html {
-    scrollbar-color: #ffff55 rgb(40, 0, 83);
+    scrollbar-color: #ffff55 #9146FF;
 }
 
 @keyframes MoveAnimationTopTitle {
@@ -83,7 +83,7 @@ a {
 }
 
 header {
-    background-color: rgb(40, 0, 83);
+    background-color: #9146FF;
     width: 100vw;
     height: 3.5vw;
     position: fixed;
@@ -411,7 +411,7 @@ links a:active {
 }
 
 .LoadingScreen {
-    background-color: rgb(40, 0, 83);
+    background-color: #9146FF;
     position: fixed;
     width: 100vw;
     height: 100vh;
