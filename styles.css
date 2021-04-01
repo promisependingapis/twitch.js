@@ -411,7 +411,7 @@ links a:active {
 }
 
 .LoadingScreen {
-    background-color: #9146FF;
+    background-color: rgb(40, 0, 83);
     position: fixed;
     width: 100vw;
     height: 100vh;
