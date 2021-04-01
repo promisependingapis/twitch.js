@@ -2,7 +2,7 @@
     width: 1vw;
 }
 ::-webkit-scrollbar-track {
-    background: #9146FF;
+    background: rgb(40, 0, 83);
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
@@ -14,7 +14,7 @@
 } 
 
 html {
-    scrollbar-color: #ffff55 #9146FF;
+    scrollbar-color: #ffff55 rgb(40, 0, 83);
 }
 
 @keyframes MoveAnimationTopTitle {
@@ -83,7 +83,7 @@ a {
 }
 
 header {
-    background-color: #9146FF;
+    background-color: rgb(40, 0, 83);
     width: 100vw;
     height: 3.5vw;
     position: fixed;
