@@ -6,7 +6,7 @@
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
-    background: #fee401;
+    background: #ffff55;
     width: 0.5vw;
 }  
 ::-webkit-scrollbar-thumb:hover {
@@ -14,7 +14,7 @@
 } 
 
 html {
-    scrollbar-color: #fee401 rgb(40, 0, 83);
+    scrollbar-color: #ffff55 rgb(40, 0, 83);
 }
 
 @keyframes MoveAnimationTopTitle {
