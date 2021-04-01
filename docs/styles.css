@@ -6,15 +6,15 @@
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
-    background: #9146FF;
+    background: rgb(40, 0, 83);
     width: 0.5vw;
 }  
 ::-webkit-scrollbar-thumb:hover {
-    background: #A257FF;
+    background: rgb(50, 10, 93);
 } 
 
 html {
-    scrollbar-color: #9146FF #ffff55;
+    scrollbar-color: rgb(40, 0, 83) #ffff55;
     scrollbar-width: thin;
 }
 
@@ -127,7 +127,7 @@ warn:before {
 }
 
 header {
-    background-color: #9146FF;
+    background-color: rgb(40, 0, 83);
     width: 100vw;
     height: 3.5vw;
     position: fixed;
@@ -208,7 +208,7 @@ links a:active {
 }
 
 .LoadingScreen {
-    background-color: #9146FF;
+    background-color: rgb(40, 0, 83);
     position: fixed;
     width: 100vw;
     height: 0vh;
