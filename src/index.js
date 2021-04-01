@@ -1,3 +1,4 @@
+"use strict";
 const path = require('path');
 
 module.exports = {
@@ -6,5 +7,4 @@ module.exports = {
     // Utils
     Collection: require(path.resolve(__dirname,'utils','collection')),
     logger: require(path.resolve(__dirname,'utils','logger')),
-    
 };
