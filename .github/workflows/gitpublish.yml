@@ -23,7 +23,7 @@ jobs:
         id: tag
         uses: anothrNick/github-tag-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.TWITCHAPISBOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
           WITH_V: true
           CUSTOM_TAG: "auto4-${{fromJson(steps.set_var.outputs.packageJson).version}}"
   job2:
