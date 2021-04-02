@@ -19,6 +19,7 @@ jobs:
           echo "::set-output name=packageJson::$content"
       - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
+      - run: |    
           curl --request POST \
           --url https://api.github.com/repos/${{ github.repository }}/git/tags \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
