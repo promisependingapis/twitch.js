@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      -run: |
+        echo "${{ needs.jobs1.steps.tag.env.CUSTOM_TAG }}"
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
