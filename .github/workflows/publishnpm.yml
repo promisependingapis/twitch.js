@@ -27,3 +27,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           CUSTOM_TAG: "auto-${{fromJson(steps.set_var.outputs.packageJson).version}}"
+      - name: Create GitHub release
+        uses: Roang-zero1/github-create-release-action@master
+        with:
+          prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
