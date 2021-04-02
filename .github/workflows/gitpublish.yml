@@ -24,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "auto8-${{ fromJson(steps.set_var.outputs.packageJson).version }}"
+          CUSTOM_TAG: "v${{ fromJson(steps.set_var.outputs.packageJson).version }}"
   job2:
     needs: job1
     name: Publish Release
@@ -48,6 +48,6 @@ jobs:
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
-          created_tag: auto8-${{ fromJson(steps.set_var.outputs.packageJson).version }}
+          created_tag: v${{ fromJson(steps.set_var.outputs.packageJson).version }}
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
