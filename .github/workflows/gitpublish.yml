@@ -6,6 +6,8 @@ jobs:
   job1:
     name: Publish Tag
     runs-on: ubuntu-latest
+    outputs:
+      json: steps.set_var.outputs.packageJson
     steps:
       - uses: actions/checkout@v2
       - id: set_var
@@ -24,7 +26,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "auto6-${{fromJson(steps.set_var.outputs.packageJson).version}}"
+          CUSTOM_TAG: "auto7-${{ fromJson(steps.set_var.outputs.packageJson).version }}"
   job2:
     needs: job1
     name: Publish Release
@@ -33,11 +35,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Echo Debug 
         run: |
-          echo "${{fromJson(needs.job1.steps.set_var.outputs.packageJson).version}}"
+          echo "${{ fromJson(needs.job1.outputs.json).version }}"
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
-          created_tag: auto6-${{fromJson(needs.job1.steps.set_var.outputs.packageJson).version}}
+          created_tag: auto7-${{ fromJson(needs.job1.outputs.json).version }}
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
