@@ -3,12 +3,13 @@ on:
   push
 
 jobs:
-  build:
-    name: Publish Tag and Release
+  job1:
+    name: Publish Tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - id: set_var
+        name: Get Version
         run: |
           content=`cat ./package.json`
           # the following lines are only required for multi line json
@@ -18,15 +19,18 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=packageJson::$content"
 
-      - run: |
-          echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
-
-      - name: Bump version and push tag
+      - name: Push Tag
         uses: anothrNick/github-tag-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "auto2-${{fromJson(steps.set_var.outputs.packageJson).version}}"
+          CUSTOM_TAG: "auto3-${{fromJson(steps.set_var.outputs.packageJson).version}}"
+  job2:
+    needs: job1
+    name: Publish Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
