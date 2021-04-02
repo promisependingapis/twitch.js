@@ -22,4 +22,4 @@ jobs:
     - run: npm install
     - run: npm test
       env:
-        TOKEN: ${{ secrets.TOKEN }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -20,11 +20,12 @@ jobs:
           echo "::set-output name=packageJson::$content"
 
       - name: Push Tag
+        id: tag
         uses: anothrNick/github-tag-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TWITCHAPISBOT_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "auto3-${{fromJson(steps.set_var.outputs.packageJson).version}}"
+          CUSTOM_TAG: "auto4-${{fromJson(steps.set_var.outputs.packageJson).version}}"
   job2:
     needs: job1
     name: Publish Release
@@ -35,5 +36,6 @@ jobs:
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
+          created_tag: ${{ jobs1.steps.tag.env.CUSTOM_TAG }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TWITCHAPISBOT_TOKEN }}
