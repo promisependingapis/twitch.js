@@ -3,8 +3,8 @@ on:
   push
 
 jobs:
-  testJob:
-    name: Test
+  build:
+    name: Publish Tag and Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,17 +17,13 @@ jobs:
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=packageJson::$content"
+
       - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
-      - run: |    
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/git/tags \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'Accept: application/vnd.github.v3+json' \
-          --data '{
-            "tag":"tag",
-            "message":"message",
-            "object":"${{ github.sha }}",
-            "type":"type"
-            }' \
-          --fail
+
+      - name: Bump version and push tag
+        uses: ChloePlanet/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          CUSTOM_TAG: "${{fromJson(steps.set_var.outputs.packageJson).version}}"
