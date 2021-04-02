@@ -22,8 +22,8 @@ jobs:
           echo "${{fromJson(steps.set_var.outputs.packageJson).version}}"
 
       - name: Bump version and push tag
-        uses: ChloePlanet/github-tag-action@master
+        uses: anothrNick/github-tag-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "${{fromJson(steps.set_var.outputs.packageJson).version}}"
+          CUSTOM_TAG: "auto-${{fromJson(steps.set_var.outputs.packageJson).version}}"
