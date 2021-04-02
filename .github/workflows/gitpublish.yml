@@ -18,7 +18,6 @@ jobs:
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=packageJson::$content"
-
       - name: Push Tag
         id: tag
         uses: anothrNick/github-tag-action@master
@@ -32,8 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-        echo "${{ needs.jobs1.steps.tag.env.CUSTOM_TAG }}"
+      - name: Echo Debug 
+        run: |
+          echo "${{ needs.jobs1.steps.tag.env.CUSTOM_TAG }}"
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
