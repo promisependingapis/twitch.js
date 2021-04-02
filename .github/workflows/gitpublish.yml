@@ -6,8 +6,6 @@ jobs:
   job1:
     name: Publish Tag
     runs-on: ubuntu-latest
-    outputs:
-      json: steps.set_var.outputs.packageJson
     steps:
       - uses: actions/checkout@v2
       - id: set_var
@@ -33,13 +31,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - id: set_var
+        name: Get Version
+        run: |
+          content=`cat ./package.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=packageJson::$content"
       - name: Echo Debug 
         run: |
-          echo "${{ fromJson(needs.job1.outputs.json).version }}"
+          echo "${{ fromJson(steps.set_var.outputs.packageJson).version }}"
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
-          created_tag: auto7-${{ fromJson(needs.job1.outputs.json).version }}
+          created_tag: auto7-${{ fromJson(steps.set_var.outputs.packageJson).version }}
         env:
           GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
