@@ -12,7 +12,7 @@ jobs:
         id: tag_and_prepare_release
         uses: K-Phoen/semver-release-action@master
         with:
-          release_branch: release
+          release_branch: tagReleaseTest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload release notes
