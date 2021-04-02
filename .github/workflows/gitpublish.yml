@@ -36,6 +36,6 @@ jobs:
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
-          created_tag: ${{ jobs1.steps.tag.env.CUSTOM_TAG }}
+          created_tag: ${{ needs.jobs1.steps.tag.env.CUSTOM_TAG }}
         env:
-          GITHUB_TOKEN: ${{ secrets.TWITCHAPISBOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
