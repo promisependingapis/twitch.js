@@ -51,7 +51,18 @@ try {
 
     const client = new twitch.Client({
         channels: ['arunabot'],
-        debug: false,
+        debug: true,
+        
+        /*
+        http: {
+            hostID: 'https://api.twitchapis.org',
+        },
+        ws: {
+            host: 'irc.twitchapis.org',
+            port: '443',
+            type: 'wss'
+        }
+        */
     });
 
     Logger('Twitch.js client created!', 'sucs');

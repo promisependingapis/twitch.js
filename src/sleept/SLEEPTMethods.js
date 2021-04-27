@@ -73,13 +73,17 @@ class SLEEPTMethods {
                 });
             }
 
-            this.server = this.client.options.http.host;
-            this.ws = new WebSocket(`wss://${this.server}:443`);
+            this.server = { host: this.client.options.ws.host, port: this.client.options.ws.port };
+
+            this.ws = new WebSocket(this.client.options.ws.type + '://' + this.server.host + ':' + this.server.port);
+
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
             this.ws.onclose = this.onClose.bind(this);
             this.ws.onopen = this.onOpen.bind(this);
+
             this.client.on('ready', resolver);
+
             function resolver() {
                 this.removeListener('ready', resolver);
                 resolve();
@@ -273,7 +277,7 @@ class SLEEPTMethods {
                 this.join(element, index);
             }, index * 100);
         });
-        this.client.eventEmmiter('ready', this.server, '443');
+        this.client.eventEmmiter('ready', this.server.host, this.server.port);
         this.client.readyAt = Date.now();
         this.connected = true;
     }
@@ -483,10 +487,11 @@ class SLEEPTMethods {
                 logger.warn('Disconnecting from IRC..');
                 this.connected = false;
                 this.ws.close();
+                var server = this.server;
                 // eslint-disable-next-line no-inner-declarations
                 function DisconnectionHandler() {
                     this.removeListener('_IRCDisconnect', DisconnectionHandler);
-                    resolve([this.server, '443']);
+                    resolve([server.host, server.port]);
                 }
                 this.client.on('_IRCDisconnect', DisconnectionHandler);
             }

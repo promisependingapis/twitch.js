@@ -59,6 +59,9 @@ exports.defaultOptions = {
      * (defaults to `false` for browsers)
      */
     ws: {
+        host: 'irc-ws.chat.twitch.tv',
+        port: '443',
+        type: 'wss',
         large_threshold: 250,
         compress: require('os').platform() !== 'browser',
         properties: {
@@ -75,14 +78,13 @@ exports.defaultOptions = {
      * HTTP options
      * @typedef {Object} HTTPOptions
      * @property {Number} [version=7] API version to use
-     * @property {String} [host='tmi.twitch.tv'] Base url of the IRC
-     * @property {String} [api='tmi.twitch.tv'] Base url of the API
+     * @property {String} [host='id.twitch.tv'] Base url of the IRC
      * @property {Object} [headers] Default http request options
      */
     http: {
         version: 7,
-        host: 'irc-ws.chat.twitch.tv',
-        api: 'https://tmi.twitch.tv',
+        host: 'https://tmi.twitch.tv',
+        hostID: 'https://id.twitch.tv',
         headers: {
             'User-Agent': 'TwitchJsApi/1.0.0',
         },

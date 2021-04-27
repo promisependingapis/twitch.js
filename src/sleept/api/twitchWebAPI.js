@@ -10,7 +10,7 @@ var headers;
  */
 class twitchRequest {
     constructor(options) {
-        apiUrl = options.http.api;
+        apiUrl = options.http.host;
         headers = options.http.headers;
         logger = new LoggerC({debug: options.debug});
     }
