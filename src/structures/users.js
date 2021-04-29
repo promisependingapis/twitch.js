@@ -39,7 +39,7 @@ class Users {
     }
 
     /**
-     * Timeout user into a channel
+     * Timeout user on a channel
      * @param {*} channel 
      * @param {*} secounds 
      * @param {*} reason 
@@ -56,6 +56,23 @@ class Users {
     }
 
     /**
+     * Remove timeout from user
+     * @param {*} channel 
+     * @returns Promise<Any>
+     */
+    untimeout(channel) {
+        if (!channel || !(channel instanceof Array)) {
+            if (!channel) channel = this.channel.name;
+
+            return this.client.sleept.methods.sendMessage(channel, `/untimeout ${this.username}`);
+        } else {
+            channel.forEach((element) => {
+                this.client.sleept.methods.sendMessage(element, `/untimeout ${this.username}`);
+            });
+        }
+    }
+
+    /**
      * Ban user from an channel
      * @param {*} channel 
      * @param {*} reason 
@@ -65,6 +82,7 @@ class Users {
         if (!channel || !(channel instanceof Array)) {
             if (!reason) {
                 reason = channel;
+                channel = this.channel.name;
             }
 
             if (!reason) reason = '';
@@ -75,6 +93,23 @@ class Users {
 
             channel.forEach((element) => {
                 this.client.sleept.methods.sendMessage(element, `/ban ${this.username} ${reason}`);
+            });
+        }
+    }
+
+    /**
+     * Unban user from a channel
+     * @param {*} channel 
+     * @returns Promise<Any>
+     */
+    unban(channel) {
+        if (!channel || !(channel instanceof Array)) {
+            if (!channel) channel = this.channel.name;
+
+            return this.client.sleept.methods.sendMessage(channel, `/unban ${this.username}`);
+        } else {
+            channel.forEach((element) => {
+                this.client.sleept.methods.sendMessage(element, `/unban ${this.username}`);
             });
         }
     }
