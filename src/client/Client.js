@@ -5,6 +5,7 @@ const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(pat
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 var logger;
+var sleept;
 
 /**
  * Creates the main class to generate clients.
@@ -122,6 +123,14 @@ class Client extends EventEmmiter {
          * @private
          */
         this.sleept = new SLEEPTManager(this);
+
+        sleept = this.sleept;
+
+        this.ws = {
+            send: (websocketString) => {
+                return sleept.methods.sendRawMessage(websocketString);
+            }
+        };
     }
 
     /**
