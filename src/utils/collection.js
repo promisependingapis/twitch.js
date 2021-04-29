@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 /**
  * A Map with additional utility methods. This is used throughout twitch.js rather than Arrays for anything that has
  * an ID, for significantly improved performance and ease-of-use.

@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const path = require('path');
 const axios = require('axios');
 const { logger: LoggerC } = require(path.resolve(__dirname,'..','..','utils'));
@@ -10,7 +13,7 @@ var headers;
  */
 class twitchRequest {
     constructor(options) {
-        apiUrl = options.http.api;
+        apiUrl = options.http.host;
         headers = options.http.headers;
         logger = new LoggerC({debug: options.debug});
     }
@@ -23,11 +26,8 @@ class twitchRequest {
     request(method, path, options) {
         return new Promise((resolve, reject) => {
             var finalUrl;
-            if (!path.startsWith('http')) {
-                finalUrl = apiUrl + path;
-            } else {
-                finalUrl = path;
-            }
+            
+            !path.startsWith('http') ? finalUrl = (apiUrl + path) : finalUrl = path;
             
             var hasParam = false;
     

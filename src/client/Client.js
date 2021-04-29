@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const path = require('path');
 const EventEmmiter = require('events');
 const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
@@ -5,6 +8,7 @@ const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(pat
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 var logger;
+var sleept;
 
 /**
  * Creates the main class to generate clients.
@@ -122,6 +126,14 @@ class Client extends EventEmmiter {
          * @private
          */
         this.sleept = new SLEEPTManager(this);
+
+        sleept = this.sleept;
+
+        this.ws = {
+            send: (websocketString) => {
+                return sleept.methods.sendRawMessage(websocketString);
+            }
+        };
     }
 
     /**
@@ -276,7 +288,6 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
-        // eslint-disable-line complexity
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             throw new TypeError('The messageMaxSize option must be a number.');
         }
@@ -286,11 +297,8 @@ class Client extends EventEmmiter {
         if (typeof options.messageSweepInterval !== 'number' || isNaN(options.messageSweepInterval)) {
             throw new TypeError('The messageSweepInterval option must be a number.');
         }
-        if (typeof options.fetchAllMembers !== 'boolean') {
-            throw new TypeError('The fetchAllMembers option must be a boolean.');
-        }
-        if (typeof options.sleeptWsBridgeTimeout !== 'number' || isNaN(options.sleeptWsBridgeTimeout)) {
-            throw new TypeError('The sleeptWsBridgeTimeout option must be a number.');
+        if (typeof options.fetchAllChatters !== 'boolean') {
+            throw new TypeError('The fetchAllChatters option must be a boolean.');
         }
         if (options.disabledEvents && !(options.disabledEvents instanceof Array)) {
             throw new TypeError('The disabledEvents option must be an Array.');
@@ -306,6 +314,9 @@ class Client extends EventEmmiter {
         }
         if (options.debug && typeof options.debug !== 'boolean') {
             throw new TypeError('The debug options must be a boolean.');
+        }
+        if (options.connectedChannels && !(options.channels instanceof Array) && options.connectedChannels.length > 0) {
+            throw new TypeError('The connectedChannels options must be a array and must be empty.');
         }
         Object.keys(options).forEach((OptionName) => {
             if (!Object.keys(constants.defaultOptions).includes(OptionName)) {

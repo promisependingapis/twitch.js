@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 function getTime() {
     var time = getTimeRaw();
     var separatedTime = time.split(':');
