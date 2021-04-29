@@ -2,12 +2,14 @@ const path = require('path');
 const TwitchWebAPIC = require(path.resolve(__dirname,'..','twitchWebAPI'));
 
 var request;
+var toptions;
 
 /**
  * The class for the validator function 
  */
 class validator {
     constructor(options) {
+        toptions = options;
         const TwitchWebAPI = new TwitchWebAPIC(options);
         request = TwitchWebAPI.request;
     }
@@ -17,7 +19,7 @@ class validator {
      */
     validate(token) {
         return new Promise((resolve, reject) => {
-            const path = 'https://id.twitch.tv/oauth2/validate';
+            const path = toptions.http.hostID + '/oauth2/validate';
             if (token.startsWith('oauth:')) {
                 token = token.split(':');
                 token[0] = 'OAuth';

@@ -1,4 +1,5 @@
-
+// eslint-disable-next-line strict
+'use strict';
 const path = require('path');
 
 module.exports = {

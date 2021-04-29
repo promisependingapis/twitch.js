@@ -73,13 +73,17 @@ class SLEEPTMethods {
                 });
             }
 
-            this.server = this.client.options.http.host;
-            this.ws = new WebSocket(`wss://${this.server}:443`);
+            this.server = { host: this.client.options.ws.host, port: this.client.options.ws.port };
+
+            this.ws = new WebSocket(this.client.options.ws.type + '://' + this.server.host + ':' + this.server.port);
+
             this.ws.onmessage = this.onMessage.bind(this);
             this.ws.onerror = this.onError.bind(this);
             this.ws.onclose = this.onClose.bind(this);
             this.ws.onopen = this.onOpen.bind(this);
+
             this.client.on('ready', resolver);
+
             function resolver() {
                 this.removeListener('ready', resolver);
                 resolve();
@@ -92,6 +96,7 @@ class SLEEPTMethods {
      * @param {String} [event] the raw message event to be parsed
      */
     onMessage(event) {
+        this.client.emit('Twitch.New.Websocket.Message', event);
         this.MessageRawSplited = event.data.toString().split('\r\n');
         this.MessageRawSplited.forEach((str) => {
             if (str !== null) {
@@ -105,6 +110,8 @@ class SLEEPTMethods {
      * @param {String} [event] the raw error object to be parsed
      */
     onError(event) {
+        logger.error(event.message);
+        logger.error('The above error is critic shutting down...');
         logger.fatal(JSON.stringify(event.error));
     }
 
@@ -206,6 +213,12 @@ class SLEEPTMethods {
                         }, 9999);
                     }, 60000);
                     break;
+                case '421':
+                    logger.warn(
+                        'Twitch return 421 code, an unknow command has been send to there, ' + 
+                        'if it hasn\'t you, messing arround sendind raw messages to websocket, please leave a issue on github, it will be apreciated'
+                    );
+                    break;
                 case 'ROOMSTATE':
                     var channel = this.client.channels.get(messageObject.params[0]);
                     channel.emoteOnly = messageObject.tags['emote-only'] ? Number(messageObject.tags['emote-only']) === 1 : channel.emoteOnly;
@@ -226,6 +239,15 @@ class SLEEPTMethods {
                 case 'GLOBALUSERSTATE':
                     this.id = messageObject.tags['user-id'];
                     break;
+                case 'CLEARCHAT':
+                    var TheChannel = this.client.channels.get(messageObject.params[0]);
+                    if (messageObject.params[1]) {
+                        var user = TheChannel.users.get(messageObject.params[1].replace(/:/g, ''));
+                        this.client.emit('userClear', {channel: TheChannel, user});
+                    } else {
+                        this.client.emit('clearChat', TheChannel);
+                    }
+                    break; 
                 default:
                     break;
             }
@@ -273,7 +295,7 @@ class SLEEPTMethods {
                 this.join(element, index);
             }, index * 100);
         });
-        this.client.eventEmmiter('ready', this.server, '443');
+        this.client.eventEmmiter('ready', this.server.host, this.server.port);
         this.client.readyAt = Date.now();
         this.connected = true;
     }
@@ -483,10 +505,11 @@ class SLEEPTMethods {
                 logger.warn('Disconnecting from IRC..');
                 this.connected = false;
                 this.ws.close();
+                var server = this.server;
                 // eslint-disable-next-line no-inner-declarations
                 function DisconnectionHandler() {
                     this.removeListener('_IRCDisconnect', DisconnectionHandler);
-                    resolve([this.server, '443']);
+                    resolve([server.host, server.port]);
                 }
                 this.client.on('_IRCDisconnect', DisconnectionHandler);
             }
@@ -532,6 +555,30 @@ class SLEEPTMethods {
                 channel = '#' + channel;
             }
             resolve(this.ws.send(`@reply-parent-msg-id=${msgId} PRIVMSG ${channel} :${message}`));
+        });
+    }
+
+    /**
+     * @param {String} rawMessage a string with a websocket message to be sended to twitchIRC
+     * @return {Promise<any>} the websocket return of the message
+     */
+    sendRawMessage(rawMessage) {
+        return new Promise((resolve) => {
+            this.ws.send(rawMessage);
+            var rawMessageCooldown = setTimeout(() => {
+                this.client.removeListener('Twitch.New.Websocket.Message', twitchBrandNewResponse);
+                resolve('No response from twitch ;-;');
+            }, 10000);
+            function twitchBrandNewResponse(data) {
+                data = data.data;
+                var commandData = rawMessage.split(' ');
+                if (data.includes(commandData[0])) {
+                    this.removeListener('Twitch.New.Websocket.Message', twitchBrandNewResponse);
+                    clearTimeout(rawMessageCooldown);
+                    resolve(data);
+                }
+            }
+            this.client.on('Twitch.New.Websocket.Message', twitchBrandNewResponse);
         });
     }
 }
