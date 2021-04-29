@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 /**
  * User collection template for creating all Users collections
  */

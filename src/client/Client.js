@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const path = require('path');
 const EventEmmiter = require('events');
 const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));

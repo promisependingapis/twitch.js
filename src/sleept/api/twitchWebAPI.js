@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const path = require('path');
 const axios = require('axios');
 const { logger: LoggerC } = require(path.resolve(__dirname,'..','..','utils'));

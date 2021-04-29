@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const SLEEPTMethods = require('./SLEEPTMethods');
 
 /**

@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 class util {
     constructor() {
         throw new Error(`The ${this.constructor.name} class may not be instantiated.`);

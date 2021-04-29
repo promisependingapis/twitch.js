@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const path = require('path');
 var logger = require(path.resolve(__dirname,'logger'));
 logger = new logger();

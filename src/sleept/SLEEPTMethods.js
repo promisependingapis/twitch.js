@@ -1,4 +1,6 @@
 /* eslint-disable indent */
+// eslint-disable-next-line strict
+'use strict';
 const path = require('path');
 const WebSocket = require('ws');
 const { constants, logger: LoggerC, parser } = require(path.resolve(__dirname,'..','utils'));

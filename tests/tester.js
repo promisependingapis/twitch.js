@@ -1,3 +1,5 @@
+// eslint-disable-next-line strict
+'use strict';
 const chalk = require('chalk');
 var checks = 11;
 var actualCheck = 0;
