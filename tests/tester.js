@@ -22,23 +22,11 @@ function Logger (Message, type) {
 }
 
 console.log(chalk.yellow('Starting automatizated test...'));
-Logger('Loading configs from env ...');
+Logger('Loading configs...');
 
 const configs = {
-    token: process.env.TOKEN,
+    token: 'oauth:TwitchJSAutomatizedTestFakeIrcToken',
 };
-
-if (!configs.token) {
-    try {
-        var jtoken = require('../../configs.json');
-        configs.token = jtoken.token;
-    } catch {}
-}
-
-if (!configs.token) {
-    Logger('Token not founded on process env!', 'err');
-    process.exit(1);
-}
 
 Logger('Configs loaded!', 'sucs');
 Logger('Loading Twitch.js ...');
@@ -52,17 +40,14 @@ try {
     const client = new twitch.Client({
         channels: ['arunabot'],
         debug: true,
-        
-        /*
         http: {
             hostID: 'https://api.twitchapis.org',
         },
         ws: {
             host: 'irc.twitchapis.org',
-            port: '443',
-            type: 'wss'
+            port: '80',
+            type: 'ws'
         }
-        */
     });
 
     Logger('Twitch.js client created!', 'sucs');
@@ -73,9 +58,13 @@ try {
         client.on('join', continuer);
         function continuer() {
             client.removeListener('join', continuer);
+            // eslint-disable-next-line max-len
+            client.ws.send('CHATTERS {channel: \'arunabot\', users: [\'' + client.channels.get('arunabot').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
             Logger('Connected with test channel!', 'sucs');
             Logger('Connecting with a channel after client be created...');
             client.join('talesgardem').then(async () => {
+                // eslint-disable-next-line max-len
+                client.ws.send('CHATTERS {channel: \'talesgardem\', users: [\'' + client.channels.get('talesgardem').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
                 Logger('Connected with channel successfully!', 'sucs');
                 Logger('Sending test message on test channels...');
                 var sended = 0;
