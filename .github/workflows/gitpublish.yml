@@ -1,6 +1,8 @@
 name: Publish Tag
 on:
-  push
+  push:
+    branches:
+      - release
 
 jobs:
   job1:
