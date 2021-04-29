@@ -89,9 +89,7 @@ yarn add @twitchapis/twitch.js
 const { Client, logger } = require('@twitchapis/twitch.js');
 
 const client = new Client({
-    autoLogEnd: true, // Default true, optional parameter
     channels: ['space_interprise', 'lobometalurgico'],
-    debug: false, // Default false, optional parameter
 });
 
 client.on('ready', () => {
