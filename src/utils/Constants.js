@@ -32,7 +32,7 @@ exports.defaultOptions = {
     messageCacheMaxSize: 200,
     messageCacheLifetime: 0,
     messageSweepInterval: 0,
-    fetchAllMembers: true,
+    fetchAllChatters: true,
     sync: false,
     retryLimit: Infinity,
     disabledEvents: [],
