@@ -13,21 +13,22 @@ deploy/
 # Miscellaneous
 .tmp/
 .vscode/
+.github/
+examples/
+tests/
+test/
 docs/
 
 # NPM ignore
 .eslintrc.json
 .prettierignore
 .prettierrc.json
+.deepsource.toml
 .gitattributes
 .gitignore
 .travis.yml
 webpack.config.js
-.github/
-test/
-tests/
 tsconfig.json
 tslint.json
-test.*
 teste.*
-examples/
+test.*
