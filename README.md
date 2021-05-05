@@ -86,14 +86,14 @@ yarn add @twitchapis/twitch.js
 ## Example Usage
 
 ```javascript
-const { Client, logger } = require('@twitchapis/twitch.js');
+const { Client } = require('@twitchapis/twitch.js');
 
 const client = new Client({
     channels: ['space_interprise', 'lobometalurgico'],
 });
 
 client.on('ready', () => {
-    logger.info(`Logged in as ${client.user.name}!`);
+    console.log(`Logged in as ${client.user.name}!`);
 });
 
 client.on('message', (msg) => {
