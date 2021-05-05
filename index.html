@@ -50,14 +50,14 @@
             <div class='example'>
                 <h2>Example</h2>
                 <pre>
-<code class="javascript">const { Client, logger } = require('@twitchapis/twitch.js');
+<code class="javascript">const { Client } = require('@twitchapis/twitch.js');
 <!--                  -->const client = new Client({
 <!--                  -->  autoLogEnd: true, // Default true, optional parameter
 <!--                  -->  channels: ['space_interprise', 'lobometalurgico'],
 <!--                  -->  debug: false // Default false, optional parameter
 <!--                  -->});
 <!--                  -->client.on('ready', () => {
-<!--                  -->  logger.info(`Logged in as ${client.user.name}!`);
+<!--                  -->  console.log(`Logged in as ${client.user.name}!`);
 <!--                  -->});
 <!--                  -->client.on('message', (msg) => {
 <!--                  -->  if (msg.content === 'ping') {
