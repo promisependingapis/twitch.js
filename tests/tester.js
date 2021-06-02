@@ -28,6 +28,7 @@ Logger('Loading configs...');
 
 const configs = {
     token: 'oauth:TwitchJSAutomatizedTestFakeIrcToken',
+    // token: 'oauth:y9pdyd18cp8fqev15oji1f58qnogrg',
 };
 
 Logger('Configs loaded!', 'sucs');
@@ -42,6 +43,7 @@ try {
     const client = new twitch.Client({
         channels: ['arunabot'],
         debug: true,
+        autoLogEnd: false,
         http: {
             hostID: 'https://api.twitchapis.org',
         },

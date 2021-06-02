@@ -321,8 +321,8 @@ class SLEEPTMethods {
                 logger.warn('Already connected with this channel!');
                 return reject('Already connected with this channel!');
             }
-            this.ws.send(`JOIN ${channel.toLowerCase()}`);
             logger.debug('Connecting to: ' + channel.toLowerCase());
+            this.ws.send(`JOIN ${channel.toLowerCase()}`);
             this.client.on('Method.Joined.' + channel.toLowerCase(), listener);
             this.joinQueueTimeout.push([
                 setTimeout(() => {
@@ -366,8 +366,8 @@ class SLEEPTMethods {
                 logger.error('Already not connected to the channel: ' + channel);
                 return reject('Already not connected to the channel: ' + channel);
             }
-            this.ws.send(`PART ${channel.toLowerCase()}`);
             logger.debug('Disconnecting from: ' + channel.toLowerCase());
+            this.ws.send(`PART ${channel.toLowerCase()}`);
             this.client.on('Method.Leaved.' + channel.toLowerCase(), listener);
             this.leaveQueueTimeout.push([
                 setTimeout(() => {
@@ -505,6 +505,11 @@ class SLEEPTMethods {
         return new Promise((resolve, reject) => {
             if (this.ws && this.ws.readyState !== 3) {
                 logger.warn('Disconnecting from IRC..');
+                logger.warn('Leaving all channels..');
+                this.client.channels.map(channel => {
+                    this.leave(channel.name);
+                });
+                logger.warn('Disconnecting IRC..');
                 this.connected = false;
                 this.ws.close();
                 var server = this.server;
