@@ -482,7 +482,7 @@ class SLEEPTMethods {
             );
             user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         }
-        user.haveBadges = data.tags['badge-info'] ? !!data.tags['badge-info'] : user.haveBadges;
+        user.haveBadges = data.tags['badge-info'] ? Boolean(data.tags['badge-info']) : user.haveBadges;
         user.badges = data.tags.badges ? data.tags.badges : user.badges;
         user.color = data.tags.color ? data.tags.color : user.color;
         user.displayName = data.tags['display-name'] ? data.tags['display-name'] : user.displayName;
