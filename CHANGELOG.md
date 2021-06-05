@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.0-rc.1
+
+- Maybe has fixed npm readme 📖
+- Complete changelog 💌
+- Update usage example 📑
+- Add user ban method 🔴
+- Add user unban method 🥳
+- Add user untimeout method 😄
+- Bump eslint to new version 🔹
+- Minor Bugs Fixes 🐜
+
 ## v1.0.0-beta.14
 
 - Optimize code ⏩

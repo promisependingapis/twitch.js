@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 // eslint-disable-next-line strict
 'use strict';
 const path = require('path');
@@ -535,7 +534,7 @@ class SLEEPTMethods {
      * @param {Array} [replacer] The replacements for %s on message content
      * @return {Promise<Pending>} returns when the message is sended
      */
-    replyMessage(msgId, channel, message, replacer) {
+    replyMessage(msgId, channel, message, ...replacer) {
         return new Promise((resolve, reject) => {
             if (typeof channel !== 'string') {
                 logger.warn('The channel must be a String');
@@ -553,6 +552,7 @@ class SLEEPTMethods {
                 logger.warn('Cannot send messages in anonymous mode!');
                 return reject('Cannot send messages in anonymous mode!');
             }
+
             if (replacer && replacer[0]) {
                 replacer.forEach((element) => {
                     message = message.replace('%s', element);
@@ -567,7 +567,7 @@ class SLEEPTMethods {
 
     /**
      * @param {String} rawMessage a string with a websocket message to be sended to twitchIRC
-     * @return {Promise<any>} the websocket return of the message
+     * @return {Promise<Any>} the websocket return of the message
      */
     sendRawMessage(rawMessage) {
         return new Promise((resolve) => {
