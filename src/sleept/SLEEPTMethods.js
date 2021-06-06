@@ -5,6 +5,7 @@ const WebSocket = require('ws');
 const { constants, logger: LoggerC, parser } = require(path.resolve(__dirname,'..','utils'));
 const { channels, users } = require(path.resolve(__dirname,'..','structures'));
 const { getChatter, validator } = require(path.resolve(__dirname,'api'));
+// skipcq: JS-0239
 var logger;
 
 const twitchUserRolesNameParser = {
@@ -408,6 +409,7 @@ class SLEEPTMethods {
      */
     ping() {
         return new Promise((resolve, reject) => {
+            // skipcq: JS-0239
             var ping = new Date();
             this.client.on('Method.Ping', listener);
             this.ws.send('PING');
@@ -485,6 +487,7 @@ class SLEEPTMethods {
      */
     async updateUser(data) {
         if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
+        // skipcq: JS-0239
         var user;
         user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         if (!user) {

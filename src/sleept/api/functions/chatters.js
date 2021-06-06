@@ -4,6 +4,7 @@
 const rPath = require('path');
 const TwitchWebAPIC = require(rPath.resolve(__dirname,'..','twitchWebAPI'));
 
+// skipcq: JS-0239
 var request;
 
 /**

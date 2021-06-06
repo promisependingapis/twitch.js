@@ -4,8 +4,11 @@
 const rPath = require('path');
 const axios = require('axios');
 const { logger: LoggerC } = require(rPath.resolve(__dirname,'..','..','utils'));
+// skipcq: JS-0239
 var logger;
+// skipcq: JS-0239
 var apiUrl;
+// skipcq: JS-0239
 var headers;
 
 /**
