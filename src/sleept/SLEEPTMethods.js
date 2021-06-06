@@ -517,7 +517,7 @@ class SLEEPTMethods {
                 logger.warn('Disconnecting from IRC..');
                 logger.warn('Leaving all channels..');
                 this.client.channels.map(channel => {
-                    this.leave(channel.name);
+                    return this.leave(channel.name);
                 });
                 logger.warn('Disconnecting IRC..');
                 this.connected = false;

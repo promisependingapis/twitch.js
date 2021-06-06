@@ -36,7 +36,7 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=12.10.0"
+    "node": ">=10.x"
   },
   "dependencies": {
     "axios": "^0.21.1",

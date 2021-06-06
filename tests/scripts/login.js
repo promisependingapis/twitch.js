@@ -1,3 +1,6 @@
+// eslint-disable-next-line strict
+'use strict';
+
 const run = (logger, client) => {
     return new Promise((resolve, reject) => {
         client.login('oauth:TwitchJSAutomatizedTestFakeIrcToken').then(() => {
