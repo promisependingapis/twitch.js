@@ -1,9 +1,9 @@
 // eslint-disable-next-line strict
 'use strict';
 
-const path = require('path');
+const rPath = require('path');
 const axios = require('axios');
-const { logger: LoggerC } = require(path.resolve(__dirname,'..','..','utils'));
+const { logger: LoggerC } = require(rPath.resolve(__dirname,'..','..','utils'));
 var logger;
 var apiUrl;
 var headers;
@@ -25,10 +25,13 @@ class twitchRequest {
      */
     request(method, path, options) {
         return new Promise((resolve, reject) => {
+            // skipcq: JS-0239
             var finalUrl;
             
+            // skipcq: JS-0093
             !path.startsWith('http') ? finalUrl = (apiUrl + path) : finalUrl = path;
             
+            // skipcq: JS-0239
             var hasParam = false;
     
             if (options) {

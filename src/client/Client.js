@@ -98,11 +98,11 @@ class Client extends EventEmmiter {
                 channelName = '#' + channelName;
             }
             this.channels.set(channelName, new channel(this, { channel: channelName }));
-            this.channels.get = (channelName) => {
-                if (channelName.slice(0, 1) !== '#') {
-                    channelName = '#' + channelName;
+            this.channels.get = (channelName2) => {
+                if (channelName2.slice(0, 1) !== '#') {
+                    channelName2 = '#' + channelName2;
                 }
-                return this.channels.find((channel) => channel.name === channelName);
+                return this.channels.find((channelC) => channelC.name === channelName2);
             };
         });
 
@@ -250,8 +250,11 @@ class Client extends EventEmmiter {
      * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
      * @returns {number} Amount of messages that were removed from the caches,
      * or -1 if the message cache lifetime is unlimited
+     * @private
      */
+    // eslint-disable-next-line no-unused-vars
     sweepMessages(lifetime = this.options.messageCacheLifetime) {
+        /* 
         if (typeof lifetime !== 'number' || isNaN(lifetime)) logger.fatal('The lifetime must be a number.');
         if (lifetime <= 0) {
             logger.debug('Didn\'t sweep messages - lifetime is unlimited');
@@ -272,6 +275,7 @@ class Client extends EventEmmiter {
 
         logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
         return messages;
+        */
     }
 
     /**

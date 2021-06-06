@@ -2,8 +2,8 @@
 'use strict';
 
 const path = require('path');
-var dateParser = require(path.resolve(__dirname,'DateParser'));
-var chalk = require('chalk');
+const dateParser = require(path.resolve(__dirname,'DateParser'));
+const chalk = require('chalk');
 
 class logger {
     constructor(options) {

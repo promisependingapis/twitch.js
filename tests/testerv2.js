@@ -10,9 +10,13 @@ const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interpris
 
 const mainChannel = channels[Math.floor(Math.random() * channels.length)];
 
+// skipcq: JS-0239
 var testFailed = false;
 
+// skipcq: JS-0239
 var actualCheck = 0;
+
+// skipcq: JS-0239
 var checks = 0;
 
 const client = new Client({
@@ -33,9 +37,10 @@ const logger = new loggerClass();
 
 const scriptDir = path.resolve(__dirname,'scripts');
 
-var tests = [];
+const tests = [];
 
 async function runTests() {
+    // skipcq: JS-0239
     for (var i = 0; i <= checks - 1; i++) {
         actualCheck = i + 1;
         logger.info(`[Tester]: Starting test: "${chalk.blueBright(tests[i].name)}" [${actualCheck}/${checks}]`);
