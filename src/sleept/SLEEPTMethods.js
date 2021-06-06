@@ -24,8 +24,8 @@ class SLEEPTMethods {
     constructor(sleeptMananger) {
         this.sleept = sleeptMananger;
         this.client = sleeptMananger.client;
-        var chatter = new getChatter(this.client.options);
-        var validate = new validator(this.client.options);
+        const chatter = new getChatter(this.client.options);
+        const validate = new validator(this.client.options);
         this._ackToken = null;
         this.getChatter = chatter.getChattersInfo;
         this.validate = validate.validate;
@@ -144,7 +144,7 @@ class SLEEPTMethods {
             this.ws.send('PASS SCHMOOPIIE');
             this.ws.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
         } else {
-            var token = this.client.token;
+            const token = this.client.token;
             logger.debug('Sending Password...');
             this.ws.send(`PASS ${token}`);
             logger.debug('Sending Nickname...');
@@ -221,7 +221,8 @@ class SLEEPTMethods {
                     );
                     break;
                 case 'ROOMSTATE':
-                    var channel = this.client.channels.get(messageObject.params[0]);
+                    // eslint-disable-next-line no-case-declarations
+                    const channel = this.client.channels.get(messageObject.params[0]);
                     channel.emoteOnly = messageObject.tags['emote-only'] ? Number(messageObject.tags['emote-only']) === 1 : channel.emoteOnly;
                     channel.followersOnly = messageObject.tags['followers-only'] ? Number(messageObject.tags['followers-only']) >= 0 : channel.followersOnly;
                     channel.followersOnlyCooldown = messageObject.tags['followers-only']
@@ -241,9 +242,10 @@ class SLEEPTMethods {
                     this.id = messageObject.tags['user-id'];
                     break;
                 case 'CLEARCHAT':
-                    var TheChannel = this.client.channels.get(messageObject.params[0]);
+                    // eslint-disable-next-line no-case-declarations
+                    const TheChannel = this.client.channels.get(messageObject.params[0]);
                     if (messageObject.params[1]) {
-                        var user = TheChannel.users.get(messageObject.params[1].replace(/:/g, ''));
+                        const user = TheChannel.users.get(messageObject.params[1].replace(/:/g, ''));
                         this.client.emit('userClear', {channel: TheChannel, user});
                     } else {
                         this.client.emit('clearChat', TheChannel);
@@ -289,13 +291,21 @@ class SLEEPTMethods {
     /**
      * Called after websocket successfully connect with IRC and be on ready state
      */
-    onConnected() {
+    async onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
+        const promises = [];
+
+
         this.client.options.channels.forEach((element, index) => {
-            setTimeout(() => {
-                this.join(element, index);
-            }, index * 100);
+            promises.push(new Promise((resolve) => {
+                setTimeout(async () => {
+                    resolve(await this.join(element, index));
+                }, index * 100);
+            }));
         });
+
+        await Promise.all(promises);
+        
         this.client.eventEmmiter('ready', this.server.host, this.server.port);
         this.client.readyAt = Date.now();
         this.connected = true;
@@ -475,7 +485,8 @@ class SLEEPTMethods {
      */
     async updateUser(data) {
         if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
-        var user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
+        var user;
+        user = this.client.channels.get(data.params[0]).users.get(data.prefix.slice(0, data.prefix.indexOf('!')));
         if (!user) {
             await this.client.channels.get(data.params[0]).users.set(data.prefix.slice(0, data.prefix.indexOf('!')), 
                 new users(this, { userName: data.prefix.slice(0, data.prefix.indexOf('!')), channel: this.client.channels.get(data.params[0])})
@@ -511,7 +522,9 @@ class SLEEPTMethods {
                 logger.warn('Disconnecting IRC..');
                 this.connected = false;
                 this.ws.close();
-                var server = this.server;
+                clearInterval(this.pingLoop);
+                clearTimeout(this.pingTimeout);
+                const server = this.server;
                 // eslint-disable-next-line no-inner-declarations
                 function DisconnectionHandler() {
                     this.removeListener('_IRCDisconnect', DisconnectionHandler);
@@ -572,13 +585,13 @@ class SLEEPTMethods {
     sendRawMessage(rawMessage) {
         return new Promise((resolve) => {
             this.ws.send(rawMessage);
-            var rawMessageCooldown = setTimeout(() => {
+            const rawMessageCooldown = setTimeout(() => {
                 this.client.removeListener('Twitch.New.Websocket.Message', twitchBrandNewResponse);
                 resolve('No response from twitch ;-;');
             }, 10000);
             function twitchBrandNewResponse(data) {
                 data = data.data;
-                var commandData = rawMessage.split(' ');
+                const commandData = rawMessage.split(' ');
                 if (data.includes(commandData[0])) {
                     this.removeListener('Twitch.New.Websocket.Message', twitchBrandNewResponse);
                     clearTimeout(rawMessageCooldown);

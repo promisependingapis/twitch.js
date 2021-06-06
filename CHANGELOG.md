@@ -9,6 +9,9 @@
 - Add user unban method 🥳
 - Add user untimeout method 😄
 - Bump eslint to new version 🔹
+- Fix ready event emit 🔔
+- Start implementing new automatizated tests 🧪
+- Fix bug in disconect method 💫
 - Minor Bugs Fixes 🐜
 
 ## v1.0.0-beta.14
