@@ -2,8 +2,8 @@
 'use strict';
 
 function getTime() {
-    var time = getTimeRaw();
-    var separatedTime = time.split(':');
+    const time = getTimeRaw();
+    const separatedTime = time.split(':');
     separatedTime.forEach((element, index) => {
         if (element.length < 2) {
             separatedTime[index] = `0${separatedTime[index]}`;

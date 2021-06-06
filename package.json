@@ -1,6 +1,6 @@
 {
   "name": "@twitchapis/twitch.js",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-rc.1",
   "description": "twitch.js is a powerful Node.js module that allows you to easily interact with the TwitchTV making easy the way to make a TwitchTV bot, for a custom chat overlay for you OBS, or a moderation bot for you chat, or you just want a easy interface to TwitchTV.",
   "keywords": [
     "nodejs",
@@ -18,7 +18,8 @@
     "eslint:fix": "eslint ./src --fix",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
-    "test": "node ./tests/tester.js"
+    "test": "node ./tests/testerv2.js",
+    "testOld": "node ./tests/tester.js"
   },
   "repository": {
     "type": "git",
@@ -35,16 +36,16 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=10.x"
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "node-fetch": "^2.6.1",
     "ws": "^7.4.4"
   },
   "devDependencies": {
     "eslint": "^7.22.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.0"
   }
 }

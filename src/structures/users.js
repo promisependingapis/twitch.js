@@ -38,6 +38,13 @@ class Users {
         this.broadcaster = data.broadcaster ? data.broadcaster : false;
     }
 
+    /**
+     * Timeout user on a channel
+     * @param {*} channel 
+     * @param {*} secounds 
+     * @param {*} reason 
+     * @returns Promise<Any>
+     */
     timeout(channel, secounds, reason) {
         if (typeof(channel) === 'number') {
             reason = secounds;
@@ -46,6 +53,65 @@ class Users {
         return this.client.sleept.methods.sendMessage(
             (this.channel ? (typeof(this.channel) === 'string' ? this.channel : this.channel.name) : channel), 
             '/timeout ' + this.userName + ' ' + secounds + ' ' + reason);
+    }
+
+    /**
+     * Remove timeout from user
+     * @param {*} channel 
+     * @returns Promise<Any>
+     */
+    untimeout(channel) {
+        if (!channel || !(channel instanceof Array)) {
+            if (!channel) channel = this.channel.name;
+
+            return this.client.sleept.methods.sendMessage(channel, `/untimeout ${this.username}`);
+        } else {
+            channel.forEach((element) => {
+                this.client.sleept.methods.sendMessage(element, `/untimeout ${this.username}`);
+            });
+        }
+    }
+
+    /**
+     * Ban user from an channel
+     * @param {*} channel 
+     * @param {*} reason 
+     * @returns Promise<Any>
+     */
+    ban(channel, reason) {
+        if (!channel || !(channel instanceof Array)) {
+            if (!reason) {
+                reason = channel;
+                channel = this.channel.name;
+            }
+
+            if (!reason) reason = '';
+
+            return this.client.sleept.methods.sendMessage(channel, `/ban ${this.username} ${reason}`);
+        } else {
+            if (!reason) reason = '';
+
+            channel.forEach((element) => {
+                this.client.sleept.methods.sendMessage(element, `/ban ${this.username} ${reason}`);
+            });
+        }
+    }
+
+    /**
+     * Unban user from a channel
+     * @param {*} channel 
+     * @returns Promise<Any>
+     */
+    unban(channel) {
+        if (!channel || !(channel instanceof Array)) {
+            if (!channel) channel = this.channel.name;
+
+            return this.client.sleept.methods.sendMessage(channel, `/unban ${this.username}`);
+        } else {
+            channel.forEach((element) => {
+                this.client.sleept.methods.sendMessage(element, `/unban ${this.username}`);
+            });
+        }
     }
 }
 

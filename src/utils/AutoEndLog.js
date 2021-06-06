@@ -2,20 +2,24 @@
 'use strict';
 
 const path = require('path');
+
+// skipcq: JS-0239
 var logger = require(path.resolve(__dirname,'logger'));
 logger = new logger();
-var Exited;
+
+// skipcq: JS-0239
+var exited;
 
 function exitHandler(options, exitCode) {
     process.stdin.resume();
-    if (!Exited) {
+    if (!exited) {
         if (exitCode === 'SIGINT') {
             logger.warn('Manualy finished');
         } else {
             if ((exitCode || exitCode === 0) && !options.uncaughtException) logger.info('Program finished, code: ' + exitCode);
             if ((exitCode || exitCode === 0) && options.uncaughtException) logger.fatal(exitCode);
         }
-        Exited = true;
+        exited = true;
     }
     process.exit();
 }

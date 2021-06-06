@@ -42,6 +42,7 @@ try {
     const client = new twitch.Client({
         channels: ['arunabot'],
         debug: true,
+        autoLogEnd: false,
         http: {
             hostID: 'https://api.twitchapis.org',
         },
@@ -57,81 +58,77 @@ try {
     client.login(configs.token).then(() => {
         Logger('Connected with twitch!', 'sucs');
         Logger('Awaiting connect with test channel...');
-        client.on('join', continuer);
-        function continuer() {
-            client.removeListener('join', continuer);
+        // eslint-disable-next-line max-len
+        client.ws.send('CHATTERS {channel: \'arunabot\', users: [\'' + client.channels.get('arunabot').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
+        Logger('Connected with test channel!', 'sucs');
+        Logger('Connecting with a channel after client be created...');
+        client.join('talesgardem').then(async () => {
             // eslint-disable-next-line max-len
-            client.ws.send('CHATTERS {channel: \'arunabot\', users: [\'' + client.channels.get('arunabot').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
-            Logger('Connected with test channel!', 'sucs');
-            Logger('Connecting with a channel after client be created...');
-            client.join('talesgardem').then(async () => {
-                // eslint-disable-next-line max-len
-                client.ws.send('CHATTERS {channel: \'talesgardem\', users: [\'' + client.channels.get('talesgardem').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
-                Logger('Connected with channel successfully!', 'sucs');
-                Logger('Sending test message on test channels...');
-                var sended = 0;
-                await client.channels.forEach(channel => {
-                    channel.send('[' + Date.now() + '] Automatic test message').then(() => {
-                        sended ++;
+            client.ws.send('CHATTERS {channel: \'talesgardem\', users: [\'' + client.channels.get('talesgardem').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
+            Logger('Connected with channel successfully!', 'sucs');
+            Logger('Sending test message on test channels...');
+            var sended = 0;
+            await client.channels.forEach(channel => {
+                channel.send('[' + Date.now() + '] Automatic test message').then(() => {
+                    sended ++;
+                }).catch((err) => {
+                    Logger('Error trying to send automatic test message', 'err');
+                    Logger(err, 'err');
+                    process.exit(1);
+                });
+            });
+            if (sended === 2) {
+                Logger('Sended test messages!', 'sucs');
+                Logger('Leaving channel...');
+                setTimeout(() => {
+                    client.leave('talesgardem').then(async () => {
+                        Logger('Disconnected from test channel!', 'sucs');
+                        Logger('Sending test message again...');
+                        sended = 0;
+                        var nOC = client.channels.array().length;
+                        for (var index = 0; index < nOC; index++) {
+                            // eslint-disable-next-line no-await-in-loop
+                            await client.channels.array()[index].send('[' + Date.now() + '] Message automatic part: 2 test').then(() => {
+                                sended ++;
+                            }).catch((err) => {
+                                Logger('Error trying to send message Part: 2!', 'err');
+                                Logger(err, 'err');
+                                process.exit(1);
+                            });
+                        }
+                        if (sended === 1) {
+                            Logger('Automatic test message part: 2 sended!', 'sucs');
+                            Logger('Getting uptime and finishing up...');
+                            client.uptime().then((result) => {
+                                Logger(result + 'ms uptime', 'sucs');
+                                Logger('Disconnecting IRC');
+                                client.disconnect().then(() => {
+                                    Logger('Disconnected from IRC', 'sucs');
+                                    console.log(chalk.green('All tests passed! :) YAY'));
+                                    process.exit(0);
+                                }).catch((err) => {
+                                    Logger('Error trying to disconnect from IRC!', 'err');
+                                    Logger(err, 'err');
+                                    process.exit(1);
+                                });
+                            }).catch((err) => {
+                                Logger('Error trying to get uptime!', 'err');
+                                Logger(err, 'err');
+                                process.exit(1);
+                            });
+                        }
                     }).catch((err) => {
-                        Logger('Error trying to send automatic test message', 'err');
+                        Logger('Error trying to disconnect channel', 'err');
                         Logger(err, 'err');
                         process.exit(1);
                     });
-                });
-                if (sended === 2) {
-                    Logger('Sended test messages!', 'sucs');
-                    Logger('Leaving channel...');
-                    setTimeout(() => {
-                        client.leave('talesgardem').then(async () => {
-                            Logger('Disconnected from test channel!', 'sucs');
-                            Logger('Sending test message again...');
-                            var sended = 0;
-                            var nOC = client.channels.array().length;
-                            for (var index = 0; index < nOC; index++) {
-                            // eslint-disable-next-line no-await-in-loop
-                                await client.channels.array()[index].send('[' + Date.now() + '] Message automatic part: 2 test').then(() => {
-                                    sended ++;
-                                }).catch((err) => {
-                                    Logger('Error trying to send message Part: 2!', 'err');
-                                    Logger(err, 'err');
-                                    process.exit(1);
-                                });
-                            }
-                            if (sended === 1) {
-                                Logger('Automatic test message part: 2 sended!', 'sucs');
-                                Logger('Getting uptime and finishing up...');
-                                client.uptime().then((result) => {
-                                    Logger(result + 'ms uptime', 'sucs');
-                                    Logger('Disconnecting IRC');
-                                    client.disconnect().then(() => {
-                                        Logger('Disconnected from IRC', 'sucs');
-                                        console.log(chalk.green('All tests passed! :) YAY'));
-                                        process.exit(0);
-                                    }).catch((err) => {
-                                        Logger('Error trying to disconnect from IRC!', 'err');
-                                        Logger(err, 'err');
-                                        process.exit(1);
-                                    });
-                                }).catch((err) => {
-                                    Logger('Error trying to get uptime!', 'err');
-                                    Logger(err, 'err');
-                                    process.exit(1);
-                                });
-                            }
-                        }).catch((err) => {
-                            Logger('Error trying to disconnect channel', 'err');
-                            Logger(err, 'err');
-                            process.exit(1);
-                        });
-                    }, 2500);
-                }
-            }).catch((err) => {
-                Logger('Error trying to join', 'err');
-                Logger(err, 'err');
-                process.exit(1);
-            });
-        }
+                }, 2500);
+            }
+        }).catch((err) => {
+            Logger('Error trying to join', 'err');
+            Logger(err, 'err');
+            process.exit(1);
+        });
     }).catch((err) => {
         Logger('Error trying to login', 'err');
         Logger(err, 'err');

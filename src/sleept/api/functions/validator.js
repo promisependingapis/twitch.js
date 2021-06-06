@@ -1,10 +1,12 @@
 // eslint-disable-next-line strict
 'use strict';
 
-const path = require('path');
-const TwitchWebAPIC = require(path.resolve(__dirname,'..','twitchWebAPI'));
+const rPath = require('path');
+const TwitchWebAPIC = require(rPath.resolve(__dirname,'..','twitchWebAPI'));
 
+// skipcq: JS-0239
 var request;
+// skipcq: JS-0239
 var toptions;
 
 /**

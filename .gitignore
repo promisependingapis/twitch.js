@@ -107,3 +107,4 @@ dist
 # tests
 test.*
 teste.*
+src/sleept/api/functions/follow.js
