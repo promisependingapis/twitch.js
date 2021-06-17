@@ -11,6 +11,8 @@ const run = (logger, client, channels, mainChannel) => {
                 promises.push(
                     new Promise((resolve2) => {
                         client.join(channel).then(() => {
+                            // eslint-disable-next-line max-len
+                            client.ws.send('CHATTERS {channel: \'' + channel + '\', users: [\'' + client.channels.get(channel).users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
                             resolve2();
                         }).catch((err) => {
                             rejects.push(err);
@@ -30,7 +32,7 @@ const run = (logger, client, channels, mainChannel) => {
 };
 
 module.exports = {
-    name: 'connect to channels',
+    name: 'Connect Channels Test',
     run: run,
     order: 1
 };

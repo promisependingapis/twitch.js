@@ -8,7 +8,7 @@ const run = (logger, client) => {
 };
 
 module.exports = {
-    name: 'disconnect test',
+    name: 'Disconnect Test',
     run: run,
-    order: 69
+    order: 7
 };

@@ -33,7 +33,9 @@ const client = new Client({
     }
 });
 
-const logger = new loggerClass();
+const logger = new loggerClass({
+    debug: true,
+});
 
 const scriptDir = path.resolve(__dirname,'scripts');
 
@@ -48,7 +50,7 @@ async function runTests() {
         // eslint-disable-next-line no-await-in-loop
         await tests[i].run(logger, client, channels, mainChannel, i).catch((e) => {
             logger.warn(`[Tester]: Error on test: "${chalk.yellow(tests[i].name)}". Error: ${e}`);
-            testFailed = false;
+            testFailed = true;
         });
     }
 }
