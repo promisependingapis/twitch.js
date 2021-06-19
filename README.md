@@ -34,30 +34,6 @@
   </ol>
 </details>
 
-## TODO
-
-- [x] Make a auto updated list of users of channels
-- [x] Create automatizated tests.
-- [x] Disconnect IRC function.
-- [x] Make reply uses new thread system of twitch. (beta ⚙️)
-- [x] FanMode (Anonymous mode).
-- [x] Remove global variables.
-- [x] Convert  api/functions/chatters.js into class
-- [x] Convert  api/twitchWebAPI.js into class
-- [x] Reduce generateUser method size
-- [x] Organize annotations. (not sure enough ⚙️)
-- [x] Transform logger in class
-- [ ] Create onUserJoin event. (Emitted everytime someone new enter in the chat)
-- [ ] Create onUserLeave event. (Emitted everytime someone leaves the chat)
-- [ ] Create Shard system.
-- [ ] Implement other http methods (To make things like follow, get stream details, ...)
-- [ ] Split SleeptMethods because it is too much dirty
-- [ ] [Create own parser](#create-own-parser)
-#### Create own parser
-- [ ] Plan the new object structure
-- [ ] Code the new parser
-- [ ] Replace old parser code
-
 ## About
 
 Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module based on [Discord.js](https://github.com/discordjs/discord.js) that allows you to easily interact with the
