@@ -42,7 +42,7 @@
     "axios": "^0.21.1",
     "chalk": "^4.1.1",
     "node-fetch": "^2.6.1",
-    "ws": "^7.5.0"
+    "ws": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "^7.29.0",
