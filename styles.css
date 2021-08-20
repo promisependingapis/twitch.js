@@ -2,7 +2,7 @@
     width: 1vw;
 }
 ::-webkit-scrollbar-track {
-    background: rgb(40, 0, 83);
+    background: #003753;
     height: 10vw;
 }
 ::-webkit-scrollbar-thumb {
@@ -14,7 +14,7 @@
 } 
 
 html {
-    scrollbar-color: #ffff55 rgb(40, 0, 83);
+    scrollbar-color: #ffff55 #003753;
 }
 
 @keyframes MoveAnimationTopTitle {
@@ -23,7 +23,7 @@ html {
 }
 @keyframes TitleColor {
     0% {color: #111;}
-    100% {color: rgb(80, 0, 167);}
+    100% {color: #003753;}
 }
 @keyframes EffectBars {
     0% {background-color: #ffff;width: 30vw;}
@@ -83,7 +83,7 @@ a {
 }
 
 header {
-    background-color: rgb(40, 0, 83);
+    background-color: #003753;
     width: 100vw;
     height: 3.5vw;
     position: fixed;
@@ -371,7 +371,7 @@ links a:active {
 }
 
 .Content .Buttons button:active {
-    background-color: rgb(29, 29, 13);
+    background-color: #003753;
     color: #FFF;
 }
 
@@ -406,12 +406,12 @@ links a:active {
 }
 
 .footer button:active {
-    background-color: rgb(29, 29, 13);
+    background-color: #003753;
     color: #FFF;
 }
 
 .LoadingScreen {
-    background-color: rgb(40, 0, 83);
+    background-color: #003753;
     position: fixed;
     width: 100vw;
     height: 100vh;
