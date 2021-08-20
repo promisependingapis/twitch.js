@@ -1,14 +1,10 @@
-[<img src="https://media.discordapp.net/attachments/780245027212492812/804814808649433088/TwitchJSBanner.png">]()
-
 <p>
-  <a href="https://twitchapis.org/discord"><img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/></a>
+  <img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/v/@twitchapis/twitch.js.svg?style=for-the-badge&maxAge=3600"/></a>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/dt/@twitchapis/twitch.js.svg?style=for-the-badge&maxAge=3600"/></a>
   <a href="https://github.com/twitchapis/twitch.js/graphs/contributors"><img src="https://img.shields.io/github/contributors/twitchapis/twitch.js.svg?style=for-the-badge"/></a>
   <a href="https://github.com/twitchapis/twitch.js/blob/main/LICENSE"><img src="https://img.shields.io/github/license/twitchapis/twitch.js.svg?style=for-the-badge"/></a>
 </p>
-
-[<img src="https://media.discordapp.net/attachments/780245027212492812/804817170126995506/Novo_Projeto27.png" align='right' width='300'/>](https://twitchapis.org/discord) [<span><br/><img src="https://nodei.co/npm/@twitchapis/twitch.js.png?downloads=true&stars=true" align='left'/></span>](https://www.npmjs.com/package/@twitchapis/twitch.js)
 
 <br/>
 <br/>
@@ -36,8 +32,7 @@
 
 ## About
 
-Twitchʲˢ is a [unnoficial] powerful [Node.js](https://nodejs.org) module based on [Discord.js](https://github.com/discordjs/discord.js) that allows you to easily interact with the
-[Twitchᵀⱽ](https://twitch.tv) making easy the way to make a Twitchᵀⱽ bot, for a custom chat overlay for you [OBS](https://obsproject.com/), or a moderation bot for you chat, or you just want a easy interface to Twitchᵀⱽ.
+Twitchʲˢ is a <b>[UNNOFICIAL]</b> api to interact with Twitch IRC.
 
 -   Object-oriented
 -   Predictable abstractions
