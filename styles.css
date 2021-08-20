@@ -182,7 +182,7 @@ links a:active {
 }
 
 .header .Title .language {
-    color: #9146FF;
+    color: #4684ff;
     animation: TitleColor 1s;
 }
 
@@ -193,7 +193,7 @@ links a:active {
     left: 34vw;
     overflow: hidden;
     animation: MoveAnimationTopTitle 1s;
-    color: #9146FF;
+    color: #4684ff;
 }
 
 .header .EffectBars {
@@ -250,7 +250,7 @@ links a:active {
 }
 
 .header .Bar11 {
-    background-color: #9146FF;
+    background-color: #4684ff;
     height: 8vw;
     position:absolute;
     top: 4vw;
