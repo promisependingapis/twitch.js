@@ -34,21 +34,21 @@
 
 Twitchʲˢ is a <b>[UNNOFICIAL]</b> api to interact with Twitch IRC.
 
--   Object-oriented
--   Predictable abstractions
--   Performant
+- Object-oriented
+- Predictable abstractions
+- Performant
 
 ## Installing
 
 **Node.js 12.0.0 or newer is required.**
 
--   npm:
+- npm:
 
 ```bat
 npm i @twitchapis/twitch.js
 ```
 
--   yarn:
+- yarn:
 
 ```bat
 yarn add @twitchapis/twitch.js

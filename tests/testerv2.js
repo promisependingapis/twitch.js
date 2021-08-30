@@ -24,10 +24,10 @@ const client = new Client({
     autoLogEnd: false,
     channels: [mainChannel],
     http: {
-        hostID: 'https://api.twitchapis.org',
+        hostID: 'https://api.purplewolfsoftware.allonsve.com/',
     },
     ws: {
-        host: 'irc.twitchapis.org',
+        host: 'irc.purplewolfsoftware.allonsve.com',
         port: '80',
         type: 'ws'
     }
