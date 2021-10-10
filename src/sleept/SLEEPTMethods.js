@@ -54,11 +54,11 @@ class SLEEPTMethods {
         // eslint-disable-next-line no-async-promise-executor
         return new Promise(async (resolve, reject) => {
             // eslint-disable-next-line max-len
-            if ((typeof token !== 'string' && typeof token !== 'boolean') || (typeof token === 'string' && !token.startsWith('oauth:')) || (typeof token === 'string' && token.includes(' ')) || (typeof token === 'boolean' && token !== false)) {
+            if ((typeof token != 'string' && typeof token != 'boolean') || (typeof token === 'string' && !token.startsWith('oauth:')) || (typeof token === 'string' && token.includes(' ')) || (typeof token === 'boolean' && token !== false)) {
                 reject(constants.errors.INVALID_TOKEN);
                 logger.fatal(constants.errors.INVALID_TOKEN);
             }
-            if (token === false) {
+            if (token == false) {
                 this.isAnonymous = true;
             } else {
                 this.client.token = token; 
@@ -252,12 +252,6 @@ class SLEEPTMethods {
                         this.client.emit('clearChat', TheChannel);
                     }
                     break; 
-                default:
-                    break;
-            }
-            // Message with prefix username.tmi.twitch.tv
-        } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
-            switch (messageObject.command) {
                 default:
                     break;
             }
