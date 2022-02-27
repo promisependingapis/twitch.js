@@ -18,7 +18,7 @@ var sleept;
  */
 class Client extends EventEmmiter {
     /**
-     * @type {ClientOptions} [autoLogEnd Boolean, Default: true]
+     * @type {ClientOptions} [autoLogEnd boolean, Default: true]
      */
     constructor(options = {}) {
         super();
@@ -45,7 +45,7 @@ class Client extends EventEmmiter {
             /**
              * Authorization token for the logged in user/bot
              * <warn>This should be kept private at all times.</warn>
-             * @type {?String}
+             * @type {?string}
              * @private
              */
             this.token = process.env.CLIENT_TOKEN;
@@ -68,7 +68,7 @@ class Client extends EventEmmiter {
 
         /**
          * The bool of the system of auto logger finish event
-         * @type {Boolean}
+         * @type {boolean}
          */
         this.autoLogEnd = options.autoLogEnd;
 
@@ -132,15 +132,15 @@ class Client extends EventEmmiter {
         sleept = this.sleept;
 
         this.ws = {
-            send: (websocketString) => {
-                return sleept.methods.sendRawMessage(websocketString);
+            send: (websocketstring) => {
+                return sleept.methods.sendRawMessage(websocketstring);
             }
         };
     }
 
     /**
      * Returns the time bot is connected with twitch in miliseconds
-     * @returns {Promise<Resolve>}
+     * @returns {Promise<number>}
      * @example
      * await Client.uptime()
      * @example
@@ -152,8 +152,8 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [token] Token of the account to log in with (Opcional)
-     * @param {Boolean} [false] False to Anonymous mode (Opcional)
+     * @param {string} [token] Token of the account to log in with (Opcional)
+     * @param {boolean} [false] False to Anonymous mode (Opcional)
      * @returns {Promise<Pending>}
      * @example
      * Client.login('token')
@@ -168,8 +168,8 @@ class Client extends EventEmmiter {
 
     /**
      * Join the bot on the channel parsed
-     * @param {String} [channelName] The name of the channel the bot will connect
-     * @returns {Promise<Pending>} true if the bot connect, false if it cannot connect
+     * @param {string} [channelName] The name of the channel the bot will connect
+     * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()
@@ -180,8 +180,8 @@ class Client extends EventEmmiter {
 
     /**
      * Leave the bot on the channel parsed
-     * @param {String} [channelName] The name of the channel the bot will disconnect
-     * @returns {Promise<Pending>} true if the bot disconnect, false if it cannot disconnect
+     * @param {string} [channelName] The name of the channel the bot will disconnect
+     * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
      * client.leave('channelName')
      *  .then()
@@ -192,7 +192,7 @@ class Client extends EventEmmiter {
 
     /**
      * Get the API ping
-     * @returns {Promise<Number>} return the API ping in milliseconds
+     * @returns {Promise<number>} return the API ping in milliseconds
      * @example
      * client.ping()
      */
@@ -202,7 +202,7 @@ class Client extends EventEmmiter {
 
     /**
      * Emit a event from client level
-     * @param {String} event the name of the event than will be sended
+     * @param {string} event the name of the event than will be sended
      * @param {Any} args the args of the event
      * @example
      * client.eventEmmiter('event', Args)
@@ -213,18 +213,18 @@ class Client extends EventEmmiter {
                 // eslint-disable-next-line no-case-declarations
                 const responseMessage = {
                     /**
-                     * @returns {String} text content of message
+                     * @returns {string} text content of message
                      */
                     toString() {
                         return this.content;
                     },
                     /**
-                     * @type {String} The string of context text of message
+                     * @type {string} The string of context text of message
                      */
                     content: args[0].params[1].toString(),
                     /**
                      * responds the author of message
-                     * @param {String} [message] the message than will be sended as reply of original message
+                     * @param {string} [message] the message than will be sended as reply of original message
                      * @return {Promise<Pending>} The message sended metadata
                      */
                     reply: (message) => {

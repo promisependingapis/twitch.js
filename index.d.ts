@@ -7,10 +7,12 @@ declare module '@twitchapis/twitch.js' {
         on: ClientEvents<this>;
         once: ClientEvents<this>;
 
+        uptime(): Promise<number>;
         join(channel: string): Promise<IChannel>;
         leave(channel: string): Promise<void>;
-        login(user: string, token: string): Promise<void>;
+        login(token: string): Promise<void>;
         ping(): Promise<number>;
+        disconnect(): Promise<void>;
     }
 
     export interface IClientOptions {
@@ -54,7 +56,12 @@ declare module '@twitchapis/twitch.js' {
     }
 
     interface ClientEvents<T> {
+        (event: 'userClear', handler: ({ channel: IChannel, user: IUser }) => void): T;
+        (event: 'clearChat', handler: ({ channel: IChannel }) => void): T;
         (event: 'message', handler: (msg: IMessage) => void): T;
+        (event: 'ready', handler: (host: string, port: number) => void): T;
+        (event: 'join', handler: (channelName: string) => void): T;
+        (event: 'leave', handler: (channelName: string) => void): T;
     }
 
     export interface IMessage {

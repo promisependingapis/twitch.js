@@ -218,7 +218,7 @@ class SLEEPTMethods {
                 case '421':
                     logger.warn(
                         'Twitch return 421 code, an unknow command has been send to there, ' + 
-                        'if it hasn\'t you, messing arround sendind raw messages to websocket, please leave a issue on github, it will be apreciated'
+                        'if it hasn\'t you messing arround sendind raw messages to websocket, please leave a issue on github, it will be apreciated'
                     );
                     break;
                 case 'ROOMSTATE':
