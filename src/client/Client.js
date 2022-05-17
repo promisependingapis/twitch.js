@@ -3,14 +3,14 @@
 
 const path = require('path');
 const EventEmmiter = require('events');
-const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
+const WSManager = require(path.resolve(__dirname,'..','web','WSManager'));
 const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(path.resolve(__dirname,'..','utils'));
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 // skipcq: JS-0239
 var logger;
 // skipcq: JS-0239
-var sleept;
+var wsManager;
 
 /**
  * Creates the main class to generate clients.
@@ -109,31 +109,17 @@ class Client extends EventEmmiter {
         });
 
         /**
-         * Intervals set by {@link Client#setInterval} that are still active
-         * @type {Set<Timeout>}
+         * The WebSocket manager of the client
+         * @type {WSManager}
          * @private
          */
-        this._intervals = new Set();
+        this.wsManager = new WSManager(this);
 
-        /**
-         * If messageSweepInterval is bigger than 0 start a interval of this time to run the sweepMessage function
-         */
-        if (options.messageSweepInterval > 0) {
-            setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
-        }
-
-        /**
-         * The SLEEPT manager of the client
-         * @type {SLEEPTManager}
-         * @private
-         */
-        this.sleept = new SLEEPTManager(this);
-
-        sleept = this.sleept;
+        wsManager = this.wsManager;
 
         this.ws = {
             send: (websocketstring) => {
-                return sleept.methods.sendRawMessage(websocketstring);
+                return wsManager.methods.sendRawMessage(websocketstring);
             }
         };
     }
@@ -163,7 +149,7 @@ class Client extends EventEmmiter {
      *  .then()
      */
     login(token) {
-        return this.sleept.methods.login(token);
+        return this.wsManager.methods.login(token);
     }
 
     /**
@@ -175,7 +161,7 @@ class Client extends EventEmmiter {
      *  .then()
      */
     join(channelName) {
-        return this.sleept.methods.join(channelName);
+        return this.wsManager.methods.join(channelName);
     }
 
     /**
@@ -187,7 +173,7 @@ class Client extends EventEmmiter {
      *  .then()
      */
     leave(channelName) {
-        return this.sleept.methods.leave(channelName);
+        return this.wsManager.methods.leave(channelName);
     }
 
     /**
@@ -197,7 +183,7 @@ class Client extends EventEmmiter {
      * client.ping()
      */
     ping() {
-        return this.sleept.methods.ping();
+        return this.wsManager.methods.ping();
     }
 
     /**
@@ -210,8 +196,7 @@ class Client extends EventEmmiter {
     eventEmmiter(event, ...args) {
         switch (event) {
             case 'message':
-                // eslint-disable-next-line no-case-declarations
-                const responseMessage = {
+                this.emit(event, {
                     /**
                      * @returns {string} text content of message
                      */
@@ -229,56 +214,17 @@ class Client extends EventEmmiter {
                      */
                     reply: (message) => {
                         // eslint-disable-next-line max-len
-                        return this.sleept.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
+                        return this.wsManager.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
                     },
                     id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
                     author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
-                };
-                this.emit(event, responseMessage);
-                break;
-            case 'ready':
-                this.emit(event, args[0], args[1]);
+                });
                 break;
             default:
-                this.emit(event, args);
+                this.emit(event, ...args);
                 break;
         }
-    }
-
-    /**
-     * Sweeps all text-based channels' messages and removes the ones older than the max message lifetime.
-     * If the message has been edited, the time of the edit is used rather than the time of the original message.
-     * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
-     * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
-     * @returns {number} Amount of messages that were removed from the caches,
-     * or -1 if the message cache lifetime is unlimited
-     * @private
-     */
-    // eslint-disable-next-line no-unused-vars
-    sweepMessages(lifetime = this.options.messageCacheLifetime) {
-        /* 
-        if (typeof lifetime !== 'number' || isNaN(lifetime)) logger.fatal('The lifetime must be a number.');
-        if (lifetime <= 0) {
-            logger.debug('Didn\'t sweep messages - lifetime is unlimited');
-            return -1;
-        }
-
-        const lifetimeMs = lifetime * 1000;
-        const now = Date.now();
-        let channels = 0;
-        let messages = 0;
-
-        for (const channel of this.channels.values()) {
-            if (!channel.messages) continue;
-            channels++;
-
-            messages += channel.messages.sweep((message) => now - message.createdTimestamp > lifetimeMs);
-        }
-
-        logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
-        return messages;
-        */
     }
 
     /**
@@ -286,7 +232,7 @@ class Client extends EventEmmiter {
      * @returns {Promise<Pending>} returned when client disconnect.
      */
     disconnect() {
-        return this.sleept.methods.disconnect();
+        return this.wsManager.methods.disconnect();
     }
 
     /**
@@ -295,42 +241,51 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
+        var ErrorMessage = [];
+
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
-            throw new TypeError('The messageMaxSize option must be a number.');
+            ErrorMessage.push('The messageMaxSize option must be a number.');
         }
+        
         if (typeof options.messageCacheLifetime !== 'number' || isNaN(options.messageCacheLifetime)) {
-            throw new TypeError('The messageCacheLifetime option must be a number.');
+            ErrorMessage.push('The messageCacheLifetime option must be a number.');
         }
+        
         if (typeof options.messageSweepInterval !== 'number' || isNaN(options.messageSweepInterval)) {
-            throw new TypeError('The messageSweepInterval option must be a number.');
+            ErrorMessage.push('The messageSweepInterval option must be a number.');
         }
+        
         if (typeof options.fetchAllChatters !== 'boolean') {
-            throw new TypeError('The fetchAllChatters option must be a boolean.');
+            ErrorMessage.push('The fetchAllChatters option must be a boolean.');
         }
+
         if (options.disabledEvents && !(options.disabledEvents instanceof Array)) {
-            throw new TypeError('The disabledEvents option must be an Array.');
+            ErrorMessage.push('The disabledEvents option must be an Array.');
         }
+
         if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
-            throw new TypeError('The retryLimit  options must be a number.');
+            ErrorMessage.push('The retryLimit options must be a number.');
         }
+
         if (options.autoLogEnd && typeof options.autoLogEnd !== 'boolean') {
-            throw new TypeError('The autoLogEnd options must be a boolean.');
+            ErrorMessage.push('The autoLogEnd options must be a boolean.');
         }
+
         if (options.channels && !(options.channels instanceof Array)) {
-            throw new TypeError('The channels options must be a array.');
+            ErrorMessage.push('The channels options must be a array.');
         }
+
         if (options.debug && typeof options.debug !== 'boolean') {
-            throw new TypeError('The debug options must be a boolean.');
+            ErrorMessage.push('The debug options must be a boolean.');
         }
+        
         if (options.connectedChannels && !(options.channels instanceof Array) && options.connectedChannels.length > 0) {
-            throw new TypeError('The connectedChannels options must be a array and must be empty.');
+            ErrorMessage.push('The connectedChannels options must be a array and must be empty.');
         }
-        Object.keys(options).forEach((OptionName) => {
-            if (!Object.keys(constants.defaultOptions).includes(OptionName)) {
-                autoEndLog.activate();
-                throw new TypeError('The option: ' + OptionName + ' is not a valid option.');
-            }
-        });
+
+        if (ErrorMessage.length > 0) {
+            throw new TypeError(ErrorMessage.join(' and '));
+        }
     }
 }
 

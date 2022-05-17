@@ -21,10 +21,10 @@ const twitchUserRolesNameParser = {
  * The main file. Connect with twitch websocket and provide access to irc.
  * @private
  */
-class SLEEPTMethods {
-    constructor(sleeptMananger) {
-        this.sleept = sleeptMananger;
-        this.client = sleeptMananger.client;
+class WSMethods {
+    constructor(wsMananger) {
+        this.wsManager = wsMananger;
+        this.client = wsMananger.client;
         const chatter = new getChatter(this.client.options);
         const validate = new validator(this.client.options);
         this._ackToken = null;
@@ -35,6 +35,7 @@ class SLEEPTMethods {
         this.joinQueueTimeout = [];
         this.leaveQueueTimeout = [];
         logger = new LoggerC({debug: this.client.options.debug});
+        this.logger = logger;
     }
 
     /**
@@ -275,7 +276,7 @@ class SLEEPTMethods {
                 case 'PRIVMSG':
                     this.updateUser(messageObject);
                     this.client.eventEmmiter('message', messageObject);
-                    logger.debug(messageObject.params[0] + '| ' + messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
+                    logger.debug(messageObject.params[0] + ' | ' + messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
                     break;
                 default:
                     break;
@@ -284,7 +285,7 @@ class SLEEPTMethods {
     }
 
     /**
-     * Called after websocket successfully connect with IRC and be on ready state
+     * Called after websocket successfully connect with IRC and be  ready state
      */
     async onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
@@ -340,7 +341,7 @@ class SLEEPTMethods {
                     this.channels.set(channel, new channels(this, { channel: channel }));
                 }
                 this.channels.get(channel).connected = true;
-                this.sleept.methods.joinQueueTimeout.forEach((element) => {
+                this.wsManager.methods.joinQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -385,7 +386,7 @@ class SLEEPTMethods {
                 if (this.channels.get(channel.toLowerCase()) && this.channels.get(channel.toLowerCase()).isConnected()) {
                     this.channels.delete(channel.toLowerCase());
                 }
-                this.sleept.methods.leaveQueueTimeout.forEach((element) => {
+                this.wsManager.methods.leaveQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -600,4 +601,4 @@ class SLEEPTMethods {
     }
 }
 
-module.exports = SLEEPTMethods;
+module.exports = WSMethods;

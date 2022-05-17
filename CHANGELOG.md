@@ -1,11 +1,16 @@
 # Changelog
 
+## v1.1.0: Sleept Update
+
+- Rename SLEEPT to WebSocket
+
 ## v1.0.1: DMCA Update
 
 - Changed url's
   - Removed `twitchapis.org`
   - Temporary `purplewolfsoftware.allonsve.com`
 - Update dependencies
+- Minor Bugs Fixes 🐜
 
 ## v1.0.0: Pegasi Update
 
@@ -59,7 +64,7 @@
 - Add timeout method, to timeout the annoying persons on chat 🔴
 - Add `ws.send`, so now you can send direct websocket messages to twitchIRC 💌
 - Minor fixes 🔹
-- Minor bug fixes 🐜
+- Minor Bugs Fixes 🐜
 - Improved documentation 📖
 
 ### v1.0.0-beta.13
