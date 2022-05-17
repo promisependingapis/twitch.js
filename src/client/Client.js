@@ -241,7 +241,7 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
-        var ErrorMessage = [];
+        const ErrorMessage = [];
 
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
             ErrorMessage.push('The messageMaxSize option must be a number.');
