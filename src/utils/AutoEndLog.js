@@ -19,7 +19,7 @@ var exited;
 function exitHandler(options, exitCode) {
     process.stdin.resume();
     if (!exited) {
-        if (exitCode === 'SIGINT') {
+        if (exitCode == 'SIGINT') {
             logger.warn('Manualy finished');
         } else {
             if ((exitCode || exitCode === 0) && !options.uncaughtException) logger.info('Program finished, code: ' + exitCode);

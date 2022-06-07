@@ -60,7 +60,7 @@ class WSMethods {
                 logger.fatal(constants.errors.INVALID_TOKEN);
             }
 
-            if (token === false) {
+            if (token == false) {
                 this.isAnonymous = true;
             } else {
                 this.client.token = token; 
