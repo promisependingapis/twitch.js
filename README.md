@@ -29,7 +29,7 @@
 
 ## About
 
-Twitchʲˢ is a <b>[UNNOFICIAL]</b> api to interact with Twitch IRC.
+Twitchʲˢ is a <b>[UNOFFICIAL]</b> api to interact with Twitch IRC.
 
 - Object-oriented
 - Predictable abstractions
