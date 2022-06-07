@@ -13,7 +13,7 @@
 - Changed url's 📝
   - Removed `twitchapis.org` ➖
   - Temporary `purplewolfsoftware.allonsve.com` ➕
-- Update dependencies 🕚
+- Update all dependencies 🕚
 - Minor Bugs Fixes 🐜
 
 ## v1.0.0: Pegasi Update
