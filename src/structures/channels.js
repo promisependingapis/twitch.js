@@ -32,7 +32,7 @@ class channels {
     }
     /**
      * Return if the bot is connected with channel
-     * @returns {Boolean} true if connected, false if don't
+     * @returns {boolean} true if connected, false if don't
      * @example
      * Client.channels.get('channelName').isConnected()
      */
@@ -42,15 +42,15 @@ class channels {
 
     /**
      * Send message into the channel
-     * @param {String} [message] The message that will be sended
-     * @param {Array<optional>} [replacer] If the message contains %s, the array that will replace the %s in order
-     * @returns {Promise<Pending>}
+     * @param {string} [message] The message that will be sended
+     * @param {?Array<string>} [replacer] If the message contains %s, the array that will replace the %s in order
+     * @returns {Promise<any>}
      * @example
      * Client.channels.get('channelName').send('message', ['replacer', 'replacer2', ...])
      */
     send(message, replacer) {
         if (this.isConnected() && this.client.channels.get(this.name)) {
-            return this.client.sleept.methods.sendMessage(this.name, message, replacer);
+            return this.client.wsManager.methods.sendMessage(this.name, message, replacer);
         } else {
             logger.error('Not connected to the channel: ' + this.name);
             return Promise.reject('Not connected to the channel: ' + this.name);

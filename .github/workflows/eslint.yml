@@ -17,10 +17,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: Install PNPM
-        run: curl -L https://unpkg.com/@pnpm/self-installer | node
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
       - name: Run ESLint
         run: npm run eslint:fix
       - name: Commit changes

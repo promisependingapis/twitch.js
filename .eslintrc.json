@@ -13,7 +13,10 @@
   "rules": {
     "array-bracket-spacing": ["warn", "never"],
     "computed-property-spacing": "warn",
+    "default-case": ["error", { "commentPattern": "^no default$" }],
+    "eol-last": ["error", "always"],
     "indent": ["warn", 4, {"SwitchCase": 1}],
+    "linebreak-style": ["error", "unix"],
     "strict": ["error", "global"],
     "no-await-in-loop": "warn",
     "no-compare-neg-zero": "error",
@@ -29,7 +32,7 @@
     "max-len": [
       "warn",
       {
-        "code": 165,
+        "code": 180,
         "ignoreComments": true,
         "ignoreUrls": true
       }

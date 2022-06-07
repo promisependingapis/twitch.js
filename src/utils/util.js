@@ -7,9 +7,9 @@ class util {
     }
     /**
      * Sets default properties on an object that aren't already specified.
-     * @param {Object} def Default properties
-     * @param {Object} given Object to assign defaults to
-     * @returns {Object}
+     * @param {object} def Default properties
+     * @param {object} given Object to assign defaults to
+     * @returns {object}
      * @private
      */
     static mergeDefault(def, given) {

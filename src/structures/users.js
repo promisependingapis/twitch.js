@@ -40,10 +40,10 @@ class Users {
 
     /**
      * Timeout user on a channel
-     * @param {*} [channel] 
-     * @param {*} [secounds] 
-     * @param {*} [reason] 
-     * @returns {Promise<Any>}
+     * @param {?string} [channel] 
+     * @param {?number} [secounds] 
+     * @param {?string} [reason] 
+     * @returns {Promise<any>}
      */
     timeout(channel, secounds, reason) {
         if (typeof(channel) === 'number') {
@@ -57,8 +57,8 @@ class Users {
 
     /**
      * Remove timeout from user
-     * @param {*} [channel] 
-     * @returns {Promise<Any>}
+     * @param {string|Array<string>} [channel] 
+     * @returns {Promise<any>}
      */
     untimeout(channel) {
         if (!channel || !(channel instanceof Array)) {
@@ -74,9 +74,9 @@ class Users {
 
     /**
      * Ban user from an channel
-     * @param {*} [channel] 
-     * @param {*} [reason] 
-     * @returns {Promise<Any>}
+     * @param {string|Array<string>} [channel] 
+     * @param {?string} [reason] 
+     * @returns {Promise<any>}
      */
     ban(channel, reason) {
         if (!channel || !(channel instanceof Array)) {
@@ -99,8 +99,8 @@ class Users {
 
     /**
      * Unban user from a channel
-     * @param {*} [channel] 
-     * @returns {Promise<Any>}
+     * @param {string|Array<string>} [channel] 
+     * @returns {Promise<any>}
      */
     unban(channel) {
         if (!channel || !(channel instanceof Array)) {

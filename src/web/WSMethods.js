@@ -21,10 +21,10 @@ const twitchUserRolesNameParser = {
  * The main file. Connect with twitch websocket and provide access to irc.
  * @private
  */
-class SLEEPTMethods {
-    constructor(sleeptMananger) {
-        this.sleept = sleeptMananger;
-        this.client = sleeptMananger.client;
+class WSMethods {
+    constructor(wsMananger) {
+        this.wsManager = wsMananger;
+        this.client = wsMananger.client;
         const chatter = new getChatter(this.client.options);
         const validate = new validator(this.client.options);
         this._ackToken = null;
@@ -35,10 +35,11 @@ class SLEEPTMethods {
         this.joinQueueTimeout = [];
         this.leaveQueueTimeout = [];
         logger = new LoggerC({debug: this.client.options.debug});
+        this.logger = logger;
     }
 
     /**
-     * @returns {Boolean} if websocket is connected
+     * @returns {boolean} if websocket is connected
      */
     isConnected() {
         return this.ws !== null && this.ws.readyState === 1;
@@ -46,9 +47,9 @@ class SLEEPTMethods {
 
     /**
      * Connects with websocket and auth with IRC
-     * @param {String} [token] the bot token
-     * @param {Boolean} [false] Connect with IRC in anonymous mode
-     * @returns {Promise<Pending>} when connected with IRC
+     * @param {string} [token] the bot token
+     * @param {boolean} [false] Connect with IRC in anonymous mode
+     * @returns {Promise<void>} when connected with IRC
      */
     login(token) {
         // eslint-disable-next-line no-async-promise-executor
@@ -58,11 +59,13 @@ class SLEEPTMethods {
                 reject(constants.errors.INVALID_TOKEN);
                 logger.fatal(constants.errors.INVALID_TOKEN);
             }
-            if (token === false) {
+
+            if (token == false) {
                 this.isAnonymous = true;
             } else {
                 this.client.token = token; 
             }
+            
             if (!this.isAnonymous) {
                 await this.validate(this.client.token).then((results) => {
                     this.client.clientId = results.client_id;
@@ -95,7 +98,7 @@ class SLEEPTMethods {
 
     /**
      * Called every time a websocket message is received by IRC
-     * @param {String} [event] the raw message event to be parsed
+     * @param {string} [event] the raw message event to be parsed
      */
     onMessage(event) {
         this.client.emit('Twitch.New.Websocket.Message', event);
@@ -109,7 +112,7 @@ class SLEEPTMethods {
 
     /**
      * Called when websocket went a error
-     * @param {String} [event] the raw error object to be parsed
+     * @param {string} [event] the raw error object to be parsed
      */
     onError(event) {
         logger.error(event.message);
@@ -132,6 +135,7 @@ class SLEEPTMethods {
 
     /**
      * Called when websocket connection opens
+     * @private
      */
     onOpen() {
         if (this.ws.readyState !== 1) {
@@ -154,8 +158,9 @@ class SLEEPTMethods {
     }
 
     /**
-     * Called when websocket connection close
-     * @param {Object} [messageObject] the object parsed by parser on onMessage
+     * Called when websocket receives a message
+     * @param {any} [messageObject] the object parsed by parser on onMessage
+     * @private
      */
     handlerMessage(messageObject) {
         if (messageObject === null) {
@@ -218,7 +223,7 @@ class SLEEPTMethods {
                 case '421':
                     logger.warn(
                         'Twitch return 421 code, an unknow command has been send to there, ' + 
-                        'if it hasn\'t you, messing arround sendind raw messages to websocket, please leave a issue on github, it will be apreciated'
+                        'if it hasn\'t you messing arround sendind raw messages to websocket, please leave a issue on github, it will be apreciated'
                     );
                     break;
                 case 'ROOMSTATE':
@@ -255,12 +260,6 @@ class SLEEPTMethods {
                 default:
                     break;
             }
-            // Message with prefix username.tmi.twitch.tv
-        } else if (messageObject.prefix === this.userName + '.tmi.twitch.tv') {
-            switch (messageObject.command) {
-                default:
-                    break;
-            }
             // Message with prefix don't match with anything above
         } else {
             switch (messageObject.command) {
@@ -281,7 +280,7 @@ class SLEEPTMethods {
                 case 'PRIVMSG':
                     this.updateUser(messageObject);
                     this.client.eventEmmiter('message', messageObject);
-                    logger.debug(messageObject.params[0] + '| ' + messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
+                    logger.debug(messageObject.params[0] + ' | ' + messageObject.prefix.slice(0, messageObject.prefix.indexOf('!')) + ': ' + messageObject.params[1]);
                     break;
                 default:
                     break;
@@ -290,7 +289,8 @@ class SLEEPTMethods {
     }
 
     /**
-     * Called after websocket successfully connect with IRC and be on ready state
+     * Called after websocket successfully connect with IRC and be  ready state
+     * @private
      */
     async onConnected() {
         // Once connected connect the user to the servers he parsed on client inicialization
@@ -314,9 +314,9 @@ class SLEEPTMethods {
 
     /**
      * Connects with a twitch channel chat
-     * @param {String} [channel] the channel name who will be connected
-     * @param {Number=} [index] the index of channels list of element
-     * @return {Promise<Pending>} Resolved when sucessfull connect with channel
+     * @param {string} [channel] the channel name who will be connected
+     * @param {number} [index] the index of channels list of element
+     * @return {Promise<void>} Resolved when sucessfull connect with channel
      */
     join(channel, index) {
         return new Promise((resolve, reject) => {
@@ -346,7 +346,7 @@ class SLEEPTMethods {
                     this.channels.set(channel, new channels(this, { channel: channel }));
                 }
                 this.channels.get(channel).connected = true;
-                this.sleept.methods.joinQueueTimeout.forEach((element) => {
+                this.wsManager.methods.joinQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -360,8 +360,8 @@ class SLEEPTMethods {
 
     /**
      * Leave from a twitch channel chat
-     * @param {String} [channel] the channel name who will be leaved
-     * @return {Promise<Pending>} Resolved when sucessfull leave of the channel
+     * @param {string} [channel] the channel name who will be leaved
+     * @return {Promise<void>} Resolved when sucessfull leave of the channel
      */
     leave(channel) {
         return new Promise((resolve, reject) => {
@@ -391,7 +391,7 @@ class SLEEPTMethods {
                 if (this.channels.get(channel.toLowerCase()) && this.channels.get(channel.toLowerCase()).isConnected()) {
                     this.channels.delete(channel.toLowerCase());
                 }
-                this.sleept.methods.leaveQueueTimeout.forEach((element) => {
+                this.wsManager.methods.leaveQueueTimeout.forEach((element) => {
                     if (element[1] === channel.toLowerCase()) {
                         clearTimeout(element[0]);
                         return;
@@ -405,7 +405,7 @@ class SLEEPTMethods {
 
     /**
      * Send a ping message to websocket
-     * @return {Promise<Number>} The ping in milliseconds with IRC
+     * @return {Promise<number>} The ping in milliseconds with IRC
      */
     ping() {
         return new Promise((resolve, reject) => {
@@ -429,10 +429,10 @@ class SLEEPTMethods {
 
     /**
      * Send a message to channel
-     * @param {String} [channel] The channel name where the message will be delivered
-     * @param {String} [message] The message content who will be sended 
-     * @param {Array} [replacer] The replacements for %s on message content
-     * @return {Promise<Pending>} returns when the message is sended
+     * @param {string} [channel] The channel name where the message will be delivered
+     * @param {string} [message] The message content who will be sended 
+     * @param {Array<any>} [replacer] The replacements for %s on message content
+     * @return {Promise<void>} returns when the message is sended
      */
     sendMessage(channel, message, ...replacer) {
         return new Promise((resolve, reject) => {
@@ -463,7 +463,8 @@ class SLEEPTMethods {
 
     /**
      * Generate users collections and added it to channel user collection
-     * @param {String} [channelName] The name of the channel to search for users
+     * @param {string} [channelName] The name of the channel to search for users
+     * @private
      */
     generateUser(channelName) {
         this.getChatter(channelName).then((Users) => {
@@ -483,7 +484,8 @@ class SLEEPTMethods {
 
     /**
      * Updates a user collection with the new data
-     * @param {Object} [data] The messageObject returned from twitch with a user data
+     * @param {object} [data] The messageObject returned from twitch with a user data
+     * @private
      */
     async updateUser(data) {
         if (data.prefix === 'tmi.twitch.tv') data.prefix = this.userName + '!';
@@ -512,7 +514,7 @@ class SLEEPTMethods {
 
     /**
      * Disconnect from IRC
-     * @return {Promise<Pending>} returns when IRC sucessfull disconnect
+     * @return {Promise<[string, number]>} returns when IRC sucessfull disconnect
      */
     disconnect() {
         return new Promise((resolve, reject) => {
@@ -544,11 +546,11 @@ class SLEEPTMethods {
 
     /**
      * Reply a message sended on channel
-     * @param {String} [msgId] The id of the message who will be responded
-     * @param {String} [channel] The channel name where the message will be delivered
-     * @param {String} [message] The message content who will be sended 
-     * @param {Array} [replacer] The replacements for %s on message content
-     * @return {Promise<Pending>} returns when the message is sended
+     * @param {string} [msgId] The id of the message who will be responded
+     * @param {string} [channel] The channel name where the message will be delivered
+     * @param {string} [message] The message content who will be sended 
+     * @param {Array<any>} [replacer] The replacements for %s on message content
+     * @return {Promise<void>} returns when the message is sended
      */
     replyMessage(msgId, channel, message, ...replacer) {
         return new Promise((resolve, reject) => {
@@ -582,8 +584,8 @@ class SLEEPTMethods {
     }
 
     /**
-     * @param {String} rawMessage a string with a websocket message to be sended to twitchIRC
-     * @return {Promise<Any>} the websocket return of the message
+     * @param {string} rawMessage a string with a websocket message to be sended to twitchIRC
+     * @return {Promise<any>} the websocket return of the message
      */
     sendRawMessage(rawMessage) {
         return new Promise((resolve) => {
@@ -606,4 +608,4 @@ class SLEEPTMethods {
     }
 }
 
-module.exports = SLEEPTMethods;
+module.exports = WSMethods;

@@ -58,7 +58,7 @@ async function runTests() {
 async function run() {
     logger.info('Starting tests...');
 
-    const files = await fs.readdirSync(scriptDir);
+    const files = fs.readdirSync(scriptDir);
 
     const jsfile = files.filter(f => f.split('.').pop() === 'js');
 

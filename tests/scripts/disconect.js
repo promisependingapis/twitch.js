@@ -2,9 +2,7 @@
 'use strict';
 
 const run = (logger, client) => {
-    return new Promise((resolve) => {
-        resolve(client.disconnect());
-    });
+    return Promise.resolve(client.disconnect());
 };
 
 module.exports = {

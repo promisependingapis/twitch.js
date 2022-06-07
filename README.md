@@ -1,14 +1,11 @@
 <p>
-  <img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/>
+  <a href="https://discord.gg/JyRu8VNtt9"><img src="https://img.shields.io/discord/773920681246851083?style=for-the-badge&color=7289da&logo=discord&logoColor=FFFFFF"/></a>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/v/@twitchapis/twitch.js.svg?style=for-the-badge&maxAge=3600"/></a>
   <a href="https://www.npmjs.com/package/@twitchapis/twitch.js"><img src="https://img.shields.io/npm/dt/@twitchapis/twitch.js.svg?style=for-the-badge&maxAge=3600"/></a>
   <a href="https://github.com/twitchapis/twitch.js/graphs/contributors"><img src="https://img.shields.io/github/contributors/twitchapis/twitch.js.svg?style=for-the-badge"/></a>
   <a href="https://github.com/twitchapis/twitch.js/blob/main/LICENSE"><img src="https://img.shields.io/github/license/twitchapis/twitch.js.svg?style=for-the-badge"/></a>
 </p>
 
-<br/>
-<br/>
-<br/>
 <br/>
 
 <details open="open">
@@ -32,7 +29,7 @@
 
 ## About
 
-Twitchʲˢ is a <b>[UNNOFICIAL]</b> api to interact with Twitch IRC.
+Twitchʲˢ is a <b>[UNOFFICIAL]</b> api to interact with Twitch IRC.
 
 - Object-oriented
 - Predictable abstractions
@@ -40,7 +37,7 @@ Twitchʲˢ is a <b>[UNNOFICIAL]</b> api to interact with Twitch IRC.
 
 ## Installing
 
-**Node.js 12.0.0 or newer is required.**
+**Node.js 10.0.0 or newer is required.**
 
 - npm:
 
@@ -78,8 +75,7 @@ client.login('token');
 
 ## Contributors
 
-| [<img src="https://avatars3.githubusercontent.com/u/10421864?s=120&v=4" witdh="115"><br><sub>Huy Nguyen</sub>](https://github.com/foxviet) | [<img src="https://avatars3.githubusercontent.com/u/54549066?s=120&v=4" witdh="115"><br><sub>Aadarsh</sub>](https://github.com/Itsaadarsh) | [<img src="https://avatars3.githubusercontent.com/u/14365254?s=120&v=4" witdh="115"><br><sub>Nathan Ferreira</sub>](https://github.com/nathan130200) |
-| :-------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
+### Thanks to all of the [contributors](https://github.com/twitchapis/twitch.js/graphs/contributors)!
 
 ## Authors
 

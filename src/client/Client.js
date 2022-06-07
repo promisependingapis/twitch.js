@@ -3,14 +3,14 @@
 
 const path = require('path');
 const EventEmmiter = require('events');
-const SLEEPTManager = require(path.resolve(__dirname,'..','sleept','SLEEPTMananger'));
+const WSManager = require(path.resolve(__dirname,'..','web','WSManager'));
 const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(path.resolve(__dirname,'..','utils'));
 const channel = require(path.resolve(__dirname,'..','structures','channels'));
 
 // skipcq: JS-0239
 var logger;
 // skipcq: JS-0239
-var sleept;
+var wsManager;
 
 /**
  * Creates the main class to generate clients.
@@ -18,7 +18,7 @@ var sleept;
  */
 class Client extends EventEmmiter {
     /**
-     * @type {ClientOptions} [autoLogEnd Boolean, Default: true]
+     * @type {ClientOptions} [autoLogEnd boolean, Default: true]
      */
     constructor(options = {}) {
         super();
@@ -45,7 +45,7 @@ class Client extends EventEmmiter {
             /**
              * Authorization token for the logged in user/bot
              * <warn>This should be kept private at all times.</warn>
-             * @type {?String}
+             * @type {?string}
              * @private
              */
             this.token = process.env.CLIENT_TOKEN;
@@ -62,13 +62,13 @@ class Client extends EventEmmiter {
         /**
          * Time at which the client was last regarded as being in the `READY` state
          * (each time the client disconnects and successfully reconnects, this will be overwritten)
-         * @type {?Date}
+         * @type {?date}
          */
         this.readyAt = null;
 
         /**
          * The bool of the system of auto logger finish event
-         * @type {Boolean}
+         * @type {boolean}
          */
         this.autoLogEnd = options.autoLogEnd;
 
@@ -89,7 +89,7 @@ class Client extends EventEmmiter {
 
         /**
          * A collection with all channels
-         * @type {Collection}
+         * @type {collection}
          */
         this.channels = new collection();
         /**
@@ -109,38 +109,24 @@ class Client extends EventEmmiter {
         });
 
         /**
-         * Intervals set by {@link Client#setInterval} that are still active
-         * @type {Set<Timeout>}
+         * The WebSocket manager of the client
+         * @type {WSManager}
          * @private
          */
-        this._intervals = new Set();
+        this.wsManager = new WSManager(this);
 
-        /**
-         * If messageSweepInterval is bigger than 0 start a interval of this time to run the sweepMessage function
-         */
-        if (options.messageSweepInterval > 0) {
-            setInterval(this.sweepMessages.bind(this), options.messageSweepInterval * 1000);
-        }
-
-        /**
-         * The SLEEPT manager of the client
-         * @type {SLEEPTManager}
-         * @private
-         */
-        this.sleept = new SLEEPTManager(this);
-
-        sleept = this.sleept;
+        wsManager = this.wsManager;
 
         this.ws = {
-            send: (websocketString) => {
-                return sleept.methods.sendRawMessage(websocketString);
+            send: (websocketstring) => {
+                return wsManager.methods.sendRawMessage(websocketstring);
             }
         };
     }
 
     /**
      * Returns the time bot is connected with twitch in miliseconds
-     * @returns {Promise<Resolve>}
+     * @returns {Promise<number>}
      * @example
      * await Client.uptime()
      * @example
@@ -152,9 +138,9 @@ class Client extends EventEmmiter {
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
-     * @param {String} [token] Token of the account to log in with (Opcional)
-     * @param {Boolean} [false] False to Anonymous mode (Opcional)
-     * @returns {Promise<Pending>}
+     * @param {string} [token] Token of the account to log in with (Opcional)
+     * @param {boolean} [false] False to Anonymous mode (Opcional)
+     * @returns {Promise<void>}
      * @example
      * Client.login('token')
      *  .then()
@@ -163,130 +149,90 @@ class Client extends EventEmmiter {
      *  .then()
      */
     login(token) {
-        return this.sleept.methods.login(token);
+        return this.wsManager.methods.login(token);
     }
 
     /**
      * Join the bot on the channel parsed
-     * @param {String} [channelName] The name of the channel the bot will connect
-     * @returns {Promise<Pending>} true if the bot connect, false if it cannot connect
+     * @param {string} [channelName] The name of the channel the bot will connect
+     * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()
      */
     join(channelName) {
-        return this.sleept.methods.join(channelName);
+        return this.wsManager.methods.join(channelName);
     }
 
     /**
      * Leave the bot on the channel parsed
-     * @param {String} [channelName] The name of the channel the bot will disconnect
-     * @returns {Promise<Pending>} true if the bot disconnect, false if it cannot disconnect
+     * @param {string} [channelName] The name of the channel the bot will disconnect
+     * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
      * client.leave('channelName')
      *  .then()
      */
     leave(channelName) {
-        return this.sleept.methods.leave(channelName);
+        return this.wsManager.methods.leave(channelName);
     }
 
     /**
      * Get the API ping
-     * @returns {Promise<Number>} return the API ping in milliseconds
+     * @returns {Promise<number>} return the API ping in milliseconds
      * @example
      * client.ping()
      */
     ping() {
-        return this.sleept.methods.ping();
+        return this.wsManager.methods.ping();
     }
 
     /**
      * Emit a event from client level
-     * @param {String} event the name of the event than will be sended
-     * @param {Any} args the args of the event
+     * @param {string} event the name of the event than will be sended
+     * @param {any} args the args of the event
      * @example
      * client.eventEmmiter('event', Args)
      */
     eventEmmiter(event, ...args) {
         switch (event) {
             case 'message':
-                // eslint-disable-next-line no-case-declarations
-                const responseMessage = {
+                this.emit(event, {
                     /**
-                     * @returns {String} text content of message
+                     * @returns {string} text content of message
                      */
                     toString() {
                         return this.content;
                     },
                     /**
-                     * @type {String} The string of context text of message
+                     * @type {string} The string of context text of message
                      */
                     content: args[0].params[1].toString(),
                     /**
                      * responds the author of message
-                     * @param {String} [message] the message than will be sended as reply of original message
-                     * @return {Promise<Pending>} The message sended metadata
+                     * @param {string} [message] the message than will be sended as reply of original message
+                     * @return {Promise<void>} The message sended metadata
                      */
                     reply: (message) => {
                         // eslint-disable-next-line max-len
-                        return this.sleept.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
+                        return this.wsManager.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
                     },
                     id: args[0].tags.id,
                     channel: this.channels.get(args[0].params[0]),
                     author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
-                };
-                this.emit(event, responseMessage);
-                break;
-            case 'ready':
-                this.emit(event, args[0], args[1]);
+                });
                 break;
             default:
-                this.emit(event, args);
+                this.emit(event, ...args);
                 break;
         }
-    }
-
-    /**
-     * Sweeps all text-based channels' messages and removes the ones older than the max message lifetime.
-     * If the message has been edited, the time of the edit is used rather than the time of the original message.
-     * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
-     * will be removed from the caches. The default is based on {@link ClientOptions#messageCacheLifetime}
-     * @returns {number} Amount of messages that were removed from the caches,
-     * or -1 if the message cache lifetime is unlimited
-     * @private
-     */
-    // eslint-disable-next-line no-unused-vars
-    sweepMessages(lifetime = this.options.messageCacheLifetime) {
-        /* 
-        if (typeof lifetime !== 'number' || isNaN(lifetime)) logger.fatal('The lifetime must be a number.');
-        if (lifetime <= 0) {
-            logger.debug('Didn\'t sweep messages - lifetime is unlimited');
-            return -1;
-        }
-
-        const lifetimeMs = lifetime * 1000;
-        const now = Date.now();
-        let channels = 0;
-        let messages = 0;
-
-        for (const channel of this.channels.values()) {
-            if (!channel.messages) continue;
-            channels++;
-
-            messages += channel.messages.sweep((message) => now - message.createdTimestamp > lifetimeMs);
-        }
-
-        logger.debug(`Swept ${messages} messages older than ${lifetime} seconds in ${channels} channels`);
-        return messages;
-        */
     }
 
     /**
      * Disconnect client from TwitchIRC
-     * @returns {Promise<Pending>} returned when client disconnect.
+     * @returns {Promise<void>} returned when client disconnect.
      */
     disconnect() {
-        return this.sleept.methods.disconnect();
+        return this.wsManager.methods.disconnect();
     }
 
     /**
@@ -295,42 +241,51 @@ class Client extends EventEmmiter {
      * @private
      */
     _validateOptions(options = this.options) {
+        const ErrorMessage = [];
+
         if (typeof options.messageCacheMaxSize !== 'number' || isNaN(options.messageCacheMaxSize)) {
-            throw new TypeError('The messageMaxSize option must be a number.');
+            ErrorMessage.push('The messageMaxSize option must be a number.');
         }
+        
         if (typeof options.messageCacheLifetime !== 'number' || isNaN(options.messageCacheLifetime)) {
-            throw new TypeError('The messageCacheLifetime option must be a number.');
+            ErrorMessage.push('The messageCacheLifetime option must be a number.');
         }
+        
         if (typeof options.messageSweepInterval !== 'number' || isNaN(options.messageSweepInterval)) {
-            throw new TypeError('The messageSweepInterval option must be a number.');
+            ErrorMessage.push('The messageSweepInterval option must be a number.');
         }
+        
         if (typeof options.fetchAllChatters !== 'boolean') {
-            throw new TypeError('The fetchAllChatters option must be a boolean.');
+            ErrorMessage.push('The fetchAllChatters option must be a boolean.');
         }
+
         if (options.disabledEvents && !(options.disabledEvents instanceof Array)) {
-            throw new TypeError('The disabledEvents option must be an Array.');
+            ErrorMessage.push('The disabledEvents option must be an Array.');
         }
+
         if (typeof options.retryLimit !== 'number' || isNaN(options.retryLimit)) {
-            throw new TypeError('The retryLimit  options must be a number.');
+            ErrorMessage.push('The retryLimit options must be a number.');
         }
+
         if (options.autoLogEnd && typeof options.autoLogEnd !== 'boolean') {
-            throw new TypeError('The autoLogEnd options must be a boolean.');
+            ErrorMessage.push('The autoLogEnd options must be a boolean.');
         }
+
         if (options.channels && !(options.channels instanceof Array)) {
-            throw new TypeError('The channels options must be a array.');
+            ErrorMessage.push('The channels options must be a array.');
         }
+
         if (options.debug && typeof options.debug !== 'boolean') {
-            throw new TypeError('The debug options must be a boolean.');
+            ErrorMessage.push('The debug options must be a boolean.');
         }
+        
         if (options.connectedChannels && !(options.channels instanceof Array) && options.connectedChannels.length > 0) {
-            throw new TypeError('The connectedChannels options must be a array and must be empty.');
+            ErrorMessage.push('The connectedChannels options must be a array and must be empty.');
         }
-        Object.keys(options).forEach((OptionName) => {
-            if (!Object.keys(constants.defaultOptions).includes(OptionName)) {
-                autoEndLog.activate();
-                throw new TypeError('The option: ' + OptionName + ' is not a valid option.');
-            }
-        });
+
+        if (ErrorMessage.length > 0) {
+            throw new TypeError(ErrorMessage.join(' and '));
+        }
     }
 }
 
