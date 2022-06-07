@@ -2,14 +2,18 @@
 
 ## v1.1.0: Sleept Update
 
-- Rename SLEEPT to WebSocket
+- Rename SLEEPT to WebSocket 📝
+- Improved data types for typescript users 🔝
+- Remove unused code ➖
+- Fix urls on readme 📖
+- Minor Bugs Fixes 🐜
 
 ## v1.0.1: DMCA Update
 
-- Changed url's
-  - Removed `twitchapis.org`
-  - Temporary `purplewolfsoftware.allonsve.com`
-- Update dependencies
+- Changed url's 📝
+  - Removed `twitchapis.org` ➖
+  - Temporary `purplewolfsoftware.allonsve.com` ➕
+- Update dependencies 🕚
 - Minor Bugs Fixes 🐜
 
 ## v1.0.0: Pegasi Update

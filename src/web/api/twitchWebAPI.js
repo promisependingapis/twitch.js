@@ -13,6 +13,8 @@ var headers;
 
 /**
  * Api for making http requests to twitch
+ * @class TwitchWebAPI
+ * @param {Object} options - Options for the twitch http request api
  */
 class twitchRequest {
     constructor(options) {
@@ -23,8 +25,9 @@ class twitchRequest {
 
     /**
      * Do a http request to twitch web api
-     * @param {String} path 
-     * @param {Object} options 
+     * @param {string} [method] The http method to use
+     * @param {string} [path] The path to the api endpoint
+     * @param {object} [options] The options for the request
      */
     request(method, path, options) {
         return new Promise((resolve, reject) => {

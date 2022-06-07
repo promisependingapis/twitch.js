@@ -62,7 +62,7 @@ class Client extends EventEmmiter {
         /**
          * Time at which the client was last regarded as being in the `READY` state
          * (each time the client disconnects and successfully reconnects, this will be overwritten)
-         * @type {?Date}
+         * @type {?date}
          */
         this.readyAt = null;
 
@@ -89,7 +89,7 @@ class Client extends EventEmmiter {
 
         /**
          * A collection with all channels
-         * @type {Collection}
+         * @type {collection}
          */
         this.channels = new collection();
         /**
@@ -140,7 +140,7 @@ class Client extends EventEmmiter {
      * Logs the client in, establishing a websocket connection to Twitch.
      * @param {string} [token] Token of the account to log in with (Opcional)
      * @param {boolean} [false] False to Anonymous mode (Opcional)
-     * @returns {Promise<Pending>}
+     * @returns {Promise<void>}
      * @example
      * Client.login('token')
      *  .then()
@@ -189,7 +189,7 @@ class Client extends EventEmmiter {
     /**
      * Emit a event from client level
      * @param {string} event the name of the event than will be sended
-     * @param {Any} args the args of the event
+     * @param {any} args the args of the event
      * @example
      * client.eventEmmiter('event', Args)
      */
@@ -210,7 +210,7 @@ class Client extends EventEmmiter {
                     /**
                      * responds the author of message
                      * @param {string} [message] the message than will be sended as reply of original message
-                     * @return {Promise<Pending>} The message sended metadata
+                     * @return {Promise<void>} The message sended metadata
                      */
                     reply: (message) => {
                         // eslint-disable-next-line max-len
@@ -229,7 +229,7 @@ class Client extends EventEmmiter {
 
     /**
      * Disconnect client from TwitchIRC
-     * @returns {Promise<Pending>} returned when client disconnect.
+     * @returns {Promise<void>} returned when client disconnect.
      */
     disconnect() {
         return this.wsManager.methods.disconnect();

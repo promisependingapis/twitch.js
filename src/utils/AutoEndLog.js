@@ -10,6 +10,12 @@ logger = new logger();
 // skipcq: JS-0239
 var exited;
 
+/**
+ * Application exit handler
+ * @param {object} [options] 
+ * @param {?number} [exitCode] 
+ * @private
+ */
 function exitHandler(options, exitCode) {
     process.stdin.resume();
     if (!exited) {

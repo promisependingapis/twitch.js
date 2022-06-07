@@ -18,6 +18,8 @@ class chatters {
 
     /**
      * Get chatter info
+     * @param {string} [channelID] The ID of the channel
+     * @returns {Promise<any>}
      */
     getChattersInfo(channelName) {
         return new Promise((resolve, reject) => {
