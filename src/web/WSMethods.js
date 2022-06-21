@@ -514,7 +514,7 @@ class WSMethods {
 
     /**
      * Disconnect from IRC
-     * @return {Promise<[string, number]>} returns when IRC sucessfull disconnect
+     * @return {Promise<Array<string, number>>} returns when IRC sucessfull disconnect
      */
     disconnect() {
         return new Promise((resolve, reject) => {

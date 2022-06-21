@@ -1,7 +1,17 @@
 // eslint-disable-next-line strict
 'use strict';
 
+/**
+ * The websocket message parser
+ * @private
+ */
 module.exports = {
+    /**
+     * Parse the message
+     * @param {string} message - The message to parse
+     * @returns {object|null} The parsed message or null if the message is not valid
+     * @private
+     */
     Message(data) {
         var message = {
             raw: data,

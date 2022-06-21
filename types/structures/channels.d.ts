@@ -1,9 +1,14 @@
-export = channels;
+export = Channels;
 /**
  * Channel collection template for creating all channels collections
  */
-declare class channels {
-    constructor(client: any, data: any);
+declare class Channels {
+    /**
+     * @class
+     * @param {Client} [client]
+     * @param {object} [data]
+     */
+    constructor(client?: any, data?: object);
     name: any;
     connected: boolean;
     users: any;

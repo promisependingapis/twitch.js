@@ -4,12 +4,12 @@ export = Collection;
  * an ID, for significantly improved performance and ease-of-use.
  * @extends {Map}
  */
-declare class Collection {
+declare class Collection extends Map<any, any> {
     constructor(iterable: any);
-    set(key: any, val: any): any;
+    set(key: any, val: any): Collection;
     _array: any[];
     _keyArray: any[];
-    delete(key: any): any;
+    delete(key: any): boolean;
     /**
      * Creates an ordered array of the values of this collection, and caches it internally. The array will only be
      * reconstructed if an item is added to or removed from the collection, or if you change the length of the array

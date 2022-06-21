@@ -111,9 +111,9 @@ declare class WSMethods {
     private updateUser;
     /**
      * Disconnect from IRC
-     * @return {Promise<[string, number]>} returns when IRC sucessfull disconnect
+     * @return {Promise<Array<string, number>>} returns when IRC sucessfull disconnect
      */
-    disconnect(): Promise<[string, number]>;
+    disconnect(): Promise<Array<string, number>>;
     /**
      * Reply a message sended on channel
      * @param {string} [msgId] The id of the message who will be responded

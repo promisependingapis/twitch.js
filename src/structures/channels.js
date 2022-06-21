@@ -3,11 +3,18 @@
 
 const path = require('path');
 const { logger, collection } = require(path.resolve(__dirname,'..','utils'));
+// eslint-disable-next-line no-unused-vars
+const { Client } = require(path.resolve(__dirname, '..'));
 
 /**
  * Channel collection template for creating all channels collections
  */
-class channels {
+class Channels {
+    /**
+     * @class
+     * @param {Client} [client] 
+     * @param {object} [data] 
+     */
     constructor(client, data) {
         /**
          * The client that created the instance of the channel
@@ -58,4 +65,4 @@ class channels {
     }
 }
 
-module.exports = channels;
+module.exports = Channels;

@@ -74,7 +74,7 @@ export type ClientOptions = {
      * processed, potentially resulting in performance improvements for larger bots. Only disable events you are
      * 100% certain you don't need, as many are important, but not obviously so. [Not implemented, don't change it]
      */
-    disabledEvents?: WSEventType[];
+    disabledEvents?: Array<WSEventType>;
     /**
      * autoLogEnd option
      */
@@ -82,11 +82,11 @@ export type ClientOptions = {
     /**
      * Channels bot will listen
      */
-    channels?: string[];
+    channels?: Array<string>;
     /**
      * Array of channels where bot is connected
      */
-    connectedChannels?: string[];
+    connectedChannels?: Array<string>;
     /**
      * Starts the bot in debug mode if activated
      */

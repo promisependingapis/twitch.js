@@ -31,6 +31,10 @@ function exitHandler(options, exitCode) {
 }
 
 module.exports = {
+    /**
+     * Activates the exit handler
+     * @returns {void}
+     */
     activate: () => {
         process.on('exit', exitHandler.bind(null, {}));
         process.on('SIGINT', exitHandler.bind(null, {}));

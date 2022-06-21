@@ -5,6 +5,7 @@ const WSMethods = require('./WSMethods');
 
 /**
  * The manager for all things than envolve WebSocket.
+ * @private
  */
 class WSMananger {
     constructor(client) {

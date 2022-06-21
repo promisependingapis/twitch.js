@@ -1,1 +1,1 @@
-{"version":3,"file":"twitchWebAPI.d.ts","sourceRoot":"","sources":["../../../src/web/api/twitchWebAPI.js"],"names":[],"mappings":";AAaA;;;;GAIG;AACH;IACI,0BAIC;IAED;;;;;OAKG;IACH,iBAJW,MAAM,SACN,MAAM,YACN,MAAM,OA4ChB;CACJ"}
+{"version":3,"file":"twitchWebAPI.d.ts","sourceRoot":"","sources":["../../../src/web/api/twitchWebAPI.js"],"names":[],"mappings":";AAaA;;GAEG;AACH;IACI;;;OAGG;IACH,sBAFW,MAAM,EAMhB;IAED;;;;;;OAMG;IACH,iBALW,MAAM,SACN,MAAM,YACN,MAAM,GACJ,QAAQ,GAAG,CAAC,CA4CxB;CACJ"}

@@ -11,6 +11,10 @@ var request;
  * The class for the getChattersInfo function 
  */
 class chatters {
+    /**
+     * @class
+     * @param {object} [options]
+     */
     constructor(options) {
         const TwitchWebAPI = new TwitchWebAPIC(options);
         request = TwitchWebAPI.request;

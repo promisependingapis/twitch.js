@@ -1,14 +1,21 @@
 // eslint-disable-next-line strict
 'use strict';
 
+/**
+ * Utility Class
+ * @private
+ */
 class util {
+    /**
+     * @class
+     */
     constructor() {
         throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
     }
     /**
      * Sets default properties on an object that aren't already specified.
-     * @param {object} def Default properties
-     * @param {object} given Object to assign defaults to
+     * @param {object} [def] Default properties
+     * @param {object} [given] Object to assign defaults to
      * @returns {object}
      * @private
      */
