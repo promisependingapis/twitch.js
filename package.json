@@ -15,6 +15,7 @@
   "main": "./src/main",
   "types": "./src/main",
   "scripts": {
+    "build": "npx tsc --build",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
@@ -37,10 +38,26 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=10.x"
+    "node": ">=12.x"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "^5.0.1",
+    "ws": "^8.8.0"
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
   }
 }
