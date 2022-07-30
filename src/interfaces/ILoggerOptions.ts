@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-export enum ILoggerLevel {
+
+export enum ELoggerLevel {
     INFO = 0,
     LOG = 0,
     WARN = 1,
@@ -9,10 +10,11 @@ export enum ILoggerLevel {
     FATAL = 3,
     DEBUG = 4
 }
-  
+
 export interface ILoggerOptions {
-    debug?: boolean,
-    prefix?: string,
-    defaultLevel?: ILoggerLevel
+    defaultLevel?: ELoggerLevel;
+    prefix?: string;
+    debug?: boolean;
+    coloredBackground?: boolean;
+    disableFatalCrash?: boolean;
 }
-  

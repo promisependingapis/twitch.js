@@ -27,6 +27,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Utils = exports.Interfaces = void 0;
-exports.Interfaces = __importStar(require("./interface"));
-__exportStar(require("./client"), exports);
+exports.Interfaces = __importStar(require("./interfaces"));
 exports.Utils = __importStar(require("./utils"));
+__exportStar(require("./client"), exports);

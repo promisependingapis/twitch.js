@@ -1,7 +1,7 @@
 {
   "name": "@twitchapis/twitch.js",
   "version": "2.0.0",
-  "description": "twitch.js is a powerful Node.js module that allows you to easily interact with the TwitchTV making easy the way to make a TwitchTV bot, for a custom chat overlay for you OBS, or a moderation bot for you chat, or you just want a easy interface to TwitchTV.",
+  "description": "Twitch.JS is a Nodejs library made with typescript to interact with the Twitch API in a simple and easy way.",
   "keywords": [
     "nodejs",
     "twitch",
@@ -41,21 +41,22 @@
     "node": ">=12.x"
   },
   "dependencies": {
+    "@discordjs/collection": "^1.0.1",
     "axios": "^0.27.2",
-    "chalk": "^5.0.1",
-    "ws": "^8.8.0"
+    "chalk": "^4.1.2",
+    "ws": "^8.8.1"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.6.2",
     "@types/ws": "^8.5.3",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
-    "eslint": "^8.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4"

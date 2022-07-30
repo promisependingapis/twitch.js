@@ -66,12 +66,20 @@
         "destructuring": "all"
       }
     ],
+    "prefer-promise-reject-errors": ["off"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "strict": ["error", "global"],
     "semi": ["error", "always"],
     "spaced-comment": ["warn", "always"],
     "sort-keys": ["off"],
-    "space-before-function-paren": ["off"],
+    "space-before-function-paren": [
+      "error",
+      {
+      "anonymous": "ignore",
+      "named": "never",
+      "asyncArrow": "always"
+      }
+    ],
     "space-infix-ops": "warn"
   },
   "env": {

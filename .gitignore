@@ -36,6 +36,7 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/
 
 # Dependency directories
 */node_modules/
@@ -104,7 +105,11 @@ dist
 # TernJS port file
 .tern-port
 
-# tests
+# Build
+build/
+out/
+build/**/*
+
+# Tests
 test.*
 teste.*
-src/sleept/api/functions/follow.js

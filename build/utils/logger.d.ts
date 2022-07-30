@@ -1,16 +1,19 @@
-import { ILoggerOptions, ILoggerLevel } from '../interface';
+import { ILoggerOptions, ELoggerLevel } from '../interfaces';
 export declare class Logger {
     private defaultLevel;
     private debugActive;
     private prefix?;
-    constructor({ prefix, debug, defaultLevel }: ILoggerOptions);
+    private coloredBackground;
+    private colors;
+    private disableFatalCrash;
+    constructor({ prefix, debug, defaultLevel, coloredBackground, disableFatalCrash }: ILoggerOptions);
     private getFormattedPrefix;
     private getTime;
-    info(text: string | Number | Error, ...args: any): void;
-    warn(text: string | Number | Error, ...args: any): void;
-    error(text: string | Number | Error, ...args: any): void;
-    fatal(text: string | Number | Error, ...args: any): void;
-    debug(text: string | Number | Error, ...args: any): void;
-    log(message: string | Number | Error, level?: ILoggerLevel, ...args: any): void;
+    info(text: string | number | Error, ...args: any): void;
+    warn(text: string | number | Error, ...args: any): void;
+    error(text: string | number | Error, ...args: any): void;
+    fatal(text: string | number | Error, ...args: any): void;
+    debug(text: string | number | Error, ...args: any): void;
+    log(message: string | number | Error, level?: ELoggerLevel, ...args: any): void;
 }
 //# sourceMappingURL=logger.d.ts.map
