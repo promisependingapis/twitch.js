@@ -1,10 +1,19 @@
 // eslint-disable-next-line strict
 'use strict';
 
+const path = require('path');
+// eslint-disable-next-line no-unused-vars
+const { Client } = require(path.resolve(__dirname, '..'));
+
 /**
  * User collection template for creating all Users collections
  */
 class Users {
+    /**
+     * @class
+     * @param {Client} [client] 
+     * @param {object} [data] 
+     */
     constructor(client, data) {
         /**
          * The client that created the instance of the channel

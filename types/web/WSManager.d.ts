@@ -1,6 +1,7 @@
 export = WSMananger;
 /**
  * The manager for all things than envolve WebSocket.
+ * @private
  */
 declare class WSMananger {
     constructor(client: any);

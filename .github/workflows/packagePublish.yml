@@ -1,0 +1,35 @@
+name: Publish API to NPM
+
+on:
+  workflow_run:
+    workflows: ["Twitch.Js Test"]
+    types: [completed]
+    branches: [release]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      # Setup .npmrc file to publish to npm
+      - name: Setup .npmrc (NPM)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@twitchapis'
+      - name: Update NPM
+        run: npm install -g npm@latest
+      - name: Install dependencies
+        working-directory: ./api
+        run: npm ci
+      - name: Prepare to publish
+        working-directory: ./api
+        run: npm run pdeploy
+      - name: Publish to npm
+        working-directory: ./api/out
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

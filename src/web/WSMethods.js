@@ -172,7 +172,7 @@ class WSMethods {
             switch (messageObject.command) {
                 // Ping
                 case 'PING':
-                    this.ws.send('PONG');
+                    this.ws.send('PONG :tmi.twitch.tv');
                     break;
                 case 'PONG':
                     this.client.eventEmmiter('Method.Ping');
@@ -514,7 +514,7 @@ class WSMethods {
 
     /**
      * Disconnect from IRC
-     * @return {Promise<[string, number]>} returns when IRC sucessfull disconnect
+     * @return {Promise<Array<string, number>>} returns when IRC sucessfull disconnect
      */
     disconnect() {
         return new Promise((resolve, reject) => {

@@ -6,25 +6,25 @@ exports.Package = require(path.resolve(__dirname, '..','..','package.json'));
 
 /**
  * Options for a client.
- * @typedef {Object} ClientOptions
- * @property {Number} [messageCacheMaxSize=200] Maximum number of messages to cache per channel
+ * @typedef {object} ClientOptions
+ * @property {number} [messageCacheMaxSize=200] Maximum number of messages to cache per channel
  * (-1 or Infinity for unlimited - don't do this without message sweeping, otherwise memory usage will climb
  * indefinitely) [Not implemented, don't change it]
- * @property {Number} [messageCacheLifetime=0] How long a message should stay in the cache until it is considered
+ * @property {number} [messageCacheLifetime=0] How long a message should stay in the cache until it is considered
  * sweepable (in seconds, 0 for forever) [Not implemented, don't change it]
- * @property {Number} [messageSweepInterval=0] How frequently to remove messages from the cache that are older than
+ * @property {number} [messageSweepInterval=0] How frequently to remove messages from the cache that are older than
  * the message cache lifetime (in seconds, 0 for never) [Not implemented, don't change it]
- * @property {Boolean} [fetchAllChatters=true] Whether to cache all channel chatters and users upon startup, as well as
+ * @property {boolean} [fetchAllChatters=true] Whether to cache all channel chatters and users upon startup, as well as
  * upon joining a channel (should be avoided whenever possible) [Not implemented, don't change it]
- * @property {Boolean} [sync=false] Whether to periodically sync channels (for user accounts) [Not implemented, don't change it]
- * @property {Number} [retryLimit=infinity] How many times twitch.js will try to connect with twitchIRC [Not implemented, don't change it]
- * @property {WSEventType[]} [disabledEvents=[]] An array of disabled websocket events. Events in this array will not be
+ * @property {boolean} [sync=false] Whether to periodically sync channels (for user accounts) [Not implemented, don't change it]
+ * @property {number} [retryLimit=infinity] How many times twitch.js will try to connect with twitchIRC [Not implemented, don't change it]
+ * @property {Array<WSEventType>} [disabledEvents=[]] An array of disabled websocket events. Events in this array will not be
  * processed, potentially resulting in performance improvements for larger bots. Only disable events you are
  * 100% certain you don't need, as many are important, but not obviously so. [Not implemented, don't change it]
- * @property {Boolean} [autoLogEnd=true] autoLogEnd option
- * @property {String[]} [channels=[]] Channels bot will listen
- * @property {String[]} [connectedChannels=[]] Array of channels where bot is connected
- * @property {Boolean} [debug=false] Starts the bot in debug mode if activated
+ * @property {boolean} [autoLogEnd=true] autoLogEnd option
+ * @property {Array<string>} [channels=[]] Channels bot will listen
+ * @property {Array<string>} [connectedChannels=[]] Array of channels where bot is connected
+ * @property {boolean} [debug=false] Starts the bot in debug mode if activated
  * @property {WebsocketOptions} [ws] Options for the WebSocket
  * @property {HTTPOptions} [http] HTTP options
  */
@@ -43,11 +43,11 @@ exports.defaultOptions = {
 
     /**
      * WebSocket options (these are left as snake_case to match the API)
-     * @typedef {Object} WebsocketOptions
-     * @property {String} [host='irc-ws.chat.twitch.tv'] The default host to use into WebSocket.
-     * @property {Number} [port=443] The default port to use into WebSocket.
-     * @property {String} [type='wss'] The default type of WebSocket (Must be 'ws' or 'wss').
-     * @property {Number} [large_threshold=250] Number of chatters in a channel to be considered large [Not implemented, don't change it]
+     * @typedef {object} WebsocketOptions
+     * @property {string} [host='irc-ws.chat.twitch.tv'] The default host to use into WebSocket.
+     * @property {number} [port=443] The default port to use into WebSocket.
+     * @property {string} [type='wss'] The default type of WebSocket (Must be 'ws' or 'wss').
+     * @property {number} [large_threshold=250] Number of chatters in a channel to be considered large [Not implemented, don't change it]
      */
     ws: {
         host: 'irc-ws.chat.twitch.tv',
@@ -58,11 +58,11 @@ exports.defaultOptions = {
 
     /**
      * HTTP options
-     * @typedef {Object} HTTPOptions
-     * @property {Number} [version=7] Default API version to use [Not implemented, don't change it]
-     * @property {String} [host='tmi.twitch.tv'] Base url of the IRC
-     * @property {String} [hostID='id.twitch.tv'] Base url of the ID IRC
-     * @property {Object} [headers] Default http request options
+     * @typedef {object} HTTPOptions
+     * @property {number} [version=7] Default API version to use [Not implemented, don't change it]
+     * @property {string} [host='tmi.twitch.tv'] Base url of the IRC
+     * @property {string} [hostID='id.twitch.tv'] Base url of the ID IRC
+     * @property {object} [headers] Default http request options
      */
     http: {
         version: 7,

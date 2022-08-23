@@ -3,9 +3,9 @@ export = Client;
  * Creates the main class to generate clients.
  * @extends {EventEmmiter}
  */
-declare class Client {
+declare class Client extends EventEmmiter {
     /**
-     * @type {ClientOptions} [autoLogEnd boolean, Default: true]
+     * @type {ClientOptions}
      */
     constructor(options?: {});
     /**
@@ -28,9 +28,9 @@ declare class Client {
     /**
      * Time at which the client was last regarded as being in the `READY` state
      * (each time the client disconnects and successfully reconnects, this will be overwritten)
-     * @type {?date}
+     * @type {?Date}
      */
-    readyAt: date;
+    readyAt: Date | null;
     /**
      * The bool of the system of auto logger finish event
      * @type {boolean}
@@ -52,6 +52,7 @@ declare class Client {
     };
     /**
      * Returns the time bot is connected with twitch in miliseconds
+     * @async
      * @returns {Promise<number>}
      * @example
      * await Client.uptime()
@@ -61,6 +62,7 @@ declare class Client {
     uptime(): Promise<number>;
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
+     * @async
      * @param {string} [token] Token of the account to log in with (Opcional)
      * @param {boolean} [false] False to Anonymous mode (Opcional)
      * @returns {Promise<void>}
@@ -74,6 +76,7 @@ declare class Client {
     login(token?: string): Promise<void>;
     /**
      * Join the bot on the channel parsed
+     * @async
      * @param {string} [channelName] The name of the channel the bot will connect
      * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
      * @example
@@ -83,6 +86,7 @@ declare class Client {
     join(channelName?: string): Promise<boolean>;
     /**
      * Leave the bot on the channel parsed
+     * @async
      * @param {string} [channelName] The name of the channel the bot will disconnect
      * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
@@ -92,6 +96,7 @@ declare class Client {
     leave(channelName?: string): Promise<boolean>;
     /**
      * Get the API ping
+     * @async
      * @returns {Promise<number>} return the API ping in milliseconds
      * @example
      * client.ping()
@@ -107,6 +112,7 @@ declare class Client {
     eventEmmiter(event: string, ...args: any): void;
     /**
      * Disconnect client from TwitchIRC
+     * @async
      * @returns {Promise<void>} returned when client disconnect.
      */
     disconnect(): Promise<void>;
@@ -117,4 +123,5 @@ declare class Client {
      */
     private _validateOptions;
 }
+import EventEmmiter = require("events");
 //# sourceMappingURL=Client.d.ts.map

@@ -11,10 +11,12 @@ var toptions;
 
 /**
  * The class for the validator function 
- * @class Validator
- * @param {Object} options - The options for the validator
  */
 class validator {
+    /**
+     * @class
+     * @param {object} [options] - The options for the validator
+     */
     constructor(options) {
         toptions = options;
         const TwitchWebAPI = new TwitchWebAPIC(options);
@@ -24,7 +26,7 @@ class validator {
     /**
      * validate the token on twitch's servers
      * @param {string} token the token to validate
-     * @returns {Promise<any} a promise that resolves to the token if valid, or rejects with an error
+     * @returns {Promise<any>} a promise that resolves to the token if valid, or rejects with an error
      */
     validate(token) {
         return new Promise((resolve, reject) => {

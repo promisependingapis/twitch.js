@@ -1,12 +1,27 @@
 // eslint-disable-next-line strict
 'use strict';
 
-const path = require('path');
+const Client = require('./client/Client');
+const Collection = require('./utils/collection');
+const logger = require('./utils/logger');
 
 module.exports = {
-    // Main
-    Client: require(path.resolve(__dirname,'client','Client')),
-    // Utils
-    Collection: require(path.resolve(__dirname,'utils','collection')),
-    logger: require(path.resolve(__dirname,'utils','logger')),
+    /**
+     * The client
+     * @type {Client}
+     * @class
+     */
+    Client,
+    /**
+     * Collection utility
+     * @type {Collection}
+     * @class
+     */
+    Collection,
+    /**
+     * The logger
+     * @type {logger}
+     * @class
+     */
+    logger
 };

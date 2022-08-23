@@ -3,7 +3,12 @@ export = Users;
  * User collection template for creating all Users collections
  */
 declare class Users {
-    constructor(client: any, data: any);
+    /**
+     * @class
+     * @param {Client} [client]
+     * @param {object} [data]
+     */
+    constructor(client?: any, data?: object);
     channel: any;
     userName: any;
     username: any;

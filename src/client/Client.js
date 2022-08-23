@@ -5,7 +5,8 @@ const path = require('path');
 const EventEmmiter = require('events');
 const WSManager = require(path.resolve(__dirname,'..','web','WSManager'));
 const { autoEndLog, constants, logger: LoggerC, Util, collection } = require(path.resolve(__dirname,'..','utils'));
-const channel = require(path.resolve(__dirname,'..','structures','channels'));
+// eslint-disable-next-line no-unused-vars
+const { channels: channel, users } = require(path.resolve(__dirname,'..','structures'));
 
 // skipcq: JS-0239
 var logger;
@@ -18,7 +19,7 @@ var wsManager;
  */
 class Client extends EventEmmiter {
     /**
-     * @type {ClientOptions} [autoLogEnd boolean, Default: true]
+     * @type {ClientOptions}
      */
     constructor(options = {}) {
         super();
@@ -62,7 +63,7 @@ class Client extends EventEmmiter {
         /**
          * Time at which the client was last regarded as being in the `READY` state
          * (each time the client disconnects and successfully reconnects, this will be overwritten)
-         * @type {?date}
+         * @type {?Date}
          */
         this.readyAt = null;
 
@@ -126,18 +127,20 @@ class Client extends EventEmmiter {
 
     /**
      * Returns the time bot is connected with twitch in miliseconds
+     * @async
      * @returns {Promise<number>}
      * @example
      * await Client.uptime()
      * @example
      * Client.uptime().then((Time) => { })
      */
-    uptime() {
+    async uptime() {
         return Promise.resolve(Date.now() - this.readyAt);
     }
 
     /**
      * Logs the client in, establishing a websocket connection to Twitch.
+     * @async
      * @param {string} [token] Token of the account to log in with (Opcional)
      * @param {boolean} [false] False to Anonymous mode (Opcional)
      * @returns {Promise<void>}
@@ -148,41 +151,44 @@ class Client extends EventEmmiter {
      * Client.login(false)
      *  .then()
      */
-    login(token) {
+    async login(token) {
         return this.wsManager.methods.login(token);
     }
 
     /**
      * Join the bot on the channel parsed
+     * @async
      * @param {string} [channelName] The name of the channel the bot will connect
      * @returns {Promise<boolean>} true if the bot connect, false if it cannot connect
      * @example
      * client.join('channelName')
      *  .then()
      */
-    join(channelName) {
+    async join(channelName) {
         return this.wsManager.methods.join(channelName);
     }
 
     /**
      * Leave the bot on the channel parsed
+     * @async
      * @param {string} [channelName] The name of the channel the bot will disconnect
      * @returns {Promise<boolean>} true if the bot disconnect, false if it cannot disconnect
      * @example
      * client.leave('channelName')
      *  .then()
      */
-    leave(channelName) {
+    async leave(channelName) {
         return this.wsManager.methods.leave(channelName);
     }
 
     /**
      * Get the API ping
+     * @async
      * @returns {Promise<number>} return the API ping in milliseconds
      * @example
      * client.ping()
      */
-    ping() {
+    async ping() {
         return this.wsManager.methods.ping();
     }
 
@@ -198,17 +204,20 @@ class Client extends EventEmmiter {
             case 'message':
                 this.emit(event, {
                     /**
+                     * The content of the message
                      * @returns {string} text content of message
                      */
                     toString() {
                         return this.content;
                     },
                     /**
-                     * @type {string} The string of context text of message
+                     * The content of the message
+                     * @type {string}
+                     * @readonly
                      */
                     content: args[0].params[1].toString(),
                     /**
-                     * responds the author of message
+                     * Responds the author of message
                      * @param {string} [message] the message than will be sended as reply of original message
                      * @return {Promise<void>} The message sended metadata
                      */
@@ -216,8 +225,23 @@ class Client extends EventEmmiter {
                         // eslint-disable-next-line max-len
                         return this.wsManager.methods.replyMessage(args[0].tags.id, args[0].params[0], message);
                     },
+                    /**
+                     * The message id
+                     * @type {string}
+                     * @readonly
+                     */
                     id: args[0].tags.id,
+                    /**
+                     * The channel of the message
+                     * @type {channel}
+                     * @readonly
+                     */
                     channel: this.channels.get(args[0].params[0]),
+                    /**
+                     * The author of the message
+                     * @type {users}
+                     * @readonly
+                     */
                     author: this.channels.get(args[0].params[0]).users.get(args[0].prefix.slice(0, args[0].prefix.indexOf('!'))),
                 });
                 break;
@@ -229,9 +253,10 @@ class Client extends EventEmmiter {
 
     /**
      * Disconnect client from TwitchIRC
+     * @async
      * @returns {Promise<void>} returned when client disconnect.
      */
-    disconnect() {
+    async disconnect() {
         return this.wsManager.methods.disconnect();
     }
 

@@ -2,8 +2,8 @@
 'use strict';
 
 /**
- * @private
  * @returns {string} - Returns the current time in the format HH:MM:SS
+ * @private
  */
 function getTime() {
     const time = getTimeRaw();
@@ -17,8 +17,8 @@ function getTime() {
 }
 
 /**
- * @private
  * @returns {string} - Returns the current time in the format H:M:S
+ * @private
  */
 function getTimeRaw() {
     return `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
