@@ -172,7 +172,7 @@ class WSMethods {
             switch (messageObject.command) {
                 // Ping
                 case 'PING':
-                    this.ws.send('PONG');
+                    this.ws.send('PONG :tmi.twitch.tv');
                     break;
                 case 'PONG':
                     this.client.eventEmmiter('Method.Ping');
