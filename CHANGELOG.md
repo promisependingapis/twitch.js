@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1: Pong Update
+- Fixed ping bug where twitch.js would sends a wrong ping reply. 🐜
+  - Check: https://dev.twitch.tv/docs/irc#keepalive-messages 📖
+
 ## v1.1.0: Sleept Update
 
 - Rename SLEEPT to WebSocket 📝
