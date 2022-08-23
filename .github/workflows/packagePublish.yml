@@ -1,4 +1,4 @@
-name: Publish API to NPM
+name: Publish to NPM
 
 on:
   workflow_run:
@@ -23,13 +23,8 @@ jobs:
       - name: Update NPM
         run: npm install -g npm@latest
       - name: Install dependencies
-        working-directory: ./api
         run: npm ci
-      - name: Prepare to publish
-        working-directory: ./api
-        run: npm run pdeploy
       - name: Publish to npm
-        working-directory: ./api/out
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
