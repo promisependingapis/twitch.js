@@ -1,4 +1,5 @@
-import { ITwitchMessage, ITwitchCommand, ITwitchTags, ITwitchSource } from '../interfaces';
+import { IMessage, ITwitchMessage, ITwitchCommand, ITwitchTags, ITwitchSource } from '../interfaces';
+import { Client } from '../client';
 
 // https://dev.twitch.tv/docs/irc/example-parser
 
@@ -158,5 +159,23 @@ export function parseMessage(message: string): ITwitchMessage {
     parsedMessage.source = parseSource(rawSourceComponent);
     parsedMessage.parameters = rawParametersComponent;
   }
+  return parsedMessage;
+}
+
+export function parseFinalMessage(client: Client, message: ITwitchMessage): IMessage {
+  const channel = client.channels.get(message.command.channel);
+  const id = message.tags.id ?? null;
+  const parsedMessage: IMessage = {
+    content: message.parameters,
+    id,
+    channel,
+    reply: (message: string): void => {
+      client.getWebSocketManager().getConnection().send(`@reply-parent-msg-id=${id} PRIVMSG #${channel.name} :${message}`);
+    },
+    author: client.channels.get(message.command.channel).users.get(message.source.nick),
+    toString(): string {
+      return this.content;
+    },
+  };
   return parsedMessage;
 }

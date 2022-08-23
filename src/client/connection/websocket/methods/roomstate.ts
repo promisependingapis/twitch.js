@@ -19,7 +19,7 @@ export default class RoomState {
   public execute(message: ITwitchMessage): Promise<void> {
     return new Promise((resolve) => {
       const tags: ITwitchRoomStateTags = message.tags as ITwitchRoomStateTags;
-      const channelName: string = message.parameters[0];
+      const channelName: string = message.command.channel;
 
       if (this.client.channels.has(channelName)) {
         this.client.channels.updateChannel(channelName, tags);

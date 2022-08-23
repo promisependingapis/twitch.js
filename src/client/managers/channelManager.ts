@@ -13,10 +13,12 @@ export class ChannelManager {
   }
 
   public get(channelName: string): ChannelStructure {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return this.cache.get(channelName);
   }
 
   public has(channelName: string): boolean {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return this.cache.has(channelName);
   }
 
@@ -30,16 +32,19 @@ export class ChannelManager {
   }
 
   public generateChannel(channelName: string): ChannelStructure {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return new ChannelStructure(this.client, channelName);
   }
 
   public generateChannelFromTwitch(channelName: string, tags: ITwitchRoomStateTags): ChannelStructure {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
     const channelBase = new ChannelStructure(this.client, channelName);
 
     return this.updateFromTags(channelBase, tags);
   }
 
   public updateChannel(channelName: string, tags: ITwitchRoomStateTags): ChannelStructure {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
     if (!this.has(channelName)) {
       const newChannel = this.generateChannelFromTwitch(channelName, tags);
       this.addChannel(newChannel);

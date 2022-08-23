@@ -19,15 +19,21 @@ export default class UserState {
   public execute(message: ITwitchMessage): Promise<void> {
     return new Promise((resolve) => {
       const tags: ITwitchUserStateTags = message.tags as ITwitchUserStateTags;
-      const userName: string = message.parameters[0];
+      const channelName: string = message.command.channel;
 
-      if (this.client.users.has(userName)) {
-        this.client.users.updateUser(userName, tags);
+      if (!this.client.channels.has(channelName)) {
+        const channel = this.client.channels.generateChannel(channelName);
+        this.client.channels.addChannel(channel);
+      }
+
+      if (this.client.channels.get(channelName).users.has(tags['display-name'].toLowerCase())) {
+        this.client.channels.get(channelName).users.updateUser(tags['display-name'].toLowerCase(), tags);
         return resolve();
       }
 
-      const user = this.client.users.generateUserFromTwitch(userName, tags);
-      this.client.users.addUser(user);
+      const user = this.client.channels.get(channelName).users.generateUserFromTwitch(tags['display-name'].toLowerCase(), tags);
+      user.channel = this.client.channels.get(channelName);
+      this.client.channels.get(channelName).users.addUser(user);
       return resolve();
     });
   }

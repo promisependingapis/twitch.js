@@ -69,7 +69,7 @@ export class WebSocketManager {
           .then(async (res: any) => {
             this.username = res.login.toString();
             this.client.getLogger().debug(`Logging in as ${this.username}...`);
-            this.isAnonymous = true;
+            this.isAnonymous = false;
             this.connection.send(`PASS ${token}`);
             this.connection.send(`NICK ${this.username.toLowerCase()}`);
           })
@@ -121,22 +121,28 @@ export class WebSocketManager {
     this.client.getLogger().error('WebSocket closed: ' + reason + '. With code: ' + code);
   }
 
+  /**
+   * @private
+   */
+  public getConnection(): ws.WebSocket {
+    return this.connection;
+  }
+
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (typeof channel !== 'string') {
         this.client.getLogger().warn('The channel must be a String');
         return reject('The channel must be a String');
-      } else if (typeof message !== 'string') {
-        this.client.getLogger().warn('The message must be a String');
-        return reject('The message must be a String');
-      } else if (!message || message === null) {
+      } else if (!message || message.length === 0) {
         this.client.getLogger().warn('Cannot send empty messages');
         return reject('Cannot send empty messages');
       } else if (this.isAnonymous) {
         this.client.getLogger().warn('Cannot send messages in anonymous mode!');
         return reject('Cannot send messages in anonymous mode!');
+      } else if (!channel.startsWith('#')) {
+        channel = '#' + channel;
       }
-      this.connection.send('PING');
+      this.connection.send(`PRIVMSG ${channel} :${(message as string[]).join(' ')}`);
     });
   }
 }

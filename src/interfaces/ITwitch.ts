@@ -17,7 +17,7 @@ export interface ITwitchMessage {
     tags: ITwitchTags,
     source: ITwitchSource,
     command: ITwitchCommand,
-    parameters?: string[]
+    parameters?: string,
 }
 
 export interface ITwitchRoomStateTags extends ITwitchTags {
@@ -32,13 +32,15 @@ export interface ITwitchRoomStateTags extends ITwitchTags {
 
 export interface ITwitchUserStateTags extends ITwitchTags {
     'badge-info'?: boolean,
-    badges?: any,
+    badges?: { [key: string]: any },
     color?: string,
     'display-name'?: string,
     'emote-sets'?: string,
-    mod?: number,
-    subscriber?: number,
-    turbo?: number,
+    mod?: string,
+    subscriber?: string,
+    turbo?: string,
     'user-type'?: any, // Enum of i don't know how many options
     'user-id'?: any,
 }
+
+export interface ITwitchMultiStateTags extends ITwitchUserStateTags, ITwitchRoomStateTags {}

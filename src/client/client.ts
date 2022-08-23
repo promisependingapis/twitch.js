@@ -3,14 +3,17 @@ import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
 import { Logger, autoLogEnd, waiters } from '../utils';
 import { RestManager } from './connection/rest';
-import { UserStructure } from '../structures';
+import { BasicUserStructure } from '../structures';
 import EventEmitter from 'events';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
-  public users: UserManager;
-  public user: UserStructure;
+  public user: BasicUserStructure;
 
+  /**
+   * @private
+   */
+  public userManager: UserManager;
   private steps: { [key: string]: Array<any> };
   private stepManagerStarted: boolean;
   private wsManager: WebSocketManager;
@@ -33,7 +36,7 @@ export class Client extends EventEmitter {
     this.restManager = new RestManager(this);
     this.wsManager = new WebSocketManager(this);
 
-    this.users = new UserManager(this);
+    this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
     this.steps = {
@@ -53,9 +56,12 @@ export class Client extends EventEmitter {
         async (): Promise<void> => { await this.wsManager.login(this.token); },
         async (): Promise<void> => { await waiters.waitForTwitchConnection.bind(this)(); },
       ],
+      [ESteps.POST_LOGIN]: [
+        async (): Promise<void> => { await this.multiJoin(this.options.channels); },
+      ],
       [ESteps.READY]: [
         ():void => { this.readyAt = Date.now(); },
-        ():void => { this.rawEmit('ready'); },
+        ():void => { this.rawEmit('ready', this.options.ws.host, this.options.ws.port); },
       ],
     };
   }
@@ -193,6 +199,57 @@ export class Client extends EventEmitter {
    */
   public async uptime(): Promise<number> {
     return Promise.resolve(Math.max((Date.now() - this.readyAt), 0));
+  }
+
+  /**
+   * Connects with a twitch channel chat
+   * @param {string} [channel] the channel name who will be connected
+   * @return {Promise<void>} Resolved when sucessfull connect with channel
+   */
+  public async join(channel: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (channel.includes(' ')) {
+        this.logger.error('Channel name cannot include spaces: ' + channel);
+        return reject('Channel name cannot include spaces: ' + channel);
+      }
+      if (!channel.startsWith('#')) {
+        channel = '#' + channel;
+      }
+      if (this.channels.get(channel) && this.channels.get(channel).connected === true) {
+        this.logger.warn('Already connected with this channel!');
+        return reject('Already connected with this channel!');
+      }
+      this.logger.debug('Connecting to: ' + channel.toLowerCase());
+      this.wsManager.getConnection().send(`JOIN ${channel.toLowerCase()}`);
+      resolve(channel);
+    });
+  }
+
+  /**
+   * Connects in multiples twitch channels chats
+   * @param {Array<string>} [channels] the array of channels to join
+   * @return {Promise<void>} Resolved when sucessfull connect with channel
+   */
+  public async multiJoin(channels: string[]): Promise<string> {
+    return new Promise(async (resolve, reject) => {
+      if (channels.length === 0) {
+        this.logger.error('No channels to join!');
+        return reject('No channels to join!');
+      }
+      this.logger.debug('Connecting to: ' + channels.join(', '));
+      channels.forEach((channel, index) => {
+        if (channel.includes(' ')) {
+          this.logger.error('Channel name cannot include spaces: ' + channel);
+          return reject('Channel name cannot include spaces: ' + channel);
+        }
+
+        if (!channel.startsWith('#')) {
+          channels[index] = '#' + channel;
+        }
+      });
+      this.wsManager.getConnection().send(`JOIN ${channels.join(',')}`);
+      resolve(channels.join(', '));
+    });
   }
 
   /**

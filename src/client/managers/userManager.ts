@@ -1,5 +1,5 @@
 import { ITwitchUserStateTags } from '../../interfaces';
-import { UserStructure } from '../../structures';
+import { BasicUserStructure, UserStructure } from '../../structures';
 import { Collection } from '@discordjs/collection';
 import { Client } from '..';
 
@@ -26,17 +26,23 @@ export class UserManager {
   }
 
   public addUser(user: UserStructure): Collection<string, UserStructure> {
-    return this.set(user.name, user);
+    return this.set(user.username, user);
   }
 
   public generateUser(userName: string): UserStructure {
-    return new UserStructure(this.client, userName);
+    return new UserStructure(this.client, { username: userName });
   }
 
   public generateUserFromTwitch(userName: string, tags: ITwitchUserStateTags): UserStructure {
-    const user = new UserStructure(this.client, userName);
+    const user = new UserStructure(this.client, { username: userName });
 
     return this.updateFromTags(user, tags);
+  }
+
+  public generateBasicUserFromTwitch(userName: string, tags: ITwitchUserStateTags): BasicUserStructure {
+    const user = new BasicUserStructure(this.client, { username: userName });
+
+    return this.updateBasicFromTags(user, tags);
   }
 
   public updateUser(userName: string, tags: ITwitchUserStateTags): UserStructure {
@@ -60,16 +66,29 @@ export class UserManager {
     user.badges = tags.badges !== null ? tags.badges : user.badges;
     user.color = tags.color !== null ? tags.color : user.color;
     user.displayName = tags['display-name'] !== null ? tags['display-name'] : user.displayName;
-    user.mod = tags.mod !== null ? tags.mod >= 1 : user.mod;
-    user.subscriber = tags.subscriber !== null ? tags.subscriber >= 1 : user.subscriber;
-    user.turbo = tags.turbo !== null ? tags.turbo >= 1 : user.turbo;
+    user.mod = tags.mod !== null ? Number.parseInt(tags.mod) >= 1 : user.mod;
+    user.subscriber = tags.subscriber !== null ? Number.parseInt(tags.subscriber) >= 1 : user.subscriber;
+    user.turbo = tags.turbo !== null ? Number.parseInt(tags.turbo) >= 1 : user.turbo;
+    user.userType = tags['user-type'] !== null ? tags['user-type'] : user.userType;
+    user.broadcaster = user.badges.hasOwnProperty('broadcaster');
+    user.vip = user.badges.hasOwnProperty('vip');
+    user.staff = user.badges.hasOwnProperty('staff');
+    user.admin = user.badges.hasOwnProperty('admin');
+    user.globalMod = user.badges.hasOwnProperty('global_mod');
+    user.premium = user.badges.hasOwnProperty('premium');
+    user.id = user.self ? user.id : tags['user-id'] !== null ? tags['user-id'] : user.id;
+
+    return user;
+  }
+
+  public updateBasicFromTags(user: BasicUserStructure, tags: ITwitchUserStateTags): BasicUserStructure {
+    user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
+    user.badges = tags.badges !== null ? tags.badges : user.badges;
     user.userType = tags['user-type'] !== null ? tags['user-type'] : user.userType;
     user.self = user.username === tags.username;
-    user.broadcaster = user.badges.toString().includes('broadcaster');
-    user.vip = user.badges.toString().includes('vip');
-    user.staff = user.badges.toString().includes('staff');
-    user.admin = user.badges.toString().includes('admin');
-    user.globalMod = user.badges.toString().includes('global_mod');
+    user.staff = user.badges.hasOwnProperty('staff');
+    user.admin = user.badges.hasOwnProperty('admin');
+    user.globalMod = user.badges.hasOwnProperty('global_mod');
     user.id = user.self ? user.id : tags['user-id'] !== null ? tags['user-id'] : user.id;
 
     return user;

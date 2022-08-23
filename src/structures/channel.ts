@@ -1,13 +1,12 @@
-import { Collection } from '@discordjs/collection';
+import { UserManager } from '../client/managers';
 import { Client } from '../client';
-import { UserStructure } from './user';
 import { format } from 'util';
 
 export class ChannelStructure {
   client: Client;
   name: string;
   connected: boolean;
-  users: Collection<string, UserStructure>;
+  users: UserManager;
   emoteOnly: boolean;
   followersOnly: boolean;
   followersCoolDown: number;
@@ -22,7 +21,7 @@ export class ChannelStructure {
     this.client = client;
     this.name = channelName;
     this.connected = false;
-    this.users = new Collection<string, UserStructure>();
+    this.users = new UserManager(client);
     this.emoteOnly = false;
     this.followersOnly = false;
     this.followersCoolDown = -1; // in minutes
@@ -51,7 +50,7 @@ export class ChannelStructure {
    * Client.channels.get('channel-id').getUserCount(); // returns the amount of users in the channel
    */
   getUserCount(): number {
-    return this.users.size;
+    return this.users.cache.size;
   }
 
   /**
@@ -62,7 +61,8 @@ export class ChannelStructure {
    * @example
    * Client.channels.get('channel-id').send('Hello World!'); // sends a message to the channel
    */
-  send(message: string, options?: string[]): Promise<any> {
+  send(message: string, options: string[] | string): Promise<any> {
+    if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
   }
 }

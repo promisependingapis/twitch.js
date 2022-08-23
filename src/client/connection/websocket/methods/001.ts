@@ -1,5 +1,5 @@
 import { ITwitchMessage, IWSMethodRunCondition } from '../../../../interfaces';
-import { UserStructure } from '../../../../structures';
+import { BasicUserStructure } from '../../../../structures';
 import { Client } from '../../../client';
 
 export default class Pong {
@@ -26,20 +26,14 @@ export default class Pong {
       this.client.getLogger().debug('Logged in successfully as ' + command.channel);
 
       // Creates user collection
-      this.client.user = new UserStructure(this.client, {
+      this.client.user = new BasicUserStructure(this.client, {
         username: command.channel,
-        displayName: command.channel,
         id: command.channel,
         self: true,
-        moderator: true,
-        subscriber: true,
-        turbo: false,
         userType: true,
-        vip: false,
         staff: false,
         admin: false,
         globalMod: false,
-        broadcaster: true,
       });
 
       this.client.setIsReady(true);
