@@ -61,7 +61,7 @@
 - Add user unban method 🥳
 - Add user untimeout method 😄
 - Fix ready event emit 🔔
-- Start implementing new automatizated tests 🧪
+- Start implementing new automatized tests 🧪
 - Fix bug in disconnect method 💫
 - Minor Bugs Fixes 🐜
 
@@ -104,7 +104,7 @@
 ### v1.0.0-beta.11
 
 - Backwards compatibility 🔙
-- Code otimization ⏩
+- Code optimization ⏩
 
 ### v1.0.0-beta.10
 
@@ -127,7 +127,7 @@
 ### v1.0.0-beta.8
 
 - Fixed bug than allows you to send messages on not connected channels 🐛
-- Solved minor crashs than can happen when you try to disconnect from a channel ✅
+- Solved minor crashes than can happen when you try to disconnect from a channel ✅
 
 ### v1.0.0-beta.7
 
