@@ -6,7 +6,7 @@ const expectedOptions = {
   loginWaitTimeout: false,
   autoLogEndEnabled: false,
   autoLogEndUncaughtException: true,
-  channels: ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interprise'],
+  channels: [],
   connectedChannels: [],
   debug: true,
   fetchAllChatters: true,
@@ -38,6 +38,7 @@ const expectedOptions = {
 const run = (logger, client, channels, mainChannel) => {
   return new Promise((resolve, reject) => {
     const options = client.getOptions();
+    expectedOptions.channels = [mainChannel];
     const isEqual = JSON.stringify(options) === JSON.stringify(expectedOptions);
     if (isEqual) {
       resolve();

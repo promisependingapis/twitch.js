@@ -6,7 +6,7 @@ const run = (logger, client) => {
     return new Promise(async (resolve, reject) => {
         const promises = [];
         const rejects = [];
-        client.channels.array().forEach((channel) => {
+        client.channels.cache.toJSON().forEach((channel) => {
             promises.push(
                 new Promise((resolve2) => {
                     channel.send(`[${Date.now()}] Automatic test message`).then(() => {

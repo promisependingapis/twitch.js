@@ -18,7 +18,7 @@ var actualCheck = 0;
 var checks = 0;
 
 const client = new Client({
-  channels: channels,
+  channels: [mainChannel],
   loginWaitTimeout: false,
   debug: true,
   loggerOptions: {
@@ -40,8 +40,7 @@ const logger = new loggerClass({
   debug: true,
   coloredBackground: false,
   allLineColored: true,
-  prefix: 'Tester',
-  disableFatalCrash: true
+  prefix: 'Tester'
 });
 
 const scriptDir = path.resolve(__dirname, 'scripts');
