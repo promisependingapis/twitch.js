@@ -1,7 +1,7 @@
 import { IWSMethodRunCondition } from '../../../../interfaces';
 import { Client } from '../../../client';
 
-export default class M372 {
+export default class M376 {
   private client: Client;
 
   constructor(client: Client) {
@@ -11,12 +11,13 @@ export default class M372 {
   public preLoad(): Promise<IWSMethodRunCondition> {
     return new Promise((resolve) => {
       resolve({
-        command: '372',
+        command: '376',
       });
     });
   }
 
   public execute(): void {
+    this.client.setIsReady(true);
     return this.client.getWebSocketManager().pingLoop();
   }
 }

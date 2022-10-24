@@ -91,14 +91,19 @@ export class Client extends EventEmitter {
       this.stepManager();
       this.on('client.changedStepTo.INIT', () => {
         return resolve();
-      })
+      });
     });
   }
 
-  public login(token?: string): void {
-    this.token = token;
-    this.tokenVerified = true;
-    this.stepManager();
+  public login(token?: string): Promise<void> {
+    return new Promise((resolve) => {
+      this.token = token;
+      this.tokenVerified = true;
+      this.stepManager();
+      this.on('client.changedStepTo.POST_LOGIN', () => {
+        return resolve();
+      });
+    });
   }
 
   /**
@@ -138,6 +143,12 @@ export class Client extends EventEmitter {
     return Math.max((Date.now() - this.readyAt), 0);
   }
 
+  public async ping(): Promise<number> {
+    const currentTimestamp = Date.now();
+    await this.wsManager.ping();
+    return Promise.resolve(Date.now() - currentTimestamp);
+  }
+
   /**
    * Connects with a twitch channel chat
    * @param {string} [channel] the channel name who will be connected
@@ -149,16 +160,30 @@ export class Client extends EventEmitter {
         this.logger.error('Channel name cannot include spaces: ' + channel);
         return reject('Channel name cannot include spaces: ' + channel);
       }
+
       if (!channel.startsWith('#')) {
         channel = '#' + channel;
       }
+
       if (this.channels.get(channel) && this.channels.get(channel).connected === true) {
         this.logger.warn('Already connected with this channel!');
         return reject('Already connected with this channel!');
       }
+
       this.logger.debug('Connecting to: ' + channel.toLowerCase());
       this.wsManager.getConnection().send(`JOIN ${channel.toLowerCase()}`);
-      resolve(channel);
+
+      const timeout = setTimeout(() => {
+        this.logger.error('Timeout while connecting to channel: ' + channel);
+        return reject('Timeout while connecting to channel: ' + channel);
+      }, 10000);
+
+      this.on('join', (joinedChannel: ChannelStructure) => {
+        if ("#" + joinedChannel.name === channel) {
+          clearTimeout(timeout);
+          return resolve(channel);
+        }
+      });
     });
   }
 
@@ -173,7 +198,9 @@ export class Client extends EventEmitter {
         this.logger.error('No channels to join!');
         return reject('No channels to join!');
       }
+
       this.logger.debug('Connecting to: ' + channels.join(', ').toLowerCase());
+
       channels.forEach((channel, index) => {
         if (channel.includes(' ')) {
           this.logger.error('Channel name cannot include spaces: ' + channel);
@@ -184,8 +211,31 @@ export class Client extends EventEmitter {
           channels[index] = '#' + channel;
         }
       });
+
       this.wsManager.getConnection().send(`JOIN ${channels.join(',').toLowerCase()}`);
-      resolve(channels.join(', ').toLowerCase());
+
+      const timeouts = new Map<String, ReturnType<typeof setTimeout>>();
+
+      channels.forEach((channel) => {
+        timeouts.set(channel, setTimeout(() => {
+          this.logger.error('Timeout while connecting to channel: ' + channel);
+          channels.splice(channels.indexOf("#" + channel), 1);
+          timeouts.delete("#" + channel);
+          return reject('Timeout while connecting to channel: ' + channel);
+        }, 10000));
+      });
+
+      this.on('join', (joinedChannel: ChannelStructure) => {
+        if (channels.includes("#" + joinedChannel.name)) {
+          clearTimeout(timeouts.get("#" + joinedChannel.name));
+          channels.splice(channels.indexOf("#" + joinedChannel.name), 1);
+          timeouts.delete("#" + joinedChannel.name);
+        }
+
+        if (channels.length === 0) {
+          return resolve(channels.join(', ').toLowerCase());
+        }
+      });
     });
   }
 

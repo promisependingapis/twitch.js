@@ -36,7 +36,6 @@ export default class M001 {
         globalMod: false,
       });
 
-      this.client.setIsReady(true);
       resolve();
     });
   }
