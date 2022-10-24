@@ -27,7 +27,7 @@ export interface ITwitchRoomStateTags extends ITwitchTags {
     rituals?: boolean,
     'room-id'?: number,
     slow?: number,
-    'subs-only'?: boolean
+    'subs-only'?: boolean,
 }
 
 export interface ITwitchUserStateTags extends ITwitchTags {

@@ -24,7 +24,10 @@ jobs:
         run: npm install -g npm@latest
       - name: Install dependencies
         run: npm ci
+      - name: Prepare package
+        run: npm run pdeploy
       - name: Publish to npm
+        working-directory: ./build
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

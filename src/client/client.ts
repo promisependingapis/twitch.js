@@ -1,10 +1,11 @@
 import { IClientOptions, defaultOptions, ESteps } from '../interfaces/';
 import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
-import { Logger, autoLogEnd, waiters } from '../utils';
+import { Logger, waiters } from '../utils';
 import { RestManager } from './connection/rest';
-import { BasicUserStructure } from '../structures';
+import { BasicUserStructure, ChannelStructure } from '../structures';
 import EventEmitter from 'events';
+import logOptions from '../utils/logOptions';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
@@ -25,6 +26,7 @@ export class Client extends EventEmitter {
   private logger: Logger;
   private token: string;
   private readyAt = 0;
+  resolveRunningStep: () => any;
 
   constructor(options: IClientOptions) {
     super();
@@ -39,17 +41,19 @@ export class Client extends EventEmitter {
     this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
+    this.resolveRunningStep = (): any => null;
+
     this.steps = {
       [ESteps.PRE_INIT]: [
         async (): Promise<void> => { await this.setOptions(options); },
-        (): void => { this.logger.info('System is prepared, initializing...'); },
-      ],
-      [ESteps.INIT]: [
         async (): Promise<void> => { await this.restManager.loadAllMethods(); },
         async (): Promise<void> => { await this.wsManager.loadMethods(); },
+        (): void => { this.logger.debug('System is prepared, initializing...'); },
+      ],
+      [ESteps.INIT]: [
+        async (): Promise<void> => { await waiters.waitForToken.bind(this)(); },
       ],
       [ESteps.POST_INIT]: [
-        async (): Promise<void> => { await waiters.waitForToken.bind(this)(); },
         async (): Promise<void> => { await this.wsManager.start(); },
       ],
       [ESteps.LOGIN]: [
@@ -63,6 +67,15 @@ export class Client extends EventEmitter {
         ():void => { this.readyAt = Date.now(); },
         ():void => { this.rawEmit('ready', this.options.ws.host, this.options.ws.port); },
       ],
+      [ESteps.RUNNING]: [
+        async (): Promise<void> => { return new Promise((resolve) => { this.resolveRunningStep = resolve; }); },
+      ],
+      [ESteps.STOPPING]: [
+        async (): Promise<void> => { await this.wsManager.disconnect(); },
+      ],
+      [ESteps.STOPPED]: [
+        (): void => { this.logger.debug('GoodBye! Hope to see you again. 😊'); },
+      ],
     };
   }
 
@@ -74,7 +87,12 @@ export class Client extends EventEmitter {
   }
 
   public start(): Promise<void> {
-    return this.stepManager();
+    return new Promise((resolve) => {
+      this.stepManager();
+      this.on('client.changedStepTo.INIT', () => {
+        return resolve();
+      })
+    });
   }
 
   public login(token?: string): void {
@@ -86,105 +104,14 @@ export class Client extends EventEmitter {
   /**
    * @description Set the client options
    * @param [options]: IClientOptions
-   * @returns [boolean] - True if the options were set, false otherwise
+   * @returns {Promise<void>}
    * @private
    */
   private setOptions(options: IClientOptions): Promise<void> {
-    return new Promise((resolve) => {
-      this.options = { ...defaultOptions, ...options };
-
-      if (this.options.debug) {
-        this.options.loggerOptions.debug = true;
-      }
-
-      if (this.options.prefix) {
-        this.options.loggerOptions.prefix = this.options.prefix;
-      }
-
-      if (this.options.disableFatalCrash) {
-        this.options.loggerOptions.disableFatalCrash = true;
-      }
-
-      this.logger = new Logger(this.options.loggerOptions);
-
-      this.logger.debug('Debug Mode Enabled!');
-
-      if (this.options.autoLogEndEnabled) {
-        autoLogEnd.activate(this.options.autoLogEndUncaughtException ?? false);
-        this.logger.debug('Auto Log End™ enabled');
-        if (this.options.autoLogEndUncaughtException) {
-          this.logger.debug('Auto Log End™ will log uncaught exceptions');
-        }
-      }
-
-      if (this.options.connectedChannels.length > 0) {
-        this.logger.error('`ConnectedChannels` has been set, but it is a private parameter! Use the `Channels` property instead!');
-        this.logger.warn('Changing the `ConnectedChannels` property values to the `Channels` automatically!');
-        this.options.channels = [...this.options.channels, ...this.options.connectedChannels];
-        this.options.connectedChannels = [];
-      }
-
-      if (this.options.fetchAllChatters) {
-        this.logger.debug('Fetching all chatters is enabled!');
-      }
-
-      if (this.options.messageCacheLifetime > 0) {
-        this.logger.debug('Message cache lifetime is set to ' + this.options.messageCacheLifetime + ' seconds');
-      }
-
-      if (this.options.messageCacheMaxSize > 0) {
-        this.logger.debug('Message cache max size is set to ' + this.options.messageCacheMaxSize);
-      }
-
-      if (this.options.messageSweepInterval > 0) {
-        this.logger.debug('Message sweep interval is set to ' + this.options.messageSweepInterval + ' seconds');
-      }
-
-      if (this.options.retryInterval > 0) {
-        this.logger.debug('Retry interval is set to ' + this.options.retryInterval + ' seconds');
-      }
-
-      if (this.options.retryLimit > 0) {
-        this.logger.debug('Retry limit is set to ' + this.options.retryLimit);
-      }
-
-      if (this.options.sync) {
-        this.logger.debug('Synchronization is enabled!');
-      }
-
-      if (this.options.syncInterval > 0) {
-        this.logger.debug('Synchronization interval is set to ' + this.options.syncInterval + ' seconds');
-      }
-
-      if (this.options.ws.host) {
-        this.logger.debug('WebSocket host is set to ' + this.options.ws.host);
-      }
-
-      if (this.options.ws.port) {
-        this.logger.debug('WebSocket port is set to ' + this.options.ws.port);
-      }
-
-      if (this.options.ws.type) {
-        this.logger.debug('WebSocket type is set to ' + this.options.ws.type);
-      }
-
-      if (this.options.http.host) {
-        this.logger.debug('HTTP host is set to ' + this.options.http.host);
-      }
-
-      if (this.options.http.hostID) {
-        this.logger.debug('HTTP host ID is set to ' + this.options.http.hostID);
-      }
-
-      if (this.options.http.headers) {
-        this.logger.debug('HTTP headers are set to ' + JSON.stringify(this.options.http.headers));
-      }
-
-      if (this.options.channels.length > 0) {
-        this.logger.debug('Channels are set to ["' + this.options.channels.join('", "') + '"]');
-      }
-
-      this.logger.debug('Client options set!');
+    return new Promise(async (resolve) => {
+      const [modifiedOptions, logger] = await logOptions(defaultOptions, options);
+      this.options = modifiedOptions;
+      this.logger = logger;
       resolve();
     });
   }
@@ -202,9 +129,19 @@ export class Client extends EventEmitter {
   }
 
   /**
+   * @description returns the client uptime in milliseconds
+   * @returns {number} the number of milliseconds since the client is ready
+   * @example
+   * const uptime = Client.uptime();
+   **/
+  public uptimeSync(): number {
+    return Math.max((Date.now() - this.readyAt), 0);
+  }
+
+  /**
    * Connects with a twitch channel chat
    * @param {string} [channel] the channel name who will be connected
-   * @return {Promise<void>} Resolved when sucessfull connect with channel
+   * @return {Promise<string>} Resolved when successfully connect with channel
    */
   public async join(channel: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -228,7 +165,7 @@ export class Client extends EventEmitter {
   /**
    * Connects in multiples twitch channels chats
    * @param {Array<string>} [channels] the array of channels to join
-   * @return {Promise<void>} Resolved when sucessfull connect with channel
+   * @return {Promise<string>} Resolved when successfully connect with channel
    */
   public async multiJoin(channels: string[]): Promise<string> {
     return new Promise(async (resolve, reject) => {
@@ -236,7 +173,7 @@ export class Client extends EventEmitter {
         this.logger.error('No channels to join!');
         return reject('No channels to join!');
       }
-      this.logger.debug('Connecting to: ' + channels.join(', '));
+      this.logger.debug('Connecting to: ' + channels.join(', ').toLowerCase());
       channels.forEach((channel, index) => {
         if (channel.includes(' ')) {
           this.logger.error('Channel name cannot include spaces: ' + channel);
@@ -247,8 +184,40 @@ export class Client extends EventEmitter {
           channels[index] = '#' + channel;
         }
       });
-      this.wsManager.getConnection().send(`JOIN ${channels.join(',')}`);
-      resolve(channels.join(', '));
+      this.wsManager.getConnection().send(`JOIN ${channels.join(',').toLowerCase()}`);
+      resolve(channels.join(', ').toLowerCase());
+    });
+  }
+
+  public async leave(channel: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (channel.includes(' ')) {
+        this.logger.error('Channel name cannot include spaces: ' + channel);
+        return reject('Channel name cannot include spaces: ' + channel);
+      }
+      if (!channel.startsWith('#')) {
+        channel = '#' + channel;
+      }
+      if (this.user.username === channel) return reject('You can\'t leave your own channel');
+      this.logger.debug(`Leaving channel ${channel}`);
+      if (this.channels.get(channel) && this.channels.get(channel).connected === false) {
+        this.logger.warn(`Already disconnected with ${channel} channel!`);
+        return reject(`Already disconnected with ${channel} channel!`);
+      }
+      this.logger.debug('Disconnecting from: ' + channel.toLowerCase());
+      this.wsManager.getConnection().send(`PART ${channel.toLowerCase()}`);
+      this.on('leave', (channel: ChannelStructure) => {
+        if (channel.name) {
+          resolve(channel.name);
+        }
+      });
+    });
+  }
+
+  public async disconnect(): Promise<void> {
+    return new Promise((resolve) => {
+      this.resolveRunningStep();
+      resolve();
     });
   }
 

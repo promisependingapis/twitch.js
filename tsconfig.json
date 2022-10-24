@@ -2,7 +2,7 @@
     // Change this to match your project
     "include": ["src/**/*"],
     "compilerOptions": {
-      "lib": ["ES6", "DOM", "ES2015", "ES2017"],
+      "lib": ["ES6", "DOM", "ES2015", "ES2017", "ES2018"],
       "esModuleInterop": true,
       "removeComments": false,
       // Tells TypeScript to read JS files, as
@@ -13,7 +13,7 @@
       // Types should go into this directory.
       // Removing this would place the .d.ts files
       // next to the .js files
-      "outDir": "build",
+      "outDir": "./build/src/",
       // go to js file when using IDE functions like
       // "Go to Definition" in VSCode
       "declarationMap": true,

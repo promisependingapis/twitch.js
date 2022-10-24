@@ -8,13 +8,15 @@ export class Logger {
   private coloredBackground: boolean;
   private colors: any;
   private disableFatalCrash: boolean;
+  private allLineColored: boolean;
 
-  constructor({ prefix, debug, defaultLevel, coloredBackground, disableFatalCrash }: ILoggerOptions) {
+  constructor({ prefix, debug, defaultLevel, coloredBackground, disableFatalCrash, allLineColored }: ILoggerOptions) {
     this.prefix = prefix ?? '';
     this.debugActive = debug ?? false;
     this.defaultLevel = defaultLevel ?? ELoggerLevel.INFO;
     this.coloredBackground = coloredBackground ?? false;
     this.disableFatalCrash = disableFatalCrash ?? false;
+    this.allLineColored = allLineColored ?? false;
 
     this.colors = {
       info: '#cc80ff',
@@ -51,7 +53,15 @@ export class Logger {
       textConstructor = chalk.bgHex(this.colors.info)(chalk.black(textConstructor));
     }
 
-    textConstructor += ' ' + text;
+    if (this.allLineColored) {
+      if (this.coloredBackground) {
+        textConstructor += chalk.bgHex(this.colors.info)(chalk.black(' ' + text));
+      } else {
+        textConstructor += ' ' + chalk.hex(this.colors.info)(text);
+      }
+    } else {
+      textConstructor += ' ' + text;
+    }
 
     if ((!args && !(args instanceof Boolean)) || ((args instanceof Array) && args.length === 0)) {
       console.log(textConstructor);
@@ -71,7 +81,15 @@ export class Logger {
       textConstructor = chalk.bgHex(this.colors.warn)(chalk.black(textConstructor));
     }
 
-    textConstructor += ' ' + text;
+    if (this.allLineColored) {
+      if (this.coloredBackground) {
+        textConstructor += chalk.bgHex(this.colors.warn)(chalk.black(' ' + text));
+      } else {
+        textConstructor += ' ' + chalk.hex(this.colors.warn)(text);
+      }
+    } else {
+      textConstructor += ' ' + text;
+    }
 
     if ((!args && !(args instanceof Boolean)) || ((args instanceof Array) && args.length === 0)) {
       console.warn(textConstructor);
@@ -91,7 +109,15 @@ export class Logger {
       textConstructor = chalk.bgHex(this.colors.error)(chalk.black(textConstructor));
     }
 
-    textConstructor += ' ' + text;
+    if (this.allLineColored) {
+      if (this.coloredBackground) {
+        textConstructor += chalk.bgHex(this.colors.error)(chalk.black(' ' + text));
+      } else {
+        textConstructor += ' ' + chalk.hex(this.colors.error)(text);
+      }
+    } else {
+      textConstructor += ' ' + text;
+    }
 
     if ((!args && !(args instanceof Boolean)) || ((args instanceof Array) && args.length === 0)) {
       console.error(textConstructor);

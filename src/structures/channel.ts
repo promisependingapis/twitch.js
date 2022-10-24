@@ -16,6 +16,7 @@ export class ChannelStructure {
   slowMode: boolean;
   slowCoolDown: number;
   subsOnly: boolean;
+  self: boolean;
 
   constructor(client: Client, channelName: string) {
     this.client = client;
@@ -31,38 +32,44 @@ export class ChannelStructure {
     this.slowMode = false;
     this.slowCoolDown = 0; // in seconds
     this.subsOnly = false;
+
+    this.self = this.client.user.username === this.name ?? false;
   }
 
   /**
-   * Returns if the bot is connected to the channel
-   * @returns {boolean} True if the bot is connected to the channel, false if not
-   * @example
-   * Client.channels.get('channel-id').isConnected(); // returns true or false
-   */
+     * Returns if the bot is connected to the channel
+     * @returns {boolean} True if the bot is connected to the channel, false if not
+     * @example
+     * Client.channels.get('channel-id').isConnected(); // returns true or false
+     */
   isConnected(): boolean {
     return this.connected;
   }
 
   /**
-   * Returns the amount of users in the channel
-   * @returns {number} The amount of users in the channel
-   * @example
-   * Client.channels.get('channel-id').getUserCount(); // returns the amount of users in the channel
-   */
+     * Returns the amount of users in the channel
+     * @returns {number} The amount of users in the channel
+     * @example
+     * Client.channels.get('channel-id').getUserCount(); // returns the amount of users in the channel
+     */
   getUserCount(): number {
     return this.users.cache.size;
   }
 
   /**
-   * Sends a message to the channel
-   * @param {string} message The message to send
-   * @param {string[]} [options] The options to send the message with - Like a console.log()
-   * @returns {Promise<any>}
-   * @example
-   * Client.channels.get('channel-id').send('Hello World!'); // sends a message to the channel
-   */
+     * Sends a message to the channel
+     * @param {string} message The message to send
+     * @param {string[]} [options] The options to send the message with - Like a console.log()
+     * @returns {Promise<any>}
+     * @example
+     * Client.channels.get('channel-id').send('Hello World!'); // sends a message to the channel
+     */
   send(message: string, options: string[] | string): Promise<any> {
     if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
+  }
+
+  leave(): Promise<string> {
+    return this.client.leave(this.name);
   }
 }

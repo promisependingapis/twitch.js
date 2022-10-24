@@ -7,13 +7,14 @@ import path from 'path';
 import fs from 'fs';
 
 export class WebSocketManager {
-  private connection: ws.WebSocket;
-  private username = 'TwitchJSV2';
-  private restManager: RestManager;
-  private methodsFolder: string;
+  private pingLoopInterval: ReturnType<typeof setInterval>;
   private methods: { [key: string]: IWSMethod } = {};
-  private client: Client;
+  private connection: ws.WebSocket;
+  private restManager: RestManager;
+  private username = 'TwitchJSV2';
+  private methodsFolder: string;
   private isAnonymous: boolean;
+  private client: Client;
 
   constructor(client: Client) {
     this.methodsFolder = path.resolve(__dirname, 'methods');
@@ -118,6 +119,8 @@ export class WebSocketManager {
   }
 
   private onClose(code: number, reason: string): void {
+    this.client.rawEmit('websocket.closed', { code, reason });
+    if (code === 1000) return this.client.getLogger().debug('WebSocket connection closed!');
     this.client.getLogger().error('WebSocket closed: ' + reason + '. With code: ' + code);
   }
 
@@ -128,6 +131,21 @@ export class WebSocketManager {
     return this.connection;
   }
 
+  /**
+   * @private
+   */
+  public pingLoop(): void {
+    this.pingLoopInterval = setInterval(() => {
+      this.connection.send('PING :tmi.twitch.tv');
+    }, 60000);
+  }
+
+  /**
+   * Sends a message in the specified live chat
+   * @param channel - The channel to send the message to
+   * @param message - The message to send
+   * @returns {Promise<void>} - Resolves when the message is sent
+   */
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
       if (typeof channel !== 'string') {
@@ -143,6 +161,29 @@ export class WebSocketManager {
         channel = '#' + channel;
       }
       this.connection.send(`PRIVMSG ${channel} :${(message as string[]).join(' ')}`);
+      return resolve();
+    });
+  }
+
+  public async disconnect(): Promise<void> {
+    return new Promise(async (resolve) => {
+      if (this.connection.readyState === this.connection.CLOSED) return resolve();
+      this.client.getLogger().debug('Disconnecting...');
+      this.client.getLogger().debug('Leaving all channels...');
+      const leavedChannels = this.client.channels.cache.map(async channel => {
+        return channel.leave().catch(() => null);
+      });
+      const leavedChannelsNames = await Promise.all(leavedChannels);
+      this.client.getLogger().debug('Leaved channels: ' + leavedChannelsNames.join(', '));
+      this.client.getLogger().debug('Clearing timeouts...');
+      clearInterval(this.pingLoopInterval);
+      this.client.getLogger().debug('Closing WebSocket connection...');
+      this.connection.close(1000, 'Client disconnect');
+      this.client.on('websocket.closed', ({ code, reason }) => {
+        this.client.getLogger().debug('Disconnected!');
+        this.client.getLogger().debug('WebSocket closed: ' + reason + '. With code: ' + code);
+        resolve();
+      });
     });
   }
 }

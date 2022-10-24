@@ -16,5 +16,6 @@ export interface ILoggerOptions {
     prefix?: string;
     debug?: boolean;
     coloredBackground?: boolean;
+    allLineColored?: boolean;
     disableFatalCrash?: boolean;
 }

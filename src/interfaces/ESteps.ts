@@ -8,5 +8,8 @@ export enum ESteps {
     LOGIN = 'LOGIN',
     POST_LOGIN = 'POST_LOGIN',
     READY = 'READY',
-    RUNNING = 'RUNNING'
+    RUNNING = 'RUNNING',
+    ABOUT_TO_STOP = 'ABOUT_TO_STOP',
+    STOPPING = 'STOPPING',
+    STOPPED = 'STOPPED'
 }

@@ -1,7 +1,7 @@
 import { ITwitchMessage, IWSMethodRunCondition } from '../../../../interfaces';
 import { Client } from '../../../client';
 
-export default class Join {
+export default class Part {
   private client: Client;
 
   constructor(client: Client) {
@@ -11,21 +11,19 @@ export default class Join {
   public preLoad(): Promise<IWSMethodRunCondition> {
     return new Promise((resolve) => {
       resolve({
-        command: 'join',
+        command: 'part',
       });
     });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {
     return new Promise((resolve) => {
-      if (!this.client.channels.has(message.command.channel)) {
-        const channel = this.client.channels.generateChannel(message.command.channel);
+      if (this.client.channels.has(message.command.channel)) {
+        const channel = this.client.channels.get(message.command.channel);
+        channel.connected = false;
         this.client.channels.addChannel(channel);
+        this.client.rawEmit('leave', channel);
       }
-      const user = this.client.userManager.generateUser(message.source.nick);
-      user.channel = this.client.channels.get(message.command.channel);
-      this.client.channels.get(message.command.channel).users.addUser(user);
-      this.client.rawEmit('channel.join', this.client.channels.get(message.command.channel));
       return resolve();
     });
   }

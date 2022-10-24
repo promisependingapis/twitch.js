@@ -2,7 +2,7 @@ import { ITwitchMessage, IWSMethodRunCondition } from '../../../../interfaces';
 import { BasicUserStructure } from '../../../../structures';
 import { Client } from '../../../client';
 
-export default class Pong {
+export default class M001 {
   private client: Client;
 
   constructor(client: Client) {

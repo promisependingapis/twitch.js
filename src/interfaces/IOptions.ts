@@ -76,6 +76,7 @@ export const defaultOptions: IClientOptions = {
     defaultLevel: ELoggerLevel.INFO,
     prefix: '',
     coloredBackground: false,
+    allLineColored: false,
     debug: false,
     disableFatalCrash: false,
   },

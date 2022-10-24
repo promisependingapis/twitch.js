@@ -19,15 +19,22 @@ export default class RoomState {
   public execute(message: ITwitchMessage): Promise<void> {
     return new Promise((resolve) => {
       const tags: ITwitchRoomStateTags = message.tags as ITwitchRoomStateTags;
-      const channelName: string = message.command.channel;
+      const channelName: string = message.command.channel.toLowerCase();
 
       if (this.client.channels.has(channelName)) {
-        this.client.channels.updateChannel(channelName, tags);
+        const channel = this.client.channels.updateChannel(channelName, tags);
+        if (!channel.connected) {
+          channel.connected = true;
+        }
+        this.client.channels.addChannel(channel);
+        this.client.rawEmit('join', channel);
         return resolve();
       }
 
       const channel = this.client.channels.generateChannelFromTwitch(channelName, tags);
+      channel.connected = true;
       this.client.channels.addChannel(channel);
+      this.client.rawEmit('join', channel);
       return resolve();
     });
   }

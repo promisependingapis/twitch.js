@@ -45,3 +45,11 @@ export function activate(uncaughtException?: boolean): void {
     });
   });
 }
+
+export function deactivate(): void {
+  process.removeListener('exit', exitHandler);
+  process.removeListener('SIGINT', exitHandler);
+  process.removeListener('SIGUSR1', exitHandler);
+  process.removeListener('SIGUSR2', exitHandler);
+  process.removeListener('uncaughtException', exitHandler);
+}
