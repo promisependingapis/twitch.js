@@ -198,7 +198,7 @@ export class WebSocketManager {
     });
   }
 
-  public async disconnect(bypass: boolean = false): Promise<void> {
+  public async disconnect(bypass = false): Promise<void> {
     return new Promise(async (resolve) => {
       if (this.connection.readyState === this.connection.CLOSED) return resolve();
 
@@ -206,7 +206,7 @@ export class WebSocketManager {
 
       if (!bypass) {
         this.client.getLogger().debug('Leaving all channels...');
-        const leavedChannels = this.client.channels.cache.filter(channel => { return channel.connected }).map(async channel => {
+        const leavedChannels = this.client.channels.cache.filter(channel => { return channel.connected; }).map(async channel => {
           return channel.leave().catch(() => null);
         });
         const leavedChannelsNames = await Promise.all(leavedChannels);
@@ -221,7 +221,7 @@ export class WebSocketManager {
       if (!bypass) this.connection.close(1000, 'Client disconnect');
       else {
         this.connection.terminate();
-        this.client.getLogger().warn('Connection was destroyed!')
+        this.client.getLogger().warn('Connection was destroyed!');
       }
 
       this.client.on('websocket.closed', ({ code, reason }) => {

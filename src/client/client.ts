@@ -179,7 +179,7 @@ export class Client extends EventEmitter {
       }, 10000);
 
       this.on('join', (joinedChannel: ChannelStructure) => {
-        if ("#" + joinedChannel.name === channel) {
+        if ('#' + joinedChannel.name === channel) {
           clearTimeout(timeout);
           return resolve(channel);
         }
@@ -214,22 +214,22 @@ export class Client extends EventEmitter {
 
       this.wsManager.getConnection().send(`JOIN ${channels.join(',').toLowerCase()}`);
 
-      const timeouts = new Map<String, ReturnType<typeof setTimeout>>();
+      const timeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
       channels.forEach((channel) => {
         timeouts.set(channel, setTimeout(() => {
           this.logger.error('Timeout while connecting to channel: ' + channel);
-          channels.splice(channels.indexOf("#" + channel), 1);
-          timeouts.delete("#" + channel);
+          channels.splice(channels.indexOf('#' + channel), 1);
+          timeouts.delete('#' + channel);
           return reject('Timeout while connecting to channel: ' + channel);
         }, 10000));
       });
 
       this.on('join', (joinedChannel: ChannelStructure) => {
-        if (channels.includes("#" + joinedChannel.name)) {
-          clearTimeout(timeouts.get("#" + joinedChannel.name));
-          channels.splice(channels.indexOf("#" + joinedChannel.name), 1);
-          timeouts.delete("#" + joinedChannel.name);
+        if (channels.includes('#' + joinedChannel.name)) {
+          clearTimeout(timeouts.get('#' + joinedChannel.name));
+          channels.splice(channels.indexOf('#' + joinedChannel.name), 1);
+          timeouts.delete('#' + joinedChannel.name);
         }
 
         if (channels.length === 0) {

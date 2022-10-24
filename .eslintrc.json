@@ -91,8 +91,7 @@
     "standard",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {},
   "parser": "@typescript-eslint/parser",
