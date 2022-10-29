@@ -1,6 +1,20 @@
 # Changelog
 
 ## V2.0.0-beta.0
+- Beta release of the new version of the API. This release includes a brand new version of the API now based on the [typescript](https://www.typescriptlang.org/) language. This new version of the API is more stable and has a lot of improvements and includes a complete refactoring of the codebase from scratch, new features and bug fixes to provide a better user experience and to be more robust and more reliable. The new version is compatible with the previous version of the API without big changes.
+
+- [BREAKING]: We dropped support for Node.js 10.x, now the minimum version of Node.js required is 12.22.x.
+- [BREAKING]: We doesn't provide the "Collection" class anymore, now the "Collection" class is provided by the [@discordjs/collection](https://www.npmjs.com/package/@discordjs/collection) package.
+- [IMPORTANT]: We changed our brand name from "TwitchApis" to "PromisePending". In a near future we will change the name of the organization from "twitchapis" to "promisepending" in the NPM package.
+
+- [NEW]: We added a new system to load the API.
+  - This new system allows you to execute sequentially parts of your code together with the API parts of execution.
+  - This new system allows you to run the API startup process without having to pass your twitch token and will make the api wait till you call the token method to login in twitch's IRC.
+
+- [NEW]: We recreated our documentation from scratch.
+  - The new documentation is more complete and has a lot of improvements.
+  - The new documentation is now based on the [typedoc](https://typedoc.org/) library (json file).
+  - The new documentation is now available in [docs](https://twitch.js.org/docs) website.
 
 ## v1.1.1: Pong Update
 - Fixed ping bug where twitch.js would sends a wrong ping reply. 🐜

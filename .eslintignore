@@ -2,3 +2,4 @@
 .prettierignore
 .github/
 build/**/*
+tests/

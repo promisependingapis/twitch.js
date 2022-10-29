@@ -4,6 +4,7 @@ import { Client } from '../client';
 export class BasicUserStructure {
   client: Client;
   username: string;
+  name: string;
   id: string;
   premium: boolean;
   staff: boolean;
@@ -18,6 +19,7 @@ export class BasicUserStructure {
     this.client = client;
 
     this.username = data.username;
+    this.name = this.username;
     this.id = data.id ? data.id : '';
     this.premium = data.premium ? data.premium : false;
     this.staff = data.staff ? data.staff : false;

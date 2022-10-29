@@ -73,6 +73,7 @@ export class WebSocketManager {
             this.username = res.login.toString();
             this.client.getLogger().debug(`Logging in as ${this.username}...`);
             this.isAnonymous = false;
+            this.client.isAnonymous = false;
             this.connection.send(`PASS ${token}`);
             this.connection.send(`NICK ${this.username.toLowerCase()}`);
           })
@@ -85,6 +86,7 @@ export class WebSocketManager {
       } else {
         this.client.getLogger().debug('Logging in as anonymous...');
         this.isAnonymous = true;
+        this.client.isAnonymous = true;
         this.connection.send('PASS SCHMOOPIIE');
         this.connection.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
       }

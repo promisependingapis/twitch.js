@@ -10,6 +10,7 @@ import logOptions from '../utils/logOptions';
 export class Client extends EventEmitter {
   public channels: ChannelManager;
   public user: BasicUserStructure;
+  public isAnonymous: boolean;
 
   /**
    * @private
@@ -34,6 +35,7 @@ export class Client extends EventEmitter {
     this.currentStep = ESteps.PRE_INIT;
     this.token = null;
     this.tokenVerified = false;
+    this.isAnonymous = false;
     this.stepManagerStarted = false;
     this.restManager = new RestManager(this);
     this.wsManager = new WebSocketManager(this);

@@ -169,8 +169,18 @@ export function parseFinalMessage(client: Client, message: ITwitchMessage): IMes
     content: message.parameters,
     id,
     channel,
-    reply: (message: string): void => {
-      client.getWebSocketManager().getConnection().send(`@reply-parent-msg-id=${id} PRIVMSG #${channel.name} :${message}`);
+    reply: (message: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        if (!message || message.length === 0) {
+          client.getLogger().warn('Cannot send empty messages');
+          return reject('Cannot send empty messages');
+        } else if (client.isAnonymous) {
+          client.getLogger().warn('Cannot send messages in anonymous mode!');
+          return reject('Cannot send messages in anonymous mode!');
+        }
+        client.getWebSocketManager().getConnection().send(`@reply-parent-msg-id=${id} PRIVMSG #${channel.name} :${message}`);
+        return resolve();
+      });
     },
     author: client.channels.get(message.command.channel).users.get(message.source.nick),
     toString(): string {
