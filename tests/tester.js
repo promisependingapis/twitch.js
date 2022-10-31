@@ -1,141 +1,90 @@
 // eslint-disable-next-line strict
 'use strict';
+
+const path = require('path');
+const fs = require('fs');
 const chalk = require('chalk');
-var checks = 11;
+
+const { Utils, Client } = require(path.resolve(__dirname, '..', 'build'));
+const loggerClass = Utils.Logger;
+const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interprise'];
+
+const mainChannel = channels[Math.floor(Math.random() * channels.length)];
+
+var testFailed = false;
+
 var actualCheck = 0;
 
-function Logger (Message, type) {
-    switch (type) {
-        case 'warn':
-            console.log(chalk.blueBright('[' + actualCheck + '/' + checks + '] ') + chalk.yellow(Message));
-            break;
-        case 'sucs':
-            actualCheck += 1;
-            if (actualCheck > checks) {checks = actualCheck;}
-            console.log(chalk.blueBright('[' + actualCheck + '/' + checks + '] ') + chalk.green(Message));
-            break;
-        case 'err':
-            console.log(chalk.blueBright('[' + actualCheck + '/' + checks + '] ') + chalk.red(Message));
-            break;
-        default:
-            console.log(chalk.blueBright('[' + actualCheck + '/' + checks + '] ') + chalk.yellow(Message));
-            break;
-    }
+var checks = 0;
+
+const client = new Client({
+  channels: [mainChannel],
+  loginWaitTimeout: false,
+  debug: true,
+  loggerOptions: {
+    coloredBackground: false,
+    allLineColored: true,
+  },
+  disableFatalCrash: true,
+  http: {
+    hostID: 'https://api.promisepending.allonsve.com',
+  },
+  ws: {
+    host: 'irc.promisepending.allonsve.com',
+    port: 80,
+    type: 'ws'
+  }
+});
+
+const logger = new loggerClass({
+  debug: true,
+  coloredBackground: false,
+  allLineColored: true,
+  prefix: 'Tester'
+});
+
+const scriptDir = path.resolve(__dirname, 'scripts');
+
+const tests = [];
+
+async function runTests() {
+  for (var i = 0; i <= checks - 1; i++) {
+    actualCheck = i + 1;
+    logger.info(`Starting test: "${chalk.blueBright(tests[i].name)}" [${actualCheck}/${checks}]`);
+
+    await tests[i].run(logger, client, channels, mainChannel, i).catch((e) => {
+      logger.warn(`Error on test: "${chalk.yellow(tests[i].name)}". Error: ${e}`);
+      testFailed = true;
+    });
+  }
 }
 
-console.log(chalk.yellow('Starting automatizated test...'));
-Logger('Loading configs...');
+async function run() {
+  logger.info('Starting tests...');
 
-const configs = {
-    token: 'oauth:TwitchJSAutomatizedTestFakeIrcToken',
-};
+  const files = fs.readdirSync(scriptDir);
 
-Logger('Configs loaded!', 'sucs');
-Logger('Loading Twitch.js ...');
+  const jsFile = files.filter((f) => f.split('.').pop() === 'js');
 
-try {
-    const twitch = require('../src/index.js');
+  if (jsFile.length <= 0) {
+    return logger.fatal('No Tests found!');
+  }
 
-    Logger('Twitch.js loaded!', 'sucs');
-    Logger('Creating Twitch.js client...');
+  files.forEach((file) => {
+    const eventFunction = require(`${scriptDir}/${file}`);
+    logger.info(`=> ${chalk.blueBright(eventFunction.name)}`);
+    tests.push(eventFunction);
+  });
 
-    const client = new twitch.Client({
-        channels: ['arunabot'],
-        debug: true,
-        autoLogEnd: false,
-        http: {
-            hostID: 'https://api.purplewolfsoftware.allonsve.com/',
-        },
-        ws: {
-            host: 'irc.purplewolfsoftware.allonsve.com',
-            port: '80',
-            type: 'ws'
-        }
-    });
-
-    Logger('Twitch.js client created!', 'sucs');
-    Logger('Connecting with twitch...');
-    client.login(configs.token).then(() => {
-        Logger('Connected with twitch!', 'sucs');
-        Logger('Awaiting connect with test channel...');
-        // eslint-disable-next-line max-len
-        client.ws.send('CHATTERS {channel: \'arunabot\', users: [\'' + client.channels.get('arunabot').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
-        Logger('Connected with test channel!', 'sucs');
-        Logger('Connecting with a channel after client be created...');
-        client.join('talesgardem').then(async () => {
-            // eslint-disable-next-line max-len
-            client.ws.send('CHATTERS {channel: \'talesgardem\', users: [\'' + client.channels.get('talesgardem').users.array().map(value => {return value.userName;}).join('\', \'') + '\']}');
-            Logger('Connected with channel successfully!', 'sucs');
-            Logger('Sending test message on test channels...');
-            var sended = 0;
-            await client.channels.forEach(channel => {
-                channel.send('[' + Date.now() + '] Automatic test message').then(() => {
-                    sended ++;
-                }).catch((err) => {
-                    Logger('Error trying to send automatic test message', 'err');
-                    Logger(err, 'err');
-                    process.exit(1);
-                });
-            });
-            if (sended === 2) {
-                Logger('Sended test messages!', 'sucs');
-                Logger('Leaving channel...');
-                setTimeout(() => {
-                    client.leave('talesgardem').then(async () => {
-                        Logger('Disconnected from test channel!', 'sucs');
-                        Logger('Sending test message again...');
-                        sended = 0;
-                        var nOC = client.channels.array().length;
-                        for (var index = 0; index < nOC; index++) {
-                            // eslint-disable-next-line no-await-in-loop
-                            await client.channels.array()[index].send('[' + Date.now() + '] Message automatic part: 2 test').then(() => {
-                                sended ++;
-                            }).catch((err) => {
-                                Logger('Error trying to send message Part: 2!', 'err');
-                                Logger(err, 'err');
-                                process.exit(1);
-                            });
-                        }
-                        if (sended === 1) {
-                            Logger('Automatic test message part: 2 sended!', 'sucs');
-                            Logger('Getting uptime and finishing up...');
-                            client.uptime().then((result) => {
-                                Logger(result + 'ms uptime', 'sucs');
-                                Logger('Disconnecting IRC');
-                                client.disconnect().then(() => {
-                                    Logger('Disconnected from IRC', 'sucs');
-                                    console.log(chalk.green('All tests passed! :) YAY'));
-                                    process.exit(0);
-                                }).catch((err) => {
-                                    Logger('Error trying to disconnect from IRC!', 'err');
-                                    Logger(err, 'err');
-                                    process.exit(1);
-                                });
-                            }).catch((err) => {
-                                Logger('Error trying to get uptime!', 'err');
-                                Logger(err, 'err');
-                                process.exit(1);
-                            });
-                        }
-                    }).catch((err) => {
-                        Logger('Error trying to disconnect channel', 'err');
-                        Logger(err, 'err');
-                        process.exit(1);
-                    });
-                }, 2500);
-            }
-        }).catch((err) => {
-            Logger('Error trying to join', 'err');
-            Logger(err, 'err');
-            process.exit(1);
-        });
-    }).catch((err) => {
-        Logger('Error trying to login', 'err');
-        Logger(err, 'err');
-        process.exit(1);
-    });
-} catch (e) {
-    Logger('Error trying to login', 'err');
-    Logger(e, 'err');
-    process.exit(1);
+  tests.sort((a, b) => a.order - b.order);
+  checks = tests.length;
+  await client.start();
+  await runTests();
+  if (testFailed) {
+    logger.error('1 or more tests failed. Please check what happened.');
+    return process.exit(1);
+  }
+  logger.info('Tests successfully completed!');
 }
+
+run();

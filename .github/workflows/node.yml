@@ -3,30 +3,14 @@ name: Twitch.Js Test
 on: [push,pull_request]
 
 jobs:
-  testerv1:
-    runs-on: ubuntu-latest
-
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
-    - run: npm install
-    - run: npm run testOld
-      env:
-        TOKEN: ${{ secrets.TOKEN }}
-        
-  testerv2:
+  tester:
     runs-on: ubuntu-latest
 
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     strategy:
       matrix:
-        node-version: [10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
+        node-version: [12.x, 13.x, 14.x, 15.x, 16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -34,7 +18,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm test
+    - name: Install Dependencies
+      run: npm ci
+    - name: Build Project
+      run: npm run pdeploy
+    - name: Run tests
+      run: npm test
       env:
         TOKEN: ${{ secrets.TOKEN }}

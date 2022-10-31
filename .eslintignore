@@ -1,3 +1,5 @@
 .prettiererrc.json
 .prettierignore
 .github/
+build/**/*
+tests/

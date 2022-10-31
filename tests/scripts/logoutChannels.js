@@ -14,5 +14,5 @@ const run = (logger, client, channels, mainChannel) => {
 module.exports = {
     name: 'Leave Test',
     run: run,
-    order: 3
+    order: 4
 };

@@ -15,5 +15,5 @@ const run = (logger, client) => {
 module.exports = {
     name: 'Uptime Test',
     run: run,
-    order: 6
+    order: 7
 };

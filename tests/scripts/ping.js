@@ -15,5 +15,5 @@ const run = (logger, client) => {
 module.exports = {
     name: 'Ping Test',
     run: run,
-    order: 5
+    order: 6
 };
