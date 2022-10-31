@@ -58,35 +58,35 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * Timeout user on a channel
-   * @param {?string} [channel] the channel to timeout the user on
-   * @param {?number} [seconds] the amount of seconds to timeout the user for
-   * @param {?string} [reason] the reason for the timeout
+   * @description Timeout user on a channel
+   * @param {?string} channel - The channel to timeout the user on
+   * @param {?number} seconds - The amount of seconds to timeout the user for
+   * @param {?string} reason - The reason for the timeout
    * @returns {Promise<void>}
    */
-  public async timeout(channel, seconds, reason): Promise<void> {
+  public async timeout(channel?: string | number, seconds?: number | string, reason?: string): Promise<void> {
     if (typeof channel === 'number') {
-      reason = seconds;
+      reason = seconds.toString();
       seconds = channel;
     }
     return this.client
       .getWebSocketManager()
       .sendMessage(
-        this.channel ? (typeof this.channel === 'string' ? this.channel : this.channel.name) : channel,
+        this.channel ? (typeof this.channel === 'string' ? this.channel : this.channel.name) : channel.toString(),
         '/timeout ' + this.username + ' ' + seconds + ' ' + reason,
       );
   }
 
   /**
-   * Remove timeout from user
-   * @param {string|Array<string>} [channel] the channel to untimeout the user on
+   * @description Remove timeout from user
+   * @param {string|string[]} channel the channel to untimeout the user on
    * @returns {Promise<void>}
    */
-  public async untimeout(channel): Promise<void> {
+  public async untimeout(channel: string|string[]): Promise<void> {
     if (!channel || !(channel instanceof Array)) {
       if (!channel) channel = this.channel.name;
 
-      return this.client.getWebSocketManager().sendMessage(channel, `/untimeout ${this.username}`);
+      return this.client.getWebSocketManager().sendMessage(channel.toString(), `/untimeout ${this.username}`);
     } else {
       channel.forEach((element) => {
         this.client.getWebSocketManager().sendMessage(element, `/untimeout ${this.username}`);
@@ -95,9 +95,9 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * ban user on a channel
-   * @param {?string|?Array<string>} [channel] the channel to ban the user on
-   * @param {?string} [reason] the reason for the ban
+   * @description Ban user on a channel
+   * @param {?string|?Array<string>} channel - The channel to ban the user on
+   * @param {?string} reason - The reason for the ban
    * @returns {Promise<void>}
    */
   public async ban(channel: (string | Array<string> | null), reason: string | null): Promise<void> {
@@ -125,16 +125,16 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * Remove ban from user
-   * @param {string|Array<string>} [channel] the channel to unban the user on
+   * @description Remove ban from user
+   * @param {string|Array<string>} channel - The channel to unban the user on
    * @returns {Promise<void>}
    */
-  public async unban(channel): Promise<void> {
+  public async unban(channel: string|string[]): Promise<void> {
     if (!channel || !(channel instanceof Array)) {
       return this.client
         .getWebSocketManager()
         .sendMessage(
-          this.channel ? (typeof this.channel === 'string' ? this.channel : this.channel.name) : channel,
+          this.channel ? (typeof this.channel === 'string' ? this.channel : this.channel.name) : typeof channel === 'string' ? channel : channel.join(', '),
           '/unban ' + this.username,
         );
     } else {

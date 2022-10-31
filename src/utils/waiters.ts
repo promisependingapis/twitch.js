@@ -1,6 +1,9 @@
+/**
+ * @private
+ */
 export function waitForToken(): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    var tokenTimeout = null;
+    var tokenTimeout: any = null;
     if (this.tokenVerified) {
       this.logger.debug('Login method has already been called continuing on without waiting...');
       resolve();
@@ -27,9 +30,12 @@ export function waitForToken(): Promise<void> {
   });
 }
 
+/**
+ * @private
+ */
 export function waitForTwitchConnection(): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    var readyTimeout = null;
+    var readyTimeout: any = null;
     if (this.isReady) {
       this.logger.debug('Twitch has already responded, continuing on without waiting...');
       resolve();

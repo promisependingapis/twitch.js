@@ -21,7 +21,8 @@
       "moduleResolution": "node",
       "target": "ES6",
       "module": "commonjs",
-      "types": ["node", "chalk"]
+      "types": ["node", "chalk"],
+      "noImplicitAny": true
     },
     "exclude": ["node_modules", "tests"]
 }

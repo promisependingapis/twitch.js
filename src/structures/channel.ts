@@ -37,38 +37,42 @@ export class ChannelStructure {
   }
 
   /**
-     * Returns if the bot is connected to the channel
+     * @description Returns if the bot is connected to the channel
      * @returns {boolean} True if the bot is connected to the channel, false if not
      * @example
-     * Client.channels.get('channel-id').isConnected(); // returns true or false
+     * Client.channels.get('channel-id').isConnected();
      */
   isConnected(): boolean {
     return this.connected;
   }
 
   /**
-     * Returns the amount of users in the channel
+     * @description Returns the amount of users in the channel
      * @returns {number} The amount of users in the channel
      * @example
-     * Client.channels.get('channel-id').getUserCount(); // returns the amount of users in the channel
+     * Client.channels.get('channel-id').getUserCount();
      */
   getUserCount(): number {
     return this.users.cache.size;
   }
 
   /**
-     * Sends a message to the channel
-     * @param {string} message The message to send
-     * @param {string[]} [options] The options to send the message with - Like a console.log()
-     * @returns {Promise<any>}
+     * @description Sends a message to the channel
+     * @param {string} message - The message to send
+     * @param {string | string[]} options - The options to send the message with - Like a console.log()
+     * @returns {Promise<void>}
      * @example
-     * Client.channels.get('channel-id').send('Hello World!'); // sends a message to the channel
+     * Client.channels.get('channel-id').send('Hello World!');
      */
-  send(message: string, options: string[] | string): Promise<any> {
+  send(message: string, options: string[] | string): Promise<void> {
     if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
   }
 
+  /**
+   * @description Leaves from the channel
+   * @returns {Promise<string>} - The channel name
+   */
   leave(): Promise<string> {
     return this.client.leave(this.name);
   }

@@ -12,30 +12,57 @@ export class ChannelManager {
     this.cache = new Collection<string, ChannelStructure>();
   }
 
+  /**
+   * @description Returns a channel from the cache
+   * @param {string} channelName - The name of the channel
+   * @returns {ChannelStructure} - The channel
+   */
   public get(channelName: string): ChannelStructure {
     if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return this.cache.get(channelName);
   }
 
+  /**
+   * @description Checks if a channel is in the cache
+   * @param {string} channelName - The name of the channel
+   * @returns {boolean} - If the channel exists in the cache returns true, else false
+   */
   public has(channelName: string): boolean {
     if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return this.cache.has(channelName);
   }
 
+  /**
+   * @description Sets a channel in the cache
+   * @param {string} channelName - The name of the channel
+   * @param {ChannelStructure} channel - The channel to set
+   * @returns {Collection<string, ChannelStructure>} - The updated cache
+   */
   public set(channelName: string, channel: ChannelStructure): Collection<string, ChannelStructure> {
     this.cache.set(channelName, channel);
     return this.cache;
   }
 
+  /**
+   * @description Adds a channel to the cache
+   * @param {string} channel - The name of the channel
+   * @returns {Collection<string, ChannelStructure>} - The updated cache
+   */
   public addChannel(channel: ChannelStructure): Collection<string, ChannelStructure> {
     return this.set(channel.name, channel);
   }
 
+  /**
+   * @private
+   */
   public generateChannel(channelName: string): ChannelStructure {
     if (channelName.startsWith('#')) channelName = channelName.substring(1);
     return new ChannelStructure(this.client, channelName);
   }
 
+  /**
+   * @private
+   */
   public generateChannelFromTwitch(channelName: string, tags: ITwitchRoomStateTags): ChannelStructure {
     if (channelName.startsWith('#')) channelName = channelName.substring(1);
     const channelBase = new ChannelStructure(this.client, channelName);
@@ -43,6 +70,9 @@ export class ChannelManager {
     return this.updateFromTags(channelBase, tags);
   }
 
+  /**
+   * @private
+   */
   public updateChannel(channelName: string, tags: ITwitchRoomStateTags): ChannelStructure {
     if (channelName.startsWith('#')) channelName = channelName.substring(1);
     if (!this.has(channelName)) {

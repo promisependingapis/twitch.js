@@ -1,8 +1,10 @@
-// eslint-disable-next-line strict
 'use strict';
 
-const run = (logger, client) => {
-    return Promise.resolve(client.disconnect());
+const run = async (logger, client) => {
+    return new Promise(async (resolve) => {
+        await client.disconnect();
+        return resolve();
+    });
 };
 
 module.exports = {

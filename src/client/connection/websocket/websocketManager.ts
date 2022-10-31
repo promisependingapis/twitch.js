@@ -25,7 +25,10 @@ export class WebSocketManager {
     this.isAnonymous = null;
   }
 
-  async loadMethods(): Promise<void> {
+  /**
+   * @private
+   */
+  public async loadMethods(): Promise<void> {
     return new Promise(async (resolve) => {
       this.client.getLogger().debug('Loading WebSocket Methods...');
       const methods = fs.readdirSync(this.methodsFolder);
@@ -46,6 +49,9 @@ export class WebSocketManager {
     });
   }
 
+  /**
+   * @private
+   */
   public async start(): Promise<void> {
     return new Promise(async (resolve) => {
       this.client.getLogger().debug('Starting WebSocket Manager...');
@@ -61,6 +67,11 @@ export class WebSocketManager {
     });
   }
 
+  /**
+   * @description Loggin twitch chat.
+   * @param {?string} token - The token to use for the connection. If not provided or false, the client will log in as anonymous.
+   * @returns {Promise<void>}
+   */
   public async login(token?: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       var continueLogin = true;
@@ -161,6 +172,10 @@ export class WebSocketManager {
     }, 60000);
   }
 
+  /**
+   * @description Do a ping to twitch.
+   * @returns {Promise<void>}
+   */
   public ping(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.connection.send('PING :tmi.twitch.tv');
@@ -176,9 +191,9 @@ export class WebSocketManager {
   }
 
   /**
-   * Sends a message in the specified live chat
-   * @param channel - The channel to send the message to
-   * @param message - The message to send
+   * @description Sends a message in the specified live chat
+   * @param {string} channel - The channel to send the message to
+   * @param {string[]} message - The message to send
    * @returns {Promise<void>} - Resolves when the message is sent
    */
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
@@ -200,6 +215,11 @@ export class WebSocketManager {
     });
   }
 
+  /**
+   * @description Disconnects from the twitch server
+   * @param {boolean} bypass - Bypass security checks
+   * @returns {Promise<void>}
+   */
   public async disconnect(bypass = false): Promise<void> {
     return new Promise(async (resolve) => {
       if (this.connection.readyState === this.connection.CLOSED) return resolve();
@@ -229,6 +249,9 @@ export class WebSocketManager {
       this.client.on('websocket.closed', ({ code, reason }) => {
         this.client.getLogger().debug('Disconnected!');
         this.client.getLogger().debug('WebSocket closed: ' + reason + '. With code: ' + code);
+
+        this.client.rawEmit('disconnected');
+
         resolve();
       });
     });

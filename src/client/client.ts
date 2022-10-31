@@ -17,6 +17,7 @@ export class Client extends EventEmitter {
    */
   public userManager: UserManager;
   private steps: { [key: string]: Array<any> };
+  private resolveRunningStep: () => any;
   private stepManagerStarted: boolean;
   private wsManager: WebSocketManager;
   private restManager: RestManager;
@@ -27,7 +28,6 @@ export class Client extends EventEmitter {
   private logger: Logger;
   private token: string;
   private readyAt = 0;
-  resolveRunningStep: () => any;
 
   constructor(options: IClientOptions) {
     super();
@@ -81,6 +81,11 @@ export class Client extends EventEmitter {
     };
   }
 
+  /**
+   * @description Adds a callback function to be execured in a specific step of the client.
+   * @param {ESteps} step - The step to wait for
+   * @param {any} callback - The callback to execute when the step is reached
+   */
   public addStepCommand(step: ESteps, callback: () => void): void {
     if (!this.steps[step.toString()]) {
       this.steps[step.toString()] = [];
@@ -88,6 +93,10 @@ export class Client extends EventEmitter {
     this.steps[step.toString()].push(async () => { await callback(); });
   }
 
+  /**
+   * @description Starts the step manager without log in twitch.
+   * @returns {Promise<void>}
+   */
   public start(): Promise<void> {
     return new Promise((resolve) => {
       this.stepManager();
@@ -97,6 +106,11 @@ export class Client extends EventEmitter {
     });
   }
 
+  /**
+   * @description Starts the step manager and log in twitch.
+   * @param {?string} token - The token to use for the login
+   * @returns {Promise<void>}
+   */
   public login(token?: string): Promise<void> {
     return new Promise((resolve) => {
       this.token = token;
@@ -110,7 +124,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Set the client options
-   * @param [options]: IClientOptions
+   * @param {IClientOptions} options
    * @returns {Promise<void>}
    * @private
    */
@@ -124,7 +138,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * Returns the time bot is connected with twitch in milliseconds
+   * @description Returns the time bot is connected with twitch in milliseconds
    * @returns {Promise<number>}
    * @example
    * await Client.uptime()
@@ -145,6 +159,10 @@ export class Client extends EventEmitter {
     return Math.max((Date.now() - this.readyAt), 0);
   }
 
+  /**
+   * @description Do a ping to twitch and returns the response time in milliseconds
+   * @returns {Promise<number>} - The twitch response time in milliseconds
+   */
   public async ping(): Promise<number> {
     const currentTimestamp = Date.now();
     await this.wsManager.ping();
@@ -152,9 +170,9 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * Connects with a twitch channel chat
-   * @param {string} [channel] the channel name who will be connected
-   * @return {Promise<string>} Resolved when successfully connect with channel
+   * @description Connects with a twitch channel chat
+   * @param {string} channel - The channel name who will be connected
+   * @return {Promise<string>} - Resolved when successfully connect with channel
    */
   public async join(channel: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -190,9 +208,9 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * Connects in multiples twitch channels chats
-   * @param {Array<string>} [channels] the array of channels to join
-   * @return {Promise<string>} Resolved when successfully connect with channel
+   * @description Connects in multiples twitch channels chats
+   * @param {Array<string>} channels - The array of channels to join
+   * @return {Promise<string>} - Resolved when successfully connect with channel
    */
   public async multiJoin(channels: string[]): Promise<string> {
     return new Promise(async (resolve, reject) => {
@@ -241,6 +259,11 @@ export class Client extends EventEmitter {
     });
   }
 
+  /**
+   * @description Disconnects from a twitch channel chat
+   * @param {string} channel - The channel name who will be disconnected
+   * @returns {Promise<string>} - Resolved with channel name when successfully disconnect with channel
+   */
   public async leave(channel: string): Promise<string> {
     return new Promise((resolve, reject) => {
       if (channel.includes(' ')) {
@@ -266,10 +289,16 @@ export class Client extends EventEmitter {
     });
   }
 
+  /**
+   * @description Disconnects from twitch server and stop the client
+   * @returns {Promise<void>}
+   */
   public async disconnect(): Promise<void> {
     return new Promise((resolve) => {
       this.resolveRunningStep();
-      resolve();
+      this.once('disconnected', () => {
+        return resolve();
+      });
     });
   }
 
@@ -291,8 +320,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Get the logger instance
-   * @returns [Logger] - The logger instance
-   * @public
+   * @returns {Logger} [Logger] - The logger instance
    */
   public getLogger(): Logger {
     return this.logger;
@@ -300,8 +328,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Get the client options
-   * @returns [IClientOptions] - The client options
-   * @public
+   * @returns {IClientOptions} [IClientOptions] - The client options
    */
   public getOptions(): IClientOptions {
     return this.options;
@@ -309,8 +336,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Get the REST API Manager Instance
-   * @returns [RestManager] - The REST API Manager Instance
-   * @public
+   * @returns {RestManager} [RestManager] - The REST API Manager Instance
    */
   public getRestManager(): RestManager {
     return this.restManager;
@@ -318,7 +344,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Get the WebSocket Manager Instance
-   * @returns [WebSocketManager] - The WebSocket Manager Instance
+   * @returns {WebSocketManager} [WebSocketManager] - The WebSocket Manager Instance
    * @public
    */
   public getWebSocketManager(): WebSocketManager {
@@ -344,8 +370,7 @@ export class Client extends EventEmitter {
 
   /**
    * @description Get the current client step
-   * @returns [ESteps] - The current client step
-   * @public
+   * @returns {ESteps} [ESteps] - The current client step
    */
   public getCurrentStep(): ESteps {
     return this.currentStep;

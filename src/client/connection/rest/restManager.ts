@@ -3,6 +3,9 @@ import { Client } from '../../client';
 import path from 'path';
 import fs from 'fs';
 
+/**
+ * @private
+ */
 export class RestManager {
   private options: IHTTPOptions;
   private methodsPath: string;
@@ -14,6 +17,9 @@ export class RestManager {
     this.methodsPath = path.resolve(__dirname, 'methods');
   }
 
+  /**
+   * @private
+   */
   public async loadAllMethods(): Promise<void> {
     this.options = this.client.getOptions().http;
     return this.loadMethodsFolder(this.methodsPath);

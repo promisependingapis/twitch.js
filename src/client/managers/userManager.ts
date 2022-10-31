@@ -12,39 +12,72 @@ export class UserManager {
     this.client = client;
   }
 
+  /**
+   * @description Get a user from the cache
+   * @param {string} userName - The username of the user to get
+   * @returns {UserStructure} - The user
+   */
   public get(userName: string): UserStructure {
     return this.cache.get(userName);
   }
 
+  /**
+   * @description Check if a user is in the cache
+   * @param {string} userName - The username of the user to check
+   * @returns {boolean} - If the user is in the cache return true else false
+   */
   public has(userName: string): boolean {
     return this.cache.has(userName);
   }
 
+  /**
+   * @description Set a user in the cache
+   * @param {string} userName - The username of the user to set
+   * @param {UserStructure} user - The user to set
+   * @returns {Collection<string, UserStructure>} - The updated cache
+   */
   public set(userName: string, user: UserStructure): Collection<string, UserStructure> {
     this.cache.set(userName, user);
     return this.cache;
   }
 
+  /**
+   * @description Add a user to the cache
+   * @param {UserStructure} user - The user to add to the cache
+   * @returns {Collection<string, UserStructure>} - The updated cache
+   */
   public addUser(user: UserStructure): Collection<string, UserStructure> {
     return this.set(user.username, user);
   }
 
+  /**
+   * @private
+   */
   public generateUser(userName: string): UserStructure {
     return new UserStructure(this.client, { username: userName });
   }
 
+  /**
+   * @private
+   */
   public generateUserFromTwitch(userName: string, tags: ITwitchUserStateTags): UserStructure {
     const user = new UserStructure(this.client, { username: userName });
 
     return this.updateFromTags(user, tags);
   }
 
+  /**
+   * @private
+   */
   public generateBasicUserFromTwitch(userName: string, tags: ITwitchUserStateTags): BasicUserStructure {
     const user = new BasicUserStructure(this.client, { username: userName });
 
     return this.updateBasicFromTags(user, tags);
   }
 
+  /**
+   * @private
+   */
   public updateUser(userName: string, tags: ITwitchUserStateTags): UserStructure {
     if (!this.has(userName)) {
       const newUser = this.generateUserFromTwitch(userName, tags);
@@ -61,6 +94,9 @@ export class UserManager {
     return user;
   }
 
+  /**
+   * @private
+   */
   public updateFromTags(user: UserStructure, tags: ITwitchUserStateTags): UserStructure {
     user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
     user.badges = tags.badges !== null ? tags.badges : user.badges;
@@ -81,6 +117,9 @@ export class UserManager {
     return user;
   }
 
+  /**
+   * @private
+   */
   public updateBasicFromTags(user: BasicUserStructure, tags: ITwitchUserStateTags): BasicUserStructure {
     user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
     user.badges = tags.badges !== null ? tags.badges : user.badges;

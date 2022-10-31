@@ -3,12 +3,15 @@ import { Client } from '../client';
 
 // https://dev.twitch.tv/docs/irc/example-parser
 
+/**
+ * @private
+ */
 export function parseTags(tags: string): ITwitchTags {
-  const tagsToIgnore = {
+  const tagsToIgnore: any = {
     'client-nonce': null,
     flags: null,
   };
-  const dictParsedTags = {};
+  const dictParsedTags: any = {};
   const parsedTags = tags.split(';');
   parsedTags.forEach(tag => {
     const parsedTag = tag.split('=');
@@ -17,7 +20,7 @@ export function parseTags(tags: string): ITwitchTags {
       case 'badges':
       case 'badge-info':
         if (tagValue) {
-          const dict = {};
+          const dict: any = {};
           const badges = tagValue.split(',');
           badges.forEach(pair => {
             const badgeParts = pair.split('/');
@@ -30,11 +33,11 @@ export function parseTags(tags: string): ITwitchTags {
         break;
       case 'emotes':
         if (tagValue) {
-          const dictEmotes = {};
+          const dictEmotes: any = {};
           const emotes = tagValue.split('/');
           emotes.forEach(emote => {
             const emoteParts = emote.split(':');
-            const textPositions = [];
+            const textPositions: any = [];
             const positions = emoteParts[1].split(',');
             positions.forEach(position => {
               const positionParts = position.split('-');
@@ -63,6 +66,9 @@ export function parseTags(tags: string): ITwitchTags {
   return dictParsedTags;
 }
 
+/**
+ * @private
+ */
 export function parseCommand(rawCommandComponent: string): ITwitchCommand {
   let parsedCommand = null;
   var commandParts = rawCommandComponent.split(' ');
@@ -106,6 +112,9 @@ export function parseCommand(rawCommandComponent: string): ITwitchCommand {
   return parsedCommand;
 }
 
+/**
+ * @private
+ */
 export function parseSource(rawSourceComponent: string): ITwitchSource {
   if (rawSourceComponent != null) {
     const sourceParts = rawSourceComponent.split('!');
@@ -117,6 +126,9 @@ export function parseSource(rawSourceComponent: string): ITwitchSource {
   return null;
 }
 
+/**
+ * @private
+ */
 export function parseMessage(message: string): ITwitchMessage {
   const parsedMessage: ITwitchMessage = {
     tags: null,
@@ -162,6 +174,9 @@ export function parseMessage(message: string): ITwitchMessage {
   return parsedMessage;
 }
 
+/**
+ * @private
+ */
 export function parseFinalMessage(client: Client, message: ITwitchMessage): IMessage {
   const channel = client.channels.get(message.command.channel);
   const id = message.tags.id ?? null;
