@@ -9,11 +9,7 @@ export default class Join {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'join',
-      });
-    });
+    return Promise.resolve({ command: 'join' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {

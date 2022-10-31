@@ -9,11 +9,7 @@ export default class M376 {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: '376',
-      });
-    });
+    return Promise.resolve({ command: '376' });
   }
 
   public execute(): void {

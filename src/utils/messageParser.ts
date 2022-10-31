@@ -79,6 +79,9 @@ export function parseCommand(rawCommandComponent: string): ITwitchCommand {
     case 'CLEARCHAT':
     case 'HOSTTARGET':
     case 'PRIVMSG':
+    case 'USERSTATE':
+    case 'ROOMSTATE':
+    case '001':
       parsedCommand = {
         command: commandParts[0],
         channel: commandParts[1],
@@ -88,19 +91,6 @@ export function parseCommand(rawCommandComponent: string): ITwitchCommand {
       parsedCommand = {
         command: commandParts[0],
         isCapRequestEnabled: commandParts[2] === 'ACK',
-      };
-      break;
-    case 'USERSTATE':
-    case 'ROOMSTATE':
-      parsedCommand = {
-        command: commandParts[0],
-        channel: commandParts[1],
-      };
-      break;
-    case '001':
-      parsedCommand = {
-        command: commandParts[0],
-        channel: commandParts[1],
       };
       break;
     default:

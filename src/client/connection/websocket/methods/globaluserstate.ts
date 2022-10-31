@@ -9,11 +9,7 @@ export default class GlobalUserState {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'globaluserstate',
-      });
-    });
+    return Promise.resolve({ command: 'globaluserstate' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {

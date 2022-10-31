@@ -9,11 +9,7 @@ export default class Ping {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'ping',
-      });
-    });
+    return Promise.resolve({ command: 'ping' });
   }
 
   public execute(): Promise<void> {

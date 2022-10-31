@@ -1,7 +1,7 @@
 import { IHTTPOptions } from '../../../../../interfaces/';
 import axios from 'axios';
 
-export default class getTokenValidation {
+export default class GetTokenValidation {
   private options: IHTTPOptions;
   constructor(options: IHTTPOptions) {
     this.options = options;

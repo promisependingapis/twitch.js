@@ -9,11 +9,7 @@ export default class Pong {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'pong',
-      });
-    });
+    return Promise.resolve({ command: 'pong' });
   }
 
   public execute(): Promise<boolean> {

@@ -9,11 +9,7 @@ export default class RoomState {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'roomstate',
-      });
-    });
+    return Promise.resolve({ command: 'roomstate' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {

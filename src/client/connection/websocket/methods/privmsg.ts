@@ -10,11 +10,7 @@ export default class PrivMSG {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'privmsg',
-      });
-    });
+    return Promise.resolve({ command: 'privmsg' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {

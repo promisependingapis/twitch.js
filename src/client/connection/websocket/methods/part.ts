@@ -9,11 +9,7 @@ export default class Part {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: 'part',
-      });
-    });
+    return Promise.resolve({ command: 'part' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {

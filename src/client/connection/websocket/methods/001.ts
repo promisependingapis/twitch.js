@@ -10,11 +10,7 @@ export default class M001 {
   }
 
   public preLoad(): Promise<IWSMethodRunCondition> {
-    return new Promise((resolve) => {
-      resolve({
-        command: '001',
-      });
-    });
+    return Promise.resolve({ command: '001' });
   }
 
   public execute(message: ITwitchMessage): Promise<void> {
