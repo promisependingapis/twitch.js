@@ -1,0 +1,184 @@
+:root {
+    --complementary-color: #6509ed;
+    --complementary-effect-color: linear-gradient(180deg, #6509ed 30%, #9c5aff 70%);
+    --complementary-semi-transparent-color: #6509ed9d;
+    --complementary-color-hover: #39008e;
+    --primary-color: #2c0048;
+    --box-color: linear-gradient(45deg, #1a0041b9 0%, #15003587);
+    --box-title-color: #f5f5f5;
+    --box-text-color: #f5f0ff;
+    --box-text-color-hover: #7531b5;
+    --visited-color: #aa85ff;
+    
+    --background-variation-1: linear-gradient(-45deg, #2c0066 0%, #15002d 100%);
+    --background-variation-2: #15002d;
+    --background-variation-3: #3f0096;
+
+    --background-light-variation-1: linear-gradient(-45deg, #f1e7ff 0%, #ba8fff 100%);
+    --background-light-variation-2: #be8fff;
+    --background-light-variation-3: #792cff;
+    
+    --extends-text-color: #725d91;
+    --text-variation-1: #f9f4ff;
+    --text-variation-2: #cbcbff;
+    --text-variation-3: #aeabff;
+    
+    --extends-text-color-light: #222222;
+    --text-light-variation-1: #1b161f;
+    --text-light-variation-2: #4c3859;
+    --text-light-variation-3: #461586;
+    
+    --maxAmountOfBoxes: 3;
+    
+    --AmountOfViews: 20rem 1fr;
+    --border-radius-percentage: 1;
+    --contrast-percentage: 1;
+    
+    --block-of-code-background-color: #1a0041b9;
+    --block-of-code-light-background-color: #f1e7ff;
+
+    --table-body-background-color: #39008eb9;
+    --table-body-light-background-color: #f1e7ff;
+    --table-secondary-color: #8036e133;
+    --table-secondary-light-color: #b57dff66;
+
+    --focus-background-color: #39008e;
+    --focus-light-background-color: #b57dff;
+}
+
+::-webkit-scrollbar {
+    width: 0.7vw;
+    transition: all 0.3s ease;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-background-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    width: 0.5vw;
+    border-radius: calc(0.5vw * var(--border-radius-percentage));
+    transition: all 0.3s ease;
+}  
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-color);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-thumb-active-color);
+}
+
+* {
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-background-color);
+    scrollbar-width: thin;
+}
+
+html {
+    font-size: 1rem !important;
+    filter: contrast(var(--contrast-percentage));
+}
+
+@keyframes LoadingScreen {
+    0% {height: 100vh;}
+    100% {height: 0vh;}
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--body-background-color);
+    color: var(--body-text-color);
+}
+
+body.light {
+    /* Initializing component variables */
+
+    --complementary-color: #9d5bff;
+
+    /* Side Panel */
+    --side-panel-background-color: var(--background-light-variation-2);
+    --side-panel-variant-1-background-color: var(--background-light-variation-1);
+    --side-panel-variant-3-inverted-background-color: var(--background-variation-3);
+
+    /* body */
+    --body-background-color: var(--background-light-variation-1);
+    --body-text-color: var(--text-color);
+
+    /* Page Options */
+    --scrollbar-background-color: var(--complementary-color);
+    --scrollbar-thumb-color: var(--background-light-variation-3);
+    --scrollbar-thumb-hover-color: var(--background-light-variation-2);
+    --scrollbar-thumb-active-color: var(--background-light-variation-1);
+
+    /* Text */
+    --text-color: var(--text-light-variation-1);
+    --extends-text-color: var(--extends-text-color-light);
+    --visited-color: #2b0053;
+
+    /* Scroll to top Button*/
+    --scroll-to-top-button-background-color: var(--complementary-color);
+    --scroll-to-top-button-shadow-color: var(--background-light-variation-2);
+
+    /* Tooltips */
+    --tooltip-background-color: var(--background-light-variation-2);
+    --tooltip-text-color: var(--text-light-variation-1);
+
+    /* colors */
+    --background-variation-3: var(--background-light-variation-3);
+
+    /* Code */
+    --block-of-code-background-color: var(--block-of-code-light-background-color);
+
+    /* Table */
+    --table-body-background-color: var(--table-body-light-background-color);
+    --table-secondary-color: var(--table-secondary-light-color);
+
+    /* Focus */
+    --focus-background-color: var(--focus-light-background-color);
+
+    /* box */
+    --box-color: linear-gradient(0deg, #f1e7ff 0%, #ba8fff 100%);
+    --box-title-color: #1b161f;
+    --box-text-color: #1b161f;
+}
+
+body.dark {
+    /* Initializing component variables */
+
+    /* Side Panel */
+    --side-panel-background-color: var(--background-variation-2);
+    --side-panel-variant-1-background-color: var(--background-variation-1);
+    --side-panel-variant-3-inverted-background-color: var(--background-light-variation-3);
+
+    /* Body */
+    --body-background-color: var(--background-variation-1);
+    --body-text-color: var(--text-color);
+
+    /* Page Options */
+    --scrollbar-background-color: var(--complementary-color);
+    --scrollbar-thumb-color: var(--background-variation-3);
+    --scrollbar-thumb-hover-color: var(--background-variation-2);
+    --scrollbar-thumb-active-color: var(--background-variation-1);
+
+    /* Text */
+    --text-color: var(--text-variation-1);
+    /* --extends-text-color: var(--extends-text-color); */
+
+    /* Scroll to top Button*/
+    --scroll-to-top-button-background-color: var(--complementary-color);
+    --scroll-to-top-button-shadow-color: var(--background-variation-2);
+
+    /* Tooltips */
+    --tooltip-background-color: var(--background-variation-2);
+    --tooltip-text-color: var(--text-variation-1);
+
+    /* colors */
+
+    /* Code */
+    --block-of-code-background-color: var(--block-of-code-background-color);
+
+    /* Table */
+    /* --table-body-background-color: var(--table-body-background-color);
+    --table-secondary-color: var(--table-secondary-color); */
+}

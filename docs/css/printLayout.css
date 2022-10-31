@@ -1,0 +1,257 @@
+.printOnly {
+  display: none;
+}
+
+header .printOnly > h3, header .printOnly > a {
+  margin: 0;
+  color: var(--text-color) !important;
+}
+
+@media print {
+  html, body {
+    --text-color: #000 !important;
+    --main-background: transparent !important;
+    --complementary-color: #000 !important;
+    background-color: #fff !important;
+    --box-title-color: #000 !important;
+    --box-background: #fff !important;
+    --box-text-color: #000 !important;
+    --block-of-code-background-color: #fff !important;
+    --table-secondary-color: #dbdbdb !important;
+    --complementary-effect-color: #000 !important;
+    --visited-color: #000 !important;
+    --table-body-background-color: #fff !important;
+  }
+
+  legend, a, h4 {
+    color: #000 !important;
+  }
+
+  .printOnly {
+    display: block;
+  }
+
+  #sideBar {
+    display: none !important;
+  }
+
+  #content {
+    grid-template-columns: 1fr !important;
+    background: #fff !important;
+  }
+
+  .screenOnly {
+    display: none !important;
+  }
+
+  header {
+    /* width: 100% !important; */
+    background: #fff !important;
+    opacity: 0.25 !important;
+  }
+
+  header .leftSide.printOnly, header .rightSide.printOnly {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  div, fieldset, table {
+    display: table;
+  }
+
+  .footer {
+    display: none !important;
+  }
+
+  .Viewer > legend {
+    display: none !important;
+  }
+
+  .printLayoutGroup {
+    height: calc(100vh - (2vh + 2vw)) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .FVTitle, .FVTitle * {
+    font-size: 1rem !important;
+  }
+  
+  .FVTitle {
+    right: 0.75rem;
+    position: absolute !important;
+    opacity: 0.5 !important;
+    width: 50vw;
+    text-align: right;
+    writing-mode: vertical-rl;
+    word-break: keep-all;
+  }
+
+  .FVTitle.separator, .FVTitle.separator * {
+    font-size: 2.5rem !important;
+  }
+  
+  .FVTitle.separator {
+    float: center !important;
+    position: relative !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    text-align: center !important;
+    writing-mode: horizontal-tb !important;
+    margin-top: 1rem;
+  }
+
+  .FileViewerItemDetails {
+    width: 95% !important;
+    filter: saturate(0) !important;
+  }
+
+  .description {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hljs-built_in, .greenText {
+    color: #000;
+  }
+
+  .grayText {
+    color: #000;
+  }
+
+  .limeText {
+    color: #000;
+  }
+
+  .redText, .hljs-function {
+    color: #000;
+  }
+
+  .blueText, .hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-section, .hljs-link, .hljs-params, .hljs-variableKeyWord {
+    color: #000;
+  }
+
+  .orangeText, .hljs-string, .hljs-title, .hljs-name, .hljs-type, .hljs-attribute, .hljs-symbol, .hljs-bullet, .hljs-addition, .hljs-variable, .hljs-template-tag, .hljs-template-variable {
+    color: #000;
+  }
+
+  table thead {
+    background: #fff !important;
+    color: #000 !important;
+    filter: saturate(0) !important;
+  }
+
+  table tbody {
+    background: #fff !important;
+    color: #000 !important;
+    filter: saturate(0) !important;
+  }
+
+  .blockOfCode {
+    border-width: 0.1rem;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary {
+    list-style: none;
+    color: #000 !important;
+  }
+
+  .FVBox {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .FileViewerItemDetailsEffect {
+    width: 0.1rem;
+  }
+
+  h4 .orangeText, h4 .blueText, h4 .redText, h4 .greenText, h4 .grayText, h4 .limeText {
+    color: #000 !important;
+  }
+
+  body.light, body.dark {
+    /* Initializing component variables */
+
+    --complementary-color: #000;
+
+    /* body */
+    --body-background-color: #fff;
+    --body-text-color: #000;
+
+    /* Text */
+    --text-color: #000;
+    --extends-text-color: #000;
+    --visited-color: #000;
+
+    /* colors */
+    --background-variation-3: #fff;
+
+    /* Code */
+    --block-of-code-background-color: #fff;
+
+    /* Table */
+    --table-body-background-color: #fff;
+    --table-secondary-color: #aaa;
+
+    /* Focus */
+    --focus-background-color: #fff;
+
+    /* box */
+    --box-color: #fff;
+    --box-title-color: #000;
+    --box-text-color: #000;
+  }
+
+  #scrollToTop {
+    display: none !important;
+  }
+
+  toolTippedElement tooltip {
+    display: none !important;
+  }
+
+  p, pre, code *, h2, h1, h3 {
+    color: #000 !important;
+  }
+
+  .Viewer p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  br {
+    display: none;
+  }
+
+  span {
+    color: #000 !important;
+  }
+
+  pre, .blockOfCode {
+    border: 0.1rem solid #000 !important;
+  }
+
+  th a {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    color: #000 !important;
+  }
+
+  img {
+    filter: saturate(0) !important;
+  }
+
+  .showOnlyOnMobile {
+    display: none !important;
+  }
+}

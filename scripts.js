@@ -1,11 +1,3 @@
-document.getElementsByClassName('Content')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
-document.getElementsByClassName('Content')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
-
-window.onresize = () => {
-    document.getElementsByClassName('Content')[0].style.marginTop = ((3.5/100)*window.innerWidth) + 'px';
-    document.getElementsByClassName('Content')[0].style.height = window.innerHeight - ((3.5/100)*window.innerWidth) + 'px';
-}
-
 // https://stackoverflow.com/questions/247483/http-get-request-in-javascript
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
@@ -45,8 +37,9 @@ httpGetAsync('https://api.npmjs.org/downloads/range/2013-08-21:2100-08-21/@twitc
 
 hljs.initHighlightingOnLoad();
 
-function CopyToClipboard(ElementName, fallbackColor) {
-    var copyText = document.getElementsByClassName(ElementName)[0];
+function CopyToClipboard(ElementName) {
+    const copyText = document.getElementsByClassName(ElementName)[0];
+    const fallbackColor = copyText.style.backgroundColor;
     navigator.clipboard.writeText(copyText.innerText).then(() => {
         copyText.style.setProperty('background-color', '#5555FF', 'important');
         var backupText = copyText.innerText;
@@ -59,3 +52,19 @@ function CopyToClipboard(ElementName, fallbackColor) {
         }, 1500);
     });
 } 
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('hiddenTransition');
+            entry.target.classList.add('showTransition');
+        } else {
+            entry.target.classList.remove('showTransition');
+            entry.target.classList.add('hiddenTransition');
+        }
+    })
+})
+
+const transitionElements = [...document.getElementsByClassName('appearToggle')];
+
+transitionElements.forEach((he) => observer.observe(he));

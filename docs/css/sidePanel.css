@@ -1,0 +1,93 @@
+#sideBar {
+    /* width: 20rem; */
+    width: 100%;
+    background: var(--side-panel-background-color);
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* display: none; */
+    transition: all 0.3s ease;
+}
+
+#sideBar .SideBarContent {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    padding-right: 0;
+    padding-left: 0;
+    /* width: fit-content; */
+    min-width: calc(100% - 1.3rem);
+    overflow-x: hidden;
+    padding-bottom: 1rem;
+}
+
+#sideBar .SideBarContent * {
+    transition: all 0.3s ease;
+}
+
+#sideBar .SideBarContent a {
+    padding-left: 2.5rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.15rem;
+}
+
+#sideBar .SideBarContent h2, #sideBar .SideBarContent summary {
+    font-size: 1.5rem;
+    margin: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+#sideBar .SideBarContent div, #sideBar .SideBarContent details {
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#sideBar .SideBarContent #sideBarContent {
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#sideBar .SideBarContent #SideBarSelected {
+    background: var(--complementary-color); 
+    padding: 0.5rem;
+    padding-left: 2.5rem;
+    font-size: 1.75rem;
+}
+
+#pageOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0px 0px 10px var(--side-panel-variant-3-inverted-background-color);
+    background: var(--side-panel-variant-1-background-color);
+    height: 2vh;
+}
+
+#pageOptions button {
+    border: 0;
+    background: transparent;
+    color: #FFF;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.themeToggleIcon {
+    color: #FFF;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 3rem;
+}

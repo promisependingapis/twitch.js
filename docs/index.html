@@ -1,47 +1,87 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Twitch.JS DOCS</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <meta property="og:type" content="website" />
+		<meta property="og:description" content="Twitch.JS DOCS V2.0.0-beta.0"/>
+		<meta name="theme-color" content="#6509ed" />
+		<meta name="twitter:card" content="summary">
+		<meta property="og:site_name" content="Twitch.JS DOCS V2.0.0-beta.0"/>
+		<meta property="og:url" content="https://twitch.js.org" />
+        <title>Twitch.JS V2.0.0-beta.0 DOCS</title>
+        <link rel="stylesheet" type="text/css" href="./css/settings.css">
+        <link rel="stylesheet" type="text/css" href="./css/styles.css">
+        <link rel="stylesheet" type="text/css" href="./css/elements.css">
+        <link rel="stylesheet" type="text/css" href="./css/sidePanel.css">
+        <link rel="stylesheet" type="text/css" href="./css/topPanel.css">
+        <link rel="stylesheet" type="text/css" href="./css/adaptiveContent.css">
+        <link rel="stylesheet" type="text/css" href="./css/printLayout.css">
         <link rel="icon" type="image/png" href="../favicon.png" />
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
         <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+        <script defer src="./javascript/elements.js"></script>
+        <script defer src="./javascript/statistics.js"></script>
+        <script defer src="./javascript/footer.js"></script>
+        <script defer src="./javascript/fileViewer.js"></script>
+        <script defer src="./javascript/sidePanel.js"></script>
+        <script defer src="./javascript/topPanel.js"></script>
     </head>
-    <body>
+    <body class="dark">
         <div class='LoadingScreen'></div>
         <header>
-            <apis>
-                <a style="background-color: #ffff55;" href="https://github.com/twitchapis/twitch.js">Twitch.JS</a>
-            </apis>
-            <links>
-                <a onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "none";setTimeout(()=>{document.getElementsByClassName("LoadingScreen")[0].style.display = "block";},10);'>Documentation</a>
-                <a href="https://github.com/twitchapis/twitchjs">Github</a>
-            </links>
-        </header>
-        <div class='Content'>
-            <div class='TopSearch'>
-                <input type="text" id='ContentTopSearchInput' placeholder="Search..." onclick="document.getElementById('ContentTopSearchInput').placeholder = 'Not working ;-;';">
+            <div class='leftSide screenOnly'>
+                <button class='ToggleLeftSide active' onclick="toggleSidePanel()" title="Toggle Side Panel">
+                    <div class='hamburgerMenuIcon'></div>
+                    <div class='hamburgerMenuIcon'></div>
+                    <div class='hamburgerMenuIcon'></div>
+                </button>
+                <div class='TopSearch'>
+                    <input type="text" id='ContentTopSearchInput' placeholder="Search..." onclick="document.getElementById('ContentTopSearchInput').placeholder = 'Not working ;-;';">
+                </div>
+                <h3>V2.0.0-beta.0</h3>
             </div>
-            <div class='SideBar'>
+            <links class="screenOnly">
+                <a onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "none";setTimeout(()=>{document.getElementsByClassName("LoadingScreen")[0].style.display = "block";document.getElementsByClassName("LoadingScreen")[0].style.animationDirection  = "reverse";setTimeout(()=>{window.location.href = "../"},450);},10);'>Home</a>
+                <a href="https://github.com/promisependingapis/twitch.js">Github</a>
+            </links>
+            <div class="leftSide printOnly">
+                <h3>Twitch.JS V2.0.0-beta.0 Docs</h3>
+            </div>
+            <div class="rightSide printOnly">
+                <a href="https://github.com/promisependingapis/twitch.js">https://github.com/promisependingapis/twitch.js</a>
+            </div>
+        </header>
+        <div id='content'>
+            <div id='sideBar'>
                 <div class='SideBarContent'>
-                    <h2>GENERAL:</h2>
-                    <div class='SideBarGeneral'>
-                        <a id='SideBarSelected' href='#GenWelcome'>Welcome</a>
+                    <details open="true">
+                        <summary>General:</summary>
+                        <div class='SideBarGeneral'>
+                            <a id='SideBarSelected' class="welcomeSideBarItem" href='#'>Welcome</a>
+                        </div>
+                    </details>
+                    <div id="sideBarContent">
                     </div>
-                    <h2>CLASSES:</h2>
-                    <div class='SideBarClasses'></div>
-                    <h2>TYPEDEFS:</h2>
-                    <div class='SideBarTypedefs'></div>
+                </div>
+                <div id="pageOptions">
+                    <div class="roundSlider">
+                        <input type="range" min="0" max="200" value="100" class="slider" id="roundnessSlider" title="Border Radius | double click to reset">
+                    </div>
+                    <div class="contrastSlider">
+                        <input type="range" min="15" max="150" value="100" class="slider" id="contrastnessSlider" title="Contrast | double click to reset">
+                    </div>
+                    <button class="themeToggle" title="Toggle dark and light theme">
+                        <img onclick='toggleTheme()' class="themeToggleIcon" src="./assets/images/themeToggle-light.svg" alt="Theme Toggle">
+                    </button>
                 </div>
             </div>
-            <div class='File-Viewer'>
+            <div id='fileViewer'>
             </div>
+            <button id="scrollToTop" class="occult" title="Scroll to Top" onclick="document.getElementById('fileViewer').scroll(0,0);">
+                <img class='scrollToTopIcon' src="./assets/images/scrollToTop.svg" alt="Scroll to Top">
+            </button>
         </div>
-        <script src='./scripts.js'></script>
-        <script src='./sidebar.js'></script>
-        <script src='./markerdown.js'></script>
     </body>
 </html>
