@@ -4,8 +4,9 @@
 - [FIX] Fixed a bug that made the API not work properly when not including `oauth:` in the token.
 - [FIX] Fixed a bug that made the disconnect method not wait for all channels to be left.
 - [BREAKING] Removed the `Logger` and `AutoLogEnd` classes. Now they are provided by the [@promisepending/logger](https://www.npmjs.com/package/@promisepending/logger) package.
+- [First-Contribution] [Daniele Biggiogero](https://github.com/zeroerrequattro) made his first contribution to the project in the pull request '(#225)'. Thanks for your help! 🎉
 
-## V2.0.0-beta.0
+## v2.0.0-beta.0
 - Beta release of the new version of the API. This release includes a brand new version of the API now based on the [typescript](https://www.typescriptlang.org/) language. This new version of the API is more stable and has a lot of improvements and includes a complete refactoring of the codebase from scratch, new features and bug fixes to provide a better user experience and to be more robust and more reliable. The new version is compatible with the previous version of the API without big code changes.
 
 - [BREAKING]: We dropped support for Node.js 10.x, now the minimum version of Node.js required is 12.22.x.
