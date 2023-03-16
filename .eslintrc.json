@@ -32,7 +32,6 @@
     ],
     "new-cap": 0,
     "no-async-promise-executor": ["off"],
-    "no-await-in-loop": "warn",
     "no-caller": 2,
     "no-compare-neg-zero": "error",
     "no-cond-assign": [2, "except-parens"],

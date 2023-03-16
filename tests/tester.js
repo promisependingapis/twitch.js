@@ -1,12 +1,12 @@
 // eslint-disable-next-line strict
 'use strict';
 
+const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
-const chalk = require('chalk');
 
-const { Utils, Client } = require(path.resolve(__dirname, '..', 'build'));
-const loggerClass = Utils.Logger;
+const { Client } = require(path.resolve(__dirname, '..', 'build'));
+const { Logger } = require('@promisepending/logger.js');
 const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interprise'];
 
 const mainChannel = channels[Math.floor(Math.random() * channels.length)];
@@ -36,7 +36,7 @@ const client = new Client({
   }
 });
 
-const logger = new loggerClass({
+const logger = new Logger({
   debug: true,
   coloredBackground: false,
   allLineColored: true,

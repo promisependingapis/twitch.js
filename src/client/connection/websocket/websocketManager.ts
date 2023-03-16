@@ -79,6 +79,13 @@ export class WebSocketManager {
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
         this.client.getLogger().debug('Validating token...');
+
+        if (!token.startsWith('oauth:')) {
+          if (token.includes(' ')) token = token.split(' ')[1];
+          this.client.getLogger().warn('Non-standard token provided, Token should look like "oauth:", adding "oauth:" and proceeding...');
+          token = `oauth:${token}`;
+        }
+
         await this.restManager.get('getTokenValidation', token)
           .then(async (res: any) => {
             this.username = res.login.toString();
@@ -228,11 +235,12 @@ export class WebSocketManager {
 
       if (!bypass) {
         this.client.getLogger().debug('Leaving all channels...');
-        const leavedChannels = this.client.channels.cache.filter(channel => { return channel.connected; }).map(async channel => {
-          return channel.leave().catch(() => null);
-        });
-        const leavedChannelsNames = await Promise.all(leavedChannels);
-        this.client.getLogger().debug('Leaved channels: ' + leavedChannelsNames.join(', '));
+        const leavedChannels: string[] = [];
+        await Promise.all(this.client.channels.cache.filter((channel) => { return channel.connected; }).map(async channel => {
+          leavedChannels.push(channel.name);
+          return channel.leave().catch((): void => null);
+        }));
+        this.client.getLogger().debug('Leaved channels: ' + leavedChannels.join(', '));
       } else this.client.getLogger().warn('Bypassing channel leave...');
 
       this.client.getLogger().debug('Clearing timeouts...');
