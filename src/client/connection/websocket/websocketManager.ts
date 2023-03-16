@@ -79,6 +79,13 @@ export class WebSocketManager {
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
         this.client.getLogger().debug('Validating token...');
+
+        if (!token.startsWith('oauth:')) {
+          if (token.includes(' ')) token = token.split(' ')[1];
+          this.client.getLogger().warn('Non-standard token provided, Token should look like "oauth:", adding "oauth:" and proceeding...');
+          token = `oauth:${token}`;
+        }
+
         await this.restManager.get('getTokenValidation', token)
           .then(async (res: any) => {
             this.username = res.login.toString();
