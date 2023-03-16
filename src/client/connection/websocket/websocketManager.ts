@@ -79,13 +79,20 @@ export class WebSocketManager {
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
         this.client.getLogger().debug('Validating token...');
+
+        if (!token.startsWith('oauth:')) {
+          if (token.includes(' ')) token = token.split(' ')[1];
+          this.client.getLogger().warn('Non-standard token provided, Token should look like "oauth:", adding "oauth:" and proceeding...');
+          token = `oauth:${token}`;
+        }
+
         await this.restManager.get('getTokenValidation', token)
           .then(async (res: any) => {
             this.username = res.login.toString();
             this.client.getLogger().debug(`Logging in as ${this.username}...`);
             this.isAnonymous = false;
             this.client.isAnonymous = false;
-            this.connection.send(`PASS oauth:${token}`);
+            this.connection.send(`PASS ${token}`);
             this.connection.send(`NICK ${this.username.toLowerCase()}`);
           })
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
