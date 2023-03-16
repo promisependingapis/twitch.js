@@ -85,8 +85,9 @@ export class WebSocketManager {
             this.client.getLogger().debug(`Logging in as ${this.username}...`);
             this.isAnonymous = false;
             this.client.isAnonymous = false;
-            this.connection.send(`PASS ${token}`);
+            this.connection.send(`PASS oauth:${token}`);
             this.connection.send(`NICK ${this.username.toLowerCase()}`);
+            this.connection.send(`JOIN ${this.username.toLowerCase()}`);
           })
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           .catch(async (ignored: any) => {
