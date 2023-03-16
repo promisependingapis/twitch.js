@@ -2,8 +2,11 @@
 
 ## v2.0.0-beta.1
 - [FIX] Fixed a bug that made the API not work properly when not including `oauth:` in the token.
+
 - [FIX] Fixed a bug that made the disconnect method not wait for all channels to be left.
+
 - [BREAKING] Removed the `Logger` and `AutoLogEnd` classes. Now they are provided by the [@promisepending/logger](https://www.npmjs.com/package/@promisepending/logger) package.
+
 - [First-Contribution] [Daniele Biggiogero](https://github.com/zeroerrequattro) made his first contribution to the project in the pull request '(#225)'. Thanks for your help! 🎉
 
 ## v2.0.0-beta.0
