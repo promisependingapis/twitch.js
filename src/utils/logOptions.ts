@@ -1,11 +1,11 @@
+import { Logger, autoLogEnd } from '@promisepending/logger.js';
 import { IClientOptions } from '../interfaces/';
-import { Logger, autoLogEnd } from './';
 import merge from 'lodash.merge';
 
 /**
  * @private
  */
-export default function logOptions(defaultOptions: IClientOptions, options: IClientOptions): Promise<[IClientOptions, Logger]> {
+export function logOptions(defaultOptions: IClientOptions, options: IClientOptions): Promise<[IClientOptions, Logger]> {
   return new Promise((resolve) => {
     const newOptions = merge(defaultOptions, options);
 

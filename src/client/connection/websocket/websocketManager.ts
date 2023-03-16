@@ -235,11 +235,12 @@ export class WebSocketManager {
 
       if (!bypass) {
         this.client.getLogger().debug('Leaving all channels...');
-        const leavedChannels = this.client.channels.cache.filter(channel => { return channel.connected; }).map(async channel => {
-          return channel.leave().catch(() => null);
-        });
-        const leavedChannelsNames = await Promise.all(leavedChannels);
-        this.client.getLogger().debug('Leaved channels: ' + leavedChannelsNames.join(', '));
+        const leavedChannels: string[] = [];
+        await Promise.all(this.client.channels.cache.filter((channel) => { return channel.connected; }).map(async channel => {
+          leavedChannels.push(channel.name);
+          return channel.leave().catch((): void => null);
+        }));
+        this.client.getLogger().debug('Leaved channels: ' + leavedChannels.join(', '));
       } else this.client.getLogger().warn('Bypassing channel leave...');
 
       this.client.getLogger().debug('Clearing timeouts...');

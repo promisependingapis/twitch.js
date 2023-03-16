@@ -1,11 +1,11 @@
 import { IClientOptions, defaultOptions, ESteps } from '../interfaces/';
+import { BasicUserStructure, ChannelStructure } from '../structures';
 import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
-import { Logger, waiters } from '../utils';
+import { Logger } from '@promisepending/logger.js';
 import { RestManager } from './connection/rest';
-import { BasicUserStructure, ChannelStructure } from '../structures';
+import { waiters, logOptions } from '../utils';
 import EventEmitter from 'events';
-import logOptions from '../utils/logOptions';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
@@ -281,9 +281,10 @@ export class Client extends EventEmitter {
       }
       this.logger.debug('Disconnecting from: ' + channel.toLowerCase());
       this.wsManager.getConnection().send(`PART ${channel.toLowerCase()}`);
-      this.on('leave', (channel: ChannelStructure) => {
-        if (channel.name) {
-          resolve(channel.name);
+      this.on('leave', (ch: ChannelStructure) => {
+        if (ch.name === channel.substring(1)) {
+          this.logger.debug(`Disconnected from ${channel}`);
+          resolve(channel);
         }
       });
     });
