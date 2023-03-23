@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0-beta.2
+- [NEW] We now expose the tags field of the message on the `message` event, this field contains all the tags of the message sent by the user. This includes badges, color, first message, returning chatter, etc.
+
+- [NEW] Added the bits field to the `message` event, this field contains the number of bits sent by the user. Being 0 if the user did not send bits.
+
 ## v2.0.0-beta.1
 - [FIX] Fixed a bug that made the API not work properly when not including `oauth:` in the token.
 
@@ -13,7 +18,9 @@
 - Beta release of the new version of the API. This release includes a brand new version of the API now based on the [typescript](https://www.typescriptlang.org/) language. This new version of the API is more stable and has a lot of improvements and includes a complete refactoring of the codebase from scratch, new features and bug fixes to provide a better user experience and to be more robust and more reliable. The new version is compatible with the previous version of the API without big code changes.
 
 - [BREAKING]: We dropped support for Node.js 10.x, now the minimum version of Node.js required is 12.22.x.
+
 - [BREAKING]: We doesn't provide the "Collection" class anymore, now the "Collection" class is provided by the [@discordjs/collection](https://www.npmjs.com/package/@discordjs/collection) package.
+
 - [IMPORTANT]: We changed our brand name from "TwitchApis" to "PromisePending". In a near future we will change the name of the organization from "twitchapis" to "promisepending" in the NPM package.
 
 - [NEW]: We added a new system to load the API.
