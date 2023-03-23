@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0-beta.3
+- [FIX] Fixed an issue caused by twitch sending numbers as strings in the `message` event.
+  - This fix is made especially for the `bits` field of the `message` event.
+
 ## v2.0.0-beta.2
 - [NEW] We now expose the tags field of the message on the `message` event, this field contains all the tags of the message sent by the user. This includes badges, color, first message, returning chatter, etc.
 
