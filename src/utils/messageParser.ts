@@ -174,7 +174,7 @@ export function parseFinalMessage(client: Client, message: ITwitchMessage): IMes
     content: message.parameters,
     id,
     tags: message.tags,
-    bits: message.tags.bits ?? 0,
+    bits: parseInt(message.tags.bits) ?? 0,
     channel,
     reply: (message: string): Promise<void> => {
       return new Promise((resolve, reject) => {
