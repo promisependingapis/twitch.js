@@ -31,7 +31,7 @@
 									"fileName": "structures/user.ts",
 									"line": 18,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L18"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L18"
 								}
 							],
 							"signatures": [
@@ -85,7 +85,7 @@
 									"fileName": "structures/user.ts",
 									"line": 11,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L11"
 								}
 							],
 							"type": {
@@ -104,7 +104,7 @@
 									"fileName": "structures/user.ts",
 									"line": 15,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L15"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L15"
 								}
 							],
 							"type": {
@@ -123,7 +123,7 @@
 									"fileName": "structures/user.ts",
 									"line": 5,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L5"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L5"
 								}
 							],
 							"type": {
@@ -143,7 +143,7 @@
 									"fileName": "structures/user.ts",
 									"line": 12,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L12"
 								}
 							],
 							"type": {
@@ -162,7 +162,7 @@
 									"fileName": "structures/user.ts",
 									"line": 14,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L14"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L14"
 								}
 							],
 							"type": {
@@ -181,7 +181,7 @@
 									"fileName": "structures/user.ts",
 									"line": 8,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L8"
 								}
 							],
 							"type": {
@@ -200,7 +200,7 @@
 									"fileName": "structures/user.ts",
 									"line": 7,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L7"
 								}
 							],
 							"type": {
@@ -219,7 +219,7 @@
 									"fileName": "structures/user.ts",
 									"line": 9,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L9"
 								}
 							],
 							"type": {
@@ -238,7 +238,7 @@
 									"fileName": "structures/user.ts",
 									"line": 13,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L13"
 								}
 							],
 							"type": {
@@ -257,7 +257,7 @@
 									"fileName": "structures/user.ts",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L10"
 								}
 							],
 							"type": {
@@ -276,7 +276,7 @@
 									"fileName": "structures/user.ts",
 									"line": 16,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L16"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L16"
 								}
 							],
 							"type": {
@@ -295,7 +295,7 @@
 									"fileName": "structures/user.ts",
 									"line": 6,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L6"
 								}
 							],
 							"type": {
@@ -334,7 +334,7 @@
 							"fileName": "structures/user.ts",
 							"line": 4,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L4"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L4"
 						}
 					],
 					"extendedBy": [
@@ -363,7 +363,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L10"
 								}
 							],
 							"signatures": [
@@ -408,7 +408,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 7,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L7"
 								}
 							],
 							"type": {
@@ -442,7 +442,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 8,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L8"
 								}
 							],
 							"type": {
@@ -464,7 +464,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 51,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L51"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L51"
 								}
 							],
 							"signatures": [
@@ -552,7 +552,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 58,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L58"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L58"
 								}
 							],
 							"signatures": [
@@ -598,7 +598,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 66,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L66"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L66"
 								}
 							],
 							"signatures": [
@@ -656,7 +656,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 20,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L20"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L20"
 								}
 							],
 							"signatures": [
@@ -731,7 +731,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 30,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L30"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L30"
 								}
 							],
 							"signatures": [
@@ -805,7 +805,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 41,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L41"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L41"
 								}
 							],
 							"signatures": [
@@ -912,7 +912,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 76,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L76"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L76"
 								}
 							],
 							"signatures": [
@@ -970,7 +970,7 @@
 									"fileName": "client/managers/channelManager.ts",
 									"line": 93,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L93"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L93"
 								}
 							],
 							"signatures": [
@@ -1048,7 +1048,7 @@
 							"fileName": "client/managers/channelManager.ts",
 							"line": 6,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/channelManager.ts#L6"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/channelManager.ts#L6"
 						}
 					]
 				},
@@ -1070,7 +1070,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 21,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L21"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L21"
 								}
 							],
 							"signatures": [
@@ -1124,7 +1124,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 6,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L6"
 								}
 							],
 							"type": {
@@ -1144,7 +1144,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 8,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L8"
 								}
 							],
 							"type": {
@@ -1163,7 +1163,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L10"
 								}
 							],
 							"type": {
@@ -1182,7 +1182,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 12,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L12"
 								}
 							],
 							"type": {
@@ -1201,7 +1201,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 11,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L11"
 								}
 							],
 							"type": {
@@ -1220,7 +1220,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 15,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L15"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L15"
 								}
 							],
 							"type": {
@@ -1239,7 +1239,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 7,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L7"
 								}
 							],
 							"type": {
@@ -1258,7 +1258,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 13,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L13"
 								}
 							],
 							"type": {
@@ -1277,7 +1277,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 14,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L14"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L14"
 								}
 							],
 							"type": {
@@ -1296,7 +1296,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 19,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L19"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L19"
 								}
 							],
 							"type": {
@@ -1315,7 +1315,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 17,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L17"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L17"
 								}
 							],
 							"type": {
@@ -1334,7 +1334,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 16,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L16"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L16"
 								}
 							],
 							"type": {
@@ -1353,7 +1353,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 18,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L18"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L18"
 								}
 							],
 							"type": {
@@ -1372,7 +1372,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 9,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L9"
 								}
 							],
 							"type": {
@@ -1392,7 +1392,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 55,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L55"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L55"
 								}
 							],
 							"signatures": [
@@ -1452,7 +1452,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 45,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L45"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L45"
 								}
 							],
 							"signatures": [
@@ -1512,7 +1512,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 76,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L76"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L76"
 								}
 							],
 							"signatures": [
@@ -1571,7 +1571,7 @@
 									"fileName": "structures/channel.ts",
 									"line": 67,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L67"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L67"
 								}
 							],
 							"signatures": [
@@ -1717,7 +1717,7 @@
 							"fileName": "structures/channel.ts",
 							"line": 5,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/channel.ts#L5"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/channel.ts#L5"
 						}
 					]
 				},
@@ -1741,7 +1741,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 15,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L15"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L15"
 								}
 							],
 							"signatures": [
@@ -1786,7 +1786,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 13,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L13"
 								}
 							],
 							"type": {
@@ -1808,7 +1808,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 12,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L12"
 								}
 							],
 							"type": {
@@ -1830,7 +1830,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 11,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L11"
 								}
 							],
 							"type": {
@@ -1851,7 +1851,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 10,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L10"
 								}
 							],
 							"type": {
@@ -1873,7 +1873,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 106,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L106"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L106"
 								}
 							],
 							"signatures": [
@@ -1935,7 +1935,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 58,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L58"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L58"
 								}
 							],
 							"signatures": [
@@ -1999,7 +1999,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 23,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L23"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L23"
 								}
 							],
 							"signatures": [
@@ -2039,7 +2039,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 40,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L40"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L40"
 								}
 							],
 							"signatures": [
@@ -2101,7 +2101,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 28,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L28"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L28"
 								}
 							],
 							"signatures": [
@@ -2152,7 +2152,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 74,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L74"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L74"
 								}
 							],
 							"signatures": [
@@ -2214,7 +2214,7 @@
 									"fileName": "client/connection/rest/restManager.ts",
 									"line": 90,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L90"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L90"
 								}
 							],
 							"signatures": [
@@ -2298,7 +2298,7 @@
 							"fileName": "client/connection/rest/restManager.ts",
 							"line": 9,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/rest/restManager.ts#L9"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/rest/restManager.ts#L9"
 						}
 					]
 				},
@@ -2320,7 +2320,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L10"
 								}
 							],
 							"signatures": [
@@ -2365,7 +2365,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 7,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L7"
 								}
 							],
 							"type": {
@@ -2399,7 +2399,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 8,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L8"
 								}
 							],
 							"type": {
@@ -2421,7 +2421,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 49,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L49"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L49"
 								}
 							],
 							"signatures": [
@@ -2509,7 +2509,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 72,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L72"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L72"
 								}
 							],
 							"signatures": [
@@ -2567,7 +2567,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 56,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L56"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L56"
 								}
 							],
 							"signatures": [
@@ -2613,7 +2613,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 63,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L63"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L63"
 								}
 							],
 							"signatures": [
@@ -2671,7 +2671,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 20,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L20"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L20"
 								}
 							],
 							"signatures": [
@@ -2746,7 +2746,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 29,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L29"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L29"
 								}
 							],
 							"signatures": [
@@ -2820,7 +2820,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 39,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L39"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L39"
 								}
 							],
 							"signatures": [
@@ -2927,7 +2927,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 123,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L123"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L123"
 								}
 							],
 							"signatures": [
@@ -2986,7 +2986,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 100,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L100"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L100"
 								}
 							],
 							"signatures": [
@@ -3045,7 +3045,7 @@
 									"fileName": "client/managers/userManager.ts",
 									"line": 81,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L81"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L81"
 								}
 							],
 							"signatures": [
@@ -3126,7 +3126,7 @@
 							"fileName": "client/managers/userManager.ts",
 							"line": 6,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/managers/userManager.ts#L6"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/managers/userManager.ts#L6"
 						}
 					]
 				},
@@ -3148,7 +3148,7 @@
 									"fileName": "structures/user.ts",
 									"line": 46,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L46"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L46"
 								}
 							],
 							"signatures": [
@@ -3212,7 +3212,7 @@
 									"fileName": "structures/user.ts",
 									"line": 11,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L11"
 								}
 							],
 							"type": {
@@ -3236,7 +3236,7 @@
 									"fileName": "structures/user.ts",
 									"line": 15,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L15"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L15"
 								}
 							],
 							"type": {
@@ -3260,7 +3260,7 @@
 									"fileName": "structures/user.ts",
 									"line": 44,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L44"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L44"
 								}
 							],
 							"type": {
@@ -3279,7 +3279,7 @@
 									"fileName": "structures/user.ts",
 									"line": 37,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L37"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L37"
 								}
 							],
 							"type": {
@@ -3299,7 +3299,7 @@
 									"fileName": "structures/user.ts",
 									"line": 5,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L5"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L5"
 								}
 							],
 							"type": {
@@ -3324,7 +3324,7 @@
 									"fileName": "structures/user.ts",
 									"line": 38,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L38"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L38"
 								}
 							],
 							"type": {
@@ -3343,7 +3343,7 @@
 									"fileName": "structures/user.ts",
 									"line": 39,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L39"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L39"
 								}
 							],
 							"type": {
@@ -3362,7 +3362,7 @@
 									"fileName": "structures/user.ts",
 									"line": 12,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L12"
 								}
 							],
 							"type": {
@@ -3386,7 +3386,7 @@
 									"fileName": "structures/user.ts",
 									"line": 14,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L14"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L14"
 								}
 							],
 							"type": {
@@ -3410,7 +3410,7 @@
 									"fileName": "structures/user.ts",
 									"line": 8,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L8"
 								}
 							],
 							"type": {
@@ -3434,7 +3434,7 @@
 									"fileName": "structures/user.ts",
 									"line": 40,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L40"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L40"
 								}
 							],
 							"type": {
@@ -3453,7 +3453,7 @@
 									"fileName": "structures/user.ts",
 									"line": 7,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L7"
 								}
 							],
 							"type": {
@@ -3477,7 +3477,7 @@
 									"fileName": "structures/user.ts",
 									"line": 9,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L9"
 								}
 							],
 							"type": {
@@ -3501,7 +3501,7 @@
 									"fileName": "structures/user.ts",
 									"line": 13,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L13"
 								}
 							],
 							"type": {
@@ -3525,7 +3525,7 @@
 									"fileName": "structures/user.ts",
 									"line": 10,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L10"
 								}
 							],
 							"type": {
@@ -3549,7 +3549,7 @@
 									"fileName": "structures/user.ts",
 									"line": 41,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L41"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L41"
 								}
 							],
 							"type": {
@@ -3568,7 +3568,7 @@
 									"fileName": "structures/user.ts",
 									"line": 42,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L42"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L42"
 								}
 							],
 							"type": {
@@ -3587,7 +3587,7 @@
 									"fileName": "structures/user.ts",
 									"line": 16,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L16"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L16"
 								}
 							],
 							"type": {
@@ -3611,7 +3611,7 @@
 									"fileName": "structures/user.ts",
 									"line": 6,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L6"
 								}
 							],
 							"type": {
@@ -3635,7 +3635,7 @@
 									"fileName": "structures/user.ts",
 									"line": 43,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L43"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L43"
 								}
 							],
 							"type": {
@@ -3656,7 +3656,7 @@
 									"fileName": "structures/user.ts",
 									"line": 103,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L103"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L103"
 								}
 							],
 							"signatures": [
@@ -3764,7 +3764,7 @@
 									"fileName": "structures/user.ts",
 									"line": 67,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L67"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L67"
 								}
 							],
 							"signatures": [
@@ -3903,7 +3903,7 @@
 									"fileName": "structures/user.ts",
 									"line": 132,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L132"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L132"
 								}
 							],
 							"signatures": [
@@ -3992,7 +3992,7 @@
 									"fileName": "structures/user.ts",
 									"line": 85,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L85"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L85"
 								}
 							],
 							"signatures": [
@@ -4116,7 +4116,7 @@
 							"fileName": "structures/user.ts",
 							"line": 36,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/structures/user.ts#L36"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/structures/user.ts#L36"
 						}
 					],
 					"extendedTypes": [
@@ -4145,7 +4145,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 21,
 									"character": 2,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L21"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L21"
 								}
 							],
 							"signatures": [
@@ -4190,7 +4190,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 19,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L19"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L19"
 								}
 							],
 							"type": {
@@ -4212,7 +4212,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 13,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L13"
 								}
 							],
 							"type": {
@@ -4235,7 +4235,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 17,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L17"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L17"
 								}
 							],
 							"type": {
@@ -4256,7 +4256,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 12,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L12"
 								}
 							],
 							"type": {
@@ -4272,7 +4272,7 @@
 											"fileName": "client/connection/websocket/websocketManager.ts",
 											"line": 12,
 											"character": 19,
-											"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L12"
+											"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L12"
 										}
 									],
 									"indexSignature": {
@@ -4316,7 +4316,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 16,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L16"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L16"
 								}
 							],
 							"type": {
@@ -4337,7 +4337,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 18,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L18"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L18"
 								}
 							],
 							"type": {
@@ -4359,7 +4359,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 10,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L10"
 								}
 							],
 							"type": {
@@ -4382,7 +4382,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 11,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L11"
 								}
 							],
 							"type": {
@@ -4405,7 +4405,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 14,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L14"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L14"
 								}
 							],
 							"type": {
@@ -4427,7 +4427,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 15,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L15"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L15"
 								}
 							],
 							"type": {
@@ -4449,7 +4449,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 230,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L230"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L230"
 								}
 							],
 							"signatures": [
@@ -4527,7 +4527,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 154,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L154"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L154"
 								}
 							],
 							"signatures": [
@@ -4561,7 +4561,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 31,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L31"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L31"
 								}
 							],
 							"signatures": [
@@ -4601,7 +4601,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 75,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L75"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L75"
 								}
 							],
 							"signatures": [
@@ -4680,7 +4680,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 143,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L143"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L143"
 								}
 							],
 							"signatures": [
@@ -4734,7 +4734,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 139,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L139"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L139"
 								}
 							],
 							"signatures": [
@@ -4779,7 +4779,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 125,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L125"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L125"
 								}
 							],
 							"signatures": [
@@ -4822,7 +4822,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 121,
 									"character": 10,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L121"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L121"
 								}
 							],
 							"signatures": [
@@ -4852,7 +4852,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 186,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L186"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L186"
 								}
 							],
 							"signatures": [
@@ -4908,7 +4908,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 161,
 									"character": 9,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L161"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L161"
 								}
 							],
 							"signatures": [
@@ -4940,7 +4940,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 206,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L206"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L206"
 								}
 							],
 							"signatures": [
@@ -5046,7 +5046,7 @@
 									"fileName": "client/connection/websocket/websocketManager.ts",
 									"line": 55,
 									"character": 15,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L55"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L55"
 								}
 							],
 							"signatures": [
@@ -5119,7 +5119,7 @@
 							"fileName": "client/connection/websocket/websocketManager.ts",
 							"line": 9,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/connection/websocket/websocketManager.ts#L9"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/connection/websocket/websocketManager.ts#L9"
 						}
 					]
 				}
@@ -5164,7 +5164,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 12,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L12"
 								}
 							],
 							"type": {
@@ -5183,7 +5183,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 5,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L5"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L5"
 								}
 							],
 							"type": {
@@ -5202,7 +5202,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 8,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L8"
 								}
 							],
 							"type": {
@@ -5221,7 +5221,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 6,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L6"
 								}
 							],
 							"type": {
@@ -5240,7 +5240,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 9,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L9"
 								}
 							],
 							"type": {
@@ -5259,7 +5259,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 4,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L4"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L4"
 								}
 							],
 							"type": {
@@ -5278,7 +5278,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 7,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L7"
 								}
 							],
 							"type": {
@@ -5297,7 +5297,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 10,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L10"
 								}
 							],
 							"type": {
@@ -5316,7 +5316,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 11,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L11"
 								}
 							],
 							"type": {
@@ -5335,7 +5335,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 14,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L14"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L14"
 								}
 							],
 							"type": {
@@ -5354,7 +5354,7 @@
 									"fileName": "interfaces/ESteps.ts",
 									"line": 13,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L13"
 								}
 							],
 							"type": {
@@ -5386,7 +5386,7 @@
 							"fileName": "interfaces/ESteps.ts",
 							"line": 3,
 							"character": 12,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ESteps.ts#L3"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ESteps.ts#L3"
 						}
 					]
 				},
@@ -5408,7 +5408,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 6,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L6"
 								}
 							],
 							"type": {
@@ -5427,7 +5427,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 7,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L7"
 								}
 							],
 							"type": {
@@ -5450,7 +5450,7 @@
 							"fileName": "interfaces/IOptions.ts",
 							"line": 5,
 							"character": 12,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L5"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L5"
 						}
 					]
 				},
@@ -5474,7 +5474,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 26,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L26"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L26"
 								}
 							],
 							"type": {
@@ -5495,7 +5495,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 27,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L27"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L27"
 								}
 							],
 							"type": {
@@ -5516,7 +5516,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 28,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L28"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L28"
 								}
 							],
 							"type": {
@@ -5540,7 +5540,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 29,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L29"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L29"
 								}
 							],
 							"type": {
@@ -5564,7 +5564,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 23,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L23"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L23"
 								}
 							],
 							"type": {
@@ -5594,7 +5594,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 30,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L30"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L30"
 								}
 							],
 							"type": {
@@ -5615,7 +5615,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 43,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L43"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L43"
 								}
 							],
 							"type": {
@@ -5636,7 +5636,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 31,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L31"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L31"
 								}
 							],
 							"type": {
@@ -5657,7 +5657,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 32,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L32"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L32"
 								}
 							],
 							"type": {
@@ -5679,7 +5679,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 41,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L41"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L41"
 								}
 							],
 							"type": {
@@ -5702,7 +5702,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 24,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L24"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L24"
 								}
 							],
 							"type": {
@@ -5723,7 +5723,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 25,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L25"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L25"
 								}
 							],
 							"type": {
@@ -5753,7 +5753,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 33,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L33"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L33"
 								}
 							],
 							"type": {
@@ -5774,7 +5774,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 34,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L34"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L34"
 								}
 							],
 							"type": {
@@ -5795,7 +5795,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 35,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L35"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L35"
 								}
 							],
 							"type": {
@@ -5816,7 +5816,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 42,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L42"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L42"
 								}
 							],
 							"type": {
@@ -5837,7 +5837,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 36,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L36"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L36"
 								}
 							],
 							"type": {
@@ -5858,7 +5858,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 37,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L37"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L37"
 								}
 							],
 							"type": {
@@ -5879,7 +5879,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 38,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L38"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L38"
 								}
 							],
 							"type": {
@@ -5900,7 +5900,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 39,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L39"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L39"
 								}
 							],
 							"type": {
@@ -5921,7 +5921,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 40,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L40"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L40"
 								}
 							],
 							"type": {
@@ -5964,7 +5964,7 @@
 							"fileName": "interfaces/IOptions.ts",
 							"line": 22,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L22"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L22"
 						}
 					]
 				},
@@ -5988,7 +5988,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 13,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L13"
 								}
 							],
 							"type": {
@@ -6004,7 +6004,7 @@
 											"fileName": "interfaces/IOptions.ts",
 											"line": 13,
 											"character": 14,
-											"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L13"
+											"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L13"
 										}
 									],
 									"indexSignature": {
@@ -6046,7 +6046,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 11,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L11"
 								}
 							],
 							"type": {
@@ -6067,7 +6067,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 12,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L12"
 								}
 							],
 							"type": {
@@ -6091,7 +6091,7 @@
 							"fileName": "interfaces/IOptions.ts",
 							"line": 10,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L10"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L10"
 						}
 					]
 				},
@@ -6113,7 +6113,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 12,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L12"
 								}
 							],
 							"type": {
@@ -6133,7 +6133,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 10,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L10"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L10"
 								}
 							],
 							"type": {
@@ -6152,7 +6152,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 11,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L11"
 								}
 							],
 							"type": {
@@ -6172,7 +6172,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 5,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L5"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L5"
 								}
 							],
 							"type": {
@@ -6191,7 +6191,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 8,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L8"
 								}
 							],
 							"type": {
@@ -6210,7 +6210,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 9,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L9"
 								}
 							],
 							"type": {
@@ -6230,7 +6230,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 7,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L7"
 								}
 							],
 							"signatures": [
@@ -6271,7 +6271,7 @@
 									"fileName": "interfaces/IMessage.ts",
 									"line": 6,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L6"
 								}
 							],
 							"signatures": [
@@ -6314,7 +6314,7 @@
 							"fileName": "interfaces/IMessage.ts",
 							"line": 4,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IMessage.ts#L4"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IMessage.ts#L4"
 						}
 					]
 				},
@@ -6338,7 +6338,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 12,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L12"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L12"
 								}
 							],
 							"type": {
@@ -6357,7 +6357,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 11,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L11"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L11"
 								}
 							],
 							"type": {
@@ -6378,7 +6378,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 13,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L13"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L13"
 								}
 							],
 							"type": {
@@ -6402,7 +6402,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 10,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L10"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L10"
 						}
 					]
 				},
@@ -6424,7 +6424,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 19,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L19"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L19"
 								}
 							],
 							"type": {
@@ -6446,7 +6446,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 20,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L20"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L20"
 								}
 							],
 							"type": {
@@ -6465,7 +6465,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 18,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L18"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L18"
 								}
 							],
 							"type": {
@@ -6485,7 +6485,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 17,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L17"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L17"
 								}
 							],
 							"type": {
@@ -6511,7 +6511,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 16,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L16"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L16"
 						}
 					]
 				},
@@ -6535,7 +6535,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 34,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L34"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L34"
 								}
 							],
 							"type": {
@@ -6561,7 +6561,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 35,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L35"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L35"
 								}
 							],
 							"type": {
@@ -6577,7 +6577,7 @@
 											"fileName": "interfaces/ITwitch.ts",
 											"line": 35,
 											"character": 13,
-											"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L35"
+											"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L35"
 										}
 									],
 									"indexSignature": {
@@ -6624,7 +6624,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 36,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L36"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L36"
 								}
 							],
 							"type": {
@@ -6650,7 +6650,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 37,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L37"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L37"
 								}
 							],
 							"type": {
@@ -6676,7 +6676,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 24,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L24"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L24"
 								}
 							],
 							"type": {
@@ -6702,7 +6702,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 38,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L38"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L38"
 								}
 							],
 							"type": {
@@ -6728,7 +6728,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 25,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L25"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L25"
 								}
 							],
 							"type": {
@@ -6754,7 +6754,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 39,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L39"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L39"
 								}
 							],
 							"type": {
@@ -6780,7 +6780,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 26,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L26"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L26"
 								}
 							],
 							"type": {
@@ -6806,7 +6806,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 27,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L27"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L27"
 								}
 							],
 							"type": {
@@ -6832,7 +6832,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 28,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L28"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L28"
 								}
 							],
 							"type": {
@@ -6858,7 +6858,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 29,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L29"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L29"
 								}
 							],
 							"type": {
@@ -6884,7 +6884,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 30,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L30"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L30"
 								}
 							],
 							"type": {
@@ -6910,7 +6910,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 40,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L40"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L40"
 								}
 							],
 							"type": {
@@ -6936,7 +6936,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 41,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L41"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L41"
 								}
 							],
 							"type": {
@@ -6962,7 +6962,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 43,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L43"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L43"
 								}
 							],
 							"type": {
@@ -6988,7 +6988,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 42,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L42"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L42"
 								}
 							],
 							"type": {
@@ -7031,7 +7031,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 46,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L46"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L46"
 						}
 					],
 					"extendedTypes": [
@@ -7067,7 +7067,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 24,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L24"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L24"
 								}
 							],
 							"type": {
@@ -7088,7 +7088,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 25,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L25"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L25"
 								}
 							],
 							"type": {
@@ -7109,7 +7109,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 26,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L26"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L26"
 								}
 							],
 							"type": {
@@ -7130,7 +7130,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 27,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L27"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L27"
 								}
 							],
 							"type": {
@@ -7151,7 +7151,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 28,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L28"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L28"
 								}
 							],
 							"type": {
@@ -7172,7 +7172,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 29,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L29"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L29"
 								}
 							],
 							"type": {
@@ -7193,7 +7193,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 30,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L30"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L30"
 								}
 							],
 							"type": {
@@ -7221,7 +7221,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 23,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L23"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L23"
 						}
 					],
 					"extendedTypes": [
@@ -7257,7 +7257,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 6,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L6"
 								}
 							],
 							"type": {
@@ -7278,7 +7278,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 7,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L7"
 								}
 							],
 							"type": {
@@ -7301,7 +7301,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 5,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L5"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L5"
 						}
 					]
 				},
@@ -7316,7 +7316,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 1,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L1"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L1"
 						}
 					],
 					"indexSignature": {
@@ -7375,7 +7375,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 34,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L34"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L34"
 								}
 							],
 							"type": {
@@ -7396,7 +7396,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 35,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L35"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L35"
 								}
 							],
 							"type": {
@@ -7412,7 +7412,7 @@
 											"fileName": "interfaces/ITwitch.ts",
 											"line": 35,
 											"character": 13,
-											"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L35"
+											"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L35"
 										}
 									],
 									"indexSignature": {
@@ -7454,7 +7454,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 36,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L36"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L36"
 								}
 							],
 							"type": {
@@ -7475,7 +7475,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 37,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L37"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L37"
 								}
 							],
 							"type": {
@@ -7496,7 +7496,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 38,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L38"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L38"
 								}
 							],
 							"type": {
@@ -7517,7 +7517,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 39,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L39"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L39"
 								}
 							],
 							"type": {
@@ -7538,7 +7538,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 40,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L40"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L40"
 								}
 							],
 							"type": {
@@ -7559,7 +7559,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 41,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L41"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L41"
 								}
 							],
 							"type": {
@@ -7580,7 +7580,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 43,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L43"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L43"
 								}
 							],
 							"type": {
@@ -7601,7 +7601,7 @@
 									"fileName": "interfaces/ITwitch.ts",
 									"line": 42,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L42"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L42"
 								}
 							],
 							"type": {
@@ -7632,7 +7632,7 @@
 							"fileName": "interfaces/ITwitch.ts",
 							"line": 33,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/ITwitch.ts#L33"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/ITwitch.ts#L33"
 						}
 					],
 					"extendedTypes": [
@@ -7668,7 +7668,7 @@
 									"fileName": "interfaces/IWSMethod.ts",
 									"line": 6,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L6"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L6"
 								}
 							],
 							"type": {
@@ -7687,7 +7687,7 @@
 									"fileName": "interfaces/IWSMethod.ts",
 									"line": 7,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L7"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L7"
 								}
 							],
 							"type": {
@@ -7707,7 +7707,7 @@
 									"fileName": "interfaces/IWSMethod.ts",
 									"line": 8,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L8"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L8"
 								}
 							],
 							"signatures": [
@@ -7758,7 +7758,7 @@
 							"fileName": "interfaces/IWSMethod.ts",
 							"line": 5,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L5"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L5"
 						}
 					]
 				},
@@ -7782,7 +7782,7 @@
 									"fileName": "interfaces/IWSMethod.ts",
 									"line": 2,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L2"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L2"
 								}
 							],
 							"type": {
@@ -7804,7 +7804,7 @@
 							"fileName": "interfaces/IWSMethod.ts",
 							"line": 1,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IWSMethod.ts#L1"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IWSMethod.ts#L1"
 						}
 					]
 				},
@@ -7828,7 +7828,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 17,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L17"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L17"
 								}
 							],
 							"type": {
@@ -7849,7 +7849,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 18,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L18"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L18"
 								}
 							],
 							"type": {
@@ -7870,7 +7870,7 @@
 									"fileName": "interfaces/IOptions.ts",
 									"line": 19,
 									"character": 4,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L19"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L19"
 								}
 							],
 							"type": {
@@ -7895,7 +7895,7 @@
 							"fileName": "interfaces/IOptions.ts",
 							"line": 16,
 							"character": 17,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L16"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L16"
 						}
 					]
 				},
@@ -7912,7 +7912,7 @@
 							"fileName": "interfaces/IOptions.ts",
 							"line": 46,
 							"character": 13,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/IOptions.ts#L46"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/IOptions.ts#L46"
 						}
 					],
 					"type": {
@@ -7961,7 +7961,7 @@
 					"fileName": "interfaces/index.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/interfaces/index.ts#L1"
+					"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/interfaces/index.ts#L1"
 				}
 			]
 		},
@@ -7992,7 +7992,7 @@
 									"fileName": "utils/messageParser.ts",
 									"line": 72,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L72"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L72"
 								}
 							],
 							"signatures": [
@@ -8038,7 +8038,7 @@
 									"fileName": "utils/messageParser.ts",
 									"line": 170,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L170"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L170"
 								}
 							],
 							"signatures": [
@@ -8097,7 +8097,7 @@
 									"fileName": "utils/messageParser.ts",
 									"line": 122,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L122"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L122"
 								}
 							],
 							"signatures": [
@@ -8143,7 +8143,7 @@
 									"fileName": "utils/messageParser.ts",
 									"line": 108,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L108"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L108"
 								}
 							],
 							"signatures": [
@@ -8189,7 +8189,7 @@
 									"fileName": "utils/messageParser.ts",
 									"line": 9,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L9"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L9"
 								}
 							],
 							"signatures": [
@@ -8240,7 +8240,7 @@
 							"fileName": "utils/messageParser.ts",
 							"line": 1,
 							"character": 0,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/messageParser.ts#L1"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/messageParser.ts#L1"
 						}
 					]
 				},
@@ -8264,7 +8264,7 @@
 									"fileName": "utils/waiters.ts",
 									"line": 4,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/waiters.ts#L4"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/waiters.ts#L4"
 								}
 							],
 							"signatures": [
@@ -8304,7 +8304,7 @@
 									"fileName": "utils/waiters.ts",
 									"line": 36,
 									"character": 16,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/waiters.ts#L36"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/waiters.ts#L36"
 								}
 							],
 							"signatures": [
@@ -8346,7 +8346,7 @@
 							"fileName": "utils/waiters.ts",
 							"line": 4,
 							"character": 0,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/waiters.ts#L4"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/waiters.ts#L4"
 						}
 					]
 				},
@@ -8363,7 +8363,7 @@
 							"fileName": "utils/logOptions.ts",
 							"line": 8,
 							"character": 16,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/logOptions.ts#L8"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/logOptions.ts#L8"
 						}
 					],
 					"signatures": [
@@ -8449,7 +8449,7 @@
 					"fileName": "utils/index.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/utils/index.ts#L1"
+					"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/utils/index.ts#L1"
 				}
 			]
 		},
@@ -8471,7 +8471,7 @@
 							"fileName": "client/client.ts",
 							"line": 32,
 							"character": 2,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L32"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L32"
 						}
 					],
 					"signatures": [
@@ -8524,7 +8524,7 @@
 							"fileName": "client/client.ts",
 							"line": 11,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L11"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L11"
 						}
 					],
 					"type": {
@@ -8546,7 +8546,7 @@
 							"fileName": "client/client.ts",
 							"line": 26,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L26"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L26"
 						}
 					],
 					"type": {
@@ -8568,7 +8568,7 @@
 							"fileName": "client/client.ts",
 							"line": 13,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L13"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L13"
 						}
 					],
 					"type": {
@@ -8589,7 +8589,7 @@
 							"fileName": "client/client.ts",
 							"line": 27,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L27"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L27"
 						}
 					],
 					"type": {
@@ -8611,7 +8611,7 @@
 							"fileName": "client/client.ts",
 							"line": 28,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L28"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L28"
 						}
 					],
 					"type": {
@@ -8634,7 +8634,7 @@
 							"fileName": "client/client.ts",
 							"line": 24,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L24"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L24"
 						}
 					],
 					"type": {
@@ -8656,7 +8656,7 @@
 							"fileName": "client/client.ts",
 							"line": 30,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L30"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L30"
 						}
 					],
 					"type": {
@@ -8678,7 +8678,7 @@
 							"fileName": "client/client.ts",
 							"line": 20,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L20"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L20"
 						}
 					],
 					"type": {
@@ -8694,7 +8694,7 @@
 									"fileName": "client/client.ts",
 									"line": 20,
 									"character": 30,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L20"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L20"
 								}
 							],
 							"signatures": [
@@ -8726,7 +8726,7 @@
 							"fileName": "client/client.ts",
 							"line": 23,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L23"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L23"
 						}
 					],
 					"type": {
@@ -8748,7 +8748,7 @@
 							"fileName": "client/client.ts",
 							"line": 21,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L21"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L21"
 						}
 					],
 					"type": {
@@ -8769,7 +8769,7 @@
 							"fileName": "client/client.ts",
 							"line": 19,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L19"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L19"
 						}
 					],
 					"type": {
@@ -8785,7 +8785,7 @@
 									"fileName": "client/client.ts",
 									"line": 19,
 									"character": 17,
-									"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L19"
+									"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L19"
 								}
 							],
 							"indexSignature": {
@@ -8830,7 +8830,7 @@
 							"fileName": "client/client.ts",
 							"line": 29,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L29"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L29"
 						}
 					],
 					"type": {
@@ -8851,7 +8851,7 @@
 							"fileName": "client/client.ts",
 							"line": 25,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L25"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L25"
 						}
 					],
 					"type": {
@@ -8872,7 +8872,7 @@
 							"fileName": "client/client.ts",
 							"line": 12,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L12"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L12"
 						}
 					],
 					"type": {
@@ -8894,7 +8894,7 @@
 							"fileName": "client/client.ts",
 							"line": 18,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L18"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L18"
 						}
 					],
 					"type": {
@@ -8916,7 +8916,7 @@
 							"fileName": "client/client.ts",
 							"line": 22,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L22"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L22"
 						}
 					],
 					"type": {
@@ -8938,7 +8938,7 @@
 							"fileName": "client/client.ts",
 							"line": 89,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L89"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L89"
 						}
 					],
 					"signatures": [
@@ -9010,7 +9010,7 @@
 													"fileName": "client/client.ts",
 													"line": 89,
 													"character": 48,
-													"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L89"
+													"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L89"
 												}
 											],
 											"signatures": [
@@ -9050,7 +9050,7 @@
 							"fileName": "client/client.ts",
 							"line": 297,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L297"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L297"
 						}
 					],
 					"signatures": [
@@ -9106,7 +9106,7 @@
 							"fileName": "client/client.ts",
 							"line": 309,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L309"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L309"
 						}
 					],
 					"signatures": [
@@ -9191,7 +9191,7 @@
 							"fileName": "client/client.ts",
 							"line": 376,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L376"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L376"
 						}
 					],
 					"signatures": [
@@ -9245,7 +9245,7 @@
 							"fileName": "client/client.ts",
 							"line": 326,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L326"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L326"
 						}
 					],
 					"signatures": [
@@ -9300,7 +9300,7 @@
 							"fileName": "client/client.ts",
 							"line": 334,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L334"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L334"
 						}
 					],
 					"signatures": [
@@ -9354,7 +9354,7 @@
 							"fileName": "client/client.ts",
 							"line": 342,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L342"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L342"
 						}
 					],
 					"signatures": [
@@ -9408,7 +9408,7 @@
 							"fileName": "client/client.ts",
 							"line": 351,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L351"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L351"
 						}
 					],
 					"signatures": [
@@ -9464,7 +9464,7 @@
 							"fileName": "client/client.ts",
 							"line": 177,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L177"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L177"
 						}
 					],
 					"signatures": [
@@ -9546,7 +9546,7 @@
 							"fileName": "client/client.ts",
 							"line": 267,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L267"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L267"
 						}
 					],
 					"signatures": [
@@ -9628,7 +9628,7 @@
 							"fileName": "client/client.ts",
 							"line": 114,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L114"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L114"
 						}
 					],
 					"signatures": [
@@ -9707,7 +9707,7 @@
 							"fileName": "client/client.ts",
 							"line": 215,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L215"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L215"
 						}
 					],
 					"signatures": [
@@ -9792,7 +9792,7 @@
 							"fileName": "client/client.ts",
 							"line": 166,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L166"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L166"
 						}
 					],
 					"signatures": [
@@ -9853,7 +9853,7 @@
 							"fileName": "client/client.ts",
 							"line": 318,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L318"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L318"
 						}
 					],
 					"signatures": [
@@ -9923,7 +9923,7 @@
 							"fileName": "client/client.ts",
 							"line": 358,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L358"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L358"
 						}
 					],
 					"signatures": [
@@ -9968,7 +9968,7 @@
 							"fileName": "client/client.ts",
 							"line": 131,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L131"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L131"
 						}
 					],
 					"signatures": [
@@ -10040,7 +10040,7 @@
 							"fileName": "client/client.ts",
 							"line": 363,
 							"character": 10,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L363"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L363"
 						}
 					],
 					"signatures": [
@@ -10084,7 +10084,7 @@
 							"fileName": "client/client.ts",
 							"line": 100,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L100"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L100"
 						}
 					],
 					"signatures": [
@@ -10140,7 +10140,7 @@
 							"fileName": "client/client.ts",
 							"line": 380,
 							"character": 16,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L380"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L380"
 						}
 					],
 					"signatures": [
@@ -10178,7 +10178,7 @@
 							"fileName": "client/client.ts",
 							"line": 148,
 							"character": 15,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L148"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L148"
 						}
 					],
 					"signatures": [
@@ -10252,7 +10252,7 @@
 							"fileName": "client/client.ts",
 							"line": 158,
 							"character": 9,
-							"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L158"
+							"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L158"
 						}
 					],
 					"signatures": [
@@ -10362,7 +10362,7 @@
 					"fileName": "client/client.ts",
 					"line": 10,
 					"character": 13,
-					"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/client/client.ts#L10"
+					"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/client/client.ts#L10"
 				}
 			],
 			"extendedTypes": [
@@ -10401,7 +10401,7 @@
 			"fileName": "main.ts",
 			"line": 1,
 			"character": 0,
-			"url": "https://github.com/promisependingapis/twitch.js/blob/b9168ae/src/main.ts#L1"
+			"url": "https://github.com/promisependingapis/twitch.js/blob/8dabfcc/src/main.ts#L1"
 		}
 	]
 }
