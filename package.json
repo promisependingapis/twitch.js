@@ -42,7 +42,7 @@
     "node": ">=12.22.x"
   },
   "dependencies": {
-    "@discordjs/collection": "^1.4.0",
+    "@discordjs/collection": "^2.1.0",
     "@promisepending/logger.js": "^1.0.4",
     "axios": "^1.3.4",
     "chalk": "^4.1.2",
