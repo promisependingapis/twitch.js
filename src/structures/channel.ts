@@ -33,7 +33,7 @@ export class ChannelStructure {
     this.slowCoolDown = 0; // in seconds
     this.subsOnly = false;
 
-    this.self = this.client.user.username === this.name ?? false;
+    this.self = this.client.user.username === (this.name ?? false);
   }
 
   /**
