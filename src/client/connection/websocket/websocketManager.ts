@@ -35,6 +35,7 @@ export class WebSocketManager {
         if ((method.endsWith('.ts') || method.endsWith('.js')) && !method.includes('.d.ts')) {
           this.client.getLogger().debug(`Loading WebSocket Method: ${method} ...`);
           const methodName = method.replace(/(\.js)|(\.ts)/g, '').toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           const loadedMethod = require(path.resolve(this.methodsFolder, method));
           const newMethod = new loadedMethod.default(this.client);
           // eslint-disable-next-line no-await-in-loop
@@ -57,7 +58,7 @@ export class WebSocketManager {
 
       const options = this.client.getOptions();
 
-      this.connection = new ws.WebSocket(`${options.ws!.type}://${options.ws!.host}:${options.ws!.port}`);
+      this.connection = new ws.WebSocket(`${options.ws.type}://${options.ws.host}:${options.ws.port}`);
 
       this.connection.on('open', () => { this.onOpen(); resolve(); });
       this.connection.on('message', (data: string | Buffer) => { this.onMessage(data.toString()); });

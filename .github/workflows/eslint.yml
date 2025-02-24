@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Node v16
+      - name: Install Node v22
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
       - name: Install dependencies
         run: npm ci
       - name: Run ESLint

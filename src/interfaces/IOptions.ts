@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { ELoggerLevel, ILoggerOptions } from '@promisepending/logger.js';
 
 export enum EWebSocketType {

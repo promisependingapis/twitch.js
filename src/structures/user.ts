@@ -29,7 +29,7 @@ export class BasicUserStructure {
     this.badges = data.badges ? data.badges : '';
     this.userType = data.userType ? data.userType : false;
 
-    this.self = data.self ?? this.client.user.username === this.username ?? false;
+    this.self = data.self ?? (this.client.user.username === this.username);
   }
 }
 

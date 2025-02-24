@@ -45,6 +45,7 @@ export class RestManager {
           this.client.getLogger().debug(`Loading Rest Method: ${method} ...`);
           const methodFileName = method.replace(/(\.js)|(\.ts)/g, '');
           const methodName = methodType + methodFileName[0].toLocaleUpperCase() + methodFileName.slice(1);
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           const loadedMethod = require(path.resolve(methodsPath, method));
           const newMethod = new loadedMethod.default(this.options);
           this.methods[methodName] = { method: newMethod, execute: newMethod.execute.bind(newMethod) };
