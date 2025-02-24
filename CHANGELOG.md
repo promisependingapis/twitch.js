@@ -3,6 +3,8 @@
 ## v2.0.0-beta.4
 - [FIX] Memory leak in the "ping" reply
 
+- [BREAKING] Drop support for Node.js below 16.20.x
+
 ## v2.0.0-beta.3
 - [FIX] Fixed an issue caused by twitch sending numbers as strings in the `message` event.
   - This fix is made especially for the `bits` field of the `message` event.

@@ -41,10 +41,10 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=12.22.x"
+    "node": ">=16.20.x"
   },
   "dependencies": {
-    "@discordjs/collection": "^2.1.1",
+    "@discordjs/collection": "^1.5.3",
     "@promisepending/logger.js": "^1.1.1",
     "axios": "^1.7.9",
     "lodash.merge": "^4.6.2",
