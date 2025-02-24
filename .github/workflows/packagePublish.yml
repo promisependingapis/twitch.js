@@ -21,7 +21,7 @@ jobs:
       - name: Setup .npmrc (NPM)
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
           registry-url: 'https://registry.npmjs.org'
           scope: '@twitchapis'
 

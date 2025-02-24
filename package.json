@@ -41,7 +41,7 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=16.20.x"
+    "node": ">=18.18"
   },
   "dependencies": {
     "@discordjs/collection": "^1.5.3",
