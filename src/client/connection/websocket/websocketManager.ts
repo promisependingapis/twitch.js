@@ -7,14 +7,14 @@ import path from 'path';
 import fs from 'fs';
 
 export class WebSocketManager {
-  private pingLoopInterval: ReturnType<typeof setInterval>;
-  private pingLoopTimeout: ReturnType<typeof setTimeout>;
+  private pingLoopInterval: ReturnType<typeof setInterval> | null = null;
+  private pingLoopTimeout: ReturnType<typeof setTimeout> | null = null;
   private methods: { [key: string]: IWSMethod } = {};
-  private connection: ws.WebSocket;
+  private connection: ws.WebSocket | null = null;
   private restManager: RestManager;
   private username = 'TwitchJSV2';
   private methodsFolder: string;
-  private isAnonymous: boolean;
+  private isAnonymous = false;
   private pingFailures = 0;
   private client: Client;
 
@@ -22,7 +22,6 @@ export class WebSocketManager {
     this.methodsFolder = path.resolve(__dirname, 'methods');
     this.client = client;
     this.restManager = this.client.getRestManager();
-    this.isAnonymous = null;
   }
 
   /**
@@ -36,6 +35,7 @@ export class WebSocketManager {
         if ((method.endsWith('.ts') || method.endsWith('.js')) && !method.includes('.d.ts')) {
           this.client.getLogger().debug(`Loading WebSocket Method: ${method} ...`);
           const methodName = method.replace(/(\.js)|(\.ts)/g, '').toLowerCase();
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           const loadedMethod = require(path.resolve(this.methodsFolder, method));
           const newMethod = new loadedMethod.default(this.client);
           // eslint-disable-next-line no-await-in-loop
@@ -142,8 +142,8 @@ export class WebSocketManager {
 
   private onClose(code: number, reason: string): void {
     this.client.rawEmit('websocket.closed', { code, reason });
-    clearTimeout(this.pingLoopTimeout);
-    clearInterval(this.pingLoopInterval);
+    if (this.pingLoopTimeout) clearTimeout(this.pingLoopTimeout);
+    if (this.pingLoopInterval) clearInterval(this.pingLoopInterval);
     if (code === 1000) return this.client.getLogger().debug('WebSocket connection closed!');
     this.client.getLogger().error('WebSocket closed: ' + reason + '. With code: ' + code);
   }
@@ -172,7 +172,7 @@ export class WebSocketManager {
         }
       }, 10000);
 
-      this.client.on('pong', () => {
+      this.client.once('pong', () => {
         this.pingFailures = 0;
         clearTimeout(this.pingLoopTimeout);
       });
@@ -185,12 +185,13 @@ export class WebSocketManager {
    */
   public ping(): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (!this.connection) return reject('Connection not established!');
       this.connection.send('PING :tmi.twitch.tv');
       const pingTimeout = setTimeout(() => {
         this.client.getLogger().error('Ping timeout!');
         reject(new Error('Ping timeout!'));
       }, 10000);
-      this.client.on('pong', () => {
+      this.client.once('pong', () => {
         clearTimeout(pingTimeout);
         resolve();
       });
@@ -205,6 +206,7 @@ export class WebSocketManager {
    */
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (!this.connection) return reject('Connection not established!');
       if (typeof channel !== 'string') {
         this.client.getLogger().warn('The channel must be a String');
         return reject('The channel must be a String');
@@ -229,7 +231,7 @@ export class WebSocketManager {
    */
   public async disconnect(bypass = false): Promise<void> {
     return new Promise(async (resolve) => {
-      if (this.connection.readyState === this.connection.CLOSED) return resolve();
+      if (!this.connection || this.connection.readyState === this.connection.CLOSED) return resolve();
 
       this.client.getLogger().debug('Disconnecting...');
 
@@ -238,14 +240,14 @@ export class WebSocketManager {
         const leavedChannels: string[] = [];
         await Promise.all(this.client.channels.cache.filter((channel) => { return channel.connected; }).map(async channel => {
           leavedChannels.push(channel.name);
-          return channel.leave().catch((): void => null);
+          return channel.leave().catch((): void => {});
         }));
         this.client.getLogger().debug('Leaved channels: ' + leavedChannels.join(', '));
       } else this.client.getLogger().warn('Bypassing channel leave...');
 
       this.client.getLogger().debug('Clearing timeouts...');
-      clearTimeout(this.pingLoopTimeout);
-      clearInterval(this.pingLoopInterval);
+      if (this.pingLoopTimeout) clearTimeout(this.pingLoopTimeout);
+      if (this.pingLoopInterval) clearInterval(this.pingLoopInterval);
 
       this.client.getLogger().debug('Closing WebSocket connection...');
       if (!bypass) this.connection.close(1000, 'Client disconnect');

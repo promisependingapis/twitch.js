@@ -1,7 +1,0 @@
-# Ignore artifacts:
-node_modules/
-package-lock.json
-package.json
-.eslintrc.json
-.eslintignore
-.github/

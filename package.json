@@ -1,6 +1,6 @@
 {
   "name": "@twitchapis/twitch.js",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "Twitch.JS is a Nodejs library made with typescript to interact with the Twitch API in a simple and easy way.",
   "keywords": [
     "nodejs",
@@ -12,17 +12,19 @@
     "chat",
     "message"
   ],
-  "main": "./src/main",
-  "types": "./src/main",
+  "type": "commonjs",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "npx tsc --build",
+    "prepack": "npm run build",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
-    "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
-    "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "test": "node ./tests/tester.js",
-    "genDocs": "npx typedoc src/main.ts --excludeExternals true --json out/docs.json",
-    "pdeploy": "npm run build && node ./scripts/prepareDeploy.js"
+    "genDocs": "npx typedoc src/index.ts --excludeExternals true --json out/docs.json"
   },
   "repository": {
     "type": "git",
@@ -39,33 +41,28 @@
   },
   "homepage": "https://twitch.js.org",
   "engines": {
-    "node": ">=12.22.x"
+    "node": ">=18.18"
   },
   "dependencies": {
-    "@discordjs/collection": "^1.4.0",
-    "@promisepending/logger.js": "^1.0.4",
-    "axios": "^1.3.4",
-    "chalk": "^4.1.2",
+    "@discordjs/collection": "^1.5.3",
+    "@promisepending/logger.js": "^1.1.1",
+    "axios": "^1.7.9",
     "lodash.merge": "^4.6.2",
-    "ws": "^8.13.0"
+    "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@types/lodash.merge": "^4.6.7",
-    "@types/node": "^18.15.3",
-    "@types/ws": "^8.5.4",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
+    "@types/lodash.merge": "^4.6.9",
+    "@types/node": "^22.13.4",
+    "@types/ws": "^8.5.14",
+    "@typescript-eslint/eslint-plugin": "^8.19.0",
+    "@typescript-eslint/parser": "^8.19.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.8.4",
-    "typedoc": "^0.23.28",
-    "typedoc-plugin-missing-exports": "^1.0.0",
-    "typescript": "^5.0.2"
+    "eslint-plugin-promise": "^7.2.1",
+    "globals": "^15.14.0",
+    "typedoc": "^0.27.6",
+    "typedoc-plugin-missing-exports": "^3.1.0",
+    "typescript": "^5.7.3"
   }
 }
