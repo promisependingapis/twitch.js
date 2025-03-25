@@ -1,109 +1,40 @@
-import { IClientOptions, defaultOptions, ESteps } from '../interfaces/';
+import { IClientOptions, defaultOptions } from '../interfaces/';
 import { BasicUserStructure, ChannelStructure } from '../structures';
 import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
-import { Logger } from '@promisepending/logger.js';
 import { RestManager } from './connection/rest';
-import { waiters, logOptions } from '../utils';
 import EventEmitter from 'events';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
-  public user: BasicUserStructure;
+  public user: BasicUserStructure | null = null;
   public isAnonymous: boolean;
 
   /**
    * @private
    */
   public userManager: UserManager;
-  private steps: { [key: string]: Array<any> };
-  private resolveRunningStep: () => any;
-  private stepManagerStarted: boolean;
   private wsManager: WebSocketManager;
   private restManager: RestManager;
   private options: IClientOptions;
   private tokenVerified: boolean;
-  private currentStep: ESteps;
+  private token: string | null;
   private isReady = false;
-  private logger: Logger;
-  private token: string;
   private readyAt = 0;
 
   constructor(options: IClientOptions) {
     super();
 
-    this.currentStep = ESteps.PRE_INIT;
     this.token = null;
     this.tokenVerified = false;
     this.isAnonymous = false;
-    this.stepManagerStarted = false;
     this.restManager = new RestManager(this);
     this.wsManager = new WebSocketManager(this);
 
     this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
-    this.resolveRunningStep = (): any => null;
-
-    this.steps = {
-      [ESteps.PRE_INIT]: [
-        async (): Promise<void> => { await this.setOptions(options); },
-        async (): Promise<void> => { await this.restManager.loadAllMethods(); },
-        async (): Promise<void> => { await this.wsManager.loadMethods(); },
-        (): void => { this.logger.debug('System is prepared, initializing...'); },
-      ],
-      [ESteps.INIT]: [
-        async (): Promise<void> => { await waiters.waitForToken.bind(this)(); },
-      ],
-      [ESteps.POST_INIT]: [
-        async (): Promise<void> => { await this.wsManager.start(); },
-      ],
-      [ESteps.LOGIN]: [
-        async (): Promise<void> => { await this.wsManager.login(this.token); },
-        async (): Promise<void> => { await waiters.waitForTwitchConnection.bind(this)(); },
-      ],
-      [ESteps.POST_LOGIN]: [
-        async (): Promise<void> => { await this.multiJoin(this.options.channels); },
-      ],
-      [ESteps.READY]: [
-        ():void => { this.readyAt = Date.now(); },
-        ():void => { this.rawEmit('ready', this.options.ws.host, this.options.ws.port); },
-      ],
-      [ESteps.RUNNING]: [
-        async (): Promise<void> => { return new Promise((resolve) => { this.resolveRunningStep = resolve; }); },
-      ],
-      [ESteps.STOPPING]: [
-        async (): Promise<void> => { await this.wsManager.disconnect(); },
-      ],
-      [ESteps.STOPPED]: [
-        (): void => { this.logger.debug('GoodBye! Hope to see you again. 😊'); },
-      ],
-    };
-  }
-
-  /**
-   * @description Adds a callback function to be execured in a specific step of the client.
-   * @param {ESteps} step - The step to wait for
-   * @param {any} callback - The callback to execute when the step is reached
-   */
-  public addStepCommand(step: ESteps, callback: () => void): void {
-    if (!this.steps[step.toString()]) {
-      this.steps[step.toString()] = [];
-    }
-    this.steps[step.toString()].push(async () => { await callback(); });
-  }
-
-  /**
-   * @description Starts the step manager without log in twitch.
-   * @returns {Promise<void>}
-   */
-  public start(): Promise<void> {
-    return new Promise((resolve) => {
-      this.stepManager();
-      this.on('client.changedStepTo.INIT', () => {
-        return resolve();
-      });
-    });
+    this.options = { ...defaultOptions, ...options };
   }
 
   /**
@@ -111,42 +42,21 @@ export class Client extends EventEmitter {
    * @param {?string} token - The token to use for the login
    * @returns {Promise<void>}
    */
-  public login(token?: string): Promise<void> {
-    return new Promise((resolve) => {
+  public async login(token: string | null = null): Promise<void> {
+    return new Promise(async (resolve) => {
       this.token = token;
       this.tokenVerified = true;
-      this.stepManager();
-      this.on('client.changedStepTo.POST_LOGIN', () => {
-        return resolve();
-      });
+      await this.restManager.loadAllMethods();
+      await this.wsManager.loadMethods();
+      await this.waitForToken();
+      await this.wsManager.start();
+      await this.wsManager.login(this.token);
+      await this.waitForTwitchConnection();
+      await this.multiJoin(this.options.channels!);
+      this.readyAt = Date.now();
+      this._rawEmit('ready', this.options.ws!.host, this.options.ws!.port);
+      return resolve();
     });
-  }
-
-  /**
-   * @description Set the client options
-   * @param {IClientOptions} options
-   * @returns {Promise<void>}
-   * @private
-   */
-  private setOptions(options: IClientOptions): Promise<void> {
-    return new Promise(async (resolve) => {
-      const [modifiedOptions, logger] = await logOptions(defaultOptions, options);
-      this.options = modifiedOptions;
-      this.logger = logger;
-      resolve();
-    });
-  }
-
-  /**
-   * @description Returns the time bot is connected with twitch in milliseconds
-   * @returns {Promise<number>}
-   * @example
-   * await Client.uptime()
-   * @example
-   * Client.uptime().then((time) => { })
-   */
-  public async uptime(): Promise<number> {
-    return Promise.resolve(Math.max((Date.now() - this.readyAt), 0));
   }
 
   /**
@@ -155,7 +65,7 @@ export class Client extends EventEmitter {
    * @example
    * const uptime = Client.uptime();
    **/
-  public uptimeSync(): number {
+  public uptime(): number {
     return Math.max((Date.now() - this.readyAt), 0);
   }
 
@@ -176,34 +86,28 @@ export class Client extends EventEmitter {
    */
   public async join(channel: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      if (channel.includes(' ')) {
-        this.logger.error('Channel name cannot include spaces: ' + channel);
-        return reject('Channel name cannot include spaces: ' + channel);
+      if (!this.isReady) return reject(new Error('Client is not ready!'));
+      if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
+      if (channel.startsWith('#')) channel = channel.substring(1);
+      if (this.channels.get(channel)?.connected) return;
+
+      this.wsManager.getConnection()!.send(`JOIN #${channel.toLowerCase()}`);
+
+      let timeout: ReturnType<typeof setTimeout> | null = null;
+
+      function onJoin(joinedChannel: ChannelStructure): void {
+        if (joinedChannel.name === channel) {
+          if (timeout) clearTimeout(timeout);
+          return resolve(channel);
+        }
       }
 
-      if (!channel.startsWith('#')) {
-        channel = '#' + channel;
-      }
-
-      if (this.channels.get(channel) && this.channels.get(channel).connected === true) {
-        this.logger.warn('Already connected with this channel!');
-        return reject('Already connected with this channel!');
-      }
-
-      this.logger.debug('Connecting to: ' + channel.toLowerCase());
-      this.wsManager.getConnection().send(`JOIN ${channel.toLowerCase()}`);
-
-      const timeout = setTimeout(() => {
-        this.logger.error('Timeout while connecting to channel: ' + channel);
+      timeout = setTimeout(() => {
+        this.removeListener('join', onJoin);
         return reject('Timeout while connecting to channel: ' + channel);
       }, 10000);
 
-      this.on('join', (joinedChannel: ChannelStructure) => {
-        if ('#' + joinedChannel.name === channel) {
-          clearTimeout(timeout);
-          return resolve(channel);
-        }
-      });
+      this.on('join', onJoin);
     });
   }
 
@@ -214,31 +118,20 @@ export class Client extends EventEmitter {
    */
   public async multiJoin(channels: string[]): Promise<string> {
     return new Promise(async (resolve, reject) => {
-      if (channels.length === 0) {
-        this.logger.error('No channels to join!');
-        return reject('No channels to join!');
-      }
-
-      this.logger.debug('Connecting to: ' + channels.join(', ').toLowerCase());
+      if (!this.wsManager.getConnection()) return reject(new Error('Connection not opened!'));
+      if (channels.length === 0) return reject('No channels to join!');
 
       channels.forEach((channel, index) => {
-        if (channel.includes(' ')) {
-          this.logger.error('Channel name cannot include spaces: ' + channel);
-          return reject('Channel name cannot include spaces: ' + channel);
-        }
-
-        if (!channel.startsWith('#')) {
-          channels[index] = '#' + channel;
-        }
+        if (channel.includes(' ')) return reject('Channel name cannot include spaces: ' + channel);
+        if (!channel.startsWith('#')) channels[index] = `#${channel}`;
       });
 
-      this.wsManager.getConnection().send(`JOIN ${channels.join(',').toLowerCase()}`);
+      this.wsManager.getConnection()!.send(`JOIN ${channels.join(',').toLowerCase()}`);
 
       const timeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
       channels.forEach((channel) => {
         timeouts.set(channel, setTimeout(() => {
-          this.logger.error('Timeout while connecting to channel: ' + channel);
           channels.splice(channels.indexOf('#' + channel), 1);
           timeouts.delete('#' + channel);
           return reject('Timeout while connecting to channel: ' + channel);
@@ -252,9 +145,7 @@ export class Client extends EventEmitter {
           timeouts.delete('#' + joinedChannel.name);
         }
 
-        if (channels.length === 0) {
-          return resolve(channels.join(', ').toLowerCase());
-        }
+        if (channels.length === 0) return resolve(channels.join(', ').toLowerCase());
       });
     });
   }
@@ -266,27 +157,16 @@ export class Client extends EventEmitter {
    */
   public async leave(channel: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      if (channel.includes(' ')) {
-        this.logger.error('Channel name cannot include spaces: ' + channel);
-        return reject('Channel name cannot include spaces: ' + channel);
-      }
-      if (!channel.startsWith('#')) {
-        channel = '#' + channel;
-      }
-      if (this.user.username === channel) return reject('You can\'t leave your own channel');
-      this.logger.debug(`Leaving channel ${channel}`);
-      if (this.channels.get(channel) && this.channels.get(channel).connected === false) {
-        this.logger.warn(`Already disconnected with ${channel} channel!`);
-        return reject(`Already disconnected with ${channel} channel!`);
-      }
-      this.logger.debug('Disconnecting from: ' + channel.toLowerCase());
-      this.wsManager.getConnection().send(`PART ${channel.toLowerCase()}`);
-      this.on('leave', (ch: ChannelStructure) => {
-        if (ch.name === channel.substring(1)) {
-          this.logger.debug(`Disconnected from ${channel}`);
-          resolve(channel);
-        }
-      });
+      if (!this.isReady) return reject(new Error('Client is not ready!'));
+      if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
+      if (channel.startsWith('#')) channel = channel.substring(1);
+      if (this.user?.username === `#${channel}`) return reject('You can\'t leave your own channel');
+
+      if (!this.channels.get(channel)?.connected) return reject(`Already disconnected with ${channel} channel!`);
+
+      this.wsManager.getConnection()!.send(`PART #${channel.toLowerCase()}`);
+
+      this.on('leave', (ch: ChannelStructure) => { if (ch.name === channel) resolve(channel); });
     });
   }
 
@@ -295,11 +175,11 @@ export class Client extends EventEmitter {
    * @returns {Promise<void>}
    */
   public async disconnect(): Promise<void> {
-    return new Promise((resolve) => {
-      this.resolveRunningStep();
+    return new Promise(async (resolve) => {
       this.once('disconnected', () => {
         return resolve();
       });
+      await this.wsManager.disconnect();
     });
   }
 
@@ -307,7 +187,7 @@ export class Client extends EventEmitter {
    * @Override
    */
   public emit(eventName: string | symbol, ...args: any[]): boolean {
-    this.getLogger().warn(`You are emitting an event as the client, this can lead to unexpected behaviors and its not recommend!\n
+    console.warn(`You are emitting an event as the client, this can lead to unexpected behaviors and its not recommend!\n
       We are still going to emit the event, but you should avoid it!`);
     return super.emit(eventName, ...args);
   }
@@ -315,16 +195,8 @@ export class Client extends EventEmitter {
   /**
    * @private
    */
-  public rawEmit(eventName: string | symbol, ...args: any[]): boolean {
+  public _rawEmit(eventName: string | symbol, ...args: any[]): boolean {
     return super.emit(eventName, ...args);
-  }
-
-  /**
-   * @description Get the logger instance
-   * @returns {Logger} [Logger] - The logger instance
-   */
-  public getLogger(): Logger {
-    return this.logger;
   }
 
   /**
@@ -360,39 +232,45 @@ export class Client extends EventEmitter {
     this.isReady = isReady;
   }
 
-  private setStep(step: ESteps): void {
-    if (step !== this.currentStep) {
-      (this.logger ?? console).debug(`Step changed from ${this.currentStep} to ${step}`);
-    }
-    this.currentStep = step;
-    this.rawEmit('client.changedStep', step);
-    this.rawEmit('client.changedStepTo.' + step);
-  }
-
-  /**
-   * @description Get the current client step
-   * @returns {ESteps} [ESteps] - The current client step
-   */
-  public getCurrentStep(): ESteps {
-    return this.currentStep;
-  }
-
-  private async stepManager(): Promise<void> {
-    if (this.stepManagerStarted) return;
-    this.stepManagerStarted = true;
-    for (const step in ESteps) {
-      this.setStep(step as unknown as ESteps);
-      if (this.steps[this.currentStep]) {
-        for (const stepFunction of this.steps[this.currentStep]) {
-          try {
-            // eslint-disable-next-line no-await-in-loop
-            await stepFunction();
-          } catch (error) {
-            this.logger.fatal(error);
-            return;
-          }
-        }
+  private async waitForToken(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      let tokenTimeout: ReturnType<typeof setTimeout>;
+      if (this.tokenVerified) return resolve();
+  
+      const tokenVerifier = setInterval(async () => {
+        if (!this.token) return;
+        clearInterval(tokenVerifier);
+        if (tokenTimeout) clearTimeout(tokenTimeout);
+        resolve();
+      }, this.options.loginWaitInterval);
+  
+      if (typeof this.options.loginWaitTimeout === 'number' && this.options.loginWaitTimeout > 0) {
+        tokenTimeout = setTimeout(() => {
+          clearInterval(tokenVerifier);
+          reject(new Error('Too long without token!'));
+        }, this.options.loginWaitTimeout);
       }
-    }
+    });
+  }
+
+  private async waitForTwitchConnection(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      let readyTimeout: ReturnType<typeof setTimeout>;
+      if (this.isReady) return resolve();
+  
+      const connectionVerifier = setInterval(async () => {
+        if (!this.isReady) return;
+        clearInterval(connectionVerifier);
+        if (readyTimeout) clearTimeout(readyTimeout);
+        resolve();
+      }, 500);
+  
+      if (typeof this.options.connectionWaitTimeout === 'number' && this.options.connectionWaitTimeout > 0) {
+        readyTimeout = setTimeout(() => {
+          clearInterval(connectionVerifier);
+          reject(new Error('Too long without a response from Twitch!'));
+        }, this.options.connectionWaitTimeout);
+      }
+    });
   }
 }

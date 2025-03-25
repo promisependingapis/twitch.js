@@ -10,11 +10,7 @@ const expectedOptions = {
   connectedChannels: [],
   debug: true,
   fetchAllChatters: true,
-  http: {
-    host: 'https://tmi.twitch.tv',
-    hostID: 'https://api.promisepending.allonsve.com',
-    headers: { 'User-Agent': 'TwitchJsApi/2.0.0' }
-  },
+  http: { hostID: 'https://api.promisepending.allonsve.com' },
   messageCacheLifetime: 60,
   messageCacheMaxSize: 100,
   messageSweepInterval: 10,
@@ -24,12 +20,8 @@ const expectedOptions = {
   syncInterval: 1000,
   ws: { host: 'irc.promisepending.allonsve.com', port: 80, type: 'ws' },
   loggerOptions: {
-    defaultLevel: 0,
-    prefix: '',
     coloredBackground: false,
     allLineColored: true,
-    debug: true,
-    disableFatalCrash: true
   },
   prefix: '',
   disableFatalCrash: true

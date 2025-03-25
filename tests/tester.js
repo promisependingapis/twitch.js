@@ -11,11 +11,11 @@ const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interpris
 
 const mainChannel = channels[Math.floor(Math.random() * channels.length)];
 
-var testFailed = false;
+let testFailed = false;
 
-var actualCheck = 0;
+let actualCheck = 0;
 
-var checks = 0;
+let checks = 0;
 
 const client = new Client({
   channels: [mainChannel],
@@ -48,7 +48,7 @@ const scriptDir = path.resolve(__dirname, 'scripts');
 const tests = [];
 
 async function runTests() {
-  for (var i = 0; i <= checks - 1; i++) {
+  for (let i = 0; i <= checks - 1; i++) {
     actualCheck = i + 1;
     logger.info(`Starting test: "${chalk.blueBright(tests[i].name)}" [${actualCheck}/${checks}]`);
 
@@ -78,7 +78,6 @@ async function run() {
 
   tests.sort((a, b) => a.order - b.order);
   checks = tests.length;
-  await client.start();
   await runTests();
   if (testFailed) {
     logger.error('1 or more tests failed. Please check what happened.');

@@ -1,24 +1,23 @@
 import { ITwitchUserStateTags } from '../../interfaces';
 import { BasicUserStructure, UserStructure } from '../../structures';
-import { Collection } from '@discordjs/collection';
 import { Client } from '..';
 
 export class UserManager {
-  public cache: Collection<string, UserStructure>;
+  public cache: Map<string, UserStructure>;
   private client: Client;
 
   constructor(client: Client) {
-    this.cache = new Collection<string, UserStructure>();
+    this.cache = new Map<string, UserStructure>();
     this.client = client;
   }
 
   /**
    * @description Get a user from the cache
    * @param {string} userName - The username of the user to get
-   * @returns {UserStructure} - The user
+   * @returns {UserStructure | null} - The user or null, if not found
    */
-  public get(userName: string): UserStructure {
-    return this.cache.get(userName);
+  public get(userName: string): UserStructure | null {
+    return this.cache.get(userName) ?? null;
   }
 
   /**
@@ -34,9 +33,9 @@ export class UserManager {
    * @description Set a user in the cache
    * @param {string} userName - The username of the user to set
    * @param {UserStructure} user - The user to set
-   * @returns {Collection<string, UserStructure>} - The updated cache
+   * @returns {Map<string, UserStructure>} - The updated cache
    */
-  public set(userName: string, user: UserStructure): Collection<string, UserStructure> {
+  public set(userName: string, user: UserStructure): Map<string, UserStructure> {
     this.cache.set(userName, user);
     return this.cache;
   }
@@ -44,9 +43,9 @@ export class UserManager {
   /**
    * @description Add a user to the cache
    * @param {UserStructure} user - The user to add to the cache
-   * @returns {Collection<string, UserStructure>} - The updated cache
+   * @returns {Map<string, UserStructure>} - The updated cache
    */
-  public addUser(user: UserStructure): Collection<string, UserStructure> {
+  public addUser(user: UserStructure): Map<string, UserStructure> {
     return this.set(user.username, user);
   }
 
@@ -84,11 +83,8 @@ export class UserManager {
       this.addUser(newUser);
       return newUser;
     }
-
-    const userOld = this.get(userName);
-
+    const userOld = this.get(userName)!;
     const user = this.updateFromTags(userOld, tags);
-
     this.addUser(user);
 
     return user;
@@ -99,20 +95,20 @@ export class UserManager {
    */
   public updateFromTags(user: UserStructure, tags: ITwitchUserStateTags): UserStructure {
     user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
-    user.badges = tags.badges !== null ? tags.badges : user.badges;
-    user.color = tags.color !== null ? tags.color : user.color;
-    user.displayName = tags['display-name'] !== null ? tags['display-name'] : user.displayName;
-    user.mod = tags.mod !== null ? Number.parseInt(tags.mod) >= 1 : user.mod;
-    user.subscriber = tags.subscriber !== null ? Number.parseInt(tags.subscriber) >= 1 : user.subscriber;
-    user.turbo = tags.turbo !== null ? Number.parseInt(tags.turbo) >= 1 : user.turbo;
-    user.userType = tags['user-type'] !== null ? tags['user-type'] : user.userType;
+    user.badges = tags.badges ?? user.badges;
+    user.color = tags.color ?? user.color;
+    user.displayName = tags['display-name'] ?? user.displayName;
+    user.mod = tags.mod !== null ? Number.parseInt(tags.mod ?? '0') >= 1 : user.mod;
+    user.subscriber = tags.subscriber !== null ? Number.parseInt(tags.subscriber ?? '0') >= 1 : user.subscriber;
+    user.turbo = tags.turbo !== null ? Number.parseInt(tags.turbo ?? '0') >= 1 : user.turbo;
+    user.userType = tags['user-type'] ?? user.userType;
     user.broadcaster = user.badges.hasOwnProperty('broadcaster');
     user.vip = user.badges.hasOwnProperty('vip');
     user.staff = user.badges.hasOwnProperty('staff');
     user.admin = user.badges.hasOwnProperty('admin');
     user.globalMod = user.badges.hasOwnProperty('global_mod');
     user.premium = user.badges.hasOwnProperty('premium');
-    user.id = user.self ? user.id : tags['user-id'] !== null ? tags['user-id'] : user.id;
+    user.id = user.self ? user.id : (tags['user-id'] ?? user.id);
 
     return user;
   }

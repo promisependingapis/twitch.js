@@ -1,7 +1,7 @@
 import { IWSMethodRunCondition } from '../../../../interfaces';
 import { Client } from '../../../client';
 
-export default class M376 {
+export class M376 {
   private client: Client;
 
   constructor(client: Client) {

@@ -5,6 +5,7 @@
       "lib": ["ES6", "DOM", "ES2015", "ES2017", "ES2018"],
       "forceConsistentCasingInFileNames": true,
       "esModuleInterop": true,
+      "strict": true,
       "removeComments": false,
       // Tells TypeScript to read JS files, as
       // normally they are ignored as source files

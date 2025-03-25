@@ -2,18 +2,14 @@
 'use strict';
 
 const run = (logger, client) => {
-    return new Promise((resolve, reject) => {
-        client.uptime().then((result) => {
-            logger.debug(`${result}ms uptime`);
-            resolve();
-        }).catch((err) => {
-            reject(err);
-        });
-    });
+  return new Promise((resolve) => {
+    logger.debug(`${client.uptime()}ms uptime`);
+    return resolve();
+  });
 };
 
 module.exports = {
-    name: 'Uptime Test',
-    run: run,
-    order: 7
+  name: 'Uptime Test',
+  run: run,
+  order: 7
 };

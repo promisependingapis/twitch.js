@@ -1,44 +1,44 @@
 import { ELoggerLevel, ILoggerOptions } from '@promisepending/logger.js';
 
 export enum EWebSocketType {
-    ws = 'ws',
-    wss = 'wss'
+  ws = 'ws',
+  wss = 'wss'
 }
 
 export interface IHTTPOptions {
-    host?: string;
-    hostID?: string;
-    headers?: { [key: string]: string };
+  host?: string;
+  hostID?: string;
+  headers?: { [key: string]: string };
 }
 
 export interface IWebSocketOptions {
-    host?: string;
-    port?: number;
-    type?: EWebSocketType;
+  host?: string;
+  port?: number;
+  type?: EWebSocketType;
 }
 
 export interface IClientOptions {
-    connectionWaitTimeout?: number | boolean;
-    loginWaitInterval?: number;
-    loginWaitTimeout?: number | boolean;
-    autoLogEndEnabled?: boolean;
-    autoLogEndUncaughtException?: boolean;
-    channels?: string[];
-    connectedChannels?: string[];
-    debug?: boolean;
-    fetchAllChatters?: boolean;
-    http?: IHTTPOptions;
-    messageCacheLifetime?: number;
-    messageCacheMaxSize?: number;
-    messageSweepInterval?: number;
-    retryInterval?: number;
-    retryLimit?: number;
-    sync?: boolean;
-    syncInterval?: number;
-    ws?: IWebSocketOptions;
-    loggerOptions?: ILoggerOptions;
-    prefix?: string;
-    disableFatalCrash?: boolean,
+  connectionWaitTimeout?: number | boolean;
+  loginWaitInterval?: number;
+  loginWaitTimeout?: number | boolean;
+  autoLogEndEnabled?: boolean;
+  autoLogEndUncaughtException?: boolean;
+  channels?: string[];
+  connectedChannels?: string[];
+  debug?: boolean;
+  fetchAllChatters?: boolean;
+  http?: IHTTPOptions;
+  messageCacheLifetime?: number;
+  messageCacheMaxSize?: number;
+  messageSweepInterval?: number;
+  retryInterval?: number;
+  retryLimit?: number;
+  sync?: boolean;
+  syncInterval?: number;
+  ws?: IWebSocketOptions;
+  loggerOptions?: ILoggerOptions;
+  prefix?: string;
+  disableFatalCrash?: boolean,
 }
 
 export const defaultOptions: IClientOptions = {
