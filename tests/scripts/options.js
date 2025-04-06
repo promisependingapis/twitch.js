@@ -10,7 +10,11 @@ const expectedOptions = {
   connectedChannels: [],
   debug: true,
   fetchAllChatters: true,
-  http: { hostID: 'https://api.promisepending.allonsve.com' },
+  http: {
+    host: 'https://tmi.twitch.tv',
+    hostID: 'https://api.promisepending.allonsve.com',
+    headers: { 'User-Agent': 'TwitchJsApi/2.0.0' }
+  },
   messageCacheLifetime: 60,
   messageCacheMaxSize: 100,
   messageSweepInterval: 10,
@@ -19,10 +23,6 @@ const expectedOptions = {
   sync: false,
   syncInterval: 1000,
   ws: { host: 'irc.promisepending.allonsve.com', port: 80, type: 'ws' },
-  loggerOptions: {
-    coloredBackground: false,
-    allLineColored: true,
-  },
   prefix: '',
   disableFatalCrash: true
 }
@@ -35,6 +35,10 @@ const run = (logger, client, channels, mainChannel) => {
     if (isEqual) {
       resolve();
     } else {
+      logger.warn('Differences:', {
+        expected: expectedOptions,
+        actual: options
+      });
       reject('Options are not equal');
     }
   });

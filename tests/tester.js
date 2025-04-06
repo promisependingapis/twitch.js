@@ -21,10 +21,6 @@ const client = new Client({
   channels: [mainChannel],
   loginWaitTimeout: false,
   debug: true,
-  loggerOptions: {
-    coloredBackground: false,
-    allLineColored: true,
-  },
   disableFatalCrash: true,
   http: {
     hostID: 'https://api.promisepending.allonsve.com',
