@@ -1,5 +1,3 @@
-import { ELoggerLevel, ILoggerOptions } from '@promisepending/logger.js';
-
 export enum EWebSocketType {
   ws = 'ws',
   wss = 'wss'
@@ -36,7 +34,6 @@ export interface IClientOptions {
   sync?: boolean;
   syncInterval?: number;
   ws?: IWebSocketOptions;
-  loggerOptions?: ILoggerOptions;
   prefix?: string;
   disableFatalCrash?: boolean,
 }
@@ -69,14 +66,6 @@ export const defaultOptions: IClientOptions = {
     host: 'irc-ws.chat.twitch.tv',
     port: 443,
     type: EWebSocketType.wss,
-  },
-  loggerOptions: {
-    defaultLevel: ELoggerLevel.INFO,
-    prefix: '',
-    coloredBackground: false,
-    allLineColored: false,
-    debug: false,
-    disableFatalCrash: false,
   },
   prefix: '',
   disableFatalCrash: false,

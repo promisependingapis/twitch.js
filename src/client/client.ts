@@ -4,6 +4,7 @@ import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
 import { RestManager } from './connection/rest';
 import EventEmitter from 'events';
+import merge from 'lodash.merge';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
@@ -34,7 +35,7 @@ export class Client extends EventEmitter {
     this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
-    this.options = { ...defaultOptions, ...options };
+    this.options = merge(defaultOptions, options);
   }
 
   /**
