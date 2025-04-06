@@ -3,12 +3,11 @@ import { ChannelStructure } from '../../structures';
 import { Client } from '..';
 
 export class ChannelManager {
-  public cache: Map<string, ChannelStructure>;
+  public cache = new Map<string, ChannelStructure>();
   private client: Client;
 
   constructor(client: Client) {
     this.client = client;
-    this.cache = new Map<string, ChannelStructure>();
   }
 
   /**

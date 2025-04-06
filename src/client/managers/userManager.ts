@@ -3,11 +3,10 @@ import { BasicUserStructure, UserStructure } from '../../structures';
 import { Client } from '..';
 
 export class UserManager {
-  public cache: Map<string, UserStructure>;
+  public cache = new Map<string, UserStructure>();
   private client: Client;
 
   constructor(client: Client) {
-    this.cache = new Map<string, UserStructure>();
     this.client = client;
   }
 

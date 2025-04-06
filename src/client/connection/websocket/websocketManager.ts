@@ -26,20 +26,6 @@ export class WebSocketManager {
    */
   public async loadMethods(): Promise<void> {
     return new Promise(async (resolve) => {
-      /*
-        const methods = fs.readdirSync(this.methodsFolder);
-        for await (const method of methods) {
-          if ((method.endsWith('.ts') || method.endsWith('.js')) && !method.includes('.d.ts')) {
-            const methodName = method.replace(/(\.js)|(\.ts)/g, '').toLowerCase();
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
-            const loadedMethod = require(path.resolve(this.methodsFolder, method));
-            const newMethod = new loadedMethod.default(this.client);
-            const runConditions: IWSMethodRunCondition = await newMethod.preLoad();
-            this.methods[methodName] = { method: newMethod, runConditions, execute: newMethod.execute.bind(newMethod) };
-          }
-        }
-        resolve();
-      */
       for await (const [_, MethodClass] of Object.entries(methods)) {
         const newMethod = new (MethodClass as any)(this.client);
         const runConditions: IWSMethodRunCondition = await newMethod.preLoad();
