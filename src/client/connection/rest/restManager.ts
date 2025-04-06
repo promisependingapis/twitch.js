@@ -1,20 +1,17 @@
 import { IHTTPOptions } from '../../../interfaces/';
+import * as methodTypes from './methods';
 import { Client } from '../../client';
-import path from 'path';
-import fs from 'fs';
 
 /**
  * @private
  */
 export class RestManager {
   private options!: IHTTPOptions;
-  private methodsPath: string;
   private methods: any = {};
   private client: Client;
 
   constructor(client: Client) {
     this.client = client;
-    this.methodsPath = path.resolve(__dirname, 'methods');
   }
 
   /**
@@ -22,27 +19,13 @@ export class RestManager {
    */
   public async loadAllMethods(): Promise<void> {
     this.options = this.client.getOptions().http!;
-    return await this.loadMethodsFolder(this.methodsPath);
-  }
 
-  private async loadMethodsFolder(methodsPath: string): Promise<void> {
-    const folders = fs.readdirSync(methodsPath);
-    for await (const folder of folders) {
-      await this.loadMethods(path.resolve(this.methodsPath, folder), folder);
-    }
-  }
-
-  private async loadMethods(methodsPath: string, methodType: string): Promise<void> {
     return new Promise(async (resolve) => {
-      const methods = fs.readdirSync(methodsPath);
-      for (const method of methods) {
-        if ((method.endsWith('.ts') || method.endsWith('.js')) && !method.includes('.d.ts')) {
-          const methodFileName = method.replace(/(\.js)|(\.ts)/g, '');
-          const methodName = methodType + methodFileName[0].toLocaleUpperCase() + methodFileName.slice(1);
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
-          const loadedMethod = require(path.resolve(methodsPath, method));
-          const newMethod = new loadedMethod.default(this.options);
-          this.methods[methodName] = { method: newMethod, execute: newMethod.execute.bind(newMethod) };
+      for (const [methodType, methodClasses] of Object.entries(methodTypes)) {
+        for (const [methodName, MethodClass] of Object.entries(methodClasses)) {
+          const fullMethodName = `${methodType}${methodName[0].toUpperCase()}${methodName.slice(1)}`;
+          const newMethod = new (MethodClass as any)(this.options);
+          this.methods[fullMethodName] = { method: newMethod, execute: newMethod.execute.bind(newMethod) };
         }
       }
       resolve();
