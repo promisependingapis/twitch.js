@@ -1,5 +1,25 @@
 # Changelog
 
+## v2.0.0-beta.5
+- [FIX] Multiple memory leaks
+
+- [REFACTOR] We made a big refactor of the codebase to improve the performance and stability of the API.
+  - We removed all the unused code and made a lot of improvements to the codebase.
+
+- [CHORE] Dependencies optimization
+  - Updated all dependencies to the latest version.
+  - Removed unused dependencies.
+
+- [BREAKING] We doesn't use logger anymore.
+  - If you want to use logger you can install and use the [@promisepending/logger](https://www.npmjs.com/package/@promisepending/logger.js) package by yourself
+
+- [BREAKING] We removed the entire StepManger system.
+  - If you're not using the StepManager system this change doesn't affect you.
+
+- [BREAKING] We doesn't use collections anymore
+  - Collections are now replaced by the `Map` class.
+  - This changes affects things like `ChannelManager.cache` and `UserManager.cache`.
+
 ## v2.0.0-beta.4
 - [FIX] Memory leak in the `ping` reply
 
