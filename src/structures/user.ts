@@ -2,7 +2,8 @@ import { ChannelStructure } from './channel';
 import { Client } from '../client';
 
 export class BasicUserStructure {
-  protected client: Client;
+  protected readonly client: Client;
+
   public username: string;
   public name: string;
   public id: string;
@@ -20,14 +21,14 @@ export class BasicUserStructure {
 
     this.username = data.username;
     this.name = this.username;
-    this.id = data.id ? data.id : '';
-    this.premium = data.premium ? data.premium : false;
-    this.staff = data.staff ? data.staff : false;
-    this.admin = data.admin ? data.admin : false;
-    this.globalMod = data.globalMod ? data.globalMod : false;
-    this.haveBadges = data.haveBadges ? data.haveBadges : false;
-    this.badges = data.badges ? data.badges : '';
-    this.userType = data.userType ? data.userType : false;
+    this.id = data.id ?? '';
+    this.premium = data.premium ?? false;
+    this.staff = data.staff ?? false;
+    this.admin = data.admin ?? false;
+    this.globalMod = data.globalMod ?? false;
+    this.haveBadges = data.haveBadges ?? false;
+    this.badges = data.badges ?? '';
+    this.userType = data.userType ?? false;
 
     this.self = data.self ?? (this.client.user?.username === this.username);
   }
@@ -48,13 +49,13 @@ export class UserStructure extends BasicUserStructure {
 
     this.channel = data.channel;
 
-    this.color = data.color ? data.color : '#FFFFFF';
-    this.displayName = data.displayName ? data.displayName : '';
-    this.mod = data.mod ? data.mod : false;
-    this.subscriber = data.subscriber ? data.subscriber : false;
-    this.turbo = data.turbo ? data.turbo : false;
-    this.vip = data.vip ? data.vip : false;
-    this.broadcaster = data.broadcaster ? data.broadcaster : false;
+    this.color = data.color ?? '#FFFFFF';
+    this.displayName = data.displayName ?? '';
+    this.mod = data.mod ?? false;
+    this.subscriber = data.subscriber ?? false;
+    this.turbo = data.turbo ?? false;
+    this.vip = data.vip ?? false;
+    this.broadcaster = data.broadcaster ?? false;
   }
 
   /**

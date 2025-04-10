@@ -3,7 +3,7 @@ import { Client } from '../client';
 import { format } from 'util';
 
 export class ChannelStructure {
-  private client: Client;
+  private readonly client: Client;
 
   public name: string;
   public connected: boolean;

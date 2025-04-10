@@ -11,13 +11,14 @@ export class Client extends EventEmitter {
   public user: BasicUserStructure | null = null;
   public isAnonymous: boolean;
 
+  private readonly options: IClientOptions;
+
   /**
    * @private
    */
   public userManager: UserManager;
   private wsManager: WebSocketManager;
   private restManager: RestManager;
-  private options: IClientOptions;
   private tokenVerified: boolean;
   private token: string | null;
   private isReady = false;
@@ -120,10 +121,10 @@ export class Client extends EventEmitter {
   public async multiJoin(channels: string[]): Promise<string> {
     return new Promise(async (resolve, reject) => {
       if (!this.wsManager.getConnection()) return reject(new Error('Connection not opened!'));
-      if (channels.length === 0) return reject('No channels to join!');
+      if (channels.length === 0) return reject(new Error('No channels to join!'));
 
       channels.forEach((channel, index) => {
-        if (channel.includes(' ')) return reject('Channel name cannot include spaces: ' + channel);
+        if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
         if (!channel.startsWith('#')) channels[index] = `#${channel}`;
       });
 
@@ -135,7 +136,7 @@ export class Client extends EventEmitter {
         timeouts.set(channel, setTimeout(() => {
           channels.splice(channels.indexOf('#' + channel), 1);
           timeouts.delete('#' + channel);
-          return reject('Timeout while connecting to channel: ' + channel);
+          return reject(new Error(`Timeout while connecting to channel: ${channel}`));
         }, 10000));
       });
 
@@ -161,9 +162,9 @@ export class Client extends EventEmitter {
       if (!this.isReady) return reject(new Error('Client is not ready!'));
       if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
       if (channel.startsWith('#')) channel = channel.substring(1);
-      if (this.user?.username === `#${channel}`) return reject('You can\'t leave your own channel');
+      if (this.user?.username === `#${channel}`) return reject(new Error('You can\'t leave your own channel'));
 
-      if (!this.channels.get(channel)?.connected) return reject(`Already disconnected with ${channel} channel!`);
+      if (!this.channels.get(channel)?.connected) return reject(new Error(`Already disconnected from ${channel}!`));
 
       this.wsManager.getConnection()!.send(`PART #${channel.toLowerCase()}`);
 

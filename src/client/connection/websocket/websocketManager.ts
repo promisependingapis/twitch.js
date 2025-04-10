@@ -59,7 +59,7 @@ export class WebSocketManager {
   public async login(token?: string | null): Promise<void> {
     return new Promise(async (resolve, reject) => {
       var continueLogin = true;
-      if (!this.connection) return reject('Connection not established!');
+      if (!this.connection) return reject(new Error('Connection not established!'));
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
 
@@ -224,7 +224,7 @@ export class WebSocketManager {
         console.warn('Connection was destroyed!');
       }
 
-      this.client.on('websocket.closed', (/* { code, reason } */) => {
+      this.client.on('websocket.closed', ({ _code, _reason }) => {
         this.client._rawEmit('disconnected');
         resolve();
       });
