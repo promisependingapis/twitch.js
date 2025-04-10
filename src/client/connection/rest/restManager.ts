@@ -1,55 +1,31 @@
 import { IHTTPOptions } from '../../../interfaces/';
+import * as methodTypes from './methods';
 import { Client } from '../../client';
-import path from 'path';
-import fs from 'fs';
 
 /**
  * @private
  */
 export class RestManager {
-  private options: IHTTPOptions;
-  private methodsPath: string;
+  private options!: IHTTPOptions;
   private methods: any = {};
   private client: Client;
 
   constructor(client: Client) {
     this.client = client;
-    this.methodsPath = path.resolve(__dirname, 'methods');
   }
 
   /**
    * @private
    */
   public async loadAllMethods(): Promise<void> {
-    this.options = this.client.getOptions().http;
-    return this.loadMethodsFolder(this.methodsPath);
-  }
+    this.options = this.client.getOptions().http!;
 
-  private async loadMethodsFolder(methodsPath: string): Promise<void> {
-    this.client.getLogger().debug('Loading Rest Methods...');
-    const folders = fs.readdirSync(methodsPath);
-    for (const folder of folders) {
-      this.client.getLogger().debug('Loading Rest Methods folder: ' + folder + '...');
-      // eslint-disable-next-line no-await-in-loop
-      await this.loadMethods(path.resolve(this.methodsPath, folder), folder);
-      this.client.getLogger().debug('Loaded Rest Methods folder: ' + folder);
-    }
-    this.client.getLogger().debug('Loaded ' + Object.keys(this.methods).length + ' Rest Methods!');
-  }
-
-  private async loadMethods(methodsPath: string, methodType: string): Promise<void> {
     return new Promise(async (resolve) => {
-      const methods = fs.readdirSync(methodsPath);
-      for (const method of methods) {
-        if ((method.endsWith('.ts') || method.endsWith('.js')) && !method.includes('.d.ts')) {
-          this.client.getLogger().debug(`Loading Rest Method: ${method} ...`);
-          const methodFileName = method.replace(/(\.js)|(\.ts)/g, '');
-          const methodName = methodType + methodFileName[0].toLocaleUpperCase() + methodFileName.slice(1);
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
-          const loadedMethod = require(path.resolve(methodsPath, method));
-          const newMethod = new loadedMethod.default(this.options);
-          this.methods[methodName] = { method: newMethod, execute: newMethod.execute.bind(newMethod) };
-          this.client.getLogger().debug(`Loaded Rest Method: ${methodName}!`);
+      for (const [methodType, methodClasses] of Object.entries(methodTypes)) {
+        for (const [methodName, MethodClass] of Object.entries(methodClasses)) {
+          const fullMethodName = `${methodType}${methodName[0].toUpperCase()}${methodName.slice(1)}`;
+          const newMethod = new (MethodClass as any)(this.options);
+          this.methods[fullMethodName] = { method: newMethod, execute: newMethod.execute.bind(newMethod) };
         }
       }
       resolve();

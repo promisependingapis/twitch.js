@@ -14,12 +14,11 @@ const run = (logger, client, channels, mainChannel) => {
                                 'CHATTERS {channel: \'' +
                                     channel +
                                     '\', users: [\'' +
-                                    client.channels.get(channel)
-                                        .users.cache.toJSON()
-                                        .map(value => {
-                                            return value.userName;
-                                        })
-                                        .join('\', \'') +
+                                    Array.from(client.channels.get(mainChannel).users.cache.values())
+                                      .map((value) => {
+                                        return value.userName;
+                                      })
+                                      .join("', '") +
                                 '\']}'
                                 );
                             resolve2();
@@ -34,9 +33,7 @@ const run = (logger, client, channels, mainChannel) => {
                     "CHATTERS {channel: '" +
                       mainChannel +
                       "', users: ['" +
-                      client.channels
-                        .get(mainChannel)
-                        .users.cache.toJSON()
+                      Array.from(client.channels.get(mainChannel).users.cache.values())
                         .map((value) => {
                           return value.userName;
                         })

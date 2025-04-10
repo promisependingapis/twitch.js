@@ -3,20 +3,21 @@ import { Client } from '../client';
 import { format } from 'util';
 
 export class ChannelStructure {
-  client: Client;
-  name: string;
-  connected: boolean;
-  users: UserManager;
-  emoteOnly: boolean;
-  followersOnly: boolean;
-  followersCoolDown: number;
-  r9k: boolean;
-  rituals: boolean;
-  id: number;
-  slowMode: boolean;
-  slowCoolDown: number;
-  subsOnly: boolean;
-  self: boolean;
+  private readonly client: Client;
+
+  public name: string;
+  public connected: boolean;
+  public users: UserManager;
+  public emoteOnly: boolean;
+  public followersOnly: boolean;
+  public followersCoolDown: number;
+  public r9k: boolean;
+  public rituals: boolean;
+  public id: number;
+  public slowMode: boolean;
+  public slowCoolDown: number;
+  public subsOnly: boolean;
+  public self: boolean;
 
   constructor(client: Client, channelName: string) {
     this.client = client;
@@ -33,7 +34,7 @@ export class ChannelStructure {
     this.slowCoolDown = 0; // in seconds
     this.subsOnly = false;
 
-    this.self = this.client.user.username === (this.name ?? false);
+    this.self = this.client.user?.username === (this.name ?? false);
   }
 
   /**
@@ -42,7 +43,7 @@ export class ChannelStructure {
      * @example
      * Client.channels.get('channel-id').isConnected();
      */
-  isConnected(): boolean {
+  public isConnected(): boolean {
     return this.connected;
   }
 
@@ -52,7 +53,7 @@ export class ChannelStructure {
      * @example
      * Client.channels.get('channel-id').getUserCount();
      */
-  getUserCount(): number {
+  public getUserCount(): number {
     return this.users.cache.size;
   }
 
@@ -64,7 +65,7 @@ export class ChannelStructure {
      * @example
      * Client.channels.get('channel-id').send('Hello World!');
      */
-  send(message: string, options: string[] | string): Promise<void> {
+  public send(message: string, options: string[] | string): Promise<void> {
     if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
   }
@@ -73,7 +74,7 @@ export class ChannelStructure {
    * @description Leaves from the channel
    * @returns {Promise<string>} - The channel name
    */
-  leave(): Promise<string> {
+  public leave(): Promise<string> {
     return this.client.leave(this.name);
   }
 }

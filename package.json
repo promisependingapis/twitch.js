@@ -1,6 +1,6 @@
 {
   "name": "@twitchapis/twitch.js",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "Twitch.JS is a Nodejs library made with typescript to interact with the Twitch API in a simple and easy way.",
   "keywords": [
     "nodejs",
@@ -21,8 +21,7 @@
   "scripts": {
     "build": "npx tsc --build",
     "prepack": "npm run build",
-    "eslint": "eslint ./src",
-    "eslint:fix": "eslint ./src --fix",
+    "lint": "eslint ./src --fix",
     "test": "node ./tests/tester.js",
     "genDocs": "npx typedoc src/index.ts --excludeExternals true --json out/docs.json"
   },
@@ -44,25 +43,24 @@
     "node": ">=18.18"
   },
   "dependencies": {
-    "@discordjs/collection": "^1.5.3",
-    "@promisepending/logger.js": "^1.1.1",
-    "axios": "^1.7.9",
+    "axios": "^1.8.4",
     "lodash.merge": "^4.6.2",
-    "ws": "^8.18.0"
+    "ws": "^8.18.1"
   },
   "devDependencies": {
+    "@promisepending/logger.js": "^1.1.1",
     "@types/lodash.merge": "^4.6.9",
-    "@types/node": "^22.13.4",
-    "@types/ws": "^8.5.14",
-    "@typescript-eslint/eslint-plugin": "^8.19.0",
-    "@typescript-eslint/parser": "^8.19.0",
-    "eslint": "^9.17.0",
+    "@types/node": "^22.14.0",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "eslint": "^9.24.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.2.1",
-    "globals": "^15.14.0",
-    "typedoc": "^0.27.6",
-    "typedoc-plugin-missing-exports": "^3.1.0",
-    "typescript": "^5.7.3"
+    "globals": "^16.0.0",
+    "typedoc": "^0.28.1",
+    "typedoc-plugin-missing-exports": "^4.0.0",
+    "typescript": "^5.8.3"
   }
 }

@@ -1,7 +1,7 @@
 import { IHTTPOptions } from '../../../../../interfaces/';
 import axios from 'axios';
 
-export default class GetTokenValidation {
+export class TokenValidation {
   private options: IHTTPOptions;
   constructor(options: IHTTPOptions) {
     this.options = options;
@@ -10,7 +10,7 @@ export default class GetTokenValidation {
   public execute(params: any[]): Promise<any> {
     return new Promise((resolve, reject) => {
       if (params.length !== 1) return reject('Invalid parameters');
-      var token: any = params[0];
+      let token: any = params[0];
 
       if (token.startsWith('oauth:')) {
         token = token.split(':');

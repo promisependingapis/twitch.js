@@ -1,7 +1,7 @@
 import { IWSMethodRunCondition } from '../../../../interfaces';
 import { Client } from '../../../client';
 
-export default class Pong {
+export class Pong {
   private client: Client;
 
   constructor(client: Client) {
@@ -13,6 +13,6 @@ export default class Pong {
   }
 
   public execute(): Promise<boolean> {
-    return Promise.resolve(this.client.rawEmit('pong'));
+    return Promise.resolve(this.client._rawEmit('pong'));
   }
 }

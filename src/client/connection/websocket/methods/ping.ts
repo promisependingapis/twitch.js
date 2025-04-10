@@ -1,7 +1,7 @@
 import { IWSMethodRunCondition } from '../../../../interfaces';
 import { Client } from '../../../client';
 
-export default class Ping {
+export class Ping {
   private client: Client;
 
   constructor(client: Client) {
@@ -13,6 +13,6 @@ export default class Ping {
   }
 
   public execute(): Promise<void> {
-    return Promise.resolve(this.client.getWebSocketManager().getConnection().send('PONG :tmi.twitch.tv'));
+    return Promise.resolve(this.client.getWebSocketManager().getConnection()!.send('PONG :tmi.twitch.tv'));
   }
 }
