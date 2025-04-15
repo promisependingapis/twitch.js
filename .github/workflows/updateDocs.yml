@@ -10,18 +10,14 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup .npmrc file to publish to npm
-      - name: Setup .npmrc (NPM)
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@twitchapis'
 
       - name: Update NPM
         run: npm install -g npm@latest
@@ -55,7 +51,7 @@ jobs:
           ref: docs
       
       - name: Delete old documentation
-        run: rm -rf docs/*
+        run: rm -rfv docs/*
 
       - name: Copy documentation from cache
         uses: actions/cache@v4
@@ -66,10 +62,12 @@ jobs:
             docs-cache-
       
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@v4
+        uses: EndBug/add-and-commit@v9
         with:
           add: docs
           message: 'docs: Update documentation'
+          committer_name: GitHub Actions
+          committer_email: actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
