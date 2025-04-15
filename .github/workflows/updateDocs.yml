@@ -5,6 +5,7 @@ on:
     workflows: ["Publish to NPM"]
     types: [completed]
     branches: [release]
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -34,7 +35,7 @@ jobs:
       - name: Copy documentation into cache
         run: |
           mkdir -p docs
-          cp out/html/* docs/
+          cp -r out/html/* docs/
 
       - name: Create a Cache
         uses: actions/cache@v4
