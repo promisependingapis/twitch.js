@@ -2,7 +2,7 @@ name: Update Documentation
 
 on:
   workflow_run:
-    workflows: ["Twitch.Js Test"]
+    workflows: ["Publish to NPM"]
     types: [completed]
     branches: [release]
 
@@ -31,14 +31,18 @@ jobs:
       - name: Generate Documentation
         run: npm run genDocs
 
+      - name: Copy documentation into cache
+        run: |
+          mkdir -p docs
+          cp out/html/* docs/
+
       - name: Create a Cache
         uses: actions/cache@v4
         with:
           path: ./docs
-          key: ${{ runner.os }}-docs-cache-{{ github.sha }}
-      
-      - name: Copy documentation into cache
-        run: cp out/html/* docs/
+          key: docs-cache-${{ github.sha }}
+          restore-keys: |
+            docs-cache-
   
   publish:
     runs-on: ubuntu-latest
@@ -56,7 +60,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./docs
-          key: ${{ runner.os }}-docs-cache-{{ github.sha }}
+          key: docs-cache-${{ github.sha }}
+          restore-keys: |
+            docs-cache-
       
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v4
