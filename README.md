@@ -37,7 +37,7 @@ Twitchʲˢ is a <b>[UNOFFICIAL]</b> api to interact with Twitch IRC.
 
 ## Installing
 
-**Node.js 12.22.X or newer is required.**
+**Node.js 18.18.X or newer is required.**
 
 - npm:
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0-beta.6
+- [FIX] Client crash when omitting the `channels` option in the client constructor.
+- [FIX] `disconnected` event inconsistency.
+  - Now the `disconnected` event is always emitted when the client is disconnected from Twitch's IRC. Even in the case of a forced disconnection.
+
 ## v2.0.0-beta.5
 - [FIX] Multiple memory leaks
 
