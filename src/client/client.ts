@@ -54,7 +54,13 @@ export class Client extends EventEmitter {
       await this.wsManager.start();
       await this.wsManager.login(this.token);
       await this.waitForTwitchConnection();
-      await this.multiJoin(this.options.channels!);
+
+      if (this.options.channels!.length > 0) {
+        await this.multiJoin(this.options.channels!).catch((err) => {
+          this._rawEmit('error', 'Error while joining channels.', err);
+        });
+      }
+
       this.readyAt = Date.now();
       this._rawEmit('ready', this.options.ws!.host, this.options.ws!.port);
       return resolve();
