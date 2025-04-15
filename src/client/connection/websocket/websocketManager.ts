@@ -39,7 +39,7 @@ export class WebSocketManager {
    * @private
    */
   public async start(): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise((resolve) => {
       const wsOptions = this.client.getOptions().ws!;
 
       this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}`);
@@ -58,7 +58,7 @@ export class WebSocketManager {
    */
   public async login(token?: string | null): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      var continueLogin = true;
+      let continueLogin = true;
       if (!this.connection) return reject(new Error('Connection not established!'));
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
@@ -70,14 +70,14 @@ export class WebSocketManager {
         }
 
         await this.restManager.get('getTokenValidation', token)
-          .then(async (res: any) => {
+          .then((res: any) => {
             this.username = res.login.toString();
             this.isAnonymous = false;
             this.client.isAnonymous = false;
             this.connection!.send(`PASS ${token}`);
             this.connection!.send(`NICK ${this.username.toLowerCase()}`);
           })
-          .catch(async (e) => {
+          .catch((e) => {
             console.error(e);
             continueLogin = false;
             return reject(new Error('Invalid token!'));
@@ -113,15 +113,20 @@ export class WebSocketManager {
   }
 
   private onError(err: Error): void {
-    console.error('WebSocket error: ' + err.message);
+    this.client._rawEmit('error', 'WebSocket error:', err);
   }
 
   private onClose(code: number, reason: string): void {
     this.client._rawEmit('websocket.closed', { code, reason });
     if (this.pingLoopTimeout) clearTimeout(this.pingLoopTimeout);
     if (this.pingLoopInterval) clearInterval(this.pingLoopInterval);
-    if (code === 1000) return console.log('WebSocket connection closed!');
-    console.error('WebSocket closed: ' + reason + '. With code: ' + code);
+    if (code === 1000) return;
+    this.client._rawEmit('disconnected', code, reason || 'No reason provided');
+    if (code === 1006) {
+      this.client._rawEmit('error', 'WebSocket connection closed unexpectedly!');
+      return;
+    }
+    this.client._rawEmit('error', 'WebSocket closed: ' + reason + '. With code: ' + code);
   }
 
   /**
@@ -224,8 +229,8 @@ export class WebSocketManager {
         console.warn('Connection was destroyed!');
       }
 
-      this.client.on('websocket.closed', ({ _code, _reason }) => {
-        this.client._rawEmit('disconnected');
+      this.client.once('websocket.closed', ({ code, reason }) => {
+        this.client._rawEmit('disconnected', code, reason);
         resolve();
       });
     });
