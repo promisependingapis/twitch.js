@@ -1,0 +1,32 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPointStrategy": "expand",
+  "entryPoints": [
+    "./src/*"
+  ],
+  "excludeExternals": true,
+  "exclude": [
+    "**/methods/**",
+    "**/utils/**",
+    "**/index.ts"
+  ],
+  "highlightLanguages": [
+    "bash",
+    "bat",
+    "console",
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "jsonc",
+    "json5",
+    "tsx",
+    "typescript"
+  ],
+  "hostedBaseUrl": "https://twitch.js.org/docs",
+  "useHostedBaseUrlForAbsoluteLinks": true,
+  "useFirstParagraphOfCommentAsSummary": true,
+  "includeVersion": true,
+  "excludePrivate": true,
+  "html": "./out/html",
+}

@@ -20,7 +20,7 @@ export class RestManager {
   public async loadAllMethods(): Promise<void> {
     this.options = this.client.getOptions().http!;
 
-    return new Promise(async (resolve) => {
+    return new Promise((resolve) => {
       for (const [methodType, methodClasses] of Object.entries(methodTypes)) {
         for (const [methodName, MethodClass] of Object.entries(methodClasses)) {
           const fullMethodName = `${methodType}${methodName[0].toUpperCase()}${methodName.slice(1)}`;

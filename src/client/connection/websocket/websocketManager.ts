@@ -39,7 +39,7 @@ export class WebSocketManager {
    * @private
    */
   public async start(): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise((resolve) => {
       const wsOptions = this.client.getOptions().ws!;
 
       this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}`);
@@ -52,13 +52,13 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Loggin twitch chat.
+   * Loggin twitch chat.
    * @param {?string} token - The token to use for the connection. If not provided or false, the client will log in as anonymous.
    * @returns {Promise<void>}
    */
   public async login(token?: string | null): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      var continueLogin = true;
+      let continueLogin = true;
       if (!this.connection) return reject(new Error('Connection not established!'));
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
@@ -70,14 +70,14 @@ export class WebSocketManager {
         }
 
         await this.restManager.get('getTokenValidation', token)
-          .then(async (res: any) => {
+          .then((res: any) => {
             this.username = res.login.toString();
             this.isAnonymous = false;
             this.client.isAnonymous = false;
             this.connection!.send(`PASS ${token}`);
             this.connection!.send(`NICK ${this.username.toLowerCase()}`);
           })
-          .catch(async (e) => {
+          .catch((e) => {
             console.error(e);
             continueLogin = false;
             return reject(new Error('Invalid token!'));
@@ -113,15 +113,20 @@ export class WebSocketManager {
   }
 
   private onError(err: Error): void {
-    console.error('WebSocket error: ' + err.message);
+    this.client._rawEmit('error', 'WebSocket error:', err);
   }
 
   private onClose(code: number, reason: string): void {
     this.client._rawEmit('websocket.closed', { code, reason });
     if (this.pingLoopTimeout) clearTimeout(this.pingLoopTimeout);
     if (this.pingLoopInterval) clearInterval(this.pingLoopInterval);
-    if (code === 1000) return console.log('WebSocket connection closed!');
-    console.error('WebSocket closed: ' + reason + '. With code: ' + code);
+    if (code === 1000) return;
+    this.client._rawEmit('disconnected', code, reason || 'No reason provided');
+    if (code === 1006) {
+      this.client._rawEmit('error', 'WebSocket connection closed unexpectedly!');
+      return;
+    }
+    this.client._rawEmit('error', 'WebSocket closed: ' + reason + '. With code: ' + code);
   }
 
   /**
@@ -157,7 +162,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Do a ping to twitch.
+   * Do a ping to twitch.
    * @returns {Promise<void>}
    */
   public ping(): Promise<void> {
@@ -175,7 +180,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Sends a message in the specified live chat
+   * Sends a message in the specified live chat
    * @param {string} channel - The channel to send the message to
    * @param {string[]} message - The message to send
    * @returns {Promise<void>} - Resolves when the message is sent
@@ -198,7 +203,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Disconnects from the twitch server
+   * Disconnects from the twitch server
    * @param {boolean} bypass - Bypass security checks
    * @returns {Promise<void>}
    */
@@ -224,8 +229,8 @@ export class WebSocketManager {
         console.warn('Connection was destroyed!');
       }
 
-      this.client.on('websocket.closed', ({ _code, _reason }) => {
-        this.client._rawEmit('disconnected');
+      this.client.once('websocket.closed', ({ code, reason }) => {
+        this.client._rawEmit('disconnected', code, reason);
         resolve();
       });
     });
