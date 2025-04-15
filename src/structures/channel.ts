@@ -38,7 +38,7 @@ export class ChannelStructure {
   }
 
   /**
-     * @description Returns if the bot is connected to the channel
+     * Returns if the bot is connected to the channel
      * @returns {boolean} True if the bot is connected to the channel, false if not
      * @example
      * Client.channels.get('channel-id').isConnected();
@@ -48,7 +48,7 @@ export class ChannelStructure {
   }
 
   /**
-     * @description Returns the amount of users in the channel
+     * Returns the amount of users in the channel
      * @returns {number} The amount of users in the channel
      * @example
      * Client.channels.get('channel-id').getUserCount();
@@ -58,7 +58,7 @@ export class ChannelStructure {
   }
 
   /**
-     * @description Sends a message to the channel
+     * Sends a message to the channel
      * @param {string} message - The message to send
      * @param {string | string[]} options - The options to send the message with - Like a console.log()
      * @returns {Promise<void>}
@@ -71,7 +71,7 @@ export class ChannelStructure {
   }
 
   /**
-   * @description Leaves from the channel
+   * Leaves from the channel
    * @returns {Promise<string>} - The channel name
    */
   public leave(): Promise<string> {

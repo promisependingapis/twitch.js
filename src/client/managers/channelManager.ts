@@ -11,7 +11,7 @@ export class ChannelManager {
   }
 
   /**
-   * @description Returns a channel from the cache
+   * Returns a channel from the cache
    * @param {string} channelName - The name of the channel
    * @returns {ChannelStructure | null} - The channel or null, if not found
    */
@@ -21,7 +21,7 @@ export class ChannelManager {
   }
 
   /**
-   * @description Checks if a channel is in the cache
+   * Checks if a channel is in the cache
    * @param {string} channelName - The name of the channel
    * @returns {boolean} - If the channel exists in the cache returns true, else false
    */
@@ -31,7 +31,7 @@ export class ChannelManager {
   }
 
   /**
-   * @description Sets a channel in the cache
+   * Sets a channel in the cache
    * @param {string} channelName - The name of the channel
    * @param {ChannelStructure} channel - The channel to set
    * @returns {Map<string, ChannelStructure>} - The updated cache
@@ -42,7 +42,7 @@ export class ChannelManager {
   }
 
   /**
-   * @description Adds a channel to the cache
+   * Adds a channel to the cache
    * @param {string} channel - The name of the channel
    * @returns {Map<string, ChannelStructure>} - The updated cache
    */

@@ -11,7 +11,7 @@ export class UserManager {
   }
 
   /**
-   * @description Get a user from the cache
+   * Get a user from the cache
    * @param {string} userName - The username of the user to get
    * @returns {UserStructure | null} - The user or null, if not found
    */
@@ -20,7 +20,7 @@ export class UserManager {
   }
 
   /**
-   * @description Check if a user is in the cache
+   * Check if a user is in the cache
    * @param {string} userName - The username of the user to check
    * @returns {boolean} - If the user is in the cache return true else false
    */
@@ -29,7 +29,7 @@ export class UserManager {
   }
 
   /**
-   * @description Set a user in the cache
+   * Set a user in the cache
    * @param {string} userName - The username of the user to set
    * @param {UserStructure} user - The user to set
    * @returns {Map<string, UserStructure>} - The updated cache
@@ -40,7 +40,7 @@ export class UserManager {
   }
 
   /**
-   * @description Add a user to the cache
+   * Add a user to the cache
    * @param {UserStructure} user - The user to add to the cache
    * @returns {Map<string, UserStructure>} - The updated cache
    */

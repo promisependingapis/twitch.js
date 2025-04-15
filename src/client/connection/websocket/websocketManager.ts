@@ -52,7 +52,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Loggin twitch chat.
+   * Loggin twitch chat.
    * @param {?string} token - The token to use for the connection. If not provided or false, the client will log in as anonymous.
    * @returns {Promise<void>}
    */
@@ -162,7 +162,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Do a ping to twitch.
+   * Do a ping to twitch.
    * @returns {Promise<void>}
    */
   public ping(): Promise<void> {
@@ -180,7 +180,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Sends a message in the specified live chat
+   * Sends a message in the specified live chat
    * @param {string} channel - The channel to send the message to
    * @param {string[]} message - The message to send
    * @returns {Promise<void>} - Resolves when the message is sent
@@ -203,7 +203,7 @@ export class WebSocketManager {
   }
 
   /**
-   * @description Disconnects from the twitch server
+   * Disconnects from the twitch server
    * @param {boolean} bypass - Bypass security checks
    * @returns {Promise<void>}
    */

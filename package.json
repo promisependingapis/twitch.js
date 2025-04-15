@@ -23,7 +23,7 @@
     "prepack": "npm run build",
     "lint": "eslint ./src --fix",
     "test": "node ./tests/tester.js",
-    "genDocs": "npx typedoc src/index.ts --excludeExternals true --json out/docs.json"
+    "genDocs": "npx typedoc --options typedoc.json"
   },
   "repository": {
     "type": "git",

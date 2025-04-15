@@ -40,7 +40,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Starts the step manager and log in twitch.
+   * Starts the step manager and log in twitch.
    * @param {?string} token - The token to use for the login
    * @returns {Promise<void>}
    */
@@ -68,7 +68,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description returns the client uptime in milliseconds
+   * returns the client uptime in milliseconds
    * @returns {number} the number of milliseconds since the client is ready
    * @example
    * const uptime = Client.uptime();
@@ -78,7 +78,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Do a ping to twitch and returns the response time in milliseconds
+   * Do a ping to twitch and returns the response time in milliseconds
    * @returns {Promise<number>} - The twitch response time in milliseconds
    */
   public async ping(): Promise<number> {
@@ -88,7 +88,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Connects with a twitch channel chat
+   * Connects with a twitch channel chat
    * @param {string} channel - The channel name who will be connected
    * @return {Promise<string>} - Resolved when successfully connect with channel
    */
@@ -120,7 +120,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Connects in multiples twitch channels chats
+   * Connects in multiples twitch channels chats
    * @param {Array<string>} channels - The array of channels to join
    * @return {Promise<string>} - Resolved when successfully connect with channel
    */
@@ -159,7 +159,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Disconnects from a twitch channel chat
+   * Disconnects from a twitch channel chat
    * @param {string} channel - The channel name who will be disconnected
    * @returns {Promise<string>} - Resolved with channel name when successfully disconnect with channel
    */
@@ -179,7 +179,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Disconnects from twitch server and stop the client
+   * Disconnects from twitch server and stop the client
    * @returns {Promise<void>}
    */
   public async disconnect(): Promise<void> {
@@ -192,7 +192,8 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @Override
+   * @override
+   * @private
    */
   public emit(eventName: string | symbol, ...args: any[]): boolean {
     console.warn(`You are emitting an event as the client, this can lead to unexpected behaviors and its not recommend!\n
@@ -208,7 +209,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Get the client options
+   * Get the client options
    * @returns {IClientOptions} [IClientOptions] - The client options
    */
   public getOptions(): IClientOptions {
@@ -216,7 +217,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Get the REST API Manager Instance
+   * Get the REST API Manager Instance
    * @returns {RestManager} [RestManager] - The REST API Manager Instance
    */
   public getRestManager(): RestManager {
@@ -224,7 +225,7 @@ export class Client extends EventEmitter {
   }
 
   /**
-   * @description Get the WebSocket Manager Instance
+   * Get the WebSocket Manager Instance
    * @returns {WebSocketManager} [WebSocketManager] - The WebSocket Manager Instance
    * @public
    */

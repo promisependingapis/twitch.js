@@ -59,7 +59,7 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * @description Timeout user on a channel
+   * Timeout user on a channel
    * @param {Object} Params - the timeout params
    * @param {Number?} Params.seconds - The time in seconds to timeout this user
    * @param {String?} Params.reason - The reason why this user got a timeout
@@ -70,7 +70,7 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * @description Remove timeout from user
+   * Remove timeout from user
    * @returns {Promise<void>}
    */
   public async untimeout(): Promise<void> {
@@ -78,7 +78,7 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * @description Ban user on a channel
+   * Ban user on a channel
    * @param {?string} reason - The reason for the ban
    * @returns {Promise<void>}
    */
@@ -87,7 +87,7 @@ export class UserStructure extends BasicUserStructure {
   }
 
   /**
-   * @description Remove ban from user
+   * Remove ban from user
    * @returns {Promise<void>}
    */
   public async unban(): Promise<void> {
