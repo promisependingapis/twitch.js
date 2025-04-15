@@ -1,85 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Twitch.JS DOCS</title>
         <link rel="stylesheet" type="text/css" href="styles.css">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-        <link rel="icon" type="image/png" href="./favicon.png" />
+        <link rel="icon" type="image/png" href="./assets/logo.png" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header>
-            <links>
-                <a onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";setTimeout(()=>{window.location.href = "./docs/#";}, 300);'>Documentation</a>
-                <a href="https://github.com/promisependingapis/twitch.js">Github</a>
-            </links>
-        </header>
-        <div class='Content'>
-            <div class='header'>
-                <h3 class='OverTitle'>Promise&lt;Pending&gt;Apis</h3>
-                <h1 class='Title'>Twitch<span class='language'>.JS</span></h1>
-                <div class='InstallCode'><code class='InstallCodeNPM' onClick="CopyToClipboard('InstallCodeNPM')">npm install @twitchapis/twitch.js</code></div>
-                <div class='InstallCode'><code class='InstallCodeYARN' onClick="CopyToClipboard('InstallCodeYARN')">yarn add @twitchapis/twitch.js</code></div>
-            </div>
-            <div class="texts">
-                <div class='About appearToggle hiddenTransition left'>
-                    <h2>About</h2>
-                    <p>
-                        <a href='https://github.com/promisependingapis'>Twitchʲˢ</a> is a <b class="red">unofficial</b> API to interact with Twitch IRC.
-                    </p>
-                </div>
-                <div class='example appearToggle hiddenTransition right'>
-                    <h2>Example</h2>
-                    <pre><!--
-                     --><code class="javascript"><!--
-                         -->const { Client } = require('@twitchapis/twitch.js');
-<!--                     -->const client = new Client({
-<!--                     -->  autoLogEnd: true, // Default true, optional parameter
-<!--                     -->  channels: ['space_interprise', 'lobometalurgico'],
-<!--                     -->  debug: false // Default false, optional parameter
-<!--                     -->});
-<!--                     -->client.on('ready', () => {
-<!--                     -->  console.log(`Logged in as ${client.user.name}!`);
-<!--                     -->});
-<!--                     -->client.on('message', (msg) => {
-<!--                     -->  if (msg.content === 'ping') {
-<!--                     -->    msg.channel.send('pong');
-<!--                     -->  }
-<!--                     -->});
-<!--                     -->client.login('token');<!--
-                    --></code><!--
-                 --></pre>   
-                </div>
-                <div class='Why appearToggle hiddenTransition left'>
-                    <h2>Why use Twitch.JS</h2>
-                    <ul>
-                        <li>Object-oriented</li>
-                        <li>Predictable abstractions</li>
-                        <li>Performant</li>
-                    </ul>
-                </div>
-                <div class='Statistics appearToggle hiddenTransition right'>
-                    <h2>Statistics</h2>
-                    <ul>
-                        <li class='TotalDownloads'>Loading downloads number...</li>
-                        <li class='TotalStars'>Loading stars number...</li>
-                        <li class='TotalContributors'>Loading contributors number...</li>
-                    </ul>
-                    <span>And the numbers keep growing!</span>
-                </div>
-                <div class='Buttons'>
-                    <button classs='docs' onClick='document.getElementsByClassName("LoadingScreen")[0].style.display = "block";setTimeout(()=>{window.location.href = "./docs/#";}, 300);'>Documentation</button>
-                </div>
-            </div>
-            <div class='footer'>
-                <h4>Twitch.JS</h4>
-                <p>Created by <a href="https://github.com/promisependingapis">Promise&lt;Pending&gt;Apis</a></p>
-                <p class='FooterStatistics'>Loading downloads, Loading stars, Loading contributors</p>
-                <button onclick="window.location = 'https://github.com/promisependingapis/twitch.js'">Github</button>
-            </div>
-            <div class='LoadingScreen'></div>
+      <div class="content">
+        <div class='About'>
+          <h2 class="sectionTitle">About</h2>
+          <p><a class="link" href='https://github.com/promisependingapis'>Twitchʲˢ</a> is a <strong class="red">unofficial</strong> API to interact with Twitch IRC.</p>
         </div>
+        <div class='example'>
+          <h2 class="sectionTitle">Example of use</h2>
+          <pre><!--
+          --><code class="javascript"><!--
+              -->const { Client } = require('@twitchapis/twitch.js');
+<!--           -->const client = new Client({
+<!--           -->  channels: ['space_interprise', 'lobometalurgico'],
+<!--           -->});
+<!--           -->client.on('ready', () => {
+<!--           -->  console.log(`Logged in as ${client.user.name}!`);
+<!--           -->});
+<!--           -->client.on('message', (msg) => {
+<!--           -->  if (msg.content === 'ping') {
+<!--           -->    msg.channel.send('pong');
+<!--           -->  }
+<!--           -->});
+<!--           -->client.on('disconnected', (code, reason) => {
+<!--           -->  console.log(`Disconnected from twitch with code: ${code}, reason: ${reason}`);
+<!--           -->});
+<!--           -->client.login('token');<!--
+          --></code><!--
+       --></pre>   
+        </div>
+        <!-- <div class='Why'>
+          <h2 class="sectionTitle">Why use Twitch.JS</h2>
+          <ul>
+              <li>Object-oriented</li>
+              <li>Predictable abstractions</li>
+              <li>Performant</li>
+          </ul>
+        </div> -->
+      </div>
+      <div class="sideNav">
+        <header class="navigation">
+          <links class="pages">
+            <a class="pageRoute" href='./docs/#'>Documentation</a>
+            <a class="pageRoute" href="https://github.com/promisependingapis/twitch.js">Github <img class="pageRouteIcon" src="./assets/external-link.svg"></a>
+          </links>
+        </header>
+        <div class='header'>
+          <h2 class='OverTitle'>Promise&lt;Pending&gt;Apis</h2>
+          <h1 class='Title'>Twitch<span class='language'>.JS</span></h1>
+          <div class='InstallCode'><code class='InstallCodeNPM' onClick="CopyToClipboard('InstallCodeNPM')">npm install @twitchapis/twitch.js</code></div>
+          <div class='InstallCode'><code class='InstallCodeYARN' onClick="CopyToClipboard('InstallCodeYARN')">yarn add @twitchapis/twitch.js</code></div>
+        </div>
+        <div class='footer'>
+          <p>Created by <a class="link" href="https://github.com/promisependingapis">Promise&lt;Pending&gt;Apis</a></p>
+          <p class='FooterStatistics'>Loading downloads, Loading stars, Loading contributors</p>
+          <!-- <a class='callToAction' target="_blank" rel="noopener noreferrer" href="https://github.com/promisependingapis/twitch.js">Github</a> -->
+        </div>
+      </div>
     </body>
     <script src='./scripts.js'></script>
 </html>
