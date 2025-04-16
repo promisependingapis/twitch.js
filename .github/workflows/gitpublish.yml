@@ -5,51 +5,55 @@ on:
       - release
 
 jobs:
-  job1:
+  tag:
     name: Publish Tag
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.current_version.outputs.version }}
+      skip: ${{ steps.compare_versions.outputs.skip }}
     steps:
-      - uses: actions/checkout@v4
-      - id: set_var
-        name: Get Version
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Current version
+        id: current_version
+        run: echo version=v$(node -p "require('./package.json').version") >> $GITHUB_OUTPUT
+
+      - name: Compare latest tag
+        id: git_version
         run: |
-          content=`cat ./package.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
+          git fetch --tags
+          echo latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`) >> $GITHUB_OUTPUT
+
+      - name: Compare versions and skip if same
+        id: compare_versions
+        if: ${{ steps.current_version.outputs.version == steps.git_version.outputs.latest_tag }}
+        run: echo "skip=true" >> $GITHUB_OUTPUT && echo "Skipping publish because versions are the same" && exit 0
+
       - name: Push Tag
+        if: ${{ steps.compare_versions.outputs.skip != 'true' }}
         id: tag
         uses: anothrNick/github-tag-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          CUSTOM_TAG: "v${{ fromJson(steps.set_var.outputs.packageJson).version }}"
-  job2:
-    needs: job1
+          CUSTOM_TAG: "${{ steps.current_version.outputs.version }}"
+
+  release:
+    needs: tag
     name: Publish Release
     runs-on: ubuntu-latest
+
+    if: ${{ needs.tag.outputs.skip != 'true' }}
+
     steps:
-      - uses: actions/checkout@v4
-      - id: set_var
-        name: Get Version
-        run: |
-          content=`cat ./package.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - name: Echo Debug 
-        run: |
-          echo "${{ fromJson(steps.set_var.outputs.packageJson).version }}"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master
         with:
           prerelease_regex: ^v[0-9]\.[0-9]\.[0-9]\-
-          created_tag: v${{ fromJson(steps.set_var.outputs.packageJson).version }}
+          created_tag: ${{ needs.tag.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

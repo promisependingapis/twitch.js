@@ -2,7 +2,7 @@ name: Publish to NPM
 
 on:
   workflow_run:
-    workflows: ["Twitch.Js Test"]
+    workflows: ["Publish Tag"]
     types: [completed]
     branches: [release]
 
@@ -12,7 +12,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,8 +27,18 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@twitchapis'
 
-      - name: Update NPM
-        run: npm install -g npm@latest
+      - name: Get Current version
+        id: current_version
+        run: echo version=$(node -p "require('./package.json').version") >> $GITHUB_OUTPUT
+
+      - name: Get current npm version
+        id: npm_version
+        run: echo version=$(npm view @twitchapis/twitch.js version) >> $GITHUB_OUTPUT
+
+      - name: Compare versions and skip if same
+        id: compare_versions
+        if: ${{ steps.current_version.outputs.version == steps.npm_version.outputs.version }}
+        run: echo "skip=true" >> $GITHUB_OUTPUT && echo "Skipping publish because versions are the same" && exit 0
 
       - name: Install dependencies
         run: npm ci
