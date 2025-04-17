@@ -2,7 +2,7 @@
     // Change this to match your project
     "include": ["src/**/*"],
     "compilerOptions": {
-      "lib": ["ES6", "DOM", "ES2015", "ES2017", "ES2018"],
+      "lib": ["ES6", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021","ES2022", "ESNext"],
       "forceConsistentCasingInFileNames": true,
       "esModuleInterop": true,
       "strict": true,
@@ -20,7 +20,7 @@
       // "Go to Definition" in VSCode
       "declarationMap": true,
       "moduleResolution": "node",
-      "target": "ES6",
+      "target": "ES2022",
       "module": "commonjs",
       "types": ["node", "chalk"],
       "noImplicitAny": true

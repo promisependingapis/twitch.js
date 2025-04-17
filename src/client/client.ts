@@ -4,7 +4,6 @@ import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
 import { RestManager } from './connection/rest';
 import EventEmitter from 'events';
-import merge from 'lodash.merge';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
@@ -36,7 +35,19 @@ export class Client extends EventEmitter {
     this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
-    this.options = merge(defaultOptions, options);
+    this.options = this.mergeConfigs(defaultOptions as {[key: string]: unknown}, options as {[key: string]: unknown}) as IClientOptions;
+  }
+
+  private mergeConfigs<T extends {[key: string]: unknown}>(baseObject: T, newOptions: Partial<T>): T {
+    const result = baseObject as {[key: string]: unknown};
+    for (const [key, value] of Object.entries(newOptions)) {
+      if (['string', 'number', 'boolean', 'symbol'].includes(typeof(value)) || Array.isArray(value)) {
+        result[key] = value;
+      } else if (typeof(value) === 'object') {
+        result[key] = this.mergeConfigs(result[key] as {[key: string]: unknown}, value);
+      }
+    }
+    return result as T;
   }
 
   /**
