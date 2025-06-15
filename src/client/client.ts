@@ -41,8 +41,8 @@ export class Client extends EventEmitter {
   private mergeConfigs<T extends {[key: string]: unknown}>(baseObject: T, newOptions: Partial<T>): T {
     const result = baseObject as {[key: string]: unknown};
     for (const [key, value] of Object.entries(newOptions)) {
-      if (key === "__proto__" || key === "constructor") {
-        continue; // Skip dangerous property names to prevent prototype pollution
+      if (key === '__proto__' || key === 'constructor') {
+        continue;
       }
       if (['string', 'number', 'boolean', 'symbol'].includes(typeof(value)) || Array.isArray(value)) {
         result[key] = value;
