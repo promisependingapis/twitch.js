@@ -65,7 +65,7 @@ export class ChannelStructure {
      * @example
      * Client.channels.get('channel-id').send('Hello World!');
      */
-  public send(message: string, options: string[] | string): Promise<void> {
+  public async send(message: string, options: string[] | string): Promise<void> {
     if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
   }
@@ -74,7 +74,7 @@ export class ChannelStructure {
    * Leaves from the channel
    * @returns {Promise<string>} - The channel name
    */
-  public leave(): Promise<string> {
+  public async leave(): Promise<string> {
     return this.client.leave(this.name);
   }
 }
