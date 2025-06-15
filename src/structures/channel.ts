@@ -48,6 +48,14 @@ export class ChannelStructure {
   }
 
   /**
+   * Checks if the channel is in live
+   * @returns {Promise<boolean>} - True if the channel is in live, false if not
+   */
+  public async isLive(): Promise<boolean> {
+    return this.client.isChannelLive(this.name);
+  }
+
+  /**
      * Returns the amount of users in the channel
      * @returns {number} The amount of users in the channel
      * @example

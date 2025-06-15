@@ -99,6 +99,36 @@ export class Client extends EventEmitter {
   }
 
   /**
+   * Checks if a channel is currently in live
+   * @param channel - The channel name to check
+   * @throws {Error} - If the client is not ready or the channel name is invalid
+   * @throws {Error} - If the channel name includes spaces or starts with '#'
+   * @throws {Error} - If there is an error while checking the channel status
+   * @returns {Promise<boolean>} - Returns true if the channel is live, false otherwise
+   */
+  public async isChannelLive(channel: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      if (!this.isReady) return reject(new Error('Client is not ready!'));
+      if (!this.token) return reject(new Error('You must login before checking if a channel is live!'));
+      if (!this.options.twitchAPI?.clientId) return reject(new Error('Twitch API client ID is not set!'));
+      if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
+      if (channel.startsWith('#')) channel = channel.substring(1);
+      this.restManager.get('streams', this.token, channel)
+        .then((data: any) => {
+          if (data.data && data.data.length > 0) {
+            return resolve(true);
+          } else {
+            return resolve(false);
+          }
+        })
+        .catch((err: any) => {
+          this._rawEmit('error', 'Error while checking if channel is live', err);
+          return reject(err);
+        });
+    });
+  }
+
+  /**
    * Connects with a twitch channel chat
    * @param {string} channel - The channel name who will be connected
    * @return {Promise<string>} - Resolved when successfully connect with channel
