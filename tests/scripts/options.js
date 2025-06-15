@@ -24,7 +24,10 @@ const expectedOptions = {
   syncInterval: 1000,
   ws: { host: 'irc.promisepending.allonsve.com', port: 80, type: 'ws' },
   prefix: '',
-  disableFatalCrash: true
+  disableFatalCrash: true,
+  twitchAPI: {
+    host: 'https://api.twitch.tv/helix',
+  }
 }
 
 const run = (logger, client, channels, mainChannel) => {

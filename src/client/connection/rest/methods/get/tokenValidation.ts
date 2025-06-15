@@ -1,28 +1,25 @@
-import { IHTTPOptions } from '../../../../../interfaces/';
+import { IExtendedHTTPOptions } from '../../restManager';
 import axios from 'axios';
 
 export class TokenValidation {
-  private options: IHTTPOptions;
-  constructor(options: IHTTPOptions) {
-    this.options = options;
-  }
+  constructor(private options: IExtendedHTTPOptions) {}
 
-  public execute(params: any[]): Promise<any> {
+  public execute(params: [string]): Promise<any> {
     return new Promise((resolve, reject) => {
       if (params.length !== 1) return reject('Invalid parameters');
-      let token: any = params[0];
+      let token = params[0];
 
       if (token.startsWith('oauth:')) {
-        token = token.split(':');
-        token[0] = 'OAuth';
-        token = token.join(' ');
+        const tmp = token.split(':');
+        tmp[0] = 'OAuth';
+        token = tmp.join(' ');
       } else {
         token = 'OAuth ' + token;
       }
 
-      axios.get(this.options.hostID + '/oauth2/validate', {
+      axios.get(this.options.http.hostID + '/oauth2/validate', {
         headers: {
-          ...this.options.headers,
+          ...this.options.http.headers,
           Authorization: token,
         },
       }).then(response => {

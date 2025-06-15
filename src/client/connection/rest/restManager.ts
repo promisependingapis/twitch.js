@@ -1,12 +1,17 @@
-import { IHTTPOptions } from '../../../interfaces/';
+import { IHTTPOptions, ITwitchAPIOptions } from '../../../interfaces/';
 import * as methodTypes from './methods';
 import { Client } from '../../client';
+
+export interface IExtendedHTTPOptions {
+  http: IHTTPOptions;
+  twitchAPI: ITwitchAPIOptions;
+}
 
 /**
  * @private
  */
 export class RestManager {
-  private options!: IHTTPOptions;
+  private options!: IExtendedHTTPOptions;
   private methods: any = {};
   private client: Client;
 
@@ -18,7 +23,7 @@ export class RestManager {
    * @private
    */
   public async loadAllMethods(): Promise<void> {
-    this.options = this.client.getOptions().http!;
+    this.options = { http: this.client.getOptions().http!, twitchAPI: this.client.getOptions().twitchAPI! };
 
     return new Promise((resolve) => {
       for (const [methodType, methodClasses] of Object.entries(methodTypes)) {

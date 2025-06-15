@@ -4,7 +4,6 @@ import { ChannelManager, UserManager } from './managers/';
 import { WebSocketManager } from './connection/websocket';
 import { RestManager } from './connection/rest';
 import EventEmitter from 'events';
-import merge from 'lodash.merge';
 
 export class Client extends EventEmitter {
   public channels: ChannelManager;
@@ -36,7 +35,22 @@ export class Client extends EventEmitter {
     this.userManager = new UserManager(this);
     this.channels = new ChannelManager(this);
 
-    this.options = merge(defaultOptions, options);
+    this.options = this.mergeConfigs(defaultOptions as {[key: string]: unknown}, options as {[key: string]: unknown}) as IClientOptions;
+  }
+
+  private mergeConfigs<T extends {[key: string]: unknown}>(baseObject: T, newOptions: Partial<T>): T {
+    const result = baseObject as {[key: string]: unknown};
+    for (const [key, value] of Object.entries(newOptions)) {
+      if (key === '__proto__' || key === 'constructor') {
+        continue;
+      }
+      if (['string', 'number', 'boolean', 'symbol'].includes(typeof(value)) || Array.isArray(value)) {
+        result[key] = value;
+      } else if (typeof(value) === 'object') {
+        result[key] = this.mergeConfigs(result[key] as {[key: string]: unknown}, value);
+      }
+    }
+    return result as T;
   }
 
   /**
@@ -85,6 +99,36 @@ export class Client extends EventEmitter {
     const currentTimestamp = Date.now();
     await this.wsManager.ping();
     return Promise.resolve(Date.now() - currentTimestamp);
+  }
+
+  /**
+   * Checks if a channel is currently in live
+   * @param channel - The channel name to check
+   * @throws {Error} - If the client is not ready or the channel name is invalid
+   * @throws {Error} - If the channel name includes spaces or starts with '#'
+   * @throws {Error} - If there is an error while checking the channel status
+   * @returns {Promise<boolean>} - Returns true if the channel is live, false otherwise
+   */
+  public async isChannelLive(channel: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      if (!this.isReady) return reject(new Error('Client is not ready!'));
+      if (!this.token) return reject(new Error('You must login before checking if a channel is live!'));
+      if (!this.options.twitchAPI?.clientId) return reject(new Error('Twitch API client ID is not set!'));
+      if (channel.includes(' ')) return reject(new Error(`Channel name cannot include spaces: ${channel}`));
+      if (channel.startsWith('#')) channel = channel.substring(1);
+      this.restManager.get('streams', this.token, channel)
+        .then((data: any) => {
+          if (data.data && data.data.length > 0) {
+            return resolve(true);
+          } else {
+            return resolve(false);
+          }
+        })
+        .catch((err: any) => {
+          this._rawEmit('error', 'Error while checking if channel is live', err);
+          return reject(err);
+        });
+    });
   }
 
   /**

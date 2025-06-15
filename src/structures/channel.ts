@@ -48,6 +48,14 @@ export class ChannelStructure {
   }
 
   /**
+   * Checks if the channel is in live
+   * @returns {Promise<boolean>} - True if the channel is in live, false if not
+   */
+  public async isLive(): Promise<boolean> {
+    return this.client.isChannelLive(this.name);
+  }
+
+  /**
      * Returns the amount of users in the channel
      * @returns {number} The amount of users in the channel
      * @example
@@ -65,7 +73,7 @@ export class ChannelStructure {
      * @example
      * Client.channels.get('channel-id').send('Hello World!');
      */
-  public send(message: string, options: string[] | string): Promise<void> {
+  public async send(message: string, options: string[] | string): Promise<void> {
     if (!options) options = '';
     return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
   }
@@ -74,7 +82,7 @@ export class ChannelStructure {
    * Leaves from the channel
    * @returns {Promise<string>} - The channel name
    */
-  public leave(): Promise<string> {
+  public async leave(): Promise<string> {
     return this.client.leave(this.name);
   }
 }

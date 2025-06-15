@@ -9,6 +9,13 @@ export interface IHTTPOptions {
   headers?: { [key: string]: string };
 }
 
+export interface ITwitchAPIOptions {
+  clientId?: string;
+  accessToken?: string;
+  clientSecret?: string;
+  host?: string;
+}
+
 export interface IWebSocketOptions {
   host?: string;
   port?: number;
@@ -36,6 +43,7 @@ export interface IClientOptions {
   ws?: IWebSocketOptions;
   prefix?: string;
   disableFatalCrash?: boolean,
+  twitchAPI?: ITwitchAPIOptions;
 }
 
 export const defaultOptions: IClientOptions = {
@@ -69,4 +77,7 @@ export const defaultOptions: IClientOptions = {
   },
   prefix: '',
   disableFatalCrash: false,
+  twitchAPI: {
+    host: 'https://api.twitch.tv/helix',
+  },
 };
