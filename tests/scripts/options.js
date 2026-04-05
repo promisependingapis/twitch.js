@@ -12,7 +12,7 @@ const expectedOptions = {
   fetchAllChatters: true,
   http: {
     host: 'https://tmi.twitch.tv',
-    hostID: 'https://api.promisepending.allonsve.com',
+    hostID: 'https://id.api.mock.twitchjs.apis.promisepending.com',
     headers: { 'User-Agent': 'TwitchJsApi/2.0.0' }
   },
   messageCacheLifetime: 60,
@@ -22,7 +22,7 @@ const expectedOptions = {
   retryLimit: Infinity,
   sync: false,
   syncInterval: 1000,
-  ws: { host: 'irc.promisepending.allonsve.com', port: 80, type: 'ws' },
+  ws: { host: 'irc.mock.twitchjs.apis.promisepending.com', port: 443, type: 'wss' },
   prefix: '',
   disableFatalCrash: true,
   twitchAPI: {

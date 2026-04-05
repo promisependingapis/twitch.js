@@ -23,12 +23,10 @@ const client = new Client({
   debug: true,
   disableFatalCrash: true,
   http: {
-    hostID: 'https://api.promisepending.allonsve.com',
+    hostID: 'https://id.api.mock.twitchjs.apis.promisepending.com',
   },
   ws: {
-    host: 'irc.promisepending.allonsve.com',
-    port: 80,
-    type: 'ws'
+    host: 'irc.mock.twitchjs.apis.promisepending.com'
   }
 });
 
