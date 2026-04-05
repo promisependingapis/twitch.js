@@ -1,5 +1,4 @@
 import { IExtendedHTTPOptions } from '../../restManager';
-import axios from 'axios';
 
 export class Streams {
   constructor(private options: IExtendedHTTPOptions) {}
@@ -24,17 +23,22 @@ export class Streams {
         token = 'Bearer ' + token;
       }
 
-      axios.get(this.options.twitchAPI.host + '/streams', {
+      const endpoint = `${this.options.twitchAPI.host}/streams?${new URLSearchParams({ user_login: channel }).toString()}`;
+
+      fetch(endpoint, {
         headers: {
           ...this.options.http.headers,
           Authorization: token,
           'Client-Id': this.options.twitchAPI.clientId,
         },
-        params: {
-          user_login: params[1],
-        },
-      }).then(response => {
-        resolve(response.data);
+      }).then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+          return reject(new Error(`Request failed with status ${response.status}`));
+        }
+
+        resolve(data);
       }).catch(error => {
         reject(error);
       });

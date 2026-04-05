@@ -1,5 +1,4 @@
 import { IExtendedHTTPOptions } from '../../restManager';
-import axios from 'axios';
 
 export class TokenValidation {
   constructor(private options: IExtendedHTTPOptions) {}
@@ -17,13 +16,19 @@ export class TokenValidation {
         token = 'OAuth ' + token;
       }
 
-      axios.get(this.options.http.hostID + '/oauth2/validate', {
+      fetch(this.options.http.hostID + '/oauth2/validate', {
         headers: {
           ...this.options.http.headers,
           Authorization: token,
         },
-      }).then(response => {
-        resolve(response.data);
+      }).then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+          return reject(new Error(`Request failed with status ${response.status}`));
+        }
+
+        resolve(data);
       }).catch(error => {
         reject(error);
       });
