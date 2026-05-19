@@ -24,7 +24,7 @@ export class M001 {
         username: command.channel,
         id: command.channel,
         self: true,
-        userType: true,
+        userType: '',
         staff: false,
         admin: false,
         globalMod: false,

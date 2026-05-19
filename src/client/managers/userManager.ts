@@ -119,7 +119,7 @@ export class UserManager {
     user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
     user.badges = tags.badges !== null ? tags.badges : user.badges;
     user.userType = tags['user-type'] !== null ? tags['user-type'] : user.userType;
-    user.self = user.username === tags.username;
+    user.self = user.self || user.username === tags.username;
     user.staff = user.badges.hasOwnProperty('staff');
     user.admin = user.badges.hasOwnProperty('admin');
     user.globalMod = user.badges.hasOwnProperty('global_mod');
