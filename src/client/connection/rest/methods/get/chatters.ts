@@ -17,12 +17,11 @@ export class Chatters {
       fetch(this.options.http.host + path, {
         headers: this.options.http.headers,
       }).then(async response => {
-        const data = await response.json();
-
         if (!response.ok) {
           return reject(new Error(`Request failed with status ${response.status}`));
         }
-
+        
+        const data = await response.json();
         return resolve(data);
       }).catch(err => {
         return reject(err);

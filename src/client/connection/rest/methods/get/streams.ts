@@ -32,12 +32,11 @@ export class Streams {
           'Client-Id': this.options.twitchAPI.clientId,
         },
       }).then(async response => {
-        const data = await response.json();
-
         if (!response.ok) {
           return reject(new Error(`Request failed with status ${response.status}`));
         }
 
+        const data = await response.json();
         resolve(data);
       }).catch(error => {
         reject(error);

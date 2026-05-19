@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const { Client } = require(path.resolve(__dirname, '..', 'build'));
 const { Logger } = require('@promisepending/logger.js');
-const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interprise'];
+const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'spacelilfox'];
 
 const mainChannel = channels[Math.floor(Math.random() * channels.length)];
 
