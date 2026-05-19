@@ -60,6 +60,9 @@ export class WebSocketManager {
     return new Promise(async (resolve, reject) => {
       let continueLogin = true;
       if (!this.connection) return reject(new Error('Connection not established!'));
+      
+      this.connection.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
+
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
 
@@ -90,8 +93,6 @@ export class WebSocketManager {
       }
 
       if (!continueLogin) return;
-
-      this.connection.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
 
       resolve();
     });
