@@ -58,7 +58,6 @@ export class WebSocketManager {
    */
   public async login(token?: string | null): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      let continueLogin = true;
       if (!this.connection) return reject(new Error('Connection not established!'));
       
       this.connection.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
@@ -72,27 +71,44 @@ export class WebSocketManager {
           token = `oauth:${token}`;
         }
 
-        await this.restManager.get('getTokenValidation', token)
-          .then((res: any) => {
-            this.username = res.login.toString();
-            this.isAnonymous = false;
-            this.client.isAnonymous = false;
-            this.connection!.send(`PASS ${token}`);
-            this.connection!.send(`NICK ${this.username.toLowerCase()}`);
-          })
-          .catch((e) => {
-            console.error(e);
-            continueLogin = false;
-            return reject(new Error('Invalid token!'));
-          });
+        try {
+          const result = await this.restManager.get('getTokenValidation', token);
+          if (!result?.login || !result?.client_id) {
+            throw new Error('The provided token is an App Access Token, but we require a User Access Token to log in!');
+          }
+
+          this.username = result.login.toString();
+          const twitchAPI = this.client.getOptions().twitchAPI!;
+  
+          if (twitchAPI.accessToken && twitchAPI.accessToken !== token) {
+            try {
+              const apiTokenResult = await this.restManager.get('getTokenValidation', twitchAPI.accessToken);
+              if (!apiTokenResult || ((apiTokenResult.login || apiTokenResult.user_id) || !apiTokenResult.client_id)) throw new Error('Invalid App Access Token');
+              twitchAPI.clientId = apiTokenResult.client_id;
+            } catch {
+              console.warn('App Access Token invalid, using session token instead');
+              twitchAPI.accessToken = token!;
+              twitchAPI.clientId = result.client_id;
+            }
+          } else {
+            twitchAPI.accessToken = token!;
+            twitchAPI.clientId = result.client_id;
+          }
+
+          this.isAnonymous = false;
+          this.client.isAnonymous = false;
+          this.connection!.send(`PASS ${token}`);
+          this.connection!.send(`NICK ${this.username.toLowerCase()}`);
+        } catch (e) {
+          const errorMsg = e instanceof Error ? e.message : 'Unknown error';
+          return reject(new Error(`Invalid token: ${errorMsg}`));
+        }
       } else {
         this.isAnonymous = true;
         this.client.isAnonymous = true;
         this.connection.send('PASS SCHMOOPIIE');
         this.connection.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
       }
-
-      if (!continueLogin) return;
 
       resolve();
     });
