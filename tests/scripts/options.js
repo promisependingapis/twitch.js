@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert/strict');
+
 const expectedOptions = {
   connectionWaitTimeout: 10000,
   loginWaitInterval: 1000,
@@ -33,15 +35,16 @@ const expectedOptions = {
 const run = (logger, client, channels, mainChannel) => {
   return new Promise((resolve, reject) => {
     const options = client.getOptions();
-    expectedOptions.channels = [mainChannel];
-    const isEqual = JSON.stringify(options) === JSON.stringify(expectedOptions);
-    if (isEqual) {
+    const expected = {
+      ...expectedOptions,
+      channels: [mainChannel]
+    };
+
+    try {
+      assert.deepStrictEqual(options, expected);
       resolve();
-    } else {
-      logger.warn('Differences:', {
-        expected: expectedOptions,
-        actual: options
-      });
+    } catch (error) {
+      logger.warn(error.message || String(error));
       reject('Options are not equal');
     }
   });
