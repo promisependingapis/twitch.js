@@ -2,13 +2,16 @@
 'use strict';
 
 const run = (logger, client, channels, mainChannel) => {
-    return new Promise((resolve, reject) => {
-        client.leave(mainChannel).then(() => {
-            resolve();
-        }).catch((err) => {
-            reject(err);
-        });
+  return new Promise((resolve, reject) => {
+    client.leave(mainChannel).then(() => {
+      if (client.channels.cache.has(mainChannel)) {
+        return reject(new Error(`Failed to leave channel: ${mainChannel}`));
+      }
+      resolve();
+    }).catch((err) => {
+      reject(err);
     });
+  });
 };
 
 module.exports = {
