@@ -26,16 +26,8 @@ export class SendMessage {
       const senderId = this.options.client.user.id;
       if (!senderId) return reject('Authenticated user id is not available');
 
-      let token = this.options.twitchAPI.accessToken;
+      const token = this.options.twitchAPI.accessToken;
       if (!token) return reject('Twitch API Access Token is not set!');
-
-      if (token.startsWith('oauth:')) {
-        const tmp = token.split(':');
-        tmp[0] = 'Bearer';
-        token = tmp.join(' ');
-      } else if (!token.startsWith('Bearer ')) {
-        token = 'Bearer ' + token;
-      }
 
       const endpoint = `${this.options.twitchAPI.host}/chat/messages`;
       const body: ISendMessageBody = {
@@ -53,7 +45,7 @@ export class SendMessage {
         method: 'POST',
         headers: {
           ...this.options.http.headers,
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
           'Client-Id': this.options.twitchAPI.clientId,
           'Content-Type': 'application/json',
         },

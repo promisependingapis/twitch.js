@@ -65,9 +65,14 @@ export class WebSocketManager {
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
 
+        if (!token) return reject('Token is not set!');
+        
+        if (!/^(oauth:)?[a-zA-Z0-9]+$/.test(token)) {
+          throw new Error('Invalid token provided! Tokens should be in the format of "oauth:xxxx" or "xxxx", where "xxxx" is the actual token string.');
+        }
+
         if (!token!.startsWith('oauth:')) {
           if (token!.includes(' ')) token = token!.split(' ')[1];
-          console.warn('Non-standard token provided, Token should look like "oauth:", adding "oauth:" and proceeding...');
           token = `oauth:${token}`;
         }
 
@@ -87,11 +92,11 @@ export class WebSocketManager {
               twitchAPI.clientId = apiTokenResult.client_id;
             } catch {
               console.warn('App Access Token invalid, using session token instead');
-              twitchAPI.accessToken = token!;
+              twitchAPI.accessToken = token!.replace(/^oauth:/i, '');
               twitchAPI.clientId = result.client_id;
             }
           } else {
-            twitchAPI.accessToken = token!;
+            twitchAPI.accessToken = token!.replace(/^oauth:/i, '');
             twitchAPI.clientId = result.client_id;
           }
 
