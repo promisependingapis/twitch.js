@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.0.0-beta.8
+- [FIX] Leaving a channel now correctly removes it from the cache.
+
+- [FIX] Prevent self user overriding and apply Twitch parity fixes.
+
+- [FIX] Ensure CAP request is sent as the first message during handshake.
+  - This resolves some tags not being received and other small related issues.
+
+- [FEAT] Message sending now uses the Twitch API instead of raw IRC messages.
+  - This change allows for better message formatting and compatibility with Twitch's messaging system.
+  - It also grants the "Chat Bot" badge to the bot message, improving its visibility in chat.
+
+- [FEAT] Automatically populate Twitch API settings when available.
+
+- [CHORE] Removed `axios` dependency.
+  - We now use the built-in `fetch` API for HTTP requests, which is more efficient and reduces the number of dependencies.
+
 ## v2.0.0-beta.7
 - [FIX] Async methods in the `channel` structure were not marked as async.
 
