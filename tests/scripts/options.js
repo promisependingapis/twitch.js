@@ -28,7 +28,7 @@ const expectedOptions = {
   prefix: '',
   disableFatalCrash: true,
   twitchAPI: {
-    host: 'https://api.twitch.tv/helix',
+    host: 'https://api.mock.twitchjs.apis.promisepending.com/helix'
   }
 }
 

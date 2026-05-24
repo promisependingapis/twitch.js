@@ -20,6 +20,7 @@ export interface IWebSocketOptions {
   host?: string;
   port?: number;
   type?: EWebSocketType;
+  path?: string;
 }
 
 export interface IClientOptions {

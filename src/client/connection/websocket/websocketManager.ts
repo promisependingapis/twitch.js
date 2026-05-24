@@ -42,7 +42,7 @@ export class WebSocketManager {
     return new Promise((resolve) => {
       const wsOptions = this.client.getOptions().ws!;
 
-      this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}`);
+      this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}${wsOptions.path ?? ''}`);
 
       this.connection.on('open', () => { this.onOpen(); resolve(); });
       this.connection.on('message', (data: string | Buffer) => { this.onMessage(data.toString()); });
@@ -201,6 +201,7 @@ export class WebSocketManager {
    * @param {string} channel - The channel to send the message to
    * @param {string[]} message - The message to send
    * @returns {Promise<void>} - Resolves when the message is sent
+   * @deprecated Prefer using ChannelStructure.send(), which now uses the Helix chat/messages endpoint.
    */
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
     return new Promise((resolve, reject) => {

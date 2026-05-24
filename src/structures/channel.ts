@@ -75,7 +75,14 @@ export class ChannelStructure {
      */
   public async send(message: string, options: string[] | string): Promise<void> {
     if (!options) options = '';
-    return this.client.getWebSocketManager().sendMessage(this.name, format(message, options));
+    if (this.id <= 0) {
+      throw new Error(`Channel ID for ${this.name} is not available yet.`);
+    }
+
+    await this.client.getRestManager().post('sendMessage', [
+      this.id.toString(),
+      format(message, options),
+    ]);
   }
 
   /**

@@ -27,6 +27,9 @@ const client = new Client({
   },
   ws: {
     host: 'irc.mock.twitchjs.apis.promisepending.com'
+  },
+  twitchAPI: {
+    host: 'https://api.mock.twitchjs.apis.promisepending.com/helix'
   }
 });
 
