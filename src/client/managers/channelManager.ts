@@ -51,6 +51,16 @@ export class ChannelManager {
   }
 
   /**
+   * Removes a channel from the cache
+   * @param {string} channelName - The name of the channel
+   * @returns {boolean} - If the channel was deleted returns true, else false
+   */
+  public removeChannel(channelName: string): boolean {
+    if (channelName.startsWith('#')) channelName = channelName.substring(1);
+    return this.cache.delete(channelName);
+  }
+
+  /**
    * @private
    */
   public generateChannel(channelName: string): ChannelStructure {

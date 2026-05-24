@@ -218,7 +218,12 @@ export class Client extends EventEmitter {
 
       this.wsManager.getConnection()!.send(`PART #${channel.toLowerCase()}`);
 
-      this.on('leave', (ch: ChannelStructure) => { if (ch.name === channel) resolve(channel); });
+      this.on('leave', (ch: ChannelStructure) => { 
+        if (ch.name === channel) {
+          this.channels.removeChannel(channel);
+          resolve(channel);
+        }
+      });
     });
   }
 

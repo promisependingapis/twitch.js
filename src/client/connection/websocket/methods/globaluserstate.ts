@@ -15,9 +15,8 @@ export class GlobalUserState {
   public execute(message: ITwitchMessage): Promise<void> {
     return new Promise((resolve) => {
       const tags: ITwitchUserStateTags = message.tags as ITwitchUserStateTags;
-      const userName: string = tags['display-name']!;
 
-      const user = this.client.userManager.generateBasicUserFromTwitch(userName, tags);
+      const user = this.client.userManager.updateBasicFromTags(this.client.user!, tags);
       this.client.user = user;
       return resolve();
     });

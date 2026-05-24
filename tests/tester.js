@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const { Client } = require(path.resolve(__dirname, '..', 'build'));
 const { Logger } = require('@promisepending/logger.js');
-const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'space_interprise'];
+const channels = ['arunabot', 'talesgardem', 'lobometalurgico', 'spacelilfox'];
 
 const mainChannel = channels[Math.floor(Math.random() * channels.length)];
 
@@ -23,12 +23,13 @@ const client = new Client({
   debug: true,
   disableFatalCrash: true,
   http: {
-    hostID: 'https://api.promisepending.allonsve.com',
+    hostID: 'https://id.api.mock.twitchjs.apis.promisepending.com',
   },
   ws: {
-    host: 'irc.promisepending.allonsve.com',
-    port: 80,
-    type: 'ws'
+    host: 'irc.mock.twitchjs.apis.promisepending.com'
+  },
+  twitchAPI: {
+    host: 'https://api.mock.twitchjs.apis.promisepending.com/helix'
   }
 });
 

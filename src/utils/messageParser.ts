@@ -147,9 +147,21 @@ export function parseFinalMessage(client: Client, message: ITwitchMessage): IMes
           return reject('Cannot send empty messages');
         } else if (client.isAnonymous) {
           return reject('Cannot send messages in anonymous mode!');
+        } else if (!id) {
+          return reject('Cannot reply without a parent message id');
+        } else if (channel.id <= 0) {
+          return reject(`Channel ID for ${channel.name} is not available yet.`);
         }
-        client.getWebSocketManager().getConnection()?.send(`@reply-parent-msg-id=${id} PRIVMSG #${channel.name} :${message}`);
-        return resolve();
+
+        client.getRestManager().post('sendMessage', [
+          channel.id.toString(),
+          message,
+          id,
+        ]).then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
       });
     },
     author: client.channels.get(message.command.channel)!.users.get(message.source!.nick!)!,

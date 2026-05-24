@@ -1,5 +1,4 @@
 import { IExtendedHTTPOptions } from '../../restManager';
-import axios from 'axios';
 
 export class Streams {
   constructor(private options: IExtendedHTTPOptions) {}
@@ -9,32 +8,28 @@ export class Streams {
       if (params.length !== 2) return reject('Invalid parameters');
       if (!this.options.twitchAPI.clientId) return reject('Twitch API Client ID is not set!');
       if (!this.options.twitchAPI.host) return reject('Twitch API Host is not set!');
-      let token = params[0];
+      const token = 'Bearer ' + params[0].replace(/^oauth:/i, '');
       let channel = params[1];
 
       if (channel.startsWith('#')) {
         channel = channel.slice(1);
       }
 
-      if (token.startsWith('oauth:')) {
-        const tmp = token.split(':');
-        tmp[0] = 'Bearer';
-        token = tmp.join(' ');
-      } else {
-        token = 'Bearer ' + token;
-      }
+      const endpoint = `${this.options.twitchAPI.host}/streams?${new URLSearchParams({ user_login: channel }).toString()}`;
 
-      axios.get(this.options.twitchAPI.host + '/streams', {
+      fetch(endpoint, {
         headers: {
           ...this.options.http.headers,
           Authorization: token,
           'Client-Id': this.options.twitchAPI.clientId,
         },
-        params: {
-          user_login: params[1],
-        },
-      }).then(response => {
-        resolve(response.data);
+      }).then(async response => {
+        if (!response.ok) {
+          return reject(new Error(`Request failed with status ${response.status}`));
+        }
+
+        const data = await response.json();
+        resolve(data);
       }).catch(error => {
         reject(error);
       });

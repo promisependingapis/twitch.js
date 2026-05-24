@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert/strict');
+
 const expectedOptions = {
   connectionWaitTimeout: 10000,
   loginWaitInterval: 1000,
@@ -12,7 +14,7 @@ const expectedOptions = {
   fetchAllChatters: true,
   http: {
     host: 'https://tmi.twitch.tv',
-    hostID: 'https://api.promisepending.allonsve.com',
+    hostID: 'https://id.api.mock.twitchjs.apis.promisepending.com',
     headers: { 'User-Agent': 'TwitchJsApi/2.0.0' }
   },
   messageCacheLifetime: 60,
@@ -22,26 +24,27 @@ const expectedOptions = {
   retryLimit: Infinity,
   sync: false,
   syncInterval: 1000,
-  ws: { host: 'irc.promisepending.allonsve.com', port: 80, type: 'ws' },
+  ws: { host: 'irc.mock.twitchjs.apis.promisepending.com', port: 443, type: 'wss' },
   prefix: '',
   disableFatalCrash: true,
   twitchAPI: {
-    host: 'https://api.twitch.tv/helix',
+    host: 'https://api.mock.twitchjs.apis.promisepending.com/helix'
   }
 }
 
 const run = (logger, client, channels, mainChannel) => {
   return new Promise((resolve, reject) => {
     const options = client.getOptions();
-    expectedOptions.channels = [mainChannel];
-    const isEqual = JSON.stringify(options) === JSON.stringify(expectedOptions);
-    if (isEqual) {
+    const expected = {
+      ...expectedOptions,
+      channels: [mainChannel]
+    };
+
+    try {
+      assert.deepStrictEqual(options, expected);
       resolve();
-    } else {
-      logger.warn('Differences:', {
-        expected: expectedOptions,
-        actual: options
-      });
+    } catch (error) {
+      logger.warn(error.message || String(error));
       reject('Options are not equal');
     }
   });

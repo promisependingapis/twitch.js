@@ -1,5 +1,4 @@
 import { IExtendedHTTPOptions } from '../../restManager';
-import axios from 'axios';
 
 export class Chatters {
   constructor(private options: IExtendedHTTPOptions) {}
@@ -15,12 +14,18 @@ export class Chatters {
 
       const path = `/group/user/${channel}/chatters`;
 
-      axios.get(this.options.http.host + path, { headers: this.options.http.headers })
-        .then(res => {
-          return resolve(res.data);
-        }).catch(err => {
-          return reject(err);
-        });
+      fetch(this.options.http.host + path, {
+        headers: this.options.http.headers,
+      }).then(async response => {
+        if (!response.ok) {
+          return reject(new Error(`Request failed with status ${response.status}`));
+        }
+        
+        const data = await response.json();
+        return resolve(data);
+      }).catch(err => {
+        return reject(err);
+      });
     });
   }
 }

@@ -42,7 +42,7 @@ export class WebSocketManager {
     return new Promise((resolve) => {
       const wsOptions = this.client.getOptions().ws!;
 
-      this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}`);
+      this.connection = new ws.WebSocket(`${wsOptions.type}://${wsOptions.host}:${wsOptions.port}${wsOptions.path ?? ''}`);
 
       this.connection.on('open', () => { this.onOpen(); resolve(); });
       this.connection.on('message', (data: string | Buffer) => { this.onMessage(data.toString()); });
@@ -58,40 +58,62 @@ export class WebSocketManager {
    */
   public async login(token?: string | null): Promise<void> {
     return new Promise(async (resolve, reject) => {
-      let continueLogin = true;
       if (!this.connection) return reject(new Error('Connection not established!'));
+      
+      this.connection.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
+
       if (token || 'CLIENT_TOKEN' in process.env) {
         if (!token && 'CLIENT_TOKEN' in process.env) token = process.env.CLIENT_TOKEN;
 
+        if (!token) return reject('Token is not set!');
+        
+        if (!/^(oauth:)?[a-zA-Z0-9]+$/.test(token)) {
+          throw new Error('Invalid token provided! Tokens should be in the format of "oauth:xxxx" or "xxxx", where "xxxx" is the actual token string.');
+        }
+
         if (!token!.startsWith('oauth:')) {
           if (token!.includes(' ')) token = token!.split(' ')[1];
-          console.warn('Non-standard token provided, Token should look like "oauth:", adding "oauth:" and proceeding...');
           token = `oauth:${token}`;
         }
 
-        await this.restManager.get('getTokenValidation', token)
-          .then((res: any) => {
-            this.username = res.login.toString();
-            this.isAnonymous = false;
-            this.client.isAnonymous = false;
-            this.connection!.send(`PASS ${token}`);
-            this.connection!.send(`NICK ${this.username.toLowerCase()}`);
-          })
-          .catch((e) => {
-            console.error(e);
-            continueLogin = false;
-            return reject(new Error('Invalid token!'));
-          });
+        try {
+          const result = await this.restManager.get('getTokenValidation', token);
+          if (!result?.login || !result?.client_id) {
+            throw new Error('The provided token is an App Access Token, but we require a User Access Token to log in!');
+          }
+
+          this.username = result.login.toString();
+          const twitchAPI = this.client.getOptions().twitchAPI!;
+  
+          if (twitchAPI.accessToken && twitchAPI.accessToken !== token) {
+            try {
+              const apiTokenResult = await this.restManager.get('getTokenValidation', twitchAPI.accessToken);
+              if (!apiTokenResult || ((apiTokenResult.login || apiTokenResult.user_id) || !apiTokenResult.client_id)) throw new Error('Invalid App Access Token');
+              twitchAPI.clientId = apiTokenResult.client_id;
+            } catch {
+              console.warn('App Access Token invalid, using session token instead');
+              twitchAPI.accessToken = token!.replace(/^oauth:/i, '');
+              twitchAPI.clientId = result.client_id;
+            }
+          } else {
+            twitchAPI.accessToken = token!.replace(/^oauth:/i, '');
+            twitchAPI.clientId = result.client_id;
+          }
+
+          this.isAnonymous = false;
+          this.client.isAnonymous = false;
+          this.connection!.send(`PASS ${token}`);
+          this.connection!.send(`NICK ${this.username.toLowerCase()}`);
+        } catch (e) {
+          const errorMsg = e instanceof Error ? e.message : 'Unknown error';
+          return reject(new Error(`Invalid token: ${errorMsg}`));
+        }
       } else {
         this.isAnonymous = true;
         this.client.isAnonymous = true;
         this.connection.send('PASS SCHMOOPIIE');
         this.connection.send(`NICK justinfan${Math.floor(1000 + Math.random() * 9000)}`);
       }
-
-      if (!continueLogin) return;
-
-      this.connection.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
 
       resolve();
     });
@@ -184,6 +206,7 @@ export class WebSocketManager {
    * @param {string} channel - The channel to send the message to
    * @param {string[]} message - The message to send
    * @returns {Promise<void>} - Resolves when the message is sent
+   * @deprecated Prefer using ChannelStructure.send(), which now uses the Helix chat/messages endpoint.
    */
   public async sendMessage(channel: string, ...message: string[]): Promise<void> {
     return new Promise((resolve, reject) => {

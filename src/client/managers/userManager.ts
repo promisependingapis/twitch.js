@@ -107,7 +107,7 @@ export class UserManager {
     user.admin = user.badges.hasOwnProperty('admin');
     user.globalMod = user.badges.hasOwnProperty('global_mod');
     user.premium = user.badges.hasOwnProperty('premium');
-    user.id = user.self ? user.id : (tags['user-id'] ?? user.id);
+    user.id = tags['user-id'] ?? user.id;
 
     return user;
   }
@@ -119,11 +119,11 @@ export class UserManager {
     user.haveBadges = tags.badges !== null ? Boolean(tags.badges) : user.haveBadges;
     user.badges = tags.badges !== null ? tags.badges : user.badges;
     user.userType = tags['user-type'] !== null ? tags['user-type'] : user.userType;
-    user.self = user.username === tags.username;
+    user.self = user.self || user.username === tags.username;
     user.staff = user.badges.hasOwnProperty('staff');
     user.admin = user.badges.hasOwnProperty('admin');
     user.globalMod = user.badges.hasOwnProperty('global_mod');
-    user.id = user.self ? user.id : tags['user-id'] !== null ? tags['user-id'] : user.id;
+    user.id = tags['user-id'] !== null ? tags['user-id'] : user.id;
 
     return user;
   }
