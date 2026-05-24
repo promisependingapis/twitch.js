@@ -15,9 +15,7 @@ export class SendMessage {
     return new Promise((resolve, reject) => {
       if (params.length < 2 || params.length > 3) return reject('Invalid parameters');
 
-      const broadcasterId = params[0];
-      const message = params[1];
-      const replyParentMessageId = params[2];
+      const [broadcasterId, message, replyParentMessageId] = params;
 
       if (!broadcasterId || !message) return reject('Invalid parameters');
       if (!this.options.twitchAPI.clientId) return reject('Twitch API Client ID is not set!');
