@@ -1,6 +1,6 @@
 {
   "name": "@twitchapis/twitch.js",
-  "version": "2.0.0-beta.8",
+  "version": "2.0.0-beta.9",
   "description": "Twitch.JS is a Nodejs library made with typescript to interact with the Twitch API in a simple and easy way.",
   "keywords": [
     "nodejs",
@@ -32,7 +32,7 @@
   "author": "PromisePendingApis Team",
   "contributors": [
     "LoboMetalurgico",
-    "Space_Interprise"
+    "SpaceFox"
   ],
   "license": "MIT",
   "bugs": {
@@ -43,21 +43,18 @@
     "node": ">=18.18"
   },
   "dependencies": {
-    "ws": "^8.21.0"
+    "ws": "8.21.1"
   },
   "devDependencies": {
-    "@promisepending/logger.js": "^1.1.1",
-    "@types/node": "^25.9.1",
+    "@eslint/js": "^10.0.1",
+    "@promisepending/logger.js": "^1.1.2",
+    "@types/node": "^26.1.1",
     "@types/ws": "^8.18.1",
-    "@typescript-eslint/eslint-plugin": "^8.59.4",
-    "@typescript-eslint/parser": "^8.59.4",
-    "eslint": "^9.29.0",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^7.3.0",
-    "globals": "^17.6.0",
+    "eslint": "^10.8.0",
+    "globals": "^17.8.0",
     "typedoc": "^0.28.19",
-    "typedoc-plugin-missing-exports": "^4.1.3",
-    "typescript": "^6.0.3"
+    "typedoc-plugin-missing-exports": "^4.1.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0"
   }
 }
