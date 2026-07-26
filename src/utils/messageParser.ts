@@ -97,6 +97,7 @@ export function parseMessage(message: string): ITwitchMessage {
   let idx = 0;
   let rawTagsComponent = null;
   let rawSourceComponent = null;
+  // eslint-disable-next-line no-useless-assignment
   let rawCommandComponent = null;
   let rawParametersComponent = null;
 

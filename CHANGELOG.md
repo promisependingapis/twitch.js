@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.0-beta.9
+- [DEPS] Updated dependencies to the latest non-vulnerable versions.
+
 ## v2.0.0-beta.8
 - [FIX] Leaving a channel now correctly removes it from the cache.
 
