@@ -13,7 +13,7 @@ jobs:
       skip: ${{ steps.compare_versions.outputs.skip }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get Current version
         id: current_version
@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@master

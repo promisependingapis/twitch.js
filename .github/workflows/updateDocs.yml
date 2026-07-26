@@ -10,12 +10,16 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24
 
@@ -31,7 +35,7 @@ jobs:
           cp -r out/html/* docs/
 
       - name: Create a Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./docs
           key: docs-cache-${{ github.sha }}
@@ -40,10 +44,14 @@ jobs:
   
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+
     needs: generate
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: docs
       
@@ -51,15 +59,16 @@ jobs:
         run: rm -rfv docs/*
 
       - name: Copy documentation from cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./docs
           key: docs-cache-${{ github.sha }}
           restore-keys: |
             docs-cache-
+          fail-on-cache-miss: true
       
       - name: Commit and push changes
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           add: docs
           message: 'docs: Update documentation'
@@ -67,4 +76,3 @@ jobs:
           committer_email: actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
