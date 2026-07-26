@@ -41,7 +41,9 @@ jobs:
         run: echo "skip=true" >> $GITHUB_OUTPUT && echo "Skipping publish because versions are the same" && exit 0
 
       - name: Install dependencies
+        if: ${{ steps.compare_versions.outputs.skip != 'true' }}
         run: npm ci
 
       - name: Publish to npm
+        if: ${{ steps.compare_versions.outputs.skip != 'true' }}
         run: npm publish --provenance --access public --tag latest
