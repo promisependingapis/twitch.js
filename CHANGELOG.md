@@ -1,28 +1,26 @@
 # Changelog
 
+## v2.0.0-beta.10
+- [DEPS] Updated dependencies to the latest non-vulnerable versions.
+- [DOCS] Fixed documentation generation.
+
 ## v2.0.0-beta.9
 - [DEPS] Updated dependencies to the latest non-vulnerable versions.
 
 ## v2.0.0-beta.8
 - [FIX] Leaving a channel now correctly removes it from the cache.
-
 - [FIX] Prevent self user overriding and apply Twitch parity fixes.
-
 - [FIX] Ensure CAP request is sent as the first message during handshake.
   - This resolves some tags not being received and other small related issues.
-
 - [FEAT] Message sending now uses the Twitch API instead of raw IRC messages.
   - This change allows for better message formatting and compatibility with Twitch's messaging system.
   - It also grants the "Chat Bot" badge to the bot message, improving its visibility in chat.
-
 - [FEAT] Automatically populate Twitch API settings when available.
-
 - [CHORE] Removed `axios` dependency.
   - We now use the built-in `fetch` API for HTTP requests, which is more efficient and reduces the number of dependencies.
 
 ## v2.0.0-beta.7
 - [FIX] Async methods in the `channel` structure were not marked as async.
-
 - [FEAT] Implemented the `isChannelLive` method in the client.
   - This method checks if a channel is live.
   - Returns a boolean indicating the live status of the channel.
@@ -35,26 +33,20 @@
 
 ### v2.0.0-beta.5
 - [FIX] Multiple memory leaks.
-
 - [REFACTOR] Major refactor of the codebase to improve performance and stability.
   - Removed unused code and applied various enhancements.
-
 - [CHORE] Dependency optimization.
   - Updated all dependencies to the latest versions.
   - Removed unused dependencies.
-
 - [BREAKING] Internal logger was removed.
   - If you need a logger, you can install the [@promisepending/logger](https://www.npmjs.com/package/@promisepending/logger.js) package.
-
 - [BREAKING] Removed the entire StepManager system.
   - If you weren’t using StepManager, this change does not affect you.
-
 - [BREAKING] Collections were replaced with `Map`.
   - This affects properties like `ChannelManager.cache` and `UserManager.cache`.
 
 ### v2.0.0-beta.4
 - [FIX] Memory leak in the `ping` reply.
-
 - [BREAKING] Dropped support for Node.js versions below `v18.18.x`.
 
 ### v2.0.0-beta.3
@@ -63,17 +55,13 @@
 
 ### v2.0.0-beta.2
 - [NEW] Exposed the `tags` field in the `message` event. This field contains all tags related to the message (badges, color, first message, returning chatter, etc.).
-
 - [NEW] Added the `bits` field to the `message` event, indicating the number of bits sent (or 0 if none).
 
 ### v2.0.0-beta.1
 - [FIX] Fixed a bug that made the API fail when `oauth:` was missing from the token.
-
 - [FIX] Fixed a bug where the `disconnect` method didn’t wait for all channels to be left.
-
 - [BREAKING] Removed `Logger` and `AutoLogEnd` classes.
   - They are now available in the [@promisepending/logger](https://www.npmjs.com/package/@promisepending/logger) package.
-
 - [First-Contribution] [Daniele Biggiogero](https://github.com/zeroerrequattro) made his first contribution in PR (#225). Thanks for your help! 🎉
 
 ### v2.0.0-beta.0
@@ -82,17 +70,13 @@
   - Mostly compatible with previous versions.
 
 - [BREAKING] Dropped support for Node.js 10.x. The minimum version is now 12.22.x.
-
 - [BREAKING] No longer provides the `Collection` class directly.
   - Use [@discordjs/collection](https://www.npmjs.com/package/@discordjs/collection) instead.
-
 - [IMPORTANT] Brand name changed from "TwitchApis" to "PromisePending".
   - The NPM organization will also be renamed soon.
-
 - [NEW] Introduced a new API loading system.
   - Allows sequential execution of your code and API internals.
   - Supports initialization before providing the Twitch token.
-
 - [NEW] Completely revamped documentation.
   - Now more complete and based on [typedoc](https://typedoc.org/) (JSON format).
   - Available at [docs](https://twitch.js.org/docs).
@@ -103,7 +87,6 @@
 - Fix the types 🔝
 
 ### v1.1.0: Sleept Update
-
 - Rename SLEEPT to WebSocket 📝
 - Improved data types for typescript users 🔝
 - Remove unused code ➖
@@ -111,7 +94,6 @@
 - Minor Bugs Fixes 🐜
 
 ### v1.0.1: DMCA Update
-
 - Changed url's 📝
   - Removed `twitchapis.org` ➖
   - Temporary `purplewolfsoftware.allonsve.com` ➕
@@ -119,7 +101,6 @@
 - Minor Bugs Fixes 🐜
 
 ### v1.0.0: Pegasi Update
-
 - Stabilize a connection with Twitch IRC 🥳
 - Create methods to interact with twitch 🧠
   - Implement Login method 💫
@@ -150,7 +131,6 @@
 - Implements easy to read documentation 📖
 
 ### v1.0.0-rc.1
-
 - Maybe has fixed npm readme 📖
 - Complete changelog 💌
 - Update usage example 📑
@@ -163,7 +143,6 @@
 - Minor Bugs Fixes 🐜
 
 ### v1.0.0-beta.14
-
 - Optimize code ⏩
 - Add changelog\.md 📑
 - Add ClearChat and UserClearChat events 🔔
@@ -174,7 +153,6 @@
 - Improved documentation 📖
 
 ### v1.0.0-beta.13
-
 - Remove all global variables (No one left) ➖
 - Convert api/functions/chatters.js, api/twitchWebAPI.js and logger to classes 🏛️
 - Adds and improve documentation for Client and SLEEPTMethods 📕
@@ -183,7 +161,6 @@
 - Added backwards compatibility for some things 👴
 
 ### v1.0.0-beta.12
-
 - Readme enhancements 💫
 - Added typescript information ➖
 - Added automated tests 🧪
@@ -199,16 +176,13 @@
 - Remove unnecessary comments 🐸
 
 ### v1.0.0-beta.11
-
 - Backwards compatibility 🔙
 - Code optimization ⏩
 
 ### v1.0.0-beta.10
-
 - Fixed bug than makes bot user collection be created without name 🐛
 
 ### v1.0.0-beta.9
-
 - Fixed bug than makes bot crash on leave 🐛
 - Intelligent autoLogEnd 🧠
 - Minor crashes resolved 💥
@@ -222,12 +196,10 @@
 - Improve switch cases ☑️
 
 ### v1.0.0-beta.8
-
 - Fixed bug than allows you to send messages on not connected channels 🐛
 - Solved minor crashes than can happen when you try to disconnect from a channel ✅
 
 ### v1.0.0-beta.7
-
 - Fixed indentation 🆙
 - Removed unnecessary comments ⛔
 - Fixed bug than blocks you of connecting to a channel after login 🐛
