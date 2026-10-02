@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      actions: write
 
     steps:
       - name: Checkout repository
@@ -29,44 +28,35 @@ jobs:
       - name: Generate Documentation
         run: npm run genDocs
 
-      - name: Copy documentation into cache
-        run: |
-          mkdir -p docs
-          cp -r out/html/* docs/
-
-      - name: Create a Cache
-        uses: actions/cache@v5
+      - name: Upload documentation
+        uses: actions/upload-artifact@v5
         with:
-          path: ./docs
-          key: docs-cache-${{ github.sha }}
-          restore-keys: |
-            docs-cache-
-  
+          name: docs
+          path: out/html
+          if-no-files-found: error
+          retention-days: 1
+
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      actions: write
-
     needs: generate
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           ref: docs
-      
+
       - name: Delete old documentation
         run: rm -rfv docs/*
 
-      - name: Copy documentation from cache
-        uses: actions/cache@v5
+      - name: Download documentation
+        uses: actions/download-artifact@v5
         with:
-          path: ./docs
-          key: docs-cache-${{ github.sha }}
-          restore-keys: |
-            docs-cache-
-          fail-on-cache-miss: true
-      
+          name: docs
+          path: docs
+
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v10
         with:
